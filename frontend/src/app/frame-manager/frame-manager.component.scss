@@ -1,0 +1,10 @@
+.frame {
+  &.active {
+    &:before {
+      content: '>'
+    }
+    &:after {
+      content: '<'
+    }
+  }
+}

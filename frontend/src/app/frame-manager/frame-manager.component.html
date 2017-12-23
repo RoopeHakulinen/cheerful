@@ -1,0 +1,11 @@
+<div
+  *ngFor="let frame of frames; index as index"
+  [class.active]="index === active"
+  (click)="active = index"
+  class="frame">
+  Frame {{index}}
+</div>
+
+<button mat-raised-button (click)="add.emit()">Add frame</button>
+<br/>
+<button mat-raised-button (click)="removeClicked(active)">Remove current frame</button>

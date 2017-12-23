@@ -1,0 +1,64 @@
+.carpet {
+  margin: 10px auto;
+
+  .grid {
+    position: relative;
+    .lines {
+      position: absolute;
+      display: flex;
+      height: 100%;
+      width: 100%;
+      pointer-events: none;
+      .line {
+        flex: 1;
+        border-right: 1px solid white;
+        height: 100%;
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+    .row {
+      display: flex;
+      .tile {
+        flex: 1;
+        border-bottom: 1px dotted black;
+        box-sizing: border-box;
+        text-align: center;
+        color: white;
+        display: flex;
+        position: relative;
+        &.active {
+          border: 1px solid red;
+        }
+
+        &.center {
+          align-items: center;
+        }
+
+        &.bottom {
+          align-items: flex-end;
+        }
+
+        .text-container {
+          position: absolute;
+          display: inline-block;
+
+          &.rounded {
+            border-radius: 18px;
+          }
+          &.left {
+            text-align: left;
+          }
+          &.right {
+            text-align: right;
+          }
+
+          .text {
+            padding: 2px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<div
+  class="carpet"
+  [style.background-color]="carpet.color"
+  [style.width]="(carpet.width * tileDimension) + 'px'"
+  [style.height]="(carpet.height * tileDimension) + 'px'">
+  <div class="grid">
+    <div class="lines">
+      <div *ngFor="let _ of segments" class="line"></div>
+    </div>
+    <div
+      *ngFor="let row of frame.grid"
+      class="row">
+      <div
+        *ngFor="let item of row"
+        [style.width]="tileDimension + 'px'"
+        [style.height]="tileDimension + 'px'"
+        [class.active]="activeItem && activeItem === item"
+        (click)="active.emit(item)"
+        class="tile {{item.position[0]}}">
+        <span
+          *ngIf="item.text"
+          [style.width]="2 * tileDimension + 'px'"
+          [style.left]="'-' + (tileDimension / 2) + 'px'"
+          class="text-container {{item.shape}} {{item.position[1]}}">
+          <span
+            [style.background-color]="item.color"
+            class="text">
+          {{item.text}}
+          </span>
+        </span>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,15 +1,24 @@
-import { MatIconModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatFormFieldModule, MatIconModule,
+  MatInputModule,
+  MatOptionModule, MatSelectModule, MatSidenavModule, MatSnackBarModule, MatToolbarModule
+} from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { CarpetComponent } from './carpet/carpet.component';
 import { ChoreographyComponent } from './choreography/choreography.component';
-import { ExercisesComponent } from './exercises/exercises.component';
 import { ExerciseComponent } from './exercise/exercise.component';
+import { ExercisesComponent } from './exercises/exercises.component';
+import { FrameManagerComponent } from './frame-manager/frame-manager.component';
+import { PeopleComponent } from './people/people.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -18,17 +27,34 @@ import { ProfileComponent } from './profile/profile.component';
     ChoreographyComponent,
     ExercisesComponent,
     ExerciseComponent,
-    ProfileComponent
+    ProfileComponent,
+    CarpetComponent,
+    PeopleComponent,
+    FrameManagerComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmDialogComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

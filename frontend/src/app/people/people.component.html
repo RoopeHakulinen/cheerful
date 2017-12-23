@@ -1,0 +1,34 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        People ({{people.length}})
+      </mat-panel-title>
+      <mat-panel-description>
+        Manage the people on this choreography
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="people">
+      <div *ngIf="people.length; else noPeople">
+        <p>Tap a name to remove it from the list.</p>
+        <div *ngFor="let person of people; index as index;">
+          <button mat-icon-button (click)="remove.emit(index)" color="warn">
+            <mat-icon aria-label="Remote the person from the choreography">remove</mat-icon>
+          </button>
+          {{person}}
+        </div>
+      </div>
+      <ng-template #noPeople>No people yet.</ng-template>
+    </div>
+    <div class="add">
+      <mat-form-field>
+        <input matInput placeholder="Name" name="name" #name>
+      </mat-form-field>
+
+      <button mat-icon-button (click)="add.emit(name.value); name.value = ''">
+        <mat-icon aria-label="Add person">add</mat-icon>
+      </button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

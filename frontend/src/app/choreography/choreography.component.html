@@ -1,3 +1,58 @@
-<p>
-  choreography works!
-</p>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [opened]="true" class="padding">
+    <app-frame-manager
+      [frames]="choreography.frames"
+      [active]="activeFrame"
+      (add)="addFrame()"
+      (remove)="removeFrame($event)"></app-frame-manager>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-people
+      [people]="choreography.people"
+      (add)="choreography.people.push($event)"
+      (remove)="choreography.people.splice($event, 1)"></app-people>
+    <mat-card *ngIf="activeChoreographyItem" class="edit-item padding">
+      <mat-form-field>
+        <mat-select placeholder="Person" [(ngModel)]="activeChoreographyItem.text">
+          <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Color" name="color" [(ngModel)]="activeChoreographyItem.color" type="color">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Shape" [(ngModel)]="activeChoreographyItem.shape">
+          <mat-option value="box">Box</mat-option>
+          <mat-option value="rounded">Rounded</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="position-selector">
+        <div
+          *ngFor="let option of [['top', 'left'], ['top', 'center'], ['top', 'right'], ['center', 'left'], ['center', 'center'], ['center', 'right'], ['bottom', 'left'], ['bottom', 'center'], ['bottom', 'right']]"
+          [class.active]="activeChoreographyItem.position[0] === option[0] && activeChoreographyItem.position[1] === option[1]"
+          (click)="activeChoreographyItem.position = option"
+          class="option">
+        </div>
+      </div>
+
+      <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Sign" [(ngModel)]="activeChoreographyItem.sign.text">-->
+      <!--</mat-form-field>-->
+
+      <button mat-raised-button (click)="clearItem(activeChoreographyItem)">Clear tile</button>
+      <button mat-raised-button (click)="activeChoreographyItem = null">Close</button>
+    </mat-card>
+
+    <app-carpet
+      [carpet]="choreography.carpet"
+      [frame]="choreography.frames[activeFrame]"
+      [activeItem]="activeChoreographyItem"
+      (active)="activeChoreographyItem = $event"></app-carpet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
