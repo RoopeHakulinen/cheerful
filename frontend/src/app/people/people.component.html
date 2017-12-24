@@ -12,7 +12,7 @@
     <div class="people">
       <div *ngIf="people.length; else noPeople">
         <p>Tap a name to remove it from the list.</p>
-        <div *ngFor="let person of people; index as index;">
+        <div *ngFor="let person of people; index as index;" class="person">
           <button mat-icon-button (click)="remove.emit(index)" color="warn">
             <mat-icon aria-label="Remote the person from the choreography">remove</mat-icon>
           </button>
