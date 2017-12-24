@@ -18,16 +18,17 @@
         }
       }
     }
-    .row {
+    .tile-container {
       display: flex;
+      flex-wrap: wrap;
       .tile {
-        flex: 1;
         border-bottom: 1px dotted black;
         box-sizing: border-box;
         text-align: center;
         color: white;
         display: flex;
         position: relative;
+
         &.active {
           border: 1px solid red;
         }
@@ -61,4 +62,8 @@
       }
     }
   }
+}
+
+.gu-mirror {
+  text-align: center;
 }

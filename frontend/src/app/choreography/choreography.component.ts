@@ -74,20 +74,20 @@ export class ChoreographyComponent implements OnInit {
   }
 
   generateGrid() {
-    return Array(this.choreography.carpet.height)
-      .fill(
-        Array(this.choreography.carpet.width).fill({
-          text: '',
-          color: '',
-          position: ['center', 'center'],
-          sign: null
-        })
-      ).map(row => row.map(item => ({
+    return Array(this.choreography.carpet.height * this.choreography.carpet.width)
+      .fill({
+        text: '',
+        color: '',
+        position: ['center', 'center'],
+        sign: null
+      }).map(item => ({
           ...item,
           position: [...item.position],
         })
-        )
-      );
+      ).map(item => ({
+        ...item,
+        text: Math.random() > 0.7 ? Math.random().toString(36).substring(5, 10) : ''
+      }));
   }
 
   clearItem(item: ChoreographyItem) {
@@ -101,11 +101,17 @@ export class ChoreographyComponent implements OnInit {
     return this.choreography.people.filter(
       person => !this.choreography.frames[this.activeFrame].grid
         .reduce(
-          (acc, row) => [
+          (acc, tile) => [
             ...acc,
-            ...row.reduce(
-              (acc2, tile) => [...acc2, tile.text], [])
+            tile.text
           ], [])
         .includes(person));
+  }
+
+  swapItems({ first, second }) {
+    const temp = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[first]));
+    const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[second]));
+    this.choreography.frames[this.activeFrame].grid[first] = temp2;
+    this.choreography.frames[this.activeFrame].grid[second] = temp;
   }
 }

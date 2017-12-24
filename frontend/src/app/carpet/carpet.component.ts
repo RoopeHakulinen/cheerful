@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { DragulaService } from 'ng2-dragula';
 import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
 import { ChoreographyItem } from '../choreography-item';
@@ -18,19 +19,25 @@ export class CarpetComponent implements OnInit {
 
   @Output()
   active = new EventEmitter<ChoreographyItem>();
+  @Output()
+  swap = new EventEmitter<{ first: number, second: number }>();
 
   segments: any[];
   tileDimension = 50;
 
-  constructor() {
+  constructor(private dragulaService: DragulaService, private cdr: ChangeDetectorRef) {
+    this.dragulaService.drop.subscribe((value) => {
+      const first = parseInt(value[2].getAttribute('index'), 10);
+      const second = parseInt(value[3].getAttribute('index'), 10);
+      this.swap.emit({ first, second });
+    });
   }
 
   ngOnInit() {
   }
 
-  ngOnChanges() {
-    if (this.carpet)
-    this.segments = Array(this.carpet.segments).fill(0);
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.carpet && changes.carpet.previousValue !== changes.carpet.currentValue)
+      this.segments = Array(changes.carpet.currentValue.segments).fill(0);
   }
-
 }

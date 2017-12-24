@@ -8,12 +8,14 @@
       <div *ngFor="let _ of segments" class="line"></div>
     </div>
     <div
-      *ngFor="let row of frame.grid"
-      class="row">
+      class="tile-container">
       <div
-        *ngFor="let item of row"
+        *ngFor="let item of frame.grid; index as index"
+        [attr.index]="index"
+        [dragula]="'grid-bag'"
         [style.width]="tileDimension + 'px'"
         [style.height]="tileDimension + 'px'"
+        [style.flex]="'0 1 ' + tileDimension + 'px'"
         [class.active]="activeItem && activeItem === item"
         (click)="active.emit(item)"
         class="tile {{item.position[0]}}">

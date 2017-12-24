@@ -1,7 +1,7 @@
 <div
   *ngFor="let frame of frames; index as index"
   [class.active]="index === active"
-  (click)="active = index"
+  (click)="activeChanged.emit(index)"
   class="frame">
   Frame {{index}}
 </div>

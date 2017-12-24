@@ -18,6 +18,8 @@ export class FrameManagerComponent implements OnInit {
   @Output()
   add = new EventEmitter<void>();
   @Output()
+  activeChanged = new EventEmitter<number>();
+  @Output()
   remove = new EventEmitter<number>();
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
