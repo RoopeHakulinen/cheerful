@@ -9,8 +9,8 @@
       "urls": [
         "https://roopehakulinen.github.io/cheerful/favicon.ico",
         "https://roopehakulinen.github.io/cheerful/index.html",
-        "https://roopehakulinen.github.io/cheerful/inline.096d99317d87e188c80d.bundle.js",
-        "https://roopehakulinen.github.io/cheerful/main.9af01eefe8cee0c81242.bundle.js",
+        "https://roopehakulinen.github.io/cheerful/inline.3f8e97b8c4db49b20604.bundle.js",
+        "https://roopehakulinen.github.io/cheerful/main.1a9a3cb6dc5cec7a18fe.bundle.js",
         "https://roopehakulinen.github.io/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js",
         "https://roopehakulinen.github.io/cheerful/styles.5e84fcba668d0194d2f3.bundle.css"
       ],
@@ -32,9 +32,9 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "https://roopehakulinen.github.io/cheerful/inline.096d99317d87e188c80d.bundle.js": "a057ca1af5460c73cee9d26e8a14200babbd803d",
+    "https://roopehakulinen.github.io/cheerful/inline.3f8e97b8c4db49b20604.bundle.js": "bedc0376e949014e8a8505a33b392f391d9444e2",
     "https://roopehakulinen.github.io/cheerful/assets/icon-dpi.png": "a3b35e60a3f359255052ff4a70023ee7110f799f",
-    "https://roopehakulinen.github.io/cheerful/main.9af01eefe8cee0c81242.bundle.js": "d85c969c598cabaf3eac26de2a9eb0929e372d14",
+    "https://roopehakulinen.github.io/cheerful/main.1a9a3cb6dc5cec7a18fe.bundle.js": "207ae190b6077e078557f2c8553d4891ffbf2dcd",
     "https://roopehakulinen.github.io/cheerful/assets/icon-hdpi.png": "db773514d8a99b7fcdccd1011f49f02b3a254840",
     "https://roopehakulinen.github.io/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js": "669df48deb7f2148518a6e8e9490ba8ee2db7000",
     "https://roopehakulinen.github.io/cheerful/assets/icon-xhdpi.png": "e9b2dfb6f3d04d8ac960a3fecf4713a1728bdf08",
@@ -42,6 +42,6 @@
     "https://roopehakulinen.github.io/cheerful/assets/icon-xxhdpi.png": "4f72439d73bd2b2451cc2a41740ed735502c91fa",
     "https://roopehakulinen.github.io/cheerful/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
     "https://roopehakulinen.github.io/cheerful/assets/icon-xxxhdpi.png": "1182f59fd0632e14e814420d9d9ec022c1799dc1",
-    "https://roopehakulinen.github.io/cheerful/index.html": "e7d601fba25ac0b09033dcefcfc80f12675da243"
+    "https://roopehakulinen.github.io/cheerful/index.html": "43acb90a4c0ff766e78bc08cbc3a096b2d4aa014"
   }
 }
