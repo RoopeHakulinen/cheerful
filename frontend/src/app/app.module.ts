@@ -38,7 +38,7 @@ import { ProfileComponent } from './profile/profile.component';
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('/cheerful/ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
