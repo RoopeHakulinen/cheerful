@@ -1,4 +1,5 @@
 .frame {
+  text-align: center;
   &.active {
     &:before {
       content: '>'
