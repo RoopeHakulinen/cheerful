@@ -1,5 +1,5 @@
 {
-  "index": "/index.html",
+  "index": "/cheerful/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -23,6 +23,9 @@
       "resources": {
         "files": [
           "/assets/**"
+        ],
+        "url": [
+          "https://fonts.googleapis.com/**"
         ]
       }
     }
