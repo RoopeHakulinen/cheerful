@@ -12,8 +12,8 @@ export class AppComponent {
   constructor(private swUpdate: SwUpdate) {
     this.swUpdate.available.subscribe(event => {
       console.log('A newer version is now available. Refresh the page now to update the cache');
-      // this.swUpdate.activateUpdate()
+      // this.swUpdate.activateUpdate();
     });
-    this.swUpdate.checkForUpdate()
+    this.swUpdate.checkForUpdate();
   }
 }

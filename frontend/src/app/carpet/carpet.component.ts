@@ -1,4 +1,7 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output,
+  SimpleChanges
+} from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
@@ -9,7 +12,7 @@ import { ChoreographyItem } from '../choreography-item';
   templateUrl: './carpet.component.html',
   styleUrls: ['./carpet.component.scss']
 })
-export class CarpetComponent implements OnInit {
+export class CarpetComponent implements OnInit, OnChanges {
   @Input()
   carpet: Carpet;
   @Input()
@@ -37,7 +40,8 @@ export class CarpetComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.carpet && changes.carpet.previousValue !== changes.carpet.currentValue)
+    if (changes.carpet && changes.carpet.previousValue !== changes.carpet.currentValue) {
       this.segments = Array(changes.carpet.currentValue.segments).fill(0);
+    }
   }
 }
