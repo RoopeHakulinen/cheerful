@@ -9,8 +9,8 @@
       "urls": [
         "https://roopehakulinen.github.io/cheerful/favicon.ico",
         "https://roopehakulinen.github.io/cheerful/index.html",
-        "https://roopehakulinen.github.io/cheerful/inline.c0c46a6e6c86f4421c37.bundle.js",
-        "https://roopehakulinen.github.io/cheerful/main.0814dc6312c1494a0ee4.bundle.js",
+        "https://roopehakulinen.github.io/cheerful/inline.897e6b126de8e2993792.bundle.js",
+        "https://roopehakulinen.github.io/cheerful/main.820ed0380f3c4bb86dda.bundle.js",
         "https://roopehakulinen.github.io/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js",
         "https://roopehakulinen.github.io/cheerful/styles.5e84fcba668d0194d2f3.bundle.css"
       ],
@@ -26,11 +26,11 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "https://roopehakulinen.github.io/cheerful/inline.c0c46a6e6c86f4421c37.bundle.js": "62e903ea25637b2a67fb8a26c63bf0fdc26b4a7a",
-    "https://roopehakulinen.github.io/cheerful/main.0814dc6312c1494a0ee4.bundle.js": "12761bebbfbc0488eb0e40dce657a969ddcb22b0",
+    "https://roopehakulinen.github.io/cheerful/inline.897e6b126de8e2993792.bundle.js": "c073fc87e35e944d9eea4a5a2d05ea76750511f2",
+    "https://roopehakulinen.github.io/cheerful/main.820ed0380f3c4bb86dda.bundle.js": "d85c969c598cabaf3eac26de2a9eb0929e372d14",
     "https://roopehakulinen.github.io/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js": "669df48deb7f2148518a6e8e9490ba8ee2db7000",
     "https://roopehakulinen.github.io/cheerful/styles.5e84fcba668d0194d2f3.bundle.css": "2e33c271142658f60e54082edee5cf60b407d984",
     "https://roopehakulinen.github.io/cheerful/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "https://roopehakulinen.github.io/cheerful/index.html": "4e721bb89190b004bb308c39b6529573f1e1d3d5"
+    "https://roopehakulinen.github.io/cheerful/index.html": "b7c3601a7b112adbc0226fff80dccc47b8d7e5f8"
   }
 }
