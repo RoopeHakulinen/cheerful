@@ -3,7 +3,7 @@
   "short_name": "Cheerful",
   "theme_color": "#f00",
   "background_color": "#3F51B5",
-  "start_url": "https://roopehakulinen.github.io/cheerful/",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
   "icons": [
