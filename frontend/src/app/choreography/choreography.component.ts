@@ -84,9 +84,9 @@ export class ChoreographyComponent implements OnInit {
           ...item,
           position: [...item.position],
         })
-      ).map(item => ({
+      ).map((item, index) => ({
         ...item,
-        text: Math.random() > 0.7 ? Math.random().toString(36).substring(5, 10) : ''
+        text: index % 3 === 0 ? this.choreography.people[index] : ''
       }));
   }
 
