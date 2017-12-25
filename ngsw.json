@@ -1,18 +1,18 @@
 {
   "configVersion": 1,
-  "index": "https://roopehakulinen.github.io/cheerful/index.html",
+  "index": "cheerful/index.html",
   "assetGroups": [
     {
       "name": "app",
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "https://roopehakulinen.github.io/cheerful/favicon.ico",
-        "https://roopehakulinen.github.io/cheerful/index.html",
-        "https://roopehakulinen.github.io/cheerful/inline.ea9d12cdb9af01d9cd64.bundle.js",
-        "https://roopehakulinen.github.io/cheerful/main.dac676db758223efa387.bundle.js",
-        "https://roopehakulinen.github.io/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js",
-        "https://roopehakulinen.github.io/cheerful/styles.5e84fcba668d0194d2f3.bundle.css"
+        "cheerful/favicon.ico",
+        "cheerful/index.html",
+        "cheerful/inline.ea9d12cdb9af01d9cd64.bundle.js",
+        "cheerful/main.dac676db758223efa387.bundle.js",
+        "cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js",
+        "cheerful/styles.5e84fcba668d0194d2f3.bundle.css"
       ],
       "patterns": []
     },
@@ -21,27 +21,27 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "urls": [
-        "https://roopehakulinen.github.io/cheerful/assets/icon-dpi.png",
-        "https://roopehakulinen.github.io/cheerful/assets/icon-hdpi.png",
-        "https://roopehakulinen.github.io/cheerful/assets/icon-xhdpi.png",
-        "https://roopehakulinen.github.io/cheerful/assets/icon-xxhdpi.png",
-        "https://roopehakulinen.github.io/cheerful/assets/icon-xxxhdpi.png"
+        "cheerful/assets/icon-dpi.png",
+        "cheerful/assets/icon-hdpi.png",
+        "cheerful/assets/icon-xhdpi.png",
+        "cheerful/assets/icon-xxhdpi.png",
+        "cheerful/assets/icon-xxxhdpi.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "https://roopehakulinen.github.io/cheerful/inline.ea9d12cdb9af01d9cd64.bundle.js": "d5d0910aeb8425e5c1008d8c9eb40a4aa255f47f",
-    "https://roopehakulinen.github.io/cheerful/assets/icon-dpi.png": "a3b35e60a3f359255052ff4a70023ee7110f799f",
-    "https://roopehakulinen.github.io/cheerful/main.dac676db758223efa387.bundle.js": "4930f27f910e210eefecf5a4418d63d99752806e",
-    "https://roopehakulinen.github.io/cheerful/assets/icon-hdpi.png": "db773514d8a99b7fcdccd1011f49f02b3a254840",
-    "https://roopehakulinen.github.io/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js": "669df48deb7f2148518a6e8e9490ba8ee2db7000",
-    "https://roopehakulinen.github.io/cheerful/assets/icon-xhdpi.png": "e9b2dfb6f3d04d8ac960a3fecf4713a1728bdf08",
-    "https://roopehakulinen.github.io/cheerful/styles.5e84fcba668d0194d2f3.bundle.css": "2e33c271142658f60e54082edee5cf60b407d984",
-    "https://roopehakulinen.github.io/cheerful/assets/icon-xxhdpi.png": "4f72439d73bd2b2451cc2a41740ed735502c91fa",
-    "https://roopehakulinen.github.io/cheerful/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "https://roopehakulinen.github.io/cheerful/assets/icon-xxxhdpi.png": "1182f59fd0632e14e814420d9d9ec022c1799dc1",
-    "https://roopehakulinen.github.io/cheerful/index.html": "13ac887dafac18da9ee45cee2f05dda7b1de3632"
+    "cheerful/inline.ea9d12cdb9af01d9cd64.bundle.js": "d5d0910aeb8425e5c1008d8c9eb40a4aa255f47f",
+    "cheerful/assets/icon-dpi.png": "a3b35e60a3f359255052ff4a70023ee7110f799f",
+    "cheerful/main.dac676db758223efa387.bundle.js": "4930f27f910e210eefecf5a4418d63d99752806e",
+    "cheerful/assets/icon-hdpi.png": "db773514d8a99b7fcdccd1011f49f02b3a254840",
+    "cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js": "669df48deb7f2148518a6e8e9490ba8ee2db7000",
+    "cheerful/assets/icon-xhdpi.png": "e9b2dfb6f3d04d8ac960a3fecf4713a1728bdf08",
+    "cheerful/styles.5e84fcba668d0194d2f3.bundle.css": "2e33c271142658f60e54082edee5cf60b407d984",
+    "cheerful/assets/icon-xxhdpi.png": "4f72439d73bd2b2451cc2a41740ed735502c91fa",
+    "cheerful/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "cheerful/assets/icon-xxxhdpi.png": "1182f59fd0632e14e814420d9d9ec022c1799dc1",
+    "cheerful/index.html": "68b53e4217b22481b0234d0ddd5bd4cbb6868f3b"
   }
 }
