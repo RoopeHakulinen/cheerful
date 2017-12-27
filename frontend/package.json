@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy:gh": "ng build --prod --app 0 --base-href \"https://roopehakulinen.github.io/cheerful/\" && angular-cli-ghpages --dir dist/browser",
+    "deploy:gh": "ng build --prod --app 0 --base-href \"/cheerful/\" && angular-cli-ghpages --dir dist/browser",
     "ssr": "npm run build:ssr && npm run serve:ssr",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
