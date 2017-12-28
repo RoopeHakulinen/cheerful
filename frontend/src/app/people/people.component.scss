@@ -5,6 +5,8 @@
     flex-wrap: wrap;
     .person {
       flex: 1;
+      flex-grow: 0;
+      text-align: center;
     }
   }
 }

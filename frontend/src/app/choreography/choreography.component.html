@@ -1,14 +1,14 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" [opened]="true" class="padding">
+<div fxLayout="column" fxLayout.gt-sm="row">
+  <div fxFlex fxFlex.gt-sm="160px">
     <app-frame-manager
       [frames]="choreography.frames"
       [active]="activeFrame"
       (activeChanged)="activeFrame = $event"
       (add)="addFrame()"
       (remove)="removeFrame($event)"></app-frame-manager>
-  </mat-sidenav>
+  </div>
 
-  <mat-sidenav-content>
+  <div fxFlex>
     <app-people
       [people]="choreography.people"
       (add)="choreography.people.push($event)"
@@ -54,7 +54,5 @@
       [activeItem]="activeChoreographyItem"
       (swap)="swapItems($event)"
       (active)="activeChoreographyItem = $event"></app-carpet>
-
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
+  </div>
+</div>
