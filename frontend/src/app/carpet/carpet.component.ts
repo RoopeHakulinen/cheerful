@@ -1,7 +1,4 @@
-import {
-  ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output,
-  SimpleChanges
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
@@ -28,7 +25,7 @@ export class CarpetComponent implements OnInit, OnChanges {
   segments: any[];
   tileDimension = 50;
 
-  constructor(private dragulaService: DragulaService, private cdr: ChangeDetectorRef) {
+  constructor(private dragulaService: DragulaService) {
     this.dragulaService.drop.subscribe((value) => {
       const first = parseInt(value[2].getAttribute('index'), 10);
       const second = parseInt(value[3].getAttribute('index'), 10);
