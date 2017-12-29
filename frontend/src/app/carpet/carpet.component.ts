@@ -48,10 +48,5 @@ export class CarpetComponent implements OnInit, OnChanges {
   setTileDimension() {
     const el = document.querySelector('.carpet').parentElement.parentElement;
     this.tileDimension = Math.min((el.clientWidth - 20) / this.carpet.width, 50);
-    console.log(this.tileDimension);
-  }
-
-  sanitize(val: string) {
-    return this.sanitizer.bypassSecurityTrustStyle(val);
   }
 }
