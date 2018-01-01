@@ -1,12 +1,11 @@
 <mat-toolbar color="primary">
-  <a (click)="back()" class="clickable" *ngIf="isBackAvailable()">
+  <a [routerLink]="backUrl" *ngIf="backUrl" class="clickable">
     <mat-icon>keyboard_arrow_left</mat-icon>
   </a>
 
-  <!-- This fills the remaining space of the current row -->
-  <span class="title">{{title}}</span>
-
-  <a (click)="menuService.toggle()" class="clickable">
+  <a (click)="menuService.toggle()" *ngIf="!backUrl" class="clickable">
     <mat-icon>menu</mat-icon>
   </a>
+
+  <span class="title">{{title}}</span>
 </mat-toolbar>

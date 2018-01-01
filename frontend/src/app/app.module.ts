@@ -22,9 +22,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { DragulaModule } from 'ng2-dragula';
 import { environment } from '../environments/environment';
 import { AboutComponent } from './about/about.component';
-
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
 import { CarpetComponent } from './carpet/carpet.component';
 import { ChoreographiesComponent } from './choreographies/choreographies.component';
@@ -33,7 +31,6 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { ExerciseComponent } from './exercise/exercise.component';
 import { ExercisesComponent } from './exercises/exercises.component';
 import { FrameManagerComponent } from './frame-manager/frame-manager.component';
-import { HistoryService } from './history.service';
 import { MenuService } from './menu.service';
 import { PeopleComponent } from './people/people.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -80,7 +77,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     MatListModule,
     DragulaModule
   ],
-  providers: [MenuService, HistoryService],
+  providers: [MenuService],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent]
 })
