@@ -52,6 +52,8 @@ export class ChoreographyComponent implements OnInit {
   activeFrame = 0;
   activeChoreographyItem: ChoreographyItem;
 
+  animationInterval: number;
+
   constructor() {
   }
 
@@ -113,5 +115,16 @@ export class ChoreographyComponent implements OnInit {
     const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[second]));
     this.choreography.frames[this.activeFrame].grid[first] = temp2;
     this.choreography.frames[this.activeFrame].grid[second] = temp;
+  }
+
+  play() {
+    this.animationInterval = window.setInterval(() => {
+      this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
+    }, 5000);
+  }
+
+  pause() {
+    window.clearInterval(this.animationInterval);
+    this.animationInterval = null;
   }
 }

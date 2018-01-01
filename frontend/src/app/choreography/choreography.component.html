@@ -3,9 +3,12 @@
     <app-frame-manager
       [frames]="choreography.frames"
       [active]="activeFrame"
+      [isPlaying]="!!animationInterval"
       (activeChanged)="activeFrame = $event"
       (add)="addFrame()"
-      (remove)="removeFrame($event)"></app-frame-manager>
+      (remove)="removeFrame($event)"
+      (play)="play()"
+      (pause)="pause()"></app-frame-manager>
   </div>
 
   <div fxFlex>

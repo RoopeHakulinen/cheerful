@@ -14,6 +14,8 @@ export class FrameManagerComponent implements OnInit {
   frames: ChoreographyFrame[];
   @Input()
   active: number;
+  @Input()
+  isPlaying: boolean;
 
   @Output()
   add = new EventEmitter<void>();
@@ -21,6 +23,10 @@ export class FrameManagerComponent implements OnInit {
   activeChanged = new EventEmitter<number>();
   @Output()
   remove = new EventEmitter<number>();
+  @Output()
+  play = new EventEmitter<void>();
+  @Output()
+  pause = new EventEmitter<void>();
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
   }

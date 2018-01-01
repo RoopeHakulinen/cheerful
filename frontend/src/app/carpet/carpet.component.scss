@@ -6,23 +6,35 @@
     .lines {
       position: absolute;
       display: flex;
+      &.vertical {
+        .line {
+          border-right: 1px solid white;
+          &:last-child {
+            border-right: none;
+          }
+        }
+      }
+      &.horizontal {
+        flex-direction: column;
+        .line {
+          border-bottom: 1px dotted black;
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
       height: 100%;
       width: 100%;
       pointer-events: none;
       .line {
         flex: 1;
-        border-right: 1px solid white;
         height: 100%;
-        &:last-child {
-          border-right: none;
-        }
       }
     }
     .tile-container {
       display: flex;
       flex-wrap: wrap;
       .tile {
-        border-bottom: 1px dotted black;
         box-sizing: border-box;
         text-align: center;
         color: white;

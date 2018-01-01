@@ -1,9 +1,18 @@
+<div class="controls">
+  <button mat-icon-button *ngIf="!isPlaying">
+    <mat-icon aria-label="Play choreography" (click)="play.emit()">play_arrow</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="isPlaying">
+    <mat-icon aria-label="Pause choreography" (click)="pause.emit()">pause</mat-icon>
+  </button>
+</div>
+
 <div
   *ngFor="let frame of frames; index as index"
   [class.active]="index === active"
   (click)="activeChanged.emit(index)"
   class="frame">
-  Frame {{index}}
+  Frame {{index + 1}}
 </div>
 
 <div class="controls">

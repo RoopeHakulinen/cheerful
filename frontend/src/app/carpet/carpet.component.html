@@ -4,10 +4,14 @@
   [style.width]="(carpet.width * tileDimension) + 'px'"
   [style.height]="(carpet.height * tileDimension) + 'px'">
   <div class="grid">
-    <div class="lines">
-      <div *ngFor="let _ of segments" class="line"></div>
+    <div class="lines vertical">
+      <div *ngFor="let _ of verticalSegments" class="line"></div>
+    </div>
+    <div class="lines horizontal">
+      <div *ngFor="let _ of horizontalSegments" class="line"></div>
     </div>
     <div
+      [style.height]="(carpet.height * tileDimension) + 'px'"
       class="tile-container">
       <div
         *ngFor="let item of frame.grid; index as index"
@@ -17,6 +21,7 @@
         [style.height]="tileDimension + 'px'"
         [style.flex]="'0 1 ' + tileDimension + 'px'"
         [class.active]="activeItem && activeItem === item"
+        [@animate]="{value: animate, params: getAnimationParams(item, index)}"
         (click)="active.emit(item)"
         class="tile {{item.position[0]}}">
         <span
