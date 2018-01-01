@@ -97,7 +97,7 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
     return {
       ...this.findTranslation(item, index),
       time: this.animationsOn ? '3s' : '0s'
-    }
+    };
   }
 
   ngOnDestroy() {
