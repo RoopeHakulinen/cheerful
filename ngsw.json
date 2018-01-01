@@ -12,7 +12,7 @@
         "/cheerful/inline.296d7cd2441276eee5d9.bundle.js",
         "/cheerful/main.78370781be384652a70c.bundle.js",
         "/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js",
-        "/cheerful/styles.5e84fcba668d0194d2f3.bundle.css"
+        "/cheerful/styles.ae0e7f51849900100220.bundle.css"
       ],
       "patterns": []
     },
@@ -38,10 +38,10 @@
     "/cheerful/assets/icon-hdpi.png": "db773514d8a99b7fcdccd1011f49f02b3a254840",
     "/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js": "669df48deb7f2148518a6e8e9490ba8ee2db7000",
     "/cheerful/assets/icon-xhdpi.png": "e9b2dfb6f3d04d8ac960a3fecf4713a1728bdf08",
-    "/cheerful/styles.5e84fcba668d0194d2f3.bundle.css": "2e33c271142658f60e54082edee5cf60b407d984",
+    "/cheerful/styles.ae0e7f51849900100220.bundle.css": "1941faef8364a0d7126d2452db4226e03f1b38cf",
     "/cheerful/assets/icon-xxhdpi.png": "4f72439d73bd2b2451cc2a41740ed735502c91fa",
     "/cheerful/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
     "/cheerful/assets/icon-xxxhdpi.png": "1182f59fd0632e14e814420d9d9ec022c1799dc1",
-    "/cheerful/index.html": "3cae6ca5fb694a5929be2ad604f970b0aa3ee8ee"
+    "/cheerful/index.html": "3031216abd9762f507b2da47e93a9a626b52d80e"
   }
 }
