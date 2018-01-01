@@ -55,6 +55,10 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
   subscriptions = new Subscription();
 
   constructor(private dragulaService: DragulaService) {
+  }
+
+  ngOnInit() {
+    this.dragulaService.setOptions('grid-bag', { ignoreInputTextSelection: false });
     this.subscriptions.add(this.dragulaService.drag.subscribe(() => {
       this.animationsOn = false;
     }));
@@ -63,9 +67,6 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
       const second = parseInt(value[3].getAttribute('index'), 10);
       this.swap.emit({ first, second });
     }));
-  }
-
-  ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
