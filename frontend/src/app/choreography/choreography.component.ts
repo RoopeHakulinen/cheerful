@@ -127,4 +127,17 @@ export class ChoreographyComponent implements OnInit {
     window.clearInterval(this.animationInterval);
     this.animationInterval = null;
   }
+
+  removePerson(name: string) {
+    const index = this.choreography.people.findIndex(person => name === person);
+    if (index === -1) {
+      return;
+    }
+    this.choreography.people.splice(index, 1);
+    this.choreography.frames.forEach(frame => frame.grid.forEach(item => {
+      if (item.text === name) {
+        this.clearItem(item);
+      }
+    }));
+  }
 }

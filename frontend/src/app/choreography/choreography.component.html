@@ -15,7 +15,7 @@
     <app-people
       [people]="choreography.people"
       (add)="choreography.people.push($event)"
-      (remove)="choreography.people.splice($event, 1)"></app-people>
+      (remove)="removePerson($event)"></app-people>
     <mat-card *ngIf="activeChoreographyItem" class="edit-item padding">
       <mat-form-field>
         <mat-select placeholder="Person" [(ngModel)]="activeChoreographyItem.text">

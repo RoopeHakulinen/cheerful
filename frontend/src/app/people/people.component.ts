@@ -13,7 +13,7 @@ export class PeopleComponent implements OnInit {
   @Output()
   add = new EventEmitter<string>();
   @Output()
-  remove = new EventEmitter<number>();
+  remove = new EventEmitter<string>();
 
   constructor() { }
 
