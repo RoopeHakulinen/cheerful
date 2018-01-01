@@ -1,5 +1,9 @@
+<app-toolbar [title]="choreography.name"></app-toolbar>
 <div fxLayout="column" fxLayout.gt-sm="row">
-  <div fxFlex fxFlex.gt-sm="160px">
+  <div fxFlex fxFlex.gt-sm="180px">
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="choreography.name">
+    </mat-form-field>
     <app-frame-manager
       [frames]="choreography.frames"
       [active]="activeFrame"

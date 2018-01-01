@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { AboutComponent } from './about/about.component';
+import { ChoreographiesComponent } from './choreographies/choreographies.component';
 import { ChoreographyComponent } from './choreography/choreography.component';
 import { ExerciseComponent } from './exercise/exercise.component';
 import { ExercisesComponent } from './exercises/exercises.component';
@@ -8,10 +10,14 @@ import { ProfileComponent } from './profile/profile.component';
 const routes: Routes = [
   {
     path: '',
-    component: ChoreographyComponent
+    component: ChoreographiesComponent
   },
   {
-    path: 'choreography',
+    path: 'choreographies',
+    component: ChoreographiesComponent
+  },
+  {
+    path: 'choreographies/:id',
     component: ChoreographyComponent
   },
   {
@@ -23,8 +29,12 @@ const routes: Routes = [
     component: ExerciseComponent
   },
   {
-    path: 'profile',
+    path: 'my-profile',
     component: ProfileComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
   }
 ];
 

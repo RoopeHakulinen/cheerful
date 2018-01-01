@@ -10,7 +10,8 @@ import { ChoreographyItem } from '../choreography-item';
 export class ChoreographyComponent implements OnInit {
 
   choreography: Choreography = {
-    name: 'My choreography',
+    name: 'SM-karsinnat',
+    team: 'Flash',
     people: [
       'Roope',
       'Olli',

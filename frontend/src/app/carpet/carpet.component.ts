@@ -102,6 +102,7 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+    this.dragulaService.destroy('grid-bag');
   }
 
   private itemDifference(lastIndex, currentIndex) {

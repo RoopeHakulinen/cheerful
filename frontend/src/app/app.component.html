@@ -1,25 +1,7 @@
-<mat-toolbar color="primary">
-  <a (click)="opened = !opened">
-    <mat-icon>menu</mat-icon>
-  </a>
-
-  <!-- This fills the remaining space of the current row -->
-  <span class="example-fill-remaining-space">Cheerful</span>
-
-  <a routerLink="profile">
-    <mat-icon>account_circle</mat-icon>
-  </a>
-</mat-toolbar>
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" [opened]="opened" class="navigation padding" [mode]="'over'">
-    <a routerLink="/choreography" class="nav-item">
-      Choreography
-    </a>
-    <a routerLink="'/exercises'" class="nav-item">
-      Exercises
-    </a>
+<mat-sidenav-container class="page-container">
+  <mat-sidenav #sidenav [opened]="menuService.isOpen()">
+    <app-side-menu></app-side-menu>
   </mat-sidenav>
-
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
