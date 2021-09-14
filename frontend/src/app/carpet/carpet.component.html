@@ -1,0 +1,41 @@
+<div
+  [style.background-color]="carpet.color"
+  [style.height]="(carpet.height * tileDimension) + 'px'"
+  [style.width]="(carpet.width * tileDimension) + 'px'"
+  class="carpet">
+  <div class="grid">
+    <div class="lines vertical">
+      <div *ngFor="let _ of verticalSegments" class="line"></div>
+    </div>
+    <div class="lines horizontal">
+      <div *ngFor="let _ of horizontalSegments" class="line"></div>
+    </div>
+    <div
+      [style.height]="(carpet.height * tileDimension) + 'px'"
+      class="tile-container">
+      <div
+        (click)="active.emit(item)"
+        *ngFor="let item of frame.grid; index as index"
+        [@animate]="{value: animate, params: getAnimationParams(item, index)}"
+        [attr.index]="index"
+        [class.active]="activeItem && activeItem === item"
+        [style.flex]="'0 1 ' + tileDimension + 'px'"
+        [style.height]="tileDimension + 'px'"
+        [style.width]="tileDimension + 'px'"
+        cdkDrag class="tile {{item.position[0]}}">
+        <span
+          *ngIf="item.text"
+          [style.left]="'-' + (tileDimension / 2) + 'px'"
+          [style.width]="2 * tileDimension + 'px'"
+          class="text-container {{item.shape}} {{item.position[1]}}">
+          <span
+            [style.background-color]="item.color"
+            class="text">
+          {{item.text}}
+          </span>
+        </span>
+
+      </div>
+    </div>
+  </div>
+</div>

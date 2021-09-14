@@ -1,0 +1,23 @@
+.controls {
+  margin: 0 auto;
+  text-align: center;
+
+  button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.frame {
+  text-align: center;
+
+  &.active {
+    &:before {
+      content: '>'
+    }
+
+    &:after {
+      content: '<'
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <a *ngIf="backUrl" [routerLink]="backUrl" class="clickable">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </a>
+
+  <a (click)="menuService.toggle()" *ngIf="!backUrl" class="clickable">
+    <mat-icon>menu</mat-icon>
+  </a>
+
+  <span class="title">{{title}}</span>
+</mat-toolbar>

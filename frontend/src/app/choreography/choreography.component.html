@@ -1,0 +1,69 @@
+<app-toolbar [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
+<div fxLayout="column" fxLayout.gt-sm="row">
+  <div class="padding" fxFlex fxFlex.gt-sm="200px">
+    <mat-form-field>
+      <input [(ngModel)]="choreography.name" matInput placeholder="Name">
+    </mat-form-field>
+    <app-frame-manager
+      (activeChanged)="activeFrame = $event"
+      (add)="addFrame()"
+      (pause)="pause()"
+      (play)="play()"
+      (remove)="removeFrame($event)"
+      [active]="activeFrame"
+      [frames]="choreography.frames"
+      [isPlaying]="!!animationInterval"></app-frame-manager>
+  </div>
+
+  <div fxFlex>
+    <app-people
+      (add)="choreography.people.push($event)"
+      (remove)="removePerson($event)"
+      [people]="choreography.people"></app-people>
+    <mat-card *ngIf="activeChoreographyItem" class="edit-item padding">
+      <div fxLayout="row" fxLayoutWrap="wrap">
+        <div fxFlex>
+          <mat-form-field>
+            <mat-select [(ngModel)]="activeChoreographyItem.text" placeholder="Person">
+              <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color" type="color">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select [(ngModel)]="activeChoreographyItem.shape" placeholder="Shape">
+              <mat-option value="box">Box</mat-option>
+              <mat-option value="rounded">Rounded</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="position-selector" fxFlex="120px">
+          <div
+            (click)="setPositionForItem(activeChoreographyItem, option)"
+            *ngFor="let option of [['top', 'left'], ['top', 'center'], ['top', 'right'], ['center', 'left'], ['center', 'center'], ['center', 'right'], ['bottom', 'left'], ['bottom', 'center'], ['bottom', 'right']]"
+            [class.active]="activeChoreographyItem.position[0] === option[0] && activeChoreographyItem.position[1] === option[1]"
+            class="option">
+          </div>
+        </div>
+      </div>
+
+      <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Sign" [(ngModel)]="activeChoreographyItem.sign.text">-->
+      <!--</mat-form-field>-->
+
+      <div>
+        <button (click)="clearItem(activeChoreographyItem)" mat-raised-button>Clear tile</button>
+        <button (click)="activeChoreographyItem = null" mat-raised-button>Close</button>
+      </div>
+    </mat-card>
+
+    <app-carpet
+      (active)="activeChoreographyItem = $event"
+      (swap)="swapItems($event)"
+      [activeItem]="activeChoreographyItem"
+      [carpet]="choreography.carpet"
+      [frame]="choreography.frames[activeFrame]"></app-carpet>
+  </div>
+</div>
