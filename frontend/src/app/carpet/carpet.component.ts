@@ -1,15 +1,5 @@
 import {animate, style, transition, trigger} from '@angular/animations';
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges
-} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Carpet} from '../carpet';
 import {ChoreographyFrame} from '../choreography-frame';
@@ -32,7 +22,7 @@ import {ChoreographyItem} from '../choreography-item';
     ])
   ]
 })
-export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
+export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
   carpet: Carpet;
   @Input()
@@ -52,20 +42,12 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
   animationsOn = false;
   lastItems: any[] = [];
   subscriptions = new Subscription();
+  draggedItemIndex: number;
 
-  constructor() {
-  }
-
-  ngOnInit() {
-    // this.dragulaService.setOptions('grid-bag', { ignoreInputTextSelection: false });
-    // this.subscriptions.add(this.dragulaService.drag.subscribe(() => {
-    //   this.animationsOn = false;
-    // }));
-    // this.subscriptions.add(this.dragulaService.drop.subscribe((value) => {
-    //   const first = parseInt(value[2].getAttribute('index'), 10);
-    //   const second = parseInt(value[3].getAttribute('index'), 10);
-    //   this.swap.emit({ first, second });
-    // }));
+  swapPositions(event: number) {
+    const first = this.draggedItemIndex;
+    const second = event;
+    this.swap.emit({first, second});
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -95,7 +77,7 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
     return this.itemDifference(lastItemIndex, index);
   }
 
-  getAnimationParams(item, index) {
+  getAnimationParams(item: ChoreographyItem, index: number) {
     return {
       ...this.findTranslation(item, index),
       time: this.animationsOn ? '3s' : '0s'

@@ -12,22 +12,26 @@
     </div>
     <div
       [style.height]="(carpet.height * tileDimension) + 'px'"
+      cdkDropListGroup
       class="tile-container">
       <div
+        (cdkDropListDropped)="swapPositions(index)"
         (click)="active.emit(item)"
         *ngFor="let item of frame.grid; index as index"
         [@animate]="{value: animate, params: getAnimationParams(item, index)}"
         [attr.index]="index"
+        [cdkDropListData]="frame.grid"
         [class.active]="activeItem && activeItem === item"
         [style.flex]="'0 1 ' + tileDimension + 'px'"
-        [style.height]="tileDimension + 'px'"
-        [style.width]="tileDimension + 'px'"
-        cdkDrag class="tile {{item.position[0]}}">
+        [style.height]="tileDimension + 'px'" [style.width]="tileDimension + 'px'"
+        cdkDropList
+        class="tile {{item.position[0]}}">
         <span
           *ngIf="item.text"
           [style.left]="'-' + (tileDimension / 2) + 'px'"
           [style.width]="2 * tileDimension + 'px'"
-          class="text-container {{item.shape}} {{item.position[1]}}">
+          (cdkDragEntered)="draggedItemIndex=index; animationsOn=false"
+          cdkDrag class="text-container {{item.shape}} {{item.position[1]}}">
           <span
             [style.background-color]="item.color"
             class="text">
@@ -39,3 +43,4 @@
     </div>
   </div>
 </div>
+
