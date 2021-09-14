@@ -1,9 +1,18 @@
-import {animate, style, transition, trigger} from '@angular/animations';
-import {Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {Carpet} from '../carpet';
-import {ChoreographyFrame} from '../choreography-frame';
-import {ChoreographyItem} from '../choreography-item';
+import { animate, style, transition, trigger } from '@angular/animations';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Carpet } from '../carpet';
+import { ChoreographyFrame } from '../choreography-frame';
+import { ChoreographyItem } from '../choreography-item';
 
 @Component({
   selector: 'app-carpet',
@@ -12,8 +21,8 @@ import {ChoreographyItem} from '../choreography-item';
   animations: [
     trigger('animate', [
       transition('* => *', [
-        style({transform: `translate({{x}}px, {{y}}px)`}),
-        animate('{{time}}', style({transform: 'translate(0px, 0px)'}))
+        style({ transform: `translate({{x}}px, {{y}}px)` }),
+        animate('{{time}}', style({ transform: 'translate(0px, 0px)' }))
       ], {
         params: {
           time: '0s'
@@ -33,7 +42,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Output()
   active = new EventEmitter<ChoreographyItem>();
   @Output()
-  swap = new EventEmitter<{ first: number, second: number }>();
+  swap = new EventEmitter<{ first: number | null, second: number }>();
 
   verticalSegments: any[];
   horizontalSegments: any[];
@@ -42,12 +51,13 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   animationsOn = false;
   lastItems: any[] = [];
   subscriptions = new Subscription();
-  draggedItemIndex: number;
+  draggedItemIndex: number | null = null;
 
   swapPositions(event: number) {
     const first = this.draggedItemIndex;
     const second = event;
-    this.swap.emit({first, second});
+    this.swap.emit({ first, second });
+    this.draggedItemIndex = null;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -80,7 +90,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   getAnimationParams(item: ChoreographyItem, index: number) {
     return {
       ...this.findTranslation(item, index),
-      time: this.animationsOn ? '3s' : '0s'
+      time: this.animationsOn ? '2s' : '0s'
     };
   }
 
@@ -90,7 +100,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   private itemDifference(lastIndex, currentIndex) {
     if (lastIndex === -1 || currentIndex === -1) {
-      return {x: 0, y: 0};
+      return { x: 0, y: 0 };
     }
 
     const startX = lastIndex % this.carpet.width;

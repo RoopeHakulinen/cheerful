@@ -23,7 +23,8 @@
         [cdkDropListData]="frame.grid"
         [class.active]="activeItem && activeItem === item"
         [style.flex]="'0 1 ' + tileDimension + 'px'"
-        [style.height]="tileDimension + 'px'" [style.width]="tileDimension + 'px'"
+        [style.height]="tileDimension + 'px'"
+        [style.width]="tileDimension + 'px'"
         cdkDropList
         class="tile {{item.position[0]}}">
         <span
@@ -38,7 +39,6 @@
           {{item.text}}
           </span>
         </span>
-
       </div>
     </div>
   </div>
