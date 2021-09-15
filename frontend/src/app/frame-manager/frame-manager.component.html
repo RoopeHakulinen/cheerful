@@ -18,5 +18,8 @@
 <div class="controls">
   <button (click)="add.emit()" mat-raised-button>Add</button>
   <button (click)="removeClicked(active)" mat-raised-button>Remove</button>
-  <mat-checkbox (change)="animationsOff.emit()">Animations off</mat-checkbox>
+  <div class="toggle-container">
+    <mat-checkbox (change)="animationsEnabled.emit()" [checked]="true">Animations</mat-checkbox>
+    <mat-checkbox (change)="loopingEnabled.emit()" [checked]="true">Looping</mat-checkbox>
+  </div>
 </div>

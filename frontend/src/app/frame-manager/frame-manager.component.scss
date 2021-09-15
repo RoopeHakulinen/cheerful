@@ -6,10 +6,12 @@
     margin-top: 10px;
     margin-bottom: 10px;
   }
+
 }
 
 .frame {
   text-align: center;
+  cursor: pointer;
 
   &.active {
     &:before {
@@ -20,4 +22,10 @@
       content: '<'
     }
   }
+}
+
+.toggle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }

@@ -55,7 +55,8 @@ export class ChoreographyComponent implements OnInit {
 
   animationIntervalId: number;
   frameInterval = 1000;
-  animationsOffCheckbox: boolean;
+  animationsOn = true;
+  loopingOn = true;
 
   constructor() {
   }
@@ -114,6 +115,7 @@ export class ChoreographyComponent implements OnInit {
   }
 
   swapItems({first, second}) {
+    this.disableAnimationsForNextTick();
     const temp = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[first]));
     const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[second]));
     this.choreography.frames[this.activeFrame].grid[first] = temp2;
@@ -123,16 +125,16 @@ export class ChoreographyComponent implements OnInit {
   play() {
     this.animationIntervalId = window.setInterval(() => {
       this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
+      if ((this.activeFrame + 1 === this.choreography.frames.length) && !this.loopingOn) {
+        this.pause()
+      }
     }, this.frameInterval);
+
   }
 
   pause() {
     window.clearInterval(this.animationIntervalId);
     this.animationIntervalId = 0;
-  }
-
-  animationsOff() {
-    this.animationsOffCheckbox = !this.animationsOffCheckbox;
   }
 
   removePerson(name: string) {
@@ -150,5 +152,19 @@ export class ChoreographyComponent implements OnInit {
 
   setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any) {
     activeChoreographyItem.position = option;
+  }
+
+  toggleAnimations() {
+    this.animationsOn = !this.animationsOn;
+  }
+
+  toggleLooping() {
+    this.loopingOn = !this.loopingOn;
+  }
+
+  private disableAnimationsForNextTick() {
+    const animationsOnInitially = this.animationsOn;
+    this.animationsOn = false;
+    setTimeout(() => this.animationsOn = animationsOnInitially, 0);
   }
 }

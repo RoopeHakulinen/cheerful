@@ -41,7 +41,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
   animationDuration: number;
   @Input()
-  animationsOffFromCheckbox: boolean;
+  animationsToggle: boolean;
 
   @Output()
   active = new EventEmitter<ChoreographyItem>();
@@ -68,11 +68,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.frame && changes.frame.previousValue && changes.frame.previousValue.grid !== changes.frame.currentValue.grid) {
       this.lastItems = changes.frame.previousValue.grid;
-      this.animationsOn = true;
       this.animate = !this.animate;
-      if (this.animationsOffFromCheckbox) {
-        this.animationsOn = false;
-      }
     }
     if (changes.carpet && changes.carpet.previousValue !== changes.carpet.currentValue) {
       this.verticalSegments = Array(changes.carpet.currentValue.segments).fill(0);
@@ -99,7 +95,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
     return {
       ...this.findTranslation(item, index),
-      time: this.animationsOn ? `${this.animationDuration / 1000}s` : '0s'
+      time: this.animationsToggle ? `${this.animationDuration / 1000}s` : '0s'
     };
   }
 
