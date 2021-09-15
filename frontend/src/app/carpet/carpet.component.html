@@ -30,7 +30,7 @@
           *ngIf="item.text"
           [style.left]="'-' + (tileDimension / 2) + 'px'"
           [style.width]="2 * tileDimension + 'px'"
-          (cdkDragEntered)="draggedItemIndex=index; animationsOn=false"
+          (cdkDragEntered)="draggedItemIndex=index"
           cdkDrag class="text-container {{item.shape}} {{item.position[1]}}">
           <span
             [style.background-color]="item.color"

@@ -10,6 +10,8 @@
       (pause)="pause()"
       (play)="play()"
       (remove)="removeFrame($event)"
+      (toggleAnimations)="toggleAnimations()"
+      (toggleLooping)="toggleLooping()"
       [active]="activeFrame"
       [frames]="choreography.frames"
       [isPlaying]="!!animationIntervalId"></app-frame-manager>
@@ -65,6 +67,7 @@
       [activeItem]="activeChoreographyItem"
       [carpet]="choreography.carpet"
       [animationDuration]="frameInterval"
+      [areAnimationsOn]="areAnimationsOn"
       [frame]="choreography.frames[activeFrame]"></app-carpet>
   </div>
 </div>

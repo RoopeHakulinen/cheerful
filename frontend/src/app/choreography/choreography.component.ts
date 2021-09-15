@@ -55,6 +55,8 @@ export class ChoreographyComponent implements OnInit {
 
   animationIntervalId: number;
   frameInterval = 1000;
+  areAnimationsOn = true;
+  isLoopingOn = true;
 
   constructor() {
   }
@@ -113,6 +115,7 @@ export class ChoreographyComponent implements OnInit {
   }
 
   swapItems({first, second}) {
+    this.disableAnimationsForNextTick();
     const temp = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[first]));
     const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[second]));
     this.choreography.frames[this.activeFrame].grid[first] = temp2;
@@ -122,7 +125,11 @@ export class ChoreographyComponent implements OnInit {
   play() {
     this.animationIntervalId = window.setInterval(() => {
       this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
+      if (!this.isLoopingOn && (this.activeFrame + 1 === this.choreography.frames.length)) {
+        this.pause()
+      }
     }, this.frameInterval);
+
   }
 
   pause() {
@@ -145,5 +152,19 @@ export class ChoreographyComponent implements OnInit {
 
   setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any) {
     activeChoreographyItem.position = option;
+  }
+
+  toggleAnimations() {
+    this.areAnimationsOn = !this.areAnimationsOn;
+  }
+
+  toggleLooping() {
+    this.isLoopingOn = !this.isLoopingOn;
+  }
+
+  private disableAnimationsForNextTick() {
+    const animationsOnInitially = this.areAnimationsOn;
+    this.areAnimationsOn = false;
+    setTimeout(() => this.areAnimationsOn = animationsOnInitially, 0);
   }
 }

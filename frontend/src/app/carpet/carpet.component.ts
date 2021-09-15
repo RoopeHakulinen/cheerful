@@ -40,6 +40,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   activeItem: ChoreographyItem | null = null;
   @Input()
   animationDuration: number;
+  @Input()
+  areAnimationsOn: boolean;
 
   @Output()
   active = new EventEmitter<ChoreographyItem>();
@@ -50,7 +52,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   horizontalSegments: any[];
   tileDimension = 50;
   animate = false;
-  animationsOn = false;
   lastItems: any[] = [];
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
@@ -66,7 +67,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.frame && changes.frame.previousValue && changes.frame.previousValue.grid !== changes.frame.currentValue.grid) {
       this.lastItems = changes.frame.previousValue.grid;
-      this.animationsOn = true;
       this.animate = !this.animate;
     }
     if (changes.carpet && changes.carpet.previousValue !== changes.carpet.currentValue) {
@@ -94,7 +94,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
     return {
       ...this.findTranslation(item, index),
-      time: this.animationsOn ? `${this.animationDuration / 1000}s` : '0s'
+      time: this.areAnimationsOn ? `${this.animationDuration / 1000}s` : '0s'
     };
   }
 

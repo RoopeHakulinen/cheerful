@@ -11,11 +11,15 @@
   (click)="activeChanged.emit(index)"
   *ngFor="let frame of frames; index as index"
   [class.active]="index === active"
-  class="frame">
+  class="frame clickable">
   Frame {{index + 1}}
 </div>
 
 <div class="controls">
   <button (click)="add.emit()" mat-raised-button>Add</button>
   <button (click)="removeClicked(active)" mat-raised-button>Remove</button>
+  <div class="toggle-container">
+    <mat-checkbox (change)="toggleAnimations.emit()" [checked]="true">Animations</mat-checkbox>
+    <mat-checkbox (change)="toggleLooping.emit()" [checked]="true">Looping</mat-checkbox>
+  </div>
 </div>
