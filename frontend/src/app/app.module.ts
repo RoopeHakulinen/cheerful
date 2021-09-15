@@ -36,6 +36,7 @@ import { MatListModule } from '@angular/material/list';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { EightCounterComponent } from './eight-counter/eight-counter.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ChoreographiesComponent,
     AboutComponent,
     ToolbarComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    EightCounterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
