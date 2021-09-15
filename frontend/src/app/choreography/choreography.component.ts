@@ -55,8 +55,8 @@ export class ChoreographyComponent implements OnInit {
 
   animationIntervalId: number;
   frameInterval = 1000;
-  animationsOn = true;
-  loopingOn = true;
+  areAnimationsOn = true;
+  isLoopingOn = true;
 
   constructor() {
   }
@@ -125,7 +125,7 @@ export class ChoreographyComponent implements OnInit {
   play() {
     this.animationIntervalId = window.setInterval(() => {
       this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
-      if ((this.activeFrame + 1 === this.choreography.frames.length) && !this.loopingOn) {
+      if (!this.isLoopingOn && (this.activeFrame + 1 === this.choreography.frames.length)) {
         this.pause()
       }
     }, this.frameInterval);
@@ -155,16 +155,16 @@ export class ChoreographyComponent implements OnInit {
   }
 
   toggleAnimations() {
-    this.animationsOn = !this.animationsOn;
+    this.areAnimationsOn = !this.areAnimationsOn;
   }
 
   toggleLooping() {
-    this.loopingOn = !this.loopingOn;
+    this.isLoopingOn = !this.isLoopingOn;
   }
 
   private disableAnimationsForNextTick() {
-    const animationsOnInitially = this.animationsOn;
-    this.animationsOn = false;
-    setTimeout(() => this.animationsOn = animationsOnInitially, 0);
+    const animationsOnInitially = this.areAnimationsOn;
+    this.areAnimationsOn = false;
+    setTimeout(() => this.areAnimationsOn = animationsOnInitially, 0);
   }
 }

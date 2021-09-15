@@ -29,9 +29,9 @@ export class FrameManagerComponent implements OnInit {
   @Output()
   pause = new EventEmitter<void>();
   @Output()
-  animationsEnabled = new EventEmitter<boolean>();
+  toggleAnimations = new EventEmitter<boolean>();
   @Output()
-  loopingEnabled = new EventEmitter<boolean>();
+  toggleLooping = new EventEmitter<boolean>();
 
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {

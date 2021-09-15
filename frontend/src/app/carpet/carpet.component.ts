@@ -41,7 +41,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
   animationDuration: number;
   @Input()
-  animationsToggle: boolean;
+  areAnimationsOn: boolean;
 
   @Output()
   active = new EventEmitter<ChoreographyItem>();
@@ -52,7 +52,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   horizontalSegments: any[];
   tileDimension = 50;
   animate = false;
-  animationsOn = false;
   lastItems: any[] = [];
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
@@ -95,7 +94,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
     return {
       ...this.findTranslation(item, index),
-      time: this.animationsToggle ? `${this.animationDuration / 1000}s` : '0s'
+      time: this.areAnimationsOn ? `${this.animationDuration / 1000}s` : '0s'
     };
   }
 
