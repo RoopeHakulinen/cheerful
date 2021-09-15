@@ -168,7 +168,7 @@ export class ChoreographyComponent implements OnInit {
     setTimeout(() => this.areAnimationsOn = wereAnimationsOnInitially, 0);
   }
 
-  frameDurationChange(newFrameDuration: number) {
-    this.frameInterval = newFrameDuration;
+  frameDurationChange(newFrameInterval: number) {
+    this.frameInterval = newFrameInterval;
   }
 }
