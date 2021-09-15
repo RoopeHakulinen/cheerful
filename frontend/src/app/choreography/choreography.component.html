@@ -12,7 +12,7 @@
       (remove)="removeFrame($event)"
       [active]="activeFrame"
       [frames]="choreography.frames"
-      [isPlaying]="!!animationInterval"></app-frame-manager>
+      [isPlaying]="!!animationIntervalId"></app-frame-manager>
   </div>
 
   <div fxFlex>
@@ -64,6 +64,7 @@
       (swap)="swapItems($event)"
       [activeItem]="activeChoreographyItem"
       [carpet]="choreography.carpet"
+      [animationDuration]="frameInterval"
       [frame]="choreography.frames[activeFrame]"></app-carpet>
   </div>
 </div>

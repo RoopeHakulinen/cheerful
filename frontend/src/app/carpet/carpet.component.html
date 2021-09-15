@@ -20,7 +20,6 @@
         *ngFor="let item of frame.grid; index as index"
         [@animate]="{value: animate, params: getAnimationParams(item, index)}"
         [attr.index]="index"
-        [cdkDropListData]="frame.grid"
         [class.active]="activeItem && activeItem === item"
         [style.flex]="'0 1 ' + tileDimension + 'px'"
         [style.height]="tileDimension + 'px'"

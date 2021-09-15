@@ -35,6 +35,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    DragDropModule
+    DragDropModule,
+    MatCheckboxModule
   ],
   providers: [MenuService],
   bootstrap: [AppComponent],
