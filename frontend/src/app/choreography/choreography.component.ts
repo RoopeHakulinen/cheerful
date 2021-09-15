@@ -163,8 +163,8 @@ export class ChoreographyComponent implements OnInit {
   }
 
   private disableAnimationsForNextTick() {
-    const animationsOnInitially = this.areAnimationsOn;
+    const wereAnimationsOnInitially = this.areAnimationsOn;
     this.areAnimationsOn = false;
-    setTimeout(() => this.areAnimationsOn = animationsOnInitially, 0);
+    setTimeout(() => this.areAnimationsOn = wereAnimationsOnInitially, 0);
   }
 }
