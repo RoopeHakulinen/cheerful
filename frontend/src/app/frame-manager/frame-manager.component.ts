@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ChoreographyFrame} from '../choreography-frame';
-import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
-import {MatDialog} from "@angular/material/dialog";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChoreographyFrame } from '../choreography-frame';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-frame-manager',
@@ -28,6 +28,9 @@ export class FrameManagerComponent implements OnInit {
   play = new EventEmitter<void>();
   @Output()
   pause = new EventEmitter<void>();
+  @Output()
+  animationsOff = new EventEmitter<boolean>();
+
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
   }

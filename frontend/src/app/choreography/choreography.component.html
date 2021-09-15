@@ -10,6 +10,7 @@
       (pause)="pause()"
       (play)="play()"
       (remove)="removeFrame($event)"
+      (animationsOff)="animationsOff()"
       [active]="activeFrame"
       [frames]="choreography.frames"
       [isPlaying]="!!animationIntervalId"></app-frame-manager>
@@ -65,6 +66,7 @@
       [activeItem]="activeChoreographyItem"
       [carpet]="choreography.carpet"
       [animationDuration]="frameInterval"
+      [animationsOffFromCheckbox]="animationsOffCheckbox"
       [frame]="choreography.frames[activeFrame]"></app-carpet>
   </div>
 </div>

@@ -55,6 +55,7 @@ export class ChoreographyComponent implements OnInit {
 
   animationIntervalId: number;
   frameInterval = 1000;
+  animationsOffCheckbox: boolean;
 
   constructor() {
   }
@@ -128,6 +129,10 @@ export class ChoreographyComponent implements OnInit {
   pause() {
     window.clearInterval(this.animationIntervalId);
     this.animationIntervalId = 0;
+  }
+
+  animationsOff() {
+    this.animationsOffCheckbox = !this.animationsOffCheckbox;
   }
 
   removePerson(name: string) {

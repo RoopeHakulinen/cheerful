@@ -18,4 +18,5 @@
 <div class="controls">
   <button (click)="add.emit()" mat-raised-button>Add</button>
   <button (click)="removeClicked(active)" mat-raised-button>Remove</button>
+  <mat-checkbox (change)="animationsOff.emit()">Animations off</mat-checkbox>
 </div>
