@@ -20,7 +20,7 @@ import { ChoreographyItem } from '../choreography-item';
   styleUrls: ['./carpet.component.scss'],
   animations: [
     trigger('animate', [
-      transition('* => *', [
+      transition('void => *', [
         style({ transform: `translate({{x}}px, {{y}}px)` }),
         animate('{{time}}', style({ transform: 'translate(0px, 0px)' }))
       ], {
@@ -38,6 +38,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   frame: ChoreographyFrame;
   @Input()
   activeItem: ChoreographyItem | null = null;
+  @Input()
+  animationDuration: number;
 
   @Output()
   active = new EventEmitter<ChoreographyItem>();
@@ -52,6 +54,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   lastItems: any[] = [];
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
+
 
   swapPositions(event: number) {
     const first = this.draggedItemIndex;
@@ -88,9 +91,10 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   }
 
   getAnimationParams(item: ChoreographyItem, index: number) {
+
     return {
       ...this.findTranslation(item, index),
-      time: this.animationsOn ? '2s' : '0s'
+      time: this.animationsOn ? `${this.animationDuration / 1000}s` : '0s'
     };
   }
 
@@ -102,7 +106,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     if (lastIndex === -1 || currentIndex === -1) {
       return { x: 0, y: 0 };
     }
-
     const startX = lastIndex % this.carpet.width;
     const startY = Math.floor(lastIndex / this.carpet.height);
     const endX = currentIndex % this.carpet.width;

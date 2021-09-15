@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Choreography} from '../choreography';
-import {ChoreographyItem} from '../choreography-item';
+import { Component, OnInit } from '@angular/core';
+import { Choreography } from '../choreography';
+import { ChoreographyItem } from '../choreography-item';
 
 @Component({
   selector: 'app-choreography',
@@ -53,7 +53,8 @@ export class ChoreographyComponent implements OnInit {
   activeFrame = 0;
   activeChoreographyItem: ChoreographyItem | null = null;
 
-  animationInterval: number;
+  animationIntervalId: number;
+  frameInterval = 1000;
 
   constructor() {
   }
@@ -119,14 +120,14 @@ export class ChoreographyComponent implements OnInit {
   }
 
   play() {
-    this.animationInterval = window.setInterval(() => {
+    this.animationIntervalId = window.setInterval(() => {
       this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
-    }, 5000);
+    }, this.frameInterval);
   }
 
   pause() {
-    window.clearInterval(this.animationInterval);
-    this.animationInterval = 0;
+    window.clearInterval(this.animationIntervalId);
+    this.animationIntervalId = 0;
   }
 
   removePerson(name: string) {
