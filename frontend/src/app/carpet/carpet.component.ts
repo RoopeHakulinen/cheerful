@@ -1,4 +1,4 @@
-import {animate, style, transition, trigger} from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import {
   Component,
   EventEmitter,
@@ -6,14 +6,13 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
   SimpleChanges
 } from '@angular/core';
-import {Subscription} from 'rxjs';
-import {Carpet} from '../carpet';
-import {ChoreographyFrame} from '../choreography-frame';
-import {ChoreographyItem} from '../choreography-item';
+import { Subscription } from 'rxjs';
+import { Carpet } from '../carpet';
+import { ChoreographyFrame } from '../choreography-frame';
+import { ChoreographyItem } from '../choreography-item';
 
 @Component({
   selector: 'app-carpet',
@@ -22,8 +21,8 @@ import {ChoreographyItem} from '../choreography-item';
   animations: [
     trigger('animate', [
       transition('* => *', [
-        style({transform: `translate({{x}}px, {{y}}px)`}),
-        animate('{{time}}', style({transform: 'translate(0px, 0px)'}))
+        style({ transform: `translate({{x}}px, {{y}}px)` }),
+        animate('{{time}}', style({ transform: 'translate(0px, 0px)' }))
       ], {
         params: {
           time: '0s'
@@ -32,7 +31,7 @@ import {ChoreographyItem} from '../choreography-item';
     ])
   ]
 })
-export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
+export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
   carpet: Carpet;
   @Input()
@@ -43,7 +42,7 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
   @Output()
   active = new EventEmitter<ChoreographyItem>();
   @Output()
-  swap = new EventEmitter<{ first: number, second: number }>();
+  swap = new EventEmitter<{ first: number | null, second: number }>();
 
   verticalSegments: any[];
   horizontalSegments: any[];
@@ -52,20 +51,13 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
   animationsOn = false;
   lastItems: any[] = [];
   subscriptions = new Subscription();
+  draggedItemIndex: number | null = null;
 
-  constructor() {
-  }
-
-  ngOnInit() {
-    // this.dragulaService.setOptions('grid-bag', { ignoreInputTextSelection: false });
-    // this.subscriptions.add(this.dragulaService.drag.subscribe(() => {
-    //   this.animationsOn = false;
-    // }));
-    // this.subscriptions.add(this.dragulaService.drop.subscribe((value) => {
-    //   const first = parseInt(value[2].getAttribute('index'), 10);
-    //   const second = parseInt(value[3].getAttribute('index'), 10);
-    //   this.swap.emit({ first, second });
-    // }));
+  swapPositions(event: number) {
+    const first = this.draggedItemIndex;
+    const second = event;
+    this.swap.emit({ first, second });
+    this.draggedItemIndex = null;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -95,10 +87,10 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
     return this.itemDifference(lastItemIndex, index);
   }
 
-  getAnimationParams(item, index) {
+  getAnimationParams(item: ChoreographyItem, index: number) {
     return {
       ...this.findTranslation(item, index),
-      time: this.animationsOn ? '3s' : '0s'
+      time: this.animationsOn ? '2s' : '0s'
     };
   }
 
@@ -108,7 +100,7 @@ export class CarpetComponent implements OnInit, OnChanges, OnDestroy {
 
   private itemDifference(lastIndex, currentIndex) {
     if (lastIndex === -1 || currentIndex === -1) {
-      return {x: 0, y: 0};
+      return { x: 0, y: 0 };
     }
 
     const startX = lastIndex % this.carpet.width;

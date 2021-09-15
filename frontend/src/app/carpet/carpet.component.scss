@@ -51,6 +51,7 @@
         color: white;
         display: flex;
         position: relative;
+        border: aliceblue;
 
         &.active {
           border: 1px solid red;
@@ -68,7 +69,7 @@
           position: absolute;
           display: inline-block;
           cursor: move;
-          font-size: 2vh;
+          font-size: 1vh;
 
           &.rounded {
             border-radius: 18px;
