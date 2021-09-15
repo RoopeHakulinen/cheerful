@@ -57,7 +57,7 @@ export class ChoreographyComponent implements OnInit {
   activeChoreographyItem: ChoreographyItem | null = null;
 
   animationIntervalId: number;
-  frameInterval = 1000;
+  frameInterval = 2000;
   areAnimationsOn = true;
   isLoopingOn = true;
   tempo = 8;
@@ -171,5 +171,9 @@ export class ChoreographyComponent implements OnInit {
     const wereAnimationsOnInitially = this.areAnimationsOn;
     this.areAnimationsOn = false;
     setTimeout(() => this.areAnimationsOn = wereAnimationsOnInitially, 0);
+  }
+
+  frameDurationChange(newFrameInterval: number) {
+    this.frameInterval = newFrameInterval;
   }
 }

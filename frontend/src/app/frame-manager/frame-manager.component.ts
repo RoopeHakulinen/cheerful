@@ -17,6 +17,12 @@ export class FrameManagerComponent implements OnInit {
   active: number;
   @Input()
   isPlaying: boolean;
+  @Input()
+  areAnimationsOn: boolean;
+  @Input()
+  isLoopingOn: boolean;
+  @Input()
+  frameInterval: number;
 
   @Output()
   add = new EventEmitter<void>();
@@ -29,10 +35,15 @@ export class FrameManagerComponent implements OnInit {
   @Output()
   pause = new EventEmitter<void>();
   @Output()
-  toggleAnimations = new EventEmitter<boolean>();
+  toggleAnimations = new EventEmitter<void>();
   @Output()
-  toggleLooping = new EventEmitter<boolean>();
+  toggleLooping = new EventEmitter<void>();
+  @Output()
+  frameDurationChange = new EventEmitter<number>();
 
+  get frameIntervalAsSeconds() {
+    return this.frameInterval / 1000;
+  }
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
   }
@@ -57,5 +68,9 @@ export class FrameManagerComponent implements OnInit {
         });
       }
     });
+  }
+
+  emitFrameDurationChange($event: Event) {
+    this.frameDurationChange.emit(parseFloat(($event.target as HTMLInputElement).value) * 1000);
   }
 }

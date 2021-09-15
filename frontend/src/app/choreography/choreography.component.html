@@ -12,6 +12,10 @@
       (remove)="removeFrame($event)"
       (toggleAnimations)="toggleAnimations()"
       (toggleLooping)="toggleLooping()"
+      (frameDurationChange)="frameDurationChange($event)"
+      [areAnimationsOn]="areAnimationsOn"
+      [frameInterval]="frameInterval"
+      [isLoopingOn]="isLoopingOn"
       [active]="activeFrame"
       [frames]="choreography.frames"
       [isPlaying]="!!animationIntervalId"></app-frame-manager>
