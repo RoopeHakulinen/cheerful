@@ -19,7 +19,13 @@
   <button (click)="add.emit()" mat-raised-button>Add</button>
   <button (click)="removeClicked(active)" mat-raised-button>Remove</button>
   <div class="toggle-container">
-    <mat-checkbox (change)="toggleAnimations.emit()" [checked]="true">Animations</mat-checkbox>
-    <mat-checkbox (change)="toggleLooping.emit()" [checked]="true">Looping</mat-checkbox>
+    <mat-checkbox (change)="toggleAnimations.emit()" [checked]="areAnimationsOn">Animations</mat-checkbox>
+    <mat-checkbox (change)="toggleLooping.emit()" [checked]="isLoopingOn">Looping</mat-checkbox>
+    <mat-form-field class="input-container">
+      Frame duration (s)
+      <input (change)="emitFrameDurationChange($event)" [valueAsNumber]="frameIntervalAsSeconds" matInput max="24"
+             min="1" step="0.5"
+             type="number">
+    </mat-form-field>
   </div>
 </div>
