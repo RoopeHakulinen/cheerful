@@ -23,6 +23,8 @@ export class FrameManagerComponent implements OnInit {
   isLoopingOn: boolean;
   @Input()
   frameInterval: number;
+  @Input()
+  isVoiceSynthesisOn: boolean;
 
   @Output()
   add = new EventEmitter<void>();
@@ -40,6 +42,8 @@ export class FrameManagerComponent implements OnInit {
   toggleLooping = new EventEmitter<void>();
   @Output()
   frameDurationChange = new EventEmitter<number>();
+  @Output()
+  toggleVoiceSynthesis = new EventEmitter<void>();
 
   get frameIntervalAsSeconds() {
     return this.frameInterval / 1000;
