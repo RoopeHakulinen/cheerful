@@ -47,17 +47,15 @@ export class EightCounterComponent implements OnChanges, OnInit {
   }
 
   initializeProgressBar() {
-
     let timeElapsedInFrame = 0;
     let previousAnimationTime: number | null = null;
-
     const step = (timestamp: DOMHighResTimeStamp) => {
       if (previousAnimationTime === null) {
         previousAnimationTime = timestamp;
       }
       timeElapsedInFrame += (timestamp - previousAnimationTime);
       previousAnimationTime = timestamp;
-      let progressBarValueExact = Math.floor((timeElapsedInFrame / (this.duration * 0.8)) * 100);
+      const progressBarValueExact = Math.floor((timeElapsedInFrame / (this.duration * 0.8)) * 100);
       if (this.progressBarValue + 1 < progressBarValueExact) {
         this.progressBarValue = progressBarValueExact;
       }
@@ -77,7 +75,7 @@ export class EightCounterComponent implements OnChanges, OnInit {
   }
 
   private setCounterNumber() {
-    this.counterNumber = 1 + (this.frameIndex % this.tempo);
+    this.counterNumber = (this.frameIndex % this.tempo) + 1;
   }
 
   private setSpeechSynthesis() {
