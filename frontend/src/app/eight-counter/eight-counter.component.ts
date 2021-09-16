@@ -16,7 +16,7 @@ export class EightCounterComponent implements OnChanges, OnInit {
   @Input()
   isPlayingOn: boolean;
   @Input()
-  isVoiceSynthesisOn: boolean;
+  isSpeechSynthesisOn: boolean;
 
   counterNumber: number;
   speechSynthesisWindow: SpeechSynthesis;
@@ -38,7 +38,7 @@ export class EightCounterComponent implements OnChanges, OnInit {
       this.setCounterNumber();
       this.resetProgressBar();
     }
-    if (changes.isVoiceSynthesisOn && changes.isVoiceSynthesisOn.previousValue !== this.isVoiceSynthesisOn) {
+    if (this.isSpeechSynthesisOn) {
       this.setSpeechSynthesis();
     }
     if (this.isPlayingOn) {
@@ -79,7 +79,7 @@ export class EightCounterComponent implements OnChanges, OnInit {
   }
 
   private setSpeechSynthesis() {
-    if (this.isPlayingOn && this.isVoiceSynthesisOn) {
+    if (this.isPlayingOn && this.isSpeechSynthesisOn) {
       this.speechSynthesis.text = (this.counterNumber.toString());
       this.speechSynthesisWindow.speak(this.speechSynthesis);
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Choreography } from '../choreography';
 import { ChoreographyItem } from '../choreography-item';
+import { TEST_FRAMES } from '../testFrames';
 
 @Component({
   selector: 'app-choreography',
@@ -40,9 +41,7 @@ export class ChoreographyComponent implements OnInit {
       'Matti',
       'Joonas',
     ],
-    frames: [{
-      grid: []
-    }],
+    frames: TEST_FRAMES,
     carpet: {
       color: '#5151b8',
       height: 12,
@@ -102,7 +101,7 @@ export class ChoreographyComponent implements OnInit {
     item.text = '';
     item.color = '';
     item.position = ['center', 'center'];
-    item.sign = {text: '', color: ''};
+    item.sign = { text: '', color: '' };
   }
 
   getAvailablePeopleForThisFrame() {
@@ -116,7 +115,7 @@ export class ChoreographyComponent implements OnInit {
         .includes(person));
   }
 
-  swapItems({first, second}) {
+  swapItems({ first, second }) {
     this.disableAnimationsForNextTick();
     const temp = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[first]));
     const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[second]));
@@ -176,5 +175,15 @@ export class ChoreographyComponent implements OnInit {
 
   toggleVoiceSynthesis() {
     this.isVoiceSynthesisOn = !this.isVoiceSynthesisOn;
+  }
+
+  switchFramePosition(frameIndexes: number[]) {
+    console.log(this.choreography.frames);
+    [this.choreography.frames[frameIndexes[0]], this.choreography.frames[1]] = [this.choreography.frames[frameIndexes[1]], this.choreography.frames[0]]
+  }
+
+
+  logGridToConsole() {
+    console.log(JSON.stringify(this.choreography.frames))
   }
 }

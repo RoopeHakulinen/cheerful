@@ -3,6 +3,7 @@ import { ChoreographyFrame } from '../choreography-frame';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-frame-manager',
@@ -44,6 +45,8 @@ export class FrameManagerComponent implements OnInit {
   frameDurationChange = new EventEmitter<number>();
   @Output()
   toggleVoiceSynthesis = new EventEmitter<void>();
+  @Output()
+  switchFramePosition = new EventEmitter<number[]>();
 
   get frameIntervalAsSeconds() {
     return this.frameInterval / 1000;
@@ -76,5 +79,10 @@ export class FrameManagerComponent implements OnInit {
 
   emitFrameDurationChange($event: Event) {
     this.frameDurationChange.emit(parseFloat(($event.target as HTMLInputElement).value) * 1000);
+  }
+
+  moveFrames(event: CdkDragDrop<string[]>) {
+    this.switchFramePosition.emit([event.previousIndex, event.currentIndex]);
+    console.log(event.previousIndex, event.currentIndex)
   }
 }

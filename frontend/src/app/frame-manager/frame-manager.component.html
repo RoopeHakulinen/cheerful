@@ -6,15 +6,16 @@
     <mat-icon (click)="pause.emit()" aria-label="Pause choreography">pause</mat-icon>
   </button>
 </div>
-
-<div
-  (click)="activeChanged.emit(index)"
-  *ngFor="let frame of frames; index as index"
-  [class.active]="index === active"
-  class="frame clickable">
-  Frame {{index + 1}}
+<div (cdkDropListDropped)="moveFrames($event)" cdkDropList>
+  <div
+    (click)="activeChanged.emit(index)"
+    *ngFor="let frame of frames; index as index"
+    [class.active]="index === active"
+    cdkDrag
+    class="frame clickable">
+    Frame {{index + 1}}
+  </div>
 </div>
-
 <div class="controls">
   <button (click)="add.emit()" mat-raised-button>Add</button>
   <button (click)="removeClicked(active)" mat-raised-button>Remove</button>
