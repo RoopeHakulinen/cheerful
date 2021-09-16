@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Choreography } from '../choreography';
 import { ChoreographyItem } from '../choreography-item';
-import { EightCounterComponent } from '../eight-counter/eight-counter.component';
 
 @Component({
   selector: 'app-choreography',
@@ -9,8 +8,6 @@ import { EightCounterComponent } from '../eight-counter/eight-counter.component'
   styleUrls: ['./choreography.component.scss']
 })
 export class ChoreographyComponent implements OnInit {
-
-  @ViewChild(EightCounterComponent) child: EightCounterComponent;
 
   choreography: Choreography = {
     name: 'SM-karsinnat',

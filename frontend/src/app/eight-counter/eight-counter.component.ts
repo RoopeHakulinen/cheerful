@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-eight-counter',
@@ -18,15 +18,11 @@ export class EightCounterComponent implements OnChanges, OnInit {
   @Input()
   isVoiceSynthesisOn: boolean;
 
-  @Output()
-  synthesisVoiceOptions: string[];
-
   counterNumber: number;
   speechSynthesisWindow: SpeechSynthesis;
   speechSynthesis: SpeechSynthesisUtterance;
   timerId: number;
   progressBarValue = 0;
-  timeElapsedInFrame = 0;
 
   constructor() {
   }
@@ -38,28 +34,50 @@ export class EightCounterComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.setCounterNumber();
-    this.setSpeechSynthesis();
+    if (changes.frameIndex && changes.frameIndex.previousValue !== this.frameIndex) {
+      this.setCounterNumber();
+      this.resetProgressBar();
+    }
+    if (changes.isVoiceSynthesisOn && changes.isVoiceSynthesisOn.previousValue !== this.isVoiceSynthesisOn) {
+      this.setSpeechSynthesis();
+    }
     if (this.isPlayingOn) {
-      this.setProgressBar();
+      this.initializeProgressBar();
     }
   }
 
-  setProgressBar() {
+  initializeProgressBar() {
+
     let timeElapsedInFrame = 0;
-    const timerId = window.setInterval(() => {
-      timeElapsedInFrame = timeElapsedInFrame + 200;
-      this.progressBarValue = Math.floor((timeElapsedInFrame / this.duration) * 100);
-      console.log(this.progressBarValue)
-      if (!this.isPlayingOn || (timeElapsedInFrame >= this.duration)) {
-        window.clearInterval(timerId);
+    let previousAnimationTime: number | null = null;
+
+    const step = (timestamp: DOMHighResTimeStamp) => {
+      if (previousAnimationTime === null) {
+        previousAnimationTime = timestamp;
       }
-    }, 200)
+      timeElapsedInFrame += (timestamp - previousAnimationTime);
+      previousAnimationTime = timestamp;
+      let progressBarValueExact = Math.floor((timeElapsedInFrame / (this.duration * 0.8)) * 100);
+      if (this.progressBarValue + 1 < progressBarValueExact) {
+        this.progressBarValue = progressBarValueExact;
+      }
+      if (this.isPlayingOn && timeElapsedInFrame < this.duration) {
+        this.timerId = window.requestAnimationFrame(step);
+      } else {
+        this.resetProgressBar();
+      }
+    }
+    this.timerId = window.requestAnimationFrame(step);
+  }
+
+  private resetProgressBar() {
+    this.progressBarValue = 0;
+    window.cancelAnimationFrame(this.timerId);
+
   }
 
   private setCounterNumber() {
     this.counterNumber = 1 + (this.frameIndex % this.tempo);
-
   }
 
   private setSpeechSynthesis() {
