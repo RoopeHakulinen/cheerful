@@ -178,10 +178,10 @@ export class ChoreographyComponent implements OnInit {
   }
 
   switchFramePosition(frameIndexes: number[]) {
-    console.log(this.choreography.frames);
-    [this.choreography.frames[frameIndexes[0]], this.choreography.frames[1]] = [this.choreography.frames[frameIndexes[1]], this.choreography.frames[0]]
+    const temp1 = this.choreography.frames[1];
+    this.choreography.frames[1] = this.choreography.frames[0];
+    this.choreography.frames[0] = temp1;
   }
-
 
   logGridToConsole() {
     console.log(JSON.stringify(this.choreography.frames))
