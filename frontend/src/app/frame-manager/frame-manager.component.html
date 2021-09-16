@@ -21,6 +21,7 @@
   <div class="toggle-container">
     <mat-checkbox (change)="toggleAnimations.emit()" [checked]="areAnimationsOn">Animations</mat-checkbox>
     <mat-checkbox (change)="toggleLooping.emit()" [checked]="isLoopingOn">Looping</mat-checkbox>
+    <mat-checkbox (change)="toggleVoiceSynthesis.emit()" [checked]="isVoiceSynthesisOn">Voice Synthesis</mat-checkbox>
     <mat-form-field class="input-container">
       Frame duration (s)
       <input (change)="emitFrameDurationChange($event)" [valueAsNumber]="frameIntervalAsSeconds" matInput max="24"

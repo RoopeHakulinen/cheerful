@@ -12,10 +12,12 @@
       (remove)="removeFrame($event)"
       (toggleAnimations)="toggleAnimations()"
       (toggleLooping)="toggleLooping()"
+      (toggleVoiceSynthesis)="toggleVoiceSynthesis()"
       (frameDurationChange)="frameDurationChange($event)"
       [areAnimationsOn]="areAnimationsOn"
       [frameInterval]="frameInterval"
       [isLoopingOn]="isLoopingOn"
+      [isVoiceSynthesisOn]="isVoiceSynthesisOn"
       [active]="activeFrame"
       [frames]="choreography.frames"
       [isPlaying]="!!animationIntervalId"></app-frame-manager>
@@ -76,6 +78,9 @@
 
     <app-eight-counter
       [duration]="frameInterval"
+      [frameIndex]="activeFrame"
+      [isPlayingOn]="(animationIntervalId > 0)"
+      [isVoiceSynthesisOn]="isVoiceSynthesisOn"
       [tempo]="tempo"></app-eight-counter>
   </div>
 </div>

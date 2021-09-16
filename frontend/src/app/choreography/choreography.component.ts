@@ -60,6 +60,7 @@ export class ChoreographyComponent implements OnInit {
   frameInterval = 2000;
   areAnimationsOn = true;
   isLoopingOn = true;
+  isVoiceSynthesisOn = true;
   tempo = 8;
 
   constructor() {
@@ -129,7 +130,6 @@ export class ChoreographyComponent implements OnInit {
   play() {
     this.animationIntervalId = window.setInterval(() => {
       this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
-      this.child.play();
       if (!this.isLoopingOn && (this.activeFrame + 1 === this.choreography.frames.length)) {
         this.pause()
       }
@@ -175,5 +175,9 @@ export class ChoreographyComponent implements OnInit {
 
   frameDurationChange(newFrameInterval: number) {
     this.frameInterval = newFrameInterval;
+  }
+
+  toggleVoiceSynthesis() {
+    this.isVoiceSynthesisOn = !this.isVoiceSynthesisOn;
   }
 }

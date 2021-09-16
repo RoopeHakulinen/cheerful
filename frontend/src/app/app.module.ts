@@ -37,6 +37,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EightCounterComponent } from './eight-counter/eight-counter.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { EightCounterComponent } from './eight-counter/eight-counter.component';
       registrationStrategy: 'registerWhenStable:30000'
     }),
     DragDropModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule
   ],
   providers: [MenuService],
   bootstrap: [AppComponent],

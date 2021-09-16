@@ -1,3 +1,4 @@
-<div class="counter-container">
-  {{count}}
+<div *ngIf="isPlayingOn" class="counter-container">
+  {{counterNumber}} ...
+  <mat-progress-bar [value]="progressBarValue" mode="determinate"></mat-progress-bar>
 </div>
