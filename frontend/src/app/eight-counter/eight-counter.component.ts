@@ -38,8 +38,10 @@ export class EightCounterComponent implements OnChanges, OnInit {
       this.setCounterNumber();
       this.resetProgressBar();
     }
-    if (this.isSpeechSynthesisOn) {
-      this.setSpeechSynthesis();
+    if (this.isSpeechSynthesisOn && this.isPlayingOn) {
+      this.startSpeechSynthesis();
+    } else {
+      this.pauseSpeechSynthesis()
     }
     if (this.isPlayingOn) {
       this.initializeProgressBar();
@@ -71,17 +73,20 @@ export class EightCounterComponent implements OnChanges, OnInit {
   private resetProgressBar() {
     this.progressBarValue = 0;
     window.cancelAnimationFrame(this.timerId);
-
   }
 
   private setCounterNumber() {
     this.counterNumber = (this.frameIndex % this.tempo) + 1;
   }
 
-  private setSpeechSynthesis() {
-    if (this.isPlayingOn && this.isSpeechSynthesisOn) {
-      this.speechSynthesis.text = (this.counterNumber.toString());
-      this.speechSynthesisWindow.speak(this.speechSynthesis);
+  private startSpeechSynthesis() {
+    this.speechSynthesis.text = this.counterNumber.toString()
+    this.speechSynthesisWindow.speak(this.speechSynthesis);
+  }
+
+  private pauseSpeechSynthesis() {
+    if (this.speechSynthesisWindow) {
+      this.speechSynthesisWindow.cancel();
     }
   }
 }
