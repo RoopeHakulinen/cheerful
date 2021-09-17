@@ -1,4 +1,4 @@
-<app-toolbar [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
+<app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
 <div fxLayout="column" fxLayout.gt-sm="row">
   <div class="padding" fxFlex fxFlex.gt-sm="200px">
     <mat-form-field>
@@ -14,6 +14,7 @@
       (toggleLooping)="toggleLooping()"
       (toggleVoiceSynthesis)="toggleVoiceSynthesis()"
       (frameDurationChange)="frameDurationChange($event)"
+      (switchFramePosition)="switchFramePosition($event)"
       [areAnimationsOn]="areAnimationsOn"
       [frameInterval]="frameInterval"
       [isLoopingOn]="isLoopingOn"
@@ -80,7 +81,7 @@
       [duration]="frameInterval"
       [frameIndex]="activeFrame"
       [isPlayingOn]="animationIntervalId > 0"
-      [isVoiceSynthesisOn]="isVoiceSynthesisOn"
+      [isSpeechSynthesisOn]="isVoiceSynthesisOn"
       [tempo]="tempo"></app-eight-counter>
   </div>
 </div>
