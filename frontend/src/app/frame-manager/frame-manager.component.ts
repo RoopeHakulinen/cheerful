@@ -83,6 +83,5 @@ export class FrameManagerComponent implements OnInit {
 
   moveFrames(event: CdkDragDrop<string[]>) {
     this.switchFramePosition.emit([event.previousIndex, event.currentIndex]);
-    console.log(event.previousIndex, event.currentIndex)
   }
 }
