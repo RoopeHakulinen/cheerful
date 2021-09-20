@@ -3,7 +3,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AboutComponent } from './about/about.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -60,7 +59,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
-    // ServiceWorkerModule.register('/cheerful/ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

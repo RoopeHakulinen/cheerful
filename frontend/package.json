@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "cheerful",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "deploy": "ng deploy --base-href=/cheerful"
+    "deploy": "ng deploy --base-href=/cheerful/"
   },
   "private": true,
   "dependencies": {
