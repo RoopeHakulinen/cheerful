@@ -1,18 +1,23 @@
 {
   "configVersion": 1,
-  "index": "/cheerful/index.html",
+  "timestamp": 1632133302278,
+  "index": "/RoopeHakulinen/cheerful/index.html",
   "assetGroups": [
     {
       "name": "app",
       "installMode": "prefetch",
       "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
       "urls": [
-        "/cheerful/favicon.ico",
-        "/cheerful/index.html",
-        "/cheerful/inline.9cc21731dd90179bd04f.bundle.js",
-        "/cheerful/main.12890ba83600aec37a2b.bundle.js",
-        "/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js",
-        "/cheerful/styles.2c6a17fda3d8307f539b.bundle.css"
+        "/RoopeHakulinen/cheerful/favicon.ico",
+        "/RoopeHakulinen/cheerful/index.html",
+        "/RoopeHakulinen/cheerful/main.9293a3b44af4a108d544.js",
+        "/RoopeHakulinen/cheerful/manifest.webmanifest",
+        "/RoopeHakulinen/cheerful/polyfills.5fcfa50e2855002f3409.js",
+        "/RoopeHakulinen/cheerful/runtime.81e27cce1cc91940b6f1.js",
+        "/RoopeHakulinen/cheerful/styles.4396963862aebd377ed3.css"
       ],
       "patterns": []
     },
@@ -20,28 +25,57 @@
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
       "urls": [
-        "/cheerful/assets/icon-dpi.png",
-        "/cheerful/assets/icon-hdpi.png",
-        "/cheerful/assets/icon-xhdpi.png",
-        "/cheerful/assets/icon-xxhdpi.png",
-        "/cheerful/assets/icon-xxxhdpi.png"
+        "/RoopeHakulinen/cheerful/assets/icons/icon-128x128.png",
+        "/RoopeHakulinen/cheerful/assets/icons/icon-144x144.png",
+        "/RoopeHakulinen/cheerful/assets/icons/icon-152x152.png",
+        "/RoopeHakulinen/cheerful/assets/icons/icon-192x192.png",
+        "/RoopeHakulinen/cheerful/assets/icons/icon-384x384.png",
+        "/RoopeHakulinen/cheerful/assets/icons/icon-512x512.png",
+        "/RoopeHakulinen/cheerful/assets/icons/icon-72x72.png",
+        "/RoopeHakulinen/cheerful/assets/icons/icon-96x96.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/cheerful/inline.9cc21731dd90179bd04f.bundle.js": "f604696a115398bf37c3042860b4e88727bb235f",
-    "/cheerful/assets/icon-dpi.png": "a3b35e60a3f359255052ff4a70023ee7110f799f",
-    "/cheerful/main.12890ba83600aec37a2b.bundle.js": "86232807de0918af7fb3138497965e726e65c2bc",
-    "/cheerful/assets/icon-hdpi.png": "db773514d8a99b7fcdccd1011f49f02b3a254840",
-    "/cheerful/polyfills.f039bbc7aaddeebcb9aa.bundle.js": "669df48deb7f2148518a6e8e9490ba8ee2db7000",
-    "/cheerful/assets/icon-xhdpi.png": "e9b2dfb6f3d04d8ac960a3fecf4713a1728bdf08",
-    "/cheerful/styles.2c6a17fda3d8307f539b.bundle.css": "6dffc767369843c28835e393593261d3dbf4f58c",
-    "/cheerful/assets/icon-xxhdpi.png": "4f72439d73bd2b2451cc2a41740ed735502c91fa",
-    "/cheerful/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/cheerful/assets/icon-xxxhdpi.png": "1182f59fd0632e14e814420d9d9ec022c1799dc1",
-    "/cheerful/index.html": "4ae707fb8b5a1d5bbd20c5ff79df96f0c686e0bb"
-  }
+    "/RoopeHakulinen/cheerful/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/RoopeHakulinen/cheerful/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/RoopeHakulinen/cheerful/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/RoopeHakulinen/cheerful/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/RoopeHakulinen/cheerful/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/RoopeHakulinen/cheerful/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/RoopeHakulinen/cheerful/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/RoopeHakulinen/cheerful/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/RoopeHakulinen/cheerful/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/RoopeHakulinen/cheerful/index.html": "0e9c85cf57c8f4acb51f32aa3c28201876a6fd23",
+    "/RoopeHakulinen/cheerful/main.9293a3b44af4a108d544.js": "f04ca1228fc299eca4d19fcf3473a03b6918ecc0",
+    "/RoopeHakulinen/cheerful/manifest.webmanifest": "63b272452f7323ec09705c84044faa394ce82a79",
+    "/RoopeHakulinen/cheerful/polyfills.5fcfa50e2855002f3409.js": "7c42f10133cddf9bca40f9ac9248db7f9f17bda7",
+    "/RoopeHakulinen/cheerful/runtime.81e27cce1cc91940b6f1.js": "6bee660c4b2b43196aebf393943aa0270ee55cb3",
+    "/RoopeHakulinen/cheerful/styles.4396963862aebd377ed3.css": "eb2602132c5445626d077ef0c26c7fe7d690ece8"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
 }
