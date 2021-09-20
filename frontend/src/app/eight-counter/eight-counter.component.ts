@@ -33,7 +33,7 @@ export class EightCounterComponent implements OnChanges, OnInit {
     this.speechSynthesis.rate = 2;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.frameIndex && changes.frameIndex.previousValue !== this.frameIndex) {
       this.setCounterNumber();
       this.resetProgressBar();
@@ -48,10 +48,10 @@ export class EightCounterComponent implements OnChanges, OnInit {
     }
   }
 
-  initializeProgressBar() {
+  initializeProgressBar(): void {
     let timeElapsedInFrame = 0;
     let previousAnimationTime: number | null = null;
-    const step = (timestamp: DOMHighResTimeStamp) => {
+    const step = (timestamp: DOMHighResTimeStamp): void => {
       if (previousAnimationTime === null) {
         previousAnimationTime = timestamp;
       }
@@ -70,21 +70,21 @@ export class EightCounterComponent implements OnChanges, OnInit {
     this.timerId = window.requestAnimationFrame(step);
   }
 
-  private resetProgressBar() {
+  private resetProgressBar(): void {
     this.progressBarValue = 0;
     window.cancelAnimationFrame(this.timerId);
   }
 
-  private setCounterNumber() {
+  private setCounterNumber(): void {
     this.counterNumber = (this.frameIndex % this.tempo) + 1;
   }
 
-  private startSpeechSynthesis() {
+  private startSpeechSynthesis(): void {
     this.speechSynthesis.text = this.counterNumber.toString()
     this.speechSynthesisWindow.speak(this.speechSynthesis);
   }
 
-  private pauseSpeechSynthesis() {
+  private pauseSpeechSynthesis(): void {
     if (this.speechSynthesisWindow) {
       this.speechSynthesisWindow.cancel();
     }

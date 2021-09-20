@@ -72,7 +72,7 @@
           font-size: 0.7rem;
 
           &.rounded {
-            border-radius: 18px;
+            border-radius: 15px;
           }
 
           &.left {
@@ -85,6 +85,10 @@
 
           .text {
             padding: 2px;
+          }
+
+          .rounded {
+            border-radius: 15px;
           }
         }
       }

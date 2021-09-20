@@ -34,7 +34,7 @@
           cdkDrag class="text-container {{item.shape}} {{item.position[1]}}">
           <span
             [style.background-color]="item.color"
-            class="text">
+            class="text {{item.shape}}">
           {{item.text}}
           </span>
         </span>
@@ -42,4 +42,5 @@
     </div>
   </div>
 </div>
+
 

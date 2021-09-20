@@ -46,7 +46,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Output()
   active = new EventEmitter<ChoreographyItem>();
   @Output()
-  swap = new EventEmitter<{ first: number | null, second: number }>();
+  swap = new EventEmitter<{ first: number, second: number }>();
 
   verticalSegments: any[];
   horizontalSegments: any[];
@@ -57,14 +57,14 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   draggedItemIndex: number | null = null;
 
 
-  swapPositions(event: number) {
-    const first = this.draggedItemIndex;
+  swapPositions(event: number): void {
+    const first = this.draggedItemIndex!;
     const second = event;
     this.swap.emit({ first, second });
     this.draggedItemIndex = null;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.frame && changes.frame.previousValue && changes.frame.previousValue.grid !== changes.frame.currentValue.grid) {
       this.lastItems = changes.frame.previousValue.grid;
       this.animate = !this.animate;
@@ -77,7 +77,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   }
 
   @HostListener('window:resize')
-  setTileDimension() {
+  setTileDimension(): void {
     const el = document.querySelector('.carpet')?.parentElement?.parentElement ?? null;
     if (el === null) {
       return;
@@ -85,12 +85,12 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     this.tileDimension = Math.min((el.clientWidth - 20) / this.carpet.width, 50);
   }
 
-  findTranslation(item: ChoreographyItem, index: number) {
+  findTranslation(item: ChoreographyItem, index: number): { x: number, y: number } {
     const lastItemIndex = this.findItemByText(item.text);
     return this.itemDifference(lastItemIndex, index);
   }
 
-  getAnimationParams(item: ChoreographyItem, index: number) {
+  getAnimationParams(item: ChoreographyItem, index: number): { x: number, y: number, time: string } {
 
     return {
       ...this.findTranslation(item, index),
@@ -98,11 +98,11 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     };
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  private itemDifference(lastIndex, currentIndex) {
+  private itemDifference(lastIndex: number, currentIndex: number): { x: number, y: number } {
     if (lastIndex === -1 || currentIndex === -1) {
       return { x: 0, y: 0 };
     }
@@ -116,7 +116,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     };
   }
 
-  private findItemByText(text: string) {
+  private findItemByText(text: string): number {
     if (!this.lastItems || !text || text.length === 0) {
       return -1;
     }

@@ -62,25 +62,25 @@ export class ChoreographyComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.choreography.frames[0].grid = this.generateGrid();
   }
 
-  addFrame() {
+  addFrame(): void {
     this.choreography.frames.push({
       grid: JSON.parse(JSON.stringify(this.choreography.frames[this.choreography.frames.length - 1].grid))
     });
     this.activeFrame = this.choreography.frames.length - 1;
   }
 
-  removeFrame(index: number) {
+  removeFrame(index: number): void {
     this.choreography.frames.splice(index, 1);
     if (this.activeFrame >= this.choreography.frames.length) {
       this.activeFrame = this.choreography.frames.length - 1;
     }
   }
 
-  generateGrid() {
+  generateGrid(): ChoreographyItem[] {
     return Array(this.choreography.carpet.height * this.choreography.carpet.width)
       .fill({
         text: '',
@@ -97,14 +97,14 @@ export class ChoreographyComponent implements OnInit {
       }));
   }
 
-  clearItem(item: ChoreographyItem) {
+  clearItem(item: ChoreographyItem): void {
     item.text = '';
     item.color = '';
     item.position = ['center', 'center'];
     item.sign = { text: '', color: '' };
   }
 
-  getAvailablePeopleForThisFrame() {
+  getAvailablePeopleForThisFrame(): string[] {
     return this.choreography.people.filter(
       person => !this.choreography.frames[this.activeFrame].grid
         .reduce(
@@ -115,15 +115,16 @@ export class ChoreographyComponent implements OnInit {
         .includes(person));
   }
 
-  swapItems({ first, second }) {
+  swapItems({ first, second }: { first: number, second: number }): void {
     this.disableAnimationsForNextTick();
     const temp = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[first]));
     const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[second]));
     this.choreography.frames[this.activeFrame].grid[first] = temp2;
     this.choreography.frames[this.activeFrame].grid[second] = temp;
+
   }
 
-  play() {
+  play(): void {
     this.animationIntervalId = window.setInterval(() => {
       this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
       if (!this.isLoopingOn && (this.activeFrame + 1 === this.choreography.frames.length)) {
@@ -133,12 +134,12 @@ export class ChoreographyComponent implements OnInit {
 
   }
 
-  pause() {
+  pause(): void {
     window.clearInterval(this.animationIntervalId);
     this.animationIntervalId = 0;
   }
 
-  removePerson(name: string) {
+  removePerson(name: string): void {
     const index = this.choreography.people.findIndex(person => name === person);
     if (index === -1) {
       return;
@@ -151,39 +152,39 @@ export class ChoreographyComponent implements OnInit {
     }));
   }
 
-  setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any) {
+  setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any): void {
     activeChoreographyItem.position = option;
   }
 
-  toggleAnimations() {
+  toggleAnimations(): void {
     this.areAnimationsOn = !this.areAnimationsOn;
   }
 
-  toggleLooping() {
+  toggleLooping(): void {
     this.isLoopingOn = !this.isLoopingOn;
   }
 
-  private disableAnimationsForNextTick() {
-    const wereAnimationsOnInitially = this.areAnimationsOn;
-    this.areAnimationsOn = false;
-    setTimeout(() => this.areAnimationsOn = wereAnimationsOnInitially, 0);
-  }
-
-  frameDurationChange(newFrameInterval: number) {
+  frameDurationChange(newFrameInterval: number): void {
     this.frameInterval = newFrameInterval;
   }
 
-  toggleVoiceSynthesis() {
+  toggleVoiceSynthesis(): void {
     this.isVoiceSynthesisOn = !this.isVoiceSynthesisOn;
   }
 
-  switchFramePosition(frameIndexes: number[]) {
+  switchFramePosition(frameIndexes: number[]): void {
     const temp1 = this.choreography.frames[1];
     this.choreography.frames[1] = this.choreography.frames[0];
     this.choreography.frames[0] = temp1;
   }
 
-  logGridToConsole() {
+  logGridToConsole(): void {
     console.log(JSON.stringify(this.choreography.frames))
+  }
+
+  private disableAnimationsForNextTick(): void {
+    const wereAnimationsOnInitially = this.areAnimationsOn;
+    this.areAnimationsOn = false;
+    setTimeout(() => this.areAnimationsOn = wereAnimationsOnInitially, 0);
   }
 }

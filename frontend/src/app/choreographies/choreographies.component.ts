@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-choreographies',
   templateUrl: './choreographies.component.html',
   styleUrls: ['./choreographies.component.scss']
 })
-export class ChoreographiesComponent implements OnInit {
+export class ChoreographiesComponent {
   choreographies = [
     {
       name: 'Joulunäytös',
@@ -22,9 +22,6 @@ export class ChoreographiesComponent implements OnInit {
   ];
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
 }
