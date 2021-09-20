@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ChoreographyFrame } from '../choreography-frame';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,7 +10,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
   templateUrl: './frame-manager.component.html',
   styleUrls: ['./frame-manager.component.scss']
 })
-export class FrameManagerComponent implements OnInit {
+export class FrameManagerComponent {
 
   @Input()
   frames: ChoreographyFrame[];
@@ -34,9 +34,9 @@ export class FrameManagerComponent implements OnInit {
   @Output()
   remove = new EventEmitter<number>();
   @Output()
-  play = new EventEmitter<void>();
+  playFrames = new EventEmitter<void>();
   @Output()
-  pause = new EventEmitter<void>();
+  pauseFrames = new EventEmitter<void>();
   @Output()
   toggleAnimations = new EventEmitter<void>();
   @Output()
@@ -48,17 +48,14 @@ export class FrameManagerComponent implements OnInit {
   @Output()
   switchFramePosition = new EventEmitter<number[]>();
 
-  get frameIntervalAsSeconds() {
+  get frameIntervalAsSeconds(): number {
     return this.frameInterval / 1000;
   }
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
-  ngOnInit() {
-  }
-
-  removeClicked(index: number) {
+  removeClicked(index: number): void {
     if (this.frames.length === 1) {
       this.snackBar.open('Only one frame left', 'Close', {
         duration: 5000
@@ -77,11 +74,11 @@ export class FrameManagerComponent implements OnInit {
     });
   }
 
-  emitFrameDurationChange($event: Event) {
+  emitFrameDurationChange($event: Event): void {
     this.frameDurationChange.emit(parseFloat(($event.target as HTMLInputElement).value) * 1000);
   }
 
-  moveFrames(event: CdkDragDrop<string[]>) {
+  moveFrames(event: CdkDragDrop<string[]>): void {
     this.switchFramePosition.emit([event.previousIndex, event.currentIndex]);
   }
 }

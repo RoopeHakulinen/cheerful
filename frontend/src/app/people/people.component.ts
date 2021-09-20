@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-people',
   templateUrl: './people.component.html',
   styleUrls: ['./people.component.scss']
 })
-export class PeopleComponent implements OnInit {
+export class PeopleComponent {
 
   @Input()
   people: string[];
@@ -16,9 +16,6 @@ export class PeopleComponent implements OnInit {
   remove = new EventEmitter<string>();
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
 }

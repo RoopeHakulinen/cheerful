@@ -1,9 +1,9 @@
 <div class="controls">
   <button *ngIf="!isPlaying" mat-icon-button>
-    <mat-icon (click)="play.emit()" aria-label="Play choreography">play_arrow</mat-icon>
+    <mat-icon (click)="playFrames.emit()" aria-label="Play choreography">play_arrow</mat-icon>
   </button>
   <button *ngIf="isPlaying" mat-icon-button>
-    <mat-icon (click)="pause.emit()" aria-label="Pause choreography">pause</mat-icon>
+    <mat-icon (click)="pauseFrames.emit()" aria-label="Pause choreography">pause</mat-icon>
   </button>
 </div>
 <div (cdkDropListDropped)="moveFrames($event)" cdkDropList>

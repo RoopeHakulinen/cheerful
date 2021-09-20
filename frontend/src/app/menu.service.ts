@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class MenuService {
@@ -7,19 +7,19 @@ export class MenuService {
   constructor() {
   }
 
-  toggle() {
+  toggle(): void {
     this.opened = !this.opened;
   }
 
-  close() {
+  close(): void {
     this.opened = false;
   }
 
-  open() {
+  open(): void {
     this.opened = true;
   }
 
-  isOpen() {
+  isOpen(): boolean {
     return this.opened;
   }
 }
