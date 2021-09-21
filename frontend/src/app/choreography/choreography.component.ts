@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Choreography } from '../choreography';
 import { ChoreographyItem } from '../choreography-item';
 import { TEST_FRAMES } from '../testFrames';
-import { CarpetComponent } from '../carpet/carpet.component';
 
 @Component({
   selector: 'app-choreography',
@@ -10,9 +9,6 @@ import { CarpetComponent } from '../carpet/carpet.component';
   styleUrls: ['./choreography.component.scss']
 })
 export class ChoreographyComponent implements OnInit {
-
-  @ViewChild(CarpetComponent)
-  carpetComponent: CarpetComponent;
 
   choreography: Choreography = {
     name: 'SM-karsinnat',
@@ -200,14 +196,12 @@ export class ChoreographyComponent implements OnInit {
     this.choreography.frames[0].grid = this.generateGrid();
   }
 
-  changeCarpetHeight(event: number): void {
-    this.choreography.carpet.height = event;
-    this.carpetComponent.drawSegmentLines();
+  changeCarpetHeight(newHeight: number): void {
+    this.choreography.carpet = { ...this.choreography.carpet, height: newHeight };
   }
 
-  changeCarpetWidth(event: number): void {
-    this.choreography.carpet.width = event;
+  changeCarpetWidth(newWidth: number): void {
+    this.choreography.carpet = { ...this.choreography.carpet, width: newWidth };
     this.choreography.carpet.segments = this.choreography.carpet.width / 2;
-    this.carpetComponent.drawSegmentLines();
   }
 }

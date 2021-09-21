@@ -42,15 +42,11 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   animationDuration: number;
   @Input()
   areAnimationsOn: boolean;
-  @Input()
-  carpetSegments: number;
-
 
   @Output()
   active = new EventEmitter<ChoreographyItem>();
   @Output()
   swap = new EventEmitter<{ first: number, second: number }>();
-
 
   verticalSegments: any[];
   horizontalSegments: any[];
@@ -59,7 +55,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   lastItems: any[] = [];
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
-
 
   swapPositions(event: number): void {
     const first = this.draggedItemIndex!;
@@ -125,10 +120,5 @@ export class CarpetComponent implements OnChanges, OnDestroy {
       return -1;
     }
     return this.lastItems.findIndex(item => item.text === text);
-  }
-
-  drawSegmentLines() {
-    this.verticalSegments = Array(this.carpet.segments).fill(0);
-    this.horizontalSegments = Array(this.carpet.height).fill(0);
   }
 }
