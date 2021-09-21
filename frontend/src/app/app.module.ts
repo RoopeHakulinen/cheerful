@@ -37,6 +37,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EightCounterComponent } from './eight-counter/eight-counter.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { IosInstallService } from './ios-install-popup.service';
 
 
 @NgModule({
@@ -78,15 +79,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatListModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
     DragDropModule,
     MatCheckboxModule,
     MatProgressBarModule
   ],
-  providers: [MenuService],
+  providers: [MenuService, IosInstallService],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent]
 })
