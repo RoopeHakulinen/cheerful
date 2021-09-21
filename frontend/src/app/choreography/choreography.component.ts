@@ -53,10 +53,10 @@ export class ChoreographyComponent implements OnInit {
   activeChoreographyItem: ChoreographyItem | null = null;
 
   animationIntervalId: number;
-  frameInterval = 2000;
+  frameInterval = 3333;
   areAnimationsOn = true;
   isLoopingOn = true;
-  isVoiceSynthesisOn = true;
+  isVoiceSynthesisOn = false;
   tempo = 8;
 
   constructor() {

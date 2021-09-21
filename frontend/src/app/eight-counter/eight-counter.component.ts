@@ -18,11 +18,13 @@ export class EightCounterComponent implements OnChanges, OnInit {
   @Input()
   isSpeechSynthesisOn: boolean;
 
-  counterNumber: number;
+  frameNumber: number;
   speechSynthesisWindow: SpeechSynthesis;
   speechSynthesis: SpeechSynthesisUtterance;
   timerId: number;
   progressBarValue = 0;
+  frameCount = 1;
+  private subFrameInterval: number;
 
   constructor() {
   }
@@ -35,7 +37,8 @@ export class EightCounterComponent implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.frameIndex && changes.frameIndex.previousValue !== this.frameIndex) {
-      this.setCounterNumber();
+      this.setFrameNumber();
+      this.resetCounterNumber();
       this.resetProgressBar();
     }
     if (this.isSpeechSynthesisOn && this.isPlayingOn) {
@@ -45,6 +48,7 @@ export class EightCounterComponent implements OnChanges, OnInit {
     }
     if (this.isPlayingOn) {
       this.initializeProgressBar();
+      this.setCounterNumber();
     }
   }
 
@@ -75,12 +79,12 @@ export class EightCounterComponent implements OnChanges, OnInit {
     window.cancelAnimationFrame(this.timerId);
   }
 
-  private setCounterNumber(): void {
-    this.counterNumber = (this.frameIndex % this.tempo) + 1;
+  private setFrameNumber(): void {
+    this.frameNumber = this.frameIndex + 1;
   }
 
   private startSpeechSynthesis(): void {
-    this.speechSynthesis.text = this.counterNumber.toString()
+    this.speechSynthesis.text = this.frameNumber.toString()
     this.speechSynthesisWindow.speak(this.speechSynthesis);
   }
 
@@ -88,5 +92,22 @@ export class EightCounterComponent implements OnChanges, OnInit {
     if (this.speechSynthesisWindow) {
       this.speechSynthesisWindow.cancel();
     }
+  }
+
+  private setCounterNumber(): void {
+    let timeElapsedInSubFrame = 0;
+    this.subFrameInterval = window.setInterval(() => {
+      if (timeElapsedInSubFrame >= this.duration || !this.isPlayingOn) {
+        this.resetCounterNumber();
+      } else {
+        timeElapsedInSubFrame += 100;
+        this.frameCount = Math.floor((timeElapsedInSubFrame / this.duration) * 8) + 1
+      }
+    }, 100)
+  }
+
+  private resetCounterNumber() {
+    window.clearInterval(this.subFrameInterval);
+    this.frameCount = 1;
   }
 }
