@@ -56,7 +56,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
 
-
   swapPositions(event: number): void {
     const first = this.draggedItemIndex!;
     const second = event;

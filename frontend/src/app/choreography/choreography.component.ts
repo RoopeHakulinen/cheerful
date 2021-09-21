@@ -56,8 +56,9 @@ export class ChoreographyComponent implements OnInit {
   frameInterval = 2000;
   areAnimationsOn = true;
   isLoopingOn = true;
-  isVoiceSynthesisOn = true;
+  isVoiceSynthesisOn = false;
   tempo = 8;
+
 
   constructor() {
   }
@@ -180,11 +181,21 @@ export class ChoreographyComponent implements OnInit {
 
   logGridToConsole(): void {
     console.log(JSON.stringify(this.choreography.frames))
+    this.changeGridSize();
   }
 
   private disableAnimationsForNextTick(): void {
     const wereAnimationsOnInitially = this.areAnimationsOn;
     this.areAnimationsOn = false;
     setTimeout(() => this.areAnimationsOn = wereAnimationsOnInitially, 0);
+  }
+
+  changeCarpetHeight(newHeight: number): void {
+    this.choreography.carpet = { ...this.choreography.carpet, height: newHeight };
+  }
+
+  changeCarpetWidth(newWidth: number): void {
+    this.choreography.carpet = { ...this.choreography.carpet, width: newWidth };
+    this.choreography.carpet.segments = this.choreography.carpet.width / 2;
   }
 }
