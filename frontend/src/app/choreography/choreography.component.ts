@@ -181,7 +181,6 @@ export class ChoreographyComponent implements OnInit {
 
   logGridToConsole(): void {
     console.log(JSON.stringify(this.choreography.frames))
-    this.changeGridSize();
   }
 
   private disableAnimationsForNextTick(): void {
