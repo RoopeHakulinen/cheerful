@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Choreography } from '../choreography';
 import { ChoreographyItem } from '../choreography-item';
 import { TEST_FRAMES } from '../testFrames';
+import { CarpetComponent } from '../carpet/carpet.component';
 
 @Component({
   selector: 'app-choreography',
@@ -9,6 +10,9 @@ import { TEST_FRAMES } from '../testFrames';
   styleUrls: ['./choreography.component.scss']
 })
 export class ChoreographyComponent implements OnInit {
+
+  @ViewChild(CarpetComponent)
+  carpetComponent: CarpetComponent;
 
   choreography: Choreography = {
     name: 'SM-karsinnat',
@@ -56,8 +60,9 @@ export class ChoreographyComponent implements OnInit {
   frameInterval = 2000;
   areAnimationsOn = true;
   isLoopingOn = true;
-  isVoiceSynthesisOn = true;
+  isVoiceSynthesisOn = false;
   tempo = 8;
+
 
   constructor() {
   }
@@ -180,11 +185,29 @@ export class ChoreographyComponent implements OnInit {
 
   logGridToConsole(): void {
     console.log(JSON.stringify(this.choreography.frames))
+    this.changeGridSize();
   }
 
   private disableAnimationsForNextTick(): void {
     const wereAnimationsOnInitially = this.areAnimationsOn;
     this.areAnimationsOn = false;
     setTimeout(() => this.areAnimationsOn = wereAnimationsOnInitially, 0);
+  }
+
+  changeGridSize(): void {
+    this.choreography.carpet.segments = 4;
+    this.choreography.frames[0].grid = [];
+    this.choreography.frames[0].grid = this.generateGrid();
+  }
+
+  changeCarpetHeight(event: number): void {
+    this.choreography.carpet.height = event;
+    this.carpetComponent.drawSegmentLines();
+  }
+
+  changeCarpetWidth(event: number): void {
+    this.choreography.carpet.width = event;
+    this.choreography.carpet.segments = this.choreography.carpet.width / 2;
+    this.carpetComponent.drawSegmentLines();
   }
 }

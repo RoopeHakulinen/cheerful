@@ -1,6 +1,6 @@
 <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
 <div fxLayout="column" fxLayout.gt-sm="row">
-  <div class="padding" fxFlex fxFlex.gt-sm="200px">
+  <div class="padding" fxFlex fxFlex.gt-sm="200px" fxFlexOrder.lt-md="3">
     <mat-form-field>
       <input [(ngModel)]="choreography.name" matInput placeholder="Name">
     </mat-form-field>
@@ -15,8 +15,13 @@
       (toggleVoiceSynthesis)="toggleVoiceSynthesis()"
       (frameDurationChange)="frameDurationChange($event)"
       (switchFramePosition)="switchFramePosition($event)"
+      (changeCarpetHeight)="changeCarpetHeight($event)"
+      (changeCarpetWidth)="changeCarpetWidth($event)"
+
       [areAnimationsOn]="areAnimationsOn"
       [frameInterval]="frameInterval"
+      [carpetHeight]="choreography.carpet.height"
+      [carpetWidth]="choreography.carpet.width"
       [isLoopingOn]="isLoopingOn"
       [isVoiceSynthesisOn]="isVoiceSynthesisOn"
       [active]="activeFrame"
@@ -73,6 +78,7 @@
       (swap)="swapItems($event)"
       [activeItem]="activeChoreographyItem"
       [carpet]="choreography.carpet"
+      [carpetSegments]="choreography.carpet.segments"
       [animationDuration]="frameInterval"
       [areAnimationsOn]="areAnimationsOn"
       [frame]="choreography.frames[activeFrame]"></app-carpet>

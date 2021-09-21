@@ -26,6 +26,10 @@ export class FrameManagerComponent {
   frameInterval: number;
   @Input()
   isVoiceSynthesisOn: boolean;
+  @Input()
+  carpetWidth: number;
+  @Input()
+  carpetHeight: number;
 
   @Output()
   add = new EventEmitter<void>();
@@ -47,6 +51,11 @@ export class FrameManagerComponent {
   toggleVoiceSynthesis = new EventEmitter<void>();
   @Output()
   switchFramePosition = new EventEmitter<number[]>();
+  @Output()
+  changeCarpetWidth = new EventEmitter<number>();
+  @Output()
+  changeCarpetHeight = new EventEmitter<number>();
+
 
   get frameIntervalAsSeconds(): number {
     return this.frameInterval / 1000;
@@ -80,5 +89,13 @@ export class FrameManagerComponent {
 
   moveFrames(event: CdkDragDrop<string[]>): void {
     this.switchFramePosition.emit([event.previousIndex, event.currentIndex]);
+  }
+
+  emitCarpetWidthChange($event: Event): void {
+    this.changeCarpetWidth.emit(parseFloat(($event.target as HTMLInputElement).value))
+  }
+
+  emitCarpetHeightChange($event: Event): void {
+    this.changeCarpetHeight.emit(parseFloat(($event.target as HTMLInputElement).value))
   }
 }
