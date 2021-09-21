@@ -190,12 +190,6 @@ export class ChoreographyComponent implements OnInit {
     setTimeout(() => this.areAnimationsOn = wereAnimationsOnInitially, 0);
   }
 
-  changeGridSize(): void {
-    this.choreography.carpet.segments = 4;
-    this.choreography.frames[0].grid = [];
-    this.choreography.frames[0].grid = this.generateGrid();
-  }
-
   changeCarpetHeight(newHeight: number): void {
     this.choreography.carpet = { ...this.choreography.carpet, height: newHeight };
   }
