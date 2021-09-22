@@ -136,5 +136,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     }
     this.removePerson.emit(this.draggedItemIndex);
     this.draggedItemIndex = null;
+    this.isDeletable = false;
   }
 }
