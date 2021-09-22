@@ -40,7 +40,8 @@
           {
             "allowExpressions": true
           }
-        ]
+        ],
+        "semi": "error"
       }
     },
     {

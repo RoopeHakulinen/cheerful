@@ -129,7 +129,7 @@ export class ChoreographyComponent implements OnInit {
     this.animationIntervalId = window.setInterval(() => {
       this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
       if (!this.isLoopingOn && (this.activeFrame + 1 === this.choreography.frames.length)) {
-        this.pause()
+        this.pause();
       }
     }, this.frameInterval);
 
@@ -180,7 +180,7 @@ export class ChoreographyComponent implements OnInit {
   }
 
   logGridToConsole(): void {
-    console.log(JSON.stringify(this.choreography.frames))
+    console.log(JSON.stringify(this.choreography.frames));
   }
 
   private disableAnimationsForNextTick(): void {
