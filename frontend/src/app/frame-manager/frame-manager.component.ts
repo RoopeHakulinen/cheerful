@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ChoreographyFrame } from '../choreography-frame';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,7 +10,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
   templateUrl: './frame-manager.component.html',
   styleUrls: ['./frame-manager.component.scss']
 })
-export class FrameManagerComponent {
+export class FrameManagerComponent implements OnChanges {
 
   @Input()
   frames!: ChoreographyFrame[];

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { MenuService } from './menu.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,16 +9,16 @@ import { IosInstallService } from './ios-install-popup.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private swUpdate: SwUpdate, private snackBar: MatSnackBar, public menuService: MenuService, private iosInstallService: IosInstallService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.checkForUpdates();
     this.checkForIosInstallPopup();
   }
 
-  private checkForUpdates() {
+  private checkForUpdates(): void {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
         this.snackBar.open('A newer version is now available. Restart the app to update.', 'Close', {
@@ -37,7 +37,7 @@ export class AppComponent {
     }
   }
 
-  private checkForIosInstallPopup() {
+  private checkForIosInstallPopup(): void {
     this.iosInstallService.showPopupIfOnIos();
   }
 }
