@@ -47,6 +47,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   active = new EventEmitter<ChoreographyItem>();
   @Output()
   swap = new EventEmitter<{ first: number, second: number }>();
+  @Output()
+  deletePerson = new EventEmitter<number>();
 
   verticalSegments: any[];
   horizontalSegments: any[];
@@ -54,13 +56,15 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   animate = false;
   lastItems: any[] = [];
   subscriptions = new Subscription();
-  draggedItemIndex: number | null = null;
+  draggedItemIndex: number;
+  isDeletable: boolean;
 
   swapPositions(event: number): void {
     const first = this.draggedItemIndex!;
     const second = event;
     this.swap.emit({ first, second });
-    this.draggedItemIndex = null;
+    this.isDeletable = false;
+    console.log(first, second);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -69,8 +73,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
       this.animate = !this.animate;
     }
     if (changes.carpet && changes.carpet.previousValue !== changes.carpet.currentValue) {
-      this.verticalSegments = Array(changes.carpet.currentValue.segments).fill(0);
-      this.horizontalSegments = Array(changes.carpet.currentValue.height).fill(0);
+      this.verticalSegments = Array(changes.carpet.currentValue.verticalSegments).fill(0);
+      this.horizontalSegments = Array(changes.carpet.currentValue.horizontalSegments).fill(0);
       this.setTileDimension();
     }
   }
@@ -120,5 +124,15 @@ export class CarpetComponent implements OnChanges, OnDestroy {
       return -1;
     }
     return this.lastItems.findIndex(item => item.text === text);
+  }
+
+  dragStarted(index: number): void {
+    this.draggedItemIndex = index;
+    this.isDeletable = true;
+  }
+
+  deleteDraggedPerson(): void {
+    this.deletePerson.emit(this.draggedItemIndex);
+    console.log('i am deleted: ', this.draggedItemIndex);
   }
 }

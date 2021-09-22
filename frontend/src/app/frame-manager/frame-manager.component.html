@@ -58,6 +58,23 @@
                  step="2"
                  type="number">
         </mat-form-field>
+        <button [matMenuTriggerFor]="segments" mat-button>Number of segments</button>
+        <mat-menu #segments="matMenu">
+          <button [matMenuTriggerFor]="horizontal" mat-menu-item> Horizontal
+            segments: {{carpetHorizontalSegments}} </button>
+          <button [matMenuTriggerFor]="vertical" mat-menu-item> Vertical segments: {{carpetVerticalSegments}} </button>
+        </mat-menu>
+        <mat-menu #horizontal="matMenu">
+          <div *ngFor="let lineOptions of horizontalLineOptions">
+            <button (click)="changeHorizontalSegments.emit(lineOptions + 1)"
+                    mat-menu-item> {{lineOptions + 1}} </button>
+          </div>
+        </mat-menu>
+        <mat-menu #vertical="matMenu">
+          <div *ngFor="let lineOptions of verticalLineOptions">
+            <button (click)="changeVerticalSegments.emit(lineOptions + 1)" mat-menu-item> {{lineOptions + 1}} </button>
+          </div>
+        </mat-menu>
       </div>
     </div>
   </mat-expansion-panel>

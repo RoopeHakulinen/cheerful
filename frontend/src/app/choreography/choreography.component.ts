@@ -46,7 +46,8 @@ export class ChoreographyComponent implements OnInit {
       color: '#5151b8',
       height: 12,
       width: 12,
-      segments: 6
+      horizontalSegments: 12,
+      verticalSegments: 6
     }
   };
   activeFrame = 0;
@@ -132,7 +133,6 @@ export class ChoreographyComponent implements OnInit {
         this.pause();
       }
     }, this.frameInterval);
-
   }
 
   pause(): void {
@@ -174,9 +174,9 @@ export class ChoreographyComponent implements OnInit {
   }
 
   switchFramePosition(frameIndexes: number[]): void {
-    const temp1 = this.choreography.frames[1];
-    this.choreography.frames[1] = this.choreography.frames[0];
-    this.choreography.frames[0] = temp1;
+    const temp1 = this.choreography.frames[frameIndexes[1]];
+    this.choreography.frames[frameIndexes[1]] = this.choreography.frames[frameIndexes[0]];
+    this.choreography.frames[frameIndexes[0]] = temp1;
   }
 
   logGridToConsole(): void {
@@ -195,6 +195,17 @@ export class ChoreographyComponent implements OnInit {
 
   changeCarpetWidth(newWidth: number): void {
     this.choreography.carpet = { ...this.choreography.carpet, width: newWidth };
-    this.choreography.carpet.segments = this.choreography.carpet.width / 2;
+  }
+
+  changeCarpetVerticalSegments(newVerticalSegments: number): void {
+    this.choreography.carpet = { ...this.choreography.carpet, verticalSegments: newVerticalSegments };
+  }
+
+  changeCarpetHorizontalSegments(newHorizontalSegments: number): void {
+    this.choreography.carpet = { ...this.choreography.carpet, horizontalSegments: newHorizontalSegments };
+  }
+
+  removePersonFromCarpet(index: number): void {
+    this.clearItem(this.choreography.frames[this.activeFrame].grid[index]);
   }
 }
