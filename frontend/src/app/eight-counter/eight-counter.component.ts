@@ -1,37 +1,32 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-eight-counter',
   templateUrl: './eight-counter.component.html',
   styleUrls: ['./eight-counter.component.scss']
 })
-export class EightCounterComponent implements OnChanges, OnInit {
+export class EightCounterComponent implements OnChanges {
 
   @Input()
-  duration: number;
+  duration!: number;
   @Input()
-  tempo: number;
+  tempo!: number;
   @Input()
-  frameIndex: number;
+  frameIndex!: number;
   @Input()
-  isPlayingOn: boolean;
+  isPlayingOn!: boolean;
   @Input()
-  isSpeechSynthesisOn: boolean;
+  isSpeechSynthesisOn!: boolean;
 
-  frameNumber: number;
-  speechSynthesisWindow: SpeechSynthesis;
-  speechSynthesis: SpeechSynthesisUtterance;
-  timerId: number;
+  frameNumber = 1;
+  speechSynthesisWindow: SpeechSynthesis = window.speechSynthesis;
+  speechSynthesis: SpeechSynthesisUtterance = new SpeechSynthesisUtterance();
+  timerId: number | null = null;
   progressBarValue = 0;
   frameCount = 1;
-  private subFrameInterval: number;
+  private subFrameIntervalId: number | null = null;
 
   constructor() {
-  }
-
-  ngOnInit(): void {
-    this.speechSynthesisWindow = window.speechSynthesis;
-    this.speechSynthesis = new SpeechSynthesisUtterance();
     this.speechSynthesis.rate = 2;
   }
 
@@ -44,7 +39,7 @@ export class EightCounterComponent implements OnChanges, OnInit {
     if (this.isSpeechSynthesisOn && this.isPlayingOn) {
       this.startSpeechSynthesis();
     } else {
-      this.pauseSpeechSynthesis()
+      this.pauseSpeechSynthesis();
     }
     if (this.isPlayingOn) {
       this.initializeProgressBar();
@@ -70,11 +65,14 @@ export class EightCounterComponent implements OnChanges, OnInit {
       } else {
         this.resetProgressBar();
       }
-    }
+    };
     this.timerId = window.requestAnimationFrame(step);
   }
 
   private resetProgressBar(): void {
+    if (this.timerId === null) {
+      return;
+    }
     this.progressBarValue = 0;
     window.cancelAnimationFrame(this.timerId);
   }
@@ -84,7 +82,10 @@ export class EightCounterComponent implements OnChanges, OnInit {
   }
 
   private startSpeechSynthesis(): void {
-    this.speechSynthesis.text = this.frameNumber.toString()
+    if (this.frameNumber === null) {
+      return;
+    }
+    this.speechSynthesis.text = this.frameNumber.toString();
     this.speechSynthesisWindow.speak(this.speechSynthesis);
   }
 
@@ -96,18 +97,22 @@ export class EightCounterComponent implements OnChanges, OnInit {
 
   private setCounterNumber(): void {
     let timeElapsedInSubFrame = 0;
-    this.subFrameInterval = window.setInterval(() => {
+    this.subFrameIntervalId = window.setInterval(() => {
       if (timeElapsedInSubFrame >= this.duration || !this.isPlayingOn) {
         this.resetCounterNumber();
       } else {
         timeElapsedInSubFrame += 100;
-        this.frameCount = Math.floor((timeElapsedInSubFrame / this.duration) * 8) + 1
+        this.frameCount = Math.floor((timeElapsedInSubFrame / this.duration) * 8) + 1;
       }
-    }, 100)
+    }, 100);
   }
 
-  private resetCounterNumber() {
-    window.clearInterval(this.subFrameInterval);
+  private resetCounterNumber(): void {
+    if (this.subFrameIntervalId === null) {
+      return;
+    }
+    window.clearInterval(this.subFrameIntervalId);
+    this.subFrameIntervalId = null;
     this.frameCount = 1;
   }
 }

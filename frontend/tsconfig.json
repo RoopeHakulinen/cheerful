@@ -3,7 +3,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "noImplicitAny": true,
-    "strictPropertyInitialization": false,
+    "strictPropertyInitialization": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

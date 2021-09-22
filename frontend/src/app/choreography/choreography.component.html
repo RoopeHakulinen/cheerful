@@ -80,7 +80,7 @@
     <app-carpet
       (active)="activeChoreographyItem = $event"
       (swap)="swapItems($event)"
-      (deletePerson)="removePersonFromCarpet($event)"
+      (removePerson)="removePersonFromCarpet($event)"
       [activeItem]="activeChoreographyItem"
       [carpet]="choreography.carpet"
       [animationDuration]="frameInterval"
@@ -90,7 +90,7 @@
     <app-eight-counter
       [duration]="frameInterval"
       [frameIndex]="activeFrame"
-      [isPlayingOn]="animationIntervalId > 0"
+      [isPlayingOn]="animationIntervalId !== null"
       [isSpeechSynthesisOn]="isVoiceSynthesisOn"
       [tempo]="tempo"></app-eight-counter>
   </div>

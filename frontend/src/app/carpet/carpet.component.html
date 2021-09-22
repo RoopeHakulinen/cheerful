@@ -39,7 +39,7 @@
           </span>
         </span>
       </div>
-      <div (cdkDropListDropped)="deleteDraggedPerson()" cdkDropList class="trashcan-container">
+      <div (cdkDropListDropped)="removeDraggedPerson()" cdkDropList class="trashcan-container">
         <span *ngIf="isDeletable" cdkDrag class="trashcan">🗑️ Delete </span>
       </div>
     </div>

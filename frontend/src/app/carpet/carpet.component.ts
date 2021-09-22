@@ -33,38 +33,37 @@ import { ChoreographyItem } from '../choreography-item';
 })
 export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
-  carpet: Carpet;
+  carpet!: Carpet;
   @Input()
-  frame: ChoreographyFrame;
+  frame!: ChoreographyFrame;
   @Input()
   activeItem: ChoreographyItem | null = null;
   @Input()
-  animationDuration: number;
+  animationDuration!: number;
   @Input()
-  areAnimationsOn: boolean;
+  areAnimationsOn!: boolean;
 
   @Output()
   active = new EventEmitter<ChoreographyItem>();
   @Output()
   swap = new EventEmitter<{ first: number, second: number }>();
   @Output()
-  deletePerson = new EventEmitter<number>();
+  removePerson = new EventEmitter<number>();
 
-  verticalSegments: any[];
-  horizontalSegments: any[];
+  verticalSegments: void[] = [];
+  horizontalSegments: void[] = [];
   tileDimension = 50;
   animate = false;
-  lastItems: any[] = [];
+  lastItems: ChoreographyItem[] = [];
   subscriptions = new Subscription();
-  draggedItemIndex: number;
-  isDeletable: boolean;
+  draggedItemIndex: number | null = null;
+  isDeletable = false;
 
   swapPositions(event: number): void {
     const first = this.draggedItemIndex!;
     const second = event;
     this.swap.emit({ first, second });
     this.isDeletable = false;
-    console.log(first, second);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -131,8 +130,11 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     this.isDeletable = true;
   }
 
-  deleteDraggedPerson(): void {
-    this.deletePerson.emit(this.draggedItemIndex);
-    console.log('i am deleted: ', this.draggedItemIndex);
+  removeDraggedPerson(): void {
+    if (this.draggedItemIndex === null) {
+      return;
+    }
+    this.removePerson.emit(this.draggedItemIndex);
+    this.draggedItemIndex = null;
   }
 }

@@ -13,27 +13,27 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 export class FrameManagerComponent {
 
   @Input()
-  frames: ChoreographyFrame[];
+  frames!: ChoreographyFrame[];
   @Input()
-  active: number;
+  active!: number;
   @Input()
-  isPlaying: boolean;
+  isPlaying!: boolean;
   @Input()
-  areAnimationsOn: boolean;
+  areAnimationsOn!: boolean;
   @Input()
-  isLoopingOn: boolean;
+  isLoopingOn!: boolean;
   @Input()
-  frameInterval: number;
+  frameInterval!: number;
   @Input()
-  isVoiceSynthesisOn: boolean;
+  isVoiceSynthesisOn!: boolean;
   @Input()
-  carpetWidth: number;
+  carpetWidth!: number;
   @Input()
-  carpetHeight: number;
+  carpetHeight!: number;
   @Input()
-  carpetHorizontalSegments: number;
+  carpetHorizontalSegments!: number;
   @Input()
-  carpetVerticalSegments: number;
+  carpetVerticalSegments!: number;
 
   @Output()
   add = new EventEmitter<void>();
@@ -64,8 +64,8 @@ export class FrameManagerComponent {
   @Output()
   changeVerticalSegments = new EventEmitter<number>();
 
-  horizontalLineOptions: number[];
-  verticalLineOptions: number[];
+  horizontalLineOptions: number[] = [];
+  verticalLineOptions: number[] = [];
 
   get frameIntervalAsSeconds(): number {
     return this.frameInterval / 1000;

@@ -53,7 +53,7 @@ export class ChoreographyComponent implements OnInit {
   activeFrame = 0;
   activeChoreographyItem: ChoreographyItem | null = null;
 
-  animationIntervalId: number;
+  animationIntervalId: number | null = null;
   frameInterval = 3333;
   areAnimationsOn = true;
   isLoopingOn = true;
@@ -136,8 +136,11 @@ export class ChoreographyComponent implements OnInit {
   }
 
   pause(): void {
+    if (this.animationIntervalId === null) {
+      return;
+    }
     window.clearInterval(this.animationIntervalId);
-    this.animationIntervalId = 0;
+    this.animationIntervalId = null;
   }
 
   removePerson(name: string): void {

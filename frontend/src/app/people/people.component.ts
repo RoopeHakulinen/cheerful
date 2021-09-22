@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class PeopleComponent {
 
   @Input()
-  people: string[];
+  people: string[] = [];
 
   @Output()
   add = new EventEmitter<string>();
