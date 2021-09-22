@@ -39,12 +39,14 @@
           </span>
         </span>
       </div>
-      <div (cdkDropListDropped)="removeDraggedPerson()" cdkDropList class="trashcan-container">
-        <span *ngIf="isDeletable" cdkDrag class="trashcan">🗑️ Delete </span>
+      <div (cdkDropListDropped)="removeDraggedPerson()"
+           [style.flex]="'0 1 ' + tileDimension + 'px'"
+           [style.height]="tileDimension + 'px'"
+           [style.width]="tileDimension + 'px'"
+           cdkDropList
+           class="tile trash-can-container">
+        <span *ngIf="isDeletable" cdkDrag> 🗑️ </span>
       </div>
     </div>
   </div>
 </div>
-
-
-
