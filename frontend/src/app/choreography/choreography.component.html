@@ -17,11 +17,15 @@
       (switchFramePosition)="switchFramePosition($event)"
       (changeCarpetHeight)="changeCarpetHeight($event)"
       (changeCarpetWidth)="changeCarpetWidth($event)"
+      (changeHorizontalSegments)="changeCarpetHorizontalSegments($event)"
+      (changeVerticalSegments)="changeCarpetVerticalSegments($event)"
 
       [areAnimationsOn]="areAnimationsOn"
       [frameInterval]="frameInterval"
       [carpetHeight]="choreography.carpet.height"
       [carpetWidth]="choreography.carpet.width"
+      [carpetHorizontalSegments]="choreography.carpet.horizontalSegments"
+      [carpetVerticalSegments]="choreography.carpet.verticalSegments"
       [isLoopingOn]="isLoopingOn"
       [isVoiceSynthesisOn]="isVoiceSynthesisOn"
       [active]="activeFrame"
@@ -76,6 +80,7 @@
     <app-carpet
       (active)="activeChoreographyItem = $event"
       (swap)="swapItems($event)"
+      (deletePerson)="removePersonFromCarpet($event)"
       [activeItem]="activeChoreographyItem"
       [carpet]="choreography.carpet"
       [animationDuration]="frameInterval"

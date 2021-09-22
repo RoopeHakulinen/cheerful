@@ -38,6 +38,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EightCounterComponent } from './eight-counter/eight-counter.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { IosInstallService } from './ios-install-popup.service';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { IosInstallService } from './ios-install-popup.service';
     }),
     DragDropModule,
     MatCheckboxModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatMenuModule
   ],
   providers: [MenuService, IosInstallService],
   bootstrap: [AppComponent],

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { ChoreographyFrame } from '../choreography-frame';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -30,6 +30,10 @@ export class FrameManagerComponent {
   carpetWidth: number;
   @Input()
   carpetHeight: number;
+  @Input()
+  carpetHorizontalSegments: number;
+  @Input()
+  carpetVerticalSegments: number;
 
   @Output()
   add = new EventEmitter<void>();
@@ -55,13 +59,29 @@ export class FrameManagerComponent {
   changeCarpetWidth = new EventEmitter<number>();
   @Output()
   changeCarpetHeight = new EventEmitter<number>();
+  @Output()
+  changeHorizontalSegments = new EventEmitter<number>();
+  @Output()
+  changeVerticalSegments = new EventEmitter<number>();
 
+  horizontalLineOptions: number[];
+  verticalLineOptions: number[];
 
   get frameIntervalAsSeconds(): number {
     return this.frameInterval / 1000;
   }
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes.carpetHorizontalSegments) {
+      this.horizontalLineOptions = Array(this.carpetHeight).fill(0).map((x, i) => i);
+    }
+    if (changes.carpetVerticalSegments) {
+      this.verticalLineOptions = Array(this.carpetWidth).fill(0).map((x, i) => i);
+    }
   }
 
   removeClicked(index: number): void {
@@ -92,10 +112,11 @@ export class FrameManagerComponent {
   }
 
   emitCarpetWidthChange($event: Event): void {
-    this.changeCarpetWidth.emit(parseFloat(($event.target as HTMLInputElement).value))
+    this.changeCarpetWidth.emit(parseFloat(($event.target as HTMLInputElement).value));
   }
 
   emitCarpetHeightChange($event: Event): void {
-    this.changeCarpetHeight.emit(parseFloat(($event.target as HTMLInputElement).value))
+    this.changeCarpetHeight.emit(parseFloat(($event.target as HTMLInputElement).value));
   }
+
 }
