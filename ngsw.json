@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1632312271461,
+  "timestamp": 1632316067095,
   "index": "/cheerful/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/cheerful/favicon.ico",
         "/cheerful/index.html",
-        "/cheerful/main.f3971f60494e90d38351.js",
+        "/cheerful/main.fd45bb9dc086fceffeb4.js",
         "/cheerful/manifest.webmanifest",
         "/cheerful/polyfills.3cfd3b2e550af2f95552.js",
         "/cheerful/runtime.d35a90d739c98f5ae408.js",
@@ -54,8 +54,8 @@
     "/cheerful/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/cheerful/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/cheerful/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/cheerful/index.html": "2acaa1bbdb626c683f96e67a9f6f4062d8ab545f",
-    "/cheerful/main.f3971f60494e90d38351.js": "a8dfc3b83bd29dad98cf68626a71875a70800c13",
+    "/cheerful/index.html": "3fc92fb1eea813679d6393a74ea7cd3ef832c317",
+    "/cheerful/main.fd45bb9dc086fceffeb4.js": "4caaa3a882d5fc26b155a24b9bf0cba1e4409b4b",
     "/cheerful/manifest.webmanifest": "63b272452f7323ec09705c84044faa394ce82a79",
     "/cheerful/polyfills.3cfd3b2e550af2f95552.js": "f4392c63e75bca5471e43477ec7f3d6a521f2e7d",
     "/cheerful/runtime.d35a90d739c98f5ae408.js": "cb8b38c9a3a99994472ee4b85ff248abf58c69d9",
