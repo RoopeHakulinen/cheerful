@@ -41,7 +41,9 @@ export class ChoreographyComponent implements OnInit {
       'Matti',
       'Joonas',
     ],
-    frames: TEST_FRAMES,
+    frames: [{ subframes: TEST_FRAMES }, { subframes: TEST_FRAMES },
+      { subframes: TEST_FRAMES }, { subframes: TEST_FRAMES }, { subframes: TEST_FRAMES }, { subframes: TEST_FRAMES },
+      { subframes: TEST_FRAMES }, { subframes: TEST_FRAMES }],
     carpet: {
       color: '#5151b8',
       height: 12,
@@ -51,6 +53,7 @@ export class ChoreographyComponent implements OnInit {
     }
   };
   activeFrame = 0;
+  activeSubframe = 0;
   activeChoreographyItem: ChoreographyItem | null = null;
 
   animationIntervalId: number | null = null;
@@ -65,12 +68,12 @@ export class ChoreographyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.choreography.frames[0].grid = this.generateGrid();
+    this.choreography.frames[0].subframes[0].grid = this.generateGrid();
   }
 
   addFrame(): void {
     this.choreography.frames.push({
-      grid: JSON.parse(JSON.stringify(this.choreography.frames[this.choreography.frames.length - 1].grid))
+      subframes: JSON.parse(JSON.stringify(this.choreography.frames[this.choreography.frames.length - 1].subframes))
     });
     this.activeFrame = this.choreography.frames.length - 1;
   }
@@ -87,6 +90,7 @@ export class ChoreographyComponent implements OnInit {
       .fill({
         text: '',
         color: '',
+        shape: 'rounded',
         position: ['center', 'center'],
         sign: null
       }).map(item => ({
@@ -108,7 +112,7 @@ export class ChoreographyComponent implements OnInit {
 
   getAvailablePeopleForThisFrame(): string[] {
     return this.choreography.people.filter(
-      person => !this.choreography.frames[this.activeFrame].grid
+      person => !this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
         .reduce(
           (acc, tile) => [
             ...acc,
@@ -119,11 +123,10 @@ export class ChoreographyComponent implements OnInit {
 
   swapItems({ first, second }: { first: number, second: number }): void {
     this.disableAnimationsForNextTick();
-    const temp = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[first]));
-    const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].grid[second]));
-    this.choreography.frames[this.activeFrame].grid[first] = temp2;
-    this.choreography.frames[this.activeFrame].grid[second] = temp;
-
+    const temp = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[first]));
+    const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[second]));
+    this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[first] = temp2;
+    this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[second] = temp;
   }
 
   play(): void {
@@ -149,11 +152,16 @@ export class ChoreographyComponent implements OnInit {
       return;
     }
     this.choreography.people.splice(index, 1);
-    this.choreography.frames.forEach(frame => frame.grid.forEach(item => {
-      if (item.text === name) {
-        this.clearItem(item);
-      }
-    }));
+    this.choreography.frames
+      .forEach(frame => frame.subframes
+        .forEach(subframe => subframe.grid
+          .forEach(item => {
+            if (item.text === name) {
+              this.clearItem(item);
+            }
+          })
+        )
+      );
   }
 
   setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any): void {
@@ -209,6 +217,6 @@ export class ChoreographyComponent implements OnInit {
   }
 
   removePersonFromCarpet(index: number): void {
-    this.clearItem(this.choreography.frames[this.activeFrame].grid[index]);
+    this.clearItem(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[index]);
   }
 }

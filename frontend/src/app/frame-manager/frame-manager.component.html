@@ -15,6 +15,14 @@
     [cdkDragStartDelay]="100"
     class="frame clickable frame-box">
     Frame {{index + 1}}
+    <div (click)="subActiveChanged.emit(subindex)"
+         *ngFor="let subframe of frames; index as subindex"
+         [class.active]="subindex === activeSubframe"
+         class="subframe">
+      <span (click)="subActiveChanged.emit(subindex)"
+            *ngIf="index === active">
+          Subframe {{subindex + 1}}</span>
+    </div>
   </div>
 </div>
 <div class="controls">

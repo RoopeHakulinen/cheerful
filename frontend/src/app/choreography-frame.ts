@@ -1,5 +1,5 @@
-import {ChoreographyItem} from './choreography-item';
+import { ChoreographySubframe } from './choreography-subframe';
 
 export interface ChoreographyFrame {
-  grid: ChoreographyItem[];
+  subframes: ChoreographySubframe[];
 }

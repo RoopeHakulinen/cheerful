@@ -17,6 +17,8 @@ export class FrameManagerComponent implements OnChanges {
   @Input()
   active!: number;
   @Input()
+  activeSubframe!: number;
+  @Input()
   isPlaying!: boolean;
   @Input()
   areAnimationsOn!: boolean;
@@ -39,6 +41,8 @@ export class FrameManagerComponent implements OnChanges {
   add = new EventEmitter<void>();
   @Output()
   activeChanged = new EventEmitter<number>();
+  @Output()
+  subActiveChanged = new EventEmitter<number>();
   @Output()
   remove = new EventEmitter<number>();
   @Output()
