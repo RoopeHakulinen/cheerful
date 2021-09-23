@@ -95,9 +95,9 @@
       [frame]="choreography.frames[activeFrame]"
       [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>
     <div class="notes-container">
-      <button (click)="changeNoteVisibility()" mat-stroked-button> Notes</button>
+      <button (click)="areNotesShown = !areNotesShown" mat-stroked-button> Notes</button>
       <div class="notes-input">
-        <mat-form-field *ngIf="areNotesShown" appearance="fill" style="width:60%;">
+        <mat-form-field *ngIf="areNotesShown" appearance="fill" class="notes">
           <mat-label>Insert notes here.</mat-label>
           <textarea [(ngModel)]="choreography.frames[activeFrame].notes" matInput></textarea>
         </mat-form-field>
