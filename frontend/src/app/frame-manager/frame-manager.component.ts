@@ -40,9 +40,9 @@ export class FrameManagerComponent implements OnChanges {
   @Output()
   add = new EventEmitter<void>();
   @Output()
-  activeChanged = new EventEmitter<number>();
+  changeActiveFrame = new EventEmitter<number>();
   @Output()
-  subActiveChanged = new EventEmitter<number>();
+  changeActiveSubframe = new EventEmitter<number>();
   @Output()
   remove = new EventEmitter<number>();
   @Output()

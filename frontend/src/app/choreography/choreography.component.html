@@ -5,8 +5,8 @@
     <!--      <input [(ngModel)]="choreography.name" matInput placeholder="Name">-->
     <!--    </mat-form-field>-->
     <app-frame-manager
-      (activeChanged)="activeFrame = $event"
-      (subActiveChanged)="activeSubframe = $event"
+      (changeActiveFrame)="activeFrame = $event"
+      (changeActiveSubframe)="activeSubframe = $event"
       (add)="addFrame()"
       (pauseFrames)="pause()"
       (playFrames)="play()"
@@ -94,7 +94,15 @@
       [areAnimationsOn]="areAnimationsOn"
       [frame]="choreography.frames[activeFrame]"
       [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>
-
+    <div class="notes-container">
+      <button (click)="areNotesShown = !areNotesShown" mat-stroked-button> Notes</button>
+      <div class="notes-input">
+        <mat-form-field *ngIf="areNotesShown" appearance="fill" class="notes">
+          <mat-label>Insert notes here.</mat-label>
+          <textarea [(ngModel)]="choreography.frames[activeFrame].notes" matInput></textarea>
+        </mat-form-field>
+      </div>
+    </div>
     <app-eight-counter
       [duration]="frameInterval"
       [frameIndex]="activeFrame"

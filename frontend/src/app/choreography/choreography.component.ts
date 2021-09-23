@@ -41,9 +41,12 @@ export class ChoreographyComponent implements OnInit {
       'Matti',
       'Joonas',
     ],
-    frames: [{ subframes: TEST_FRAMES }, { subframes: TEST_FRAMES },
-      { subframes: TEST_FRAMES }, { subframes: TEST_FRAMES }, { subframes: TEST_FRAMES }, { subframes: TEST_FRAMES },
-      { subframes: TEST_FRAMES }, { subframes: TEST_FRAMES }],
+    frames: [{ subframes: TEST_FRAMES, notes: '' }, { subframes: TEST_FRAMES, notes: '' },
+      { subframes: TEST_FRAMES, notes: '' }, { subframes: TEST_FRAMES, notes: '' }, {
+        subframes: TEST_FRAMES,
+        notes: ''
+      }, { subframes: TEST_FRAMES, notes: '' },
+      { subframes: TEST_FRAMES, notes: '' }, { subframes: TEST_FRAMES, notes: '' }],
     carpet: {
       color: '#5151b8',
       height: 12,
@@ -62,7 +65,7 @@ export class ChoreographyComponent implements OnInit {
   isLoopingOn = true;
   isVoiceSynthesisOn = false;
   tempo = 8;
-
+  areNotesShown = false;
 
   constructor() {
   }
@@ -74,6 +77,7 @@ export class ChoreographyComponent implements OnInit {
   addFrame(): void {
     this.choreography.frames.push({
       subframes: JSON.parse(JSON.stringify(this.choreography.frames[this.choreography.frames.length - 1].subframes))
+      , notes: ''
     });
     this.activeFrame = this.choreography.frames.length - 1;
   }
