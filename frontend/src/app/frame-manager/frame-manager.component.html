@@ -34,45 +34,53 @@
         <mat-checkbox (change)="toggleLooping.emit()" [checked]="isLoopingOn">Looping</mat-checkbox>
         <mat-checkbox (change)="toggleVoiceSynthesis.emit()" [checked]="isVoiceSynthesisOn">Voice Synthesis
         </mat-checkbox>
-        <mat-form-field class="input-container">
-          Frame duration (s)
-          <input (change)="emitFrameDurationChange($event)" [valueAsNumber]="frameIntervalAsSeconds" matInput
-                 max="24"
-                 min="1"
-                 step="0.5"
-                 type="number">
-        </mat-form-field>
-        <mat-form-field>
-          Carpet height
-          <input (change)="emitCarpetHeightChange($event)" [valueAsNumber]="carpetHeight" matInput
-                 max="16"
-                 min="4"
-                 step="1"
-                 type="number">
-        </mat-form-field>
-        <mat-form-field>
-          Carpet width
-          <input (change)="emitCarpetWidthChange($event)" [valueAsNumber]="carpetWidth" matInput
-                 max="16"
-                 min="4"
-                 step="2"
-                 type="number">
-        </mat-form-field>
-        <button [matMenuTriggerFor]="segments" mat-button>Number of segments</button>
+        <!--        <mat-form-field class="input-container">-->
+        <!--          Frame duration (s)-->
+        <!--          <input (change)="emitFrameDurationChange($event)" [valueAsNumber]="frameIntervalAsSeconds" matInput-->
+        <!--                 max="24"-->
+        <!--                 min="1"-->
+        <!--                 step="0.5"-->
+        <!--                 type="number">-->
+        <!--        </mat-form-field>-->
+        <button [matMenuTriggerFor]="frameinterval" mat-button>Tempo</button>
+        <mat-menu #frameinterval="matMenu">
+          <button (click)="emitFrameDurationChange(2)" mat-menu-item>2/10 - slow</button>
+          <button (click)="emitFrameDurationChange(3)" mat-menu-item>3/10 - normal</button>
+          <button (click)="emitFrameDurationChange(4)" mat-menu-item>4/10 - fast</button>
+        </mat-menu>
+        <button [matMenuTriggerFor]="segments" mat-button>Carpet size</button>
         <mat-menu #segments="matMenu">
+          <button [matMenuTriggerFor]="carpetheight" mat-menu-item> Carpet height: {{carpetHeight}}  </button>
+          <button [matMenuTriggerFor]="carpetwidth" mat-menu-item> Carpet width: {{carpetWidth}} </button>
           <button [matMenuTriggerFor]="horizontal" mat-menu-item> Horizontal
             segments: {{carpetHorizontalSegments}} </button>
           <button [matMenuTriggerFor]="vertical" mat-menu-item> Vertical segments: {{carpetVerticalSegments}} </button>
         </mat-menu>
+        <mat-menu #carpetheight="matMenu">
+          <div *ngFor="let heigthOptions of carpetHeightOptions">
+            <button
+              (click)="emitCarpetHeightChange(heigthOptions + 1)"
+              mat-menu-item> {{heigthOptions + 1}} </button>
+          </div>
+        </mat-menu>
+        <mat-menu #carpetwidth="matMenu">
+          <div *ngFor="let widthOptions of carpetWidthOptions">
+            <button
+              (click)="emitCarpetWidthChange(widthOptions + 1)"
+              mat-menu-item> {{widthOptions + 1}} </button>
+          </div>
+        </mat-menu>
         <mat-menu #horizontal="matMenu">
           <div *ngFor="let lineOptions of horizontalLineOptions">
             <button (click)="changeHorizontalSegments.emit(lineOptions + 1)"
+                    *ngIf="carpetHeight % (lineOptions + 1) === 0"
                     mat-menu-item> {{lineOptions + 1}} </button>
           </div>
         </mat-menu>
         <mat-menu #vertical="matMenu">
           <div *ngFor="let lineOptions of verticalLineOptions">
-            <button (click)="changeVerticalSegments.emit(lineOptions + 1)" mat-menu-item> {{lineOptions + 1}} </button>
+            <button (click)="changeVerticalSegments.emit(lineOptions + 1)"
+                    *ngIf="carpetWidth % (lineOptions + 1) === 0" mat-menu-item> {{lineOptions + 1}} </button>
           </div>
         </mat-menu>
       </div>

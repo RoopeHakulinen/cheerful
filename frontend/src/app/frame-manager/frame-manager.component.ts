@@ -66,20 +66,24 @@ export class FrameManagerComponent implements OnChanges {
 
   horizontalLineOptions: number[] = [];
   verticalLineOptions: number[] = [];
+  carpetHeightOptions: number[] = [];
+  carpetWidthOptions: number[] = [];
 
   get frameIntervalAsSeconds(): number {
     return this.frameInterval / 1000;
   }
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
+    this.carpetHeightOptions = Array(16).fill(0).map((x, i) => i);
+    this.carpetWidthOptions = Array(16).fill(0).map((x, i) => i);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if (changes.carpetHorizontalSegments) {
+    if (changes.carpetHorizontalSegments || changes.carpetHeight) {
       this.horizontalLineOptions = Array(this.carpetHeight).fill(0).map((x, i) => i);
     }
-    if (changes.carpetVerticalSegments) {
+    if (changes.carpetVerticalSegments || changes.carpetWidth) {
       this.verticalLineOptions = Array(this.carpetWidth).fill(0).map((x, i) => i);
     }
   }
@@ -103,20 +107,25 @@ export class FrameManagerComponent implements OnChanges {
     });
   }
 
-  emitFrameDurationChange($event: Event): void {
-    this.frameDurationChange.emit(parseFloat(($event.target as HTMLInputElement).value) * 1000);
+  emitFrameDurationChange(newTempo: number): void {
+    this.frameDurationChange.emit(Math.floor((10 / newTempo) * 1000));
   }
 
   moveFrames(event: CdkDragDrop<string[]>): void {
     this.switchFramePosition.emit([event.previousIndex, event.currentIndex]);
   }
 
-  emitCarpetWidthChange($event: Event): void {
-    this.changeCarpetWidth.emit(parseFloat(($event.target as HTMLInputElement).value));
+  emitCarpetWidthChange(newWidth: number): void {
+    this.changeCarpetWidth.emit(newWidth);
+    if (newWidth < this.carpetVerticalSegments || newWidth % this.carpetVerticalSegments !== 0) {
+      this.changeVerticalSegments.emit(newWidth);
+    }
   }
 
-  emitCarpetHeightChange($event: Event): void {
-    this.changeCarpetHeight.emit(parseFloat(($event.target as HTMLInputElement).value));
+  emitCarpetHeightChange(newHeight: number): void {
+    this.changeCarpetHeight.emit(newHeight);
+    if (newHeight < this.carpetHorizontalSegments || newHeight % this.carpetHorizontalSegments !== 0) {
+      this.changeHorizontalSegments.emit(newHeight);
+    }
   }
-
 }
