@@ -69,8 +69,17 @@ export class FrameManagerComponent implements OnChanges {
   carpetHeightOptions: number[] = [];
   carpetWidthOptions: number[] = [];
 
-  get frameIntervalAsSeconds(): number {
-    return this.frameInterval / 1000;
+  get frameIntervalAsTempo(): string {
+    if (this.frameInterval === 2500) {
+      return '4/10';
+    }
+    if (this.frameInterval === 3333) {
+      return '3/10';
+    }
+    if (this.frameInterval === 5000) {
+      return '2/10';
+    }
+    return '-';
   }
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {

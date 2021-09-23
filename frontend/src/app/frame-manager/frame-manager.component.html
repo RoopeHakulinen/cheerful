@@ -42,7 +42,7 @@
         <!--                 step="0.5"-->
         <!--                 type="number">-->
         <!--        </mat-form-field>-->
-        <button [matMenuTriggerFor]="frameinterval" mat-button>Tempo</button>
+        <button [matMenuTriggerFor]="frameinterval" mat-button>Tempo: {{frameIntervalAsTempo}}</button>
         <mat-menu #frameinterval="matMenu">
           <button (click)="emitFrameDurationChange(2)" mat-menu-item>2/10 - slow</button>
           <button (click)="emitFrameDurationChange(3)" mat-menu-item>3/10 - normal</button>
