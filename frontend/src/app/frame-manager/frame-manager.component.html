@@ -8,19 +8,18 @@
 </div>
 <div (cdkDropListDropped)="moveFrames($event)" cdkDropList>
   <div
-    (click)="activeChanged.emit(index)"
+    (click)="changeActiveFrame.emit(index)"
     *ngFor="let frame of frames; index as index"
     [class.active]="index === active"
     cdkDrag
     [cdkDragStartDelay]="100"
     class="frame clickable frame-box">
     Frame {{index + 1}}
-    <div (click)="subActiveChanged.emit(subindex)"
-         *ngFor="let subframe of frames; index as subindex"
+    <div (click)="changeActiveSubframe.emit(subindex)"
+         *ngFor="let subframe of frame.subframes; index as subindex"
          [class.active]="subindex === activeSubframe"
          class="subframe">
-      <span (click)="subActiveChanged.emit(subindex)"
-            *ngIf="index === active">
+      <span *ngIf="index === active">
           Subframe {{subindex + 1}}</span>
     </div>
   </div>

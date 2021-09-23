@@ -62,7 +62,7 @@ export class ChoreographyComponent implements OnInit {
   isLoopingOn = true;
   isVoiceSynthesisOn = false;
   tempo = 8;
-
+  areNotesShown = false;
 
   constructor() {
   }
@@ -218,5 +218,9 @@ export class ChoreographyComponent implements OnInit {
 
   removePersonFromCarpet(index: number): void {
     this.clearItem(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[index]);
+  }
+
+  changeNoteVisibility(): void {
+    this.areNotesShown = !this.areNotesShown;
   }
 }
