@@ -6,6 +6,7 @@
     <!--    </mat-form-field>-->
     <app-frame-manager
       (activeChanged)="activeFrame = $event"
+      (subActiveChanged)="activeSubframe = $event"
       (add)="addFrame()"
       (pauseFrames)="pause()"
       (playFrames)="play()"
@@ -29,6 +30,7 @@
       [isLoopingOn]="isLoopingOn"
       [isVoiceSynthesisOn]="isVoiceSynthesisOn"
       [active]="activeFrame"
+      [activeSubframe]="activeSubframe"
       [frames]="choreography.frames"
       [isPlaying]="!!animationIntervalId"></app-frame-manager>
   </div>
@@ -42,7 +44,7 @@
       <div fxLayout="row" fxLayoutWrap="wrap">
         <div fxFlex>
           <mat-form-field>
-            <mat-select [(ngModel)]="activeChoreographyItem.text" placeholder="Person">
+            <mat-select [(ngModel)]="activeChoreographyItem.text" placeholder="Change person">
               <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
               </mat-option>
             </mat-select>
@@ -50,21 +52,26 @@
           <mat-form-field>
             <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color" type="color">
           </mat-form-field>
-          <mat-form-field>
-            <mat-select [(ngModel)]="activeChoreographyItem.shape" placeholder="Shape">
-              <mat-option value="box">Box</mat-option>
-              <mat-option value="rounded">Rounded</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <!--          <mat-form-field>-->
+          <!--            <mat-select [(ngModel)]="activeChoreographyItem.shape" placeholder="Shape">-->
+          <!--              <mat-option value="box">Box</mat-option>-->
+          <!--              <mat-option value="rounded">Rounded</mat-option>-->
+          <!--            </mat-select>-->
+          <!--          </mat-form-field>-->
         </div>
-        <div class="position-selector" fxFlex="120px">
-          <div
-            (click)="setPositionForItem(activeChoreographyItem, option)"
-            *ngFor="let option of [['top', 'left'], ['top', 'center'], ['top', 'right'], ['center', 'left'], ['center', 'center'], ['center', 'right'], ['bottom', 'left'], ['bottom', 'center'], ['bottom', 'right']]"
-            [class.active]="activeChoreographyItem.position[0] === option[0] && activeChoreographyItem.position[1] === option[1]"
-            class="option">
+        <div class="group-selector" fxFlex="120px">
+          <div class="option">
+            Group Selector to be placed here.
           </div>
         </div>
+        <!--        <div class="position-selector" fxFlex="120px">-->
+        <!--          <div-->
+        <!--            (click)="setPositionForItem(activeChoreographyItem, option)"-->
+        <!--            *ngFor="let option of [['top', 'left'], ['top', 'center'], ['top', 'right'], ['center', 'left'], ['center', 'center'], ['center', 'right'], ['bottom', 'left'], ['bottom', 'center'], ['bottom', 'right']]"-->
+        <!--            [class.active]="activeChoreographyItem.position[0] === option[0] && activeChoreographyItem.position[1] === option[1]"-->
+        <!--            class="option">-->
+        <!--          </div>-->
+        <!--        </div>-->
       </div>
 
       <!--<mat-form-field>-->
@@ -72,7 +79,7 @@
       <!--</mat-form-field>-->
 
       <div>
-        <button (click)="clearItem(activeChoreographyItem)" mat-raised-button>Clear tile</button>
+        <button (click)="clearItem(activeChoreographyItem)" mat-raised-button>Remove person</button>
         <button (click)="activeChoreographyItem = null" mat-raised-button>Close</button>
       </div>
     </mat-card>
@@ -85,7 +92,8 @@
       [carpet]="choreography.carpet"
       [animationDuration]="frameInterval"
       [areAnimationsOn]="areAnimationsOn"
-      [frame]="choreography.frames[activeFrame]"></app-carpet>
+      [frame]="choreography.frames[activeFrame]"
+      [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>
 
     <app-eight-counter
       [duration]="frameInterval"

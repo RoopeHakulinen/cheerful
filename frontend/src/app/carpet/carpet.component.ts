@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
 import { ChoreographyItem } from '../choreography-item';
+import { ChoreographySubframe } from '../choreography-subframe';
 
 @Component({
   selector: 'app-carpet',
@@ -37,6 +38,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
   frame!: ChoreographyFrame;
   @Input()
+  subframe!: ChoreographySubframe;
+  @Input()
   activeItem: ChoreographyItem | null = null;
   @Input()
   animationDuration!: number;
@@ -58,6 +61,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
   isDeletable = false;
+
 
   swapPositions(event: number): void {
     const first = this.draggedItemIndex!;

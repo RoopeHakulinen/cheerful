@@ -17,7 +17,7 @@
       <div
         (cdkDropListDropped)="swapPositions(index)"
         (click)="active.emit(item)"
-        *ngFor="let item of frame.grid; index as index"
+        *ngFor="let item of subframe.grid; index as index"
         [@animate]="{value: animate, params: getAnimationParams(item, index)}"
         [attr.index]="index"
         [class.active]="activeItem && activeItem === item"
