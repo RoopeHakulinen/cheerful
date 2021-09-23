@@ -1,9 +1,9 @@
 <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
 <div fxLayout="column" fxLayout.gt-sm="row">
   <div class="padding" fxFlex fxFlex.gt-sm="200px" fxFlexOrder.lt-md="3">
-    <mat-form-field>
-      <input [(ngModel)]="choreography.name" matInput placeholder="Name">
-    </mat-form-field>
+    <!--    <mat-form-field>-->
+    <!--      <input [(ngModel)]="choreography.name" matInput placeholder="Name">-->
+    <!--    </mat-form-field>-->
     <app-frame-manager
       (activeChanged)="activeFrame = $event"
       (add)="addFrame()"
