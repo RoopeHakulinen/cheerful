@@ -90,7 +90,7 @@
       (removePerson)="removePersonFromCarpet($event)"
       [activeItem]="activeChoreographyItem"
       [carpet]="choreography.carpet"
-      [animationDuration]="frameInterval"
+      [animationDuration]="frameInterval / tempo"
       [areAnimationsOn]="areAnimationsOn"
       [frame]="choreography.frames[activeFrame]"
       [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>

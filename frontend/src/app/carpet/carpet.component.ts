@@ -71,8 +71,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.frame && changes.frame.previousValue && changes.frame.previousValue.grid !== changes.frame.currentValue.grid) {
-      this.lastItems = changes.frame.previousValue.grid;
+    if (changes.subframe && changes.subframe.previousValue && changes.subframe.previousValue.grid !== changes.subframe.currentValue.grid) {
+      this.lastItems = changes.subframe.previousValue.grid;
       this.animate = !this.animate;
     }
     if (changes.carpet && changes.carpet.previousValue !== changes.carpet.currentValue) {

@@ -41,12 +41,21 @@ export class ChoreographyComponent implements OnInit {
       'Matti',
       'Joonas',
     ],
-    frames: [{ subframes: TEST_FRAMES, notes: '' }, { subframes: TEST_FRAMES, notes: '' },
-      { subframes: TEST_FRAMES, notes: '' }, { subframes: TEST_FRAMES, notes: '' }, {
-        subframes: TEST_FRAMES,
+    frames: [{
+      subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
+      notes: ''
+    }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' },
+      {
+        subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
         notes: ''
-      }, { subframes: TEST_FRAMES, notes: '' },
-      { subframes: TEST_FRAMES, notes: '' }, { subframes: TEST_FRAMES, notes: '' }],
+      }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' }, {
+        subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
+        notes: ''
+      }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' },
+      {
+        subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
+        notes: ''
+      }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' }],
     carpet: {
       color: '#5151b8',
       height: 12,
