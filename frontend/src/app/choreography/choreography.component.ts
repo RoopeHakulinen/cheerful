@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Choreography } from '../choreography';
 import { ChoreographyItem } from '../choreography-item';
 import { TEST_FRAMES } from '../testFrames';
+import { createEmptyGroup, GroupType } from '../choreography-group';
 
 @Component({
   selector: 'app-choreography',
@@ -75,8 +76,9 @@ export class ChoreographyComponent implements OnInit {
   isVoiceSynthesisOn = false;
   tempo = 8;
   areNotesShown = false;
-  availableGroupTypes = ['two', 'three', 'four'];
+  availableGroupTypes: GroupType[] = ['two', 'three', 'four'];
   activeGroupType = '';
+  isGroupModeOn = false;
 
   constructor() {
   }
@@ -233,5 +235,16 @@ export class ChoreographyComponent implements OnInit {
 
   removePersonFromCarpet(index: number): void {
     this.clearItem(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[index]);
+  }
+
+  switchGroupType(groupType: GroupType): void {
+    this.activeChoreographyItem!.text = createEmptyGroup(groupType);
+  }
+
+  toggleBetweenGroupAndSingleMode(): void {
+    this.isGroupModeOn = !this.isGroupModeOn;
+    if (!this.isGroupModeOn) {
+      this.activeChoreographyItem!.text = '';
+    }
   }
 }
