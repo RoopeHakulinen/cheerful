@@ -41,38 +41,50 @@
       (remove)="removePerson($event)"
       [people]="choreography.people"></app-people>
     <mat-card *ngIf="activeChoreographyItem" class="edit-item padding">
-      <div fxLayout="row" fxLayoutWrap="wrap">
-        <div fxFlex>
+      <div fxLayout="row">
+        <div fxLayout="row" fxLayoutWrap="wrap">
+          <div fxFlex>
+            <mat-form-field>
+              <mat-select [(ngModel)]="activeChoreographyItem.text" placeholder="Change person">
+                <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color" type="color">
+            </mat-form-field>
+            <!--          <mat-form-field>-->
+            <!--            <mat-select [(ngModel)]="activeChoreographyItem.shape" placeholder="Shape">-->
+            <!--              <mat-option value="box">Box</mat-option>-->
+            <!--              <mat-option value="rounded">Rounded</mat-option>-->
+            <!--            </mat-select>-->
+            <!--          </mat-form-field>-->
+          </div>
+
+          <!--        <div class="position-selector" fxFlex="120px">-->
+          <!--          <div-->
+          <!--            (click)="setPositionForItem(activeChoreographyItem, option)"-->
+          <!--            *ngFor="let option of [['top', 'left'], ['top', 'center'], ['top', 'right'], ['center', 'left'], ['center', 'center'], ['center', 'right'], ['bottom', 'left'], ['bottom', 'center'], ['bottom', 'right']]"-->
+          <!--            [class.active]="activeChoreographyItem.position[0] === option[0] && activeChoreographyItem.position[1] === option[1]"-->
+          <!--            class="option">-->
+          <!--          </div>-->
+          <!--        </div>-->
+        </div>
+        <div class="group-selector">
+          Make a group:
           <mat-form-field>
-            <mat-select [(ngModel)]="activeChoreographyItem.text" placeholder="Change person">
-              <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
+            <mat-select placeholder="Group type">
+              <mat-option (click)="activeGroupType = groupType" *ngFor="let groupType of availableGroupTypes"
+                          [value]="groupType">{{groupType}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field>
-            <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color" type="color">
-          </mat-form-field>
-          <!--          <mat-form-field>-->
-          <!--            <mat-select [(ngModel)]="activeChoreographyItem.shape" placeholder="Shape">-->
-          <!--              <mat-option value="box">Box</mat-option>-->
-          <!--              <mat-option value="rounded">Rounded</mat-option>-->
-          <!--            </mat-select>-->
-          <!--          </mat-form-field>-->
         </div>
-        <div class="group-selector" fxFlex="120px">
-          <div class="option">
-            Group Selector to be placed here.
-          </div>
+        <div *ngIf="activeGroupType !== ''">
+          You selected group: {{activeGroupType}}
         </div>
-        <!--        <div class="position-selector" fxFlex="120px">-->
-        <!--          <div-->
-        <!--            (click)="setPositionForItem(activeChoreographyItem, option)"-->
-        <!--            *ngFor="let option of [['top', 'left'], ['top', 'center'], ['top', 'right'], ['center', 'left'], ['center', 'center'], ['center', 'right'], ['bottom', 'left'], ['bottom', 'center'], ['bottom', 'right']]"-->
-        <!--            [class.active]="activeChoreographyItem.position[0] === option[0] && activeChoreographyItem.position[1] === option[1]"-->
-        <!--            class="option">-->
-        <!--          </div>-->
-        <!--        </div>-->
       </div>
+
 
       <!--<mat-form-field>-->
       <!--<input matInput placeholder="Sign" [(ngModel)]="activeChoreographyItem.sign.text">-->
@@ -99,7 +111,7 @@
       <div class="notes-input">
         <mat-form-field *ngIf="areNotesShown" appearance="fill" class="notes">
           <mat-label>Insert notes here.</mat-label>
-          <textarea [(ngModel)]="choreography.frames[activeFrame].notes" matInput></textarea>
+          <textarea [(ngModel)]="choreography.frames[activeFrame].notes" cdkTextareaAutosize matInput></textarea>
         </mat-form-field>
       </div>
     </div>

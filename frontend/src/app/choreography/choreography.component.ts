@@ -75,6 +75,8 @@ export class ChoreographyComponent implements OnInit {
   isVoiceSynthesisOn = false;
   tempo = 8;
   areNotesShown = false;
+  availableGroupTypes = ['two', 'three', 'four'];
+  activeGroupType = '';
 
   constructor() {
   }
@@ -129,7 +131,7 @@ export class ChoreographyComponent implements OnInit {
         .reduce(
           (acc, tile) => [
             ...acc,
-            tile.text
+            ...(typeof tile.text === 'string' ? tile.text : '') // väliaikainen ratkaisu
           ], [] as string[])
         .includes(person));
   }

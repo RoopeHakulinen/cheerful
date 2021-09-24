@@ -92,7 +92,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   }
 
   findTranslation(item: ChoreographyItem, index: number): { x: number, y: number } {
-    const lastItemIndex = this.findItemByText(item.text);
+    const lastItemIndex = this.findItemByText((item.text) as string);
     return this.itemDifference(lastItemIndex, index);
   }
 
