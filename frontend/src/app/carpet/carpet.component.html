@@ -39,6 +39,7 @@
           </span>
         </span>
       </div>
+      <div [style.width]="tileDimension * carpet.width + 'px'" class="audience-container"> Audience</div>
       <div (cdkDropListDropped)="removeDraggedPerson()"
            [style.flex]="'0 1 ' + tileDimension + 'px'"
            [style.height]="tileDimension + 'px'"
