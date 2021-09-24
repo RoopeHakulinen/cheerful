@@ -59,7 +59,7 @@ export class ChoreographyComponent implements OnInit {
   activeSubframe = 0;
   activeChoreographyItem: ChoreographyItem | null = null;
 
-  animationIntervalId: number | null = null;
+  playSubframeIntervalId: number | null = null;
   frameInterval = 3333;
   areAnimationsOn = true;
   isLoopingOn = true;
@@ -134,20 +134,20 @@ export class ChoreographyComponent implements OnInit {
   }
 
   play(): void {
-    this.animationIntervalId = window.setInterval(() => {
-      this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
-      if (!this.isLoopingOn && (this.activeFrame + 1 === this.choreography.frames.length)) {
-        this.pause();
+    this.playSubframeIntervalId = window.setInterval(() => {
+      if (this.activeSubframe + 1 === this.choreography.frames[this.activeFrame].subframes.length) {
+        this.activeFrame = (this.activeFrame + 1) % this.choreography.frames.length;
       }
-    }, this.frameInterval);
+      this.activeSubframe = (this.activeSubframe + 1) % this.choreography.frames[this.activeFrame].subframes.length;
+    }, this.frameInterval / this.tempo);
   }
 
   pause(): void {
-    if (this.animationIntervalId === null) {
+    if (this.playSubframeIntervalId === null) {
       return;
     }
-    window.clearInterval(this.animationIntervalId);
-    this.animationIntervalId = null;
+    window.clearInterval(this.playSubframeIntervalId);
+    this.playSubframeIntervalId = null;
   }
 
   removePerson(name: string): void {

@@ -32,7 +32,7 @@
       [active]="activeFrame"
       [activeSubframe]="activeSubframe"
       [frames]="choreography.frames"
-      [isPlaying]="!!animationIntervalId"></app-frame-manager>
+      [isPlaying]="playSubframeIntervalId !== null"></app-frame-manager>
   </div>
 
   <div fxFlex>
@@ -106,7 +106,7 @@
     <app-eight-counter
       [duration]="frameInterval"
       [frameIndex]="activeFrame"
-      [isPlayingOn]="animationIntervalId !== null"
+      [isPlayingOn]="playSubframeIntervalId !== null"
       [isSpeechSynthesisOn]="isVoiceSynthesisOn"
       [tempo]="tempo"></app-eight-counter>
   </div>
