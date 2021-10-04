@@ -65,30 +65,53 @@
           align-items: flex-end;
         }
 
-        .text-container {
-          position: absolute;
-          display: inline-block;
-          cursor: move;
-          font-size: 0.7rem;
+        .eturi {
+          grid-area: eturi;
+          align-self: center;
+          justify-self: center;
+        }
 
-          &.rounded {
-            border-radius: 15px;
-          }
+        .takari {
+          grid-area: takari;
+          align-self: center;
+          justify-self: center;
+        }
 
-          &.left {
-            text-align: left;
-          }
+        .keskari {
+          grid-area: keskari;
+          align-self: center;
+          justify-self: center;
+        }
 
-          &.right {
-            text-align: right;
-          }
+        .kokari {
+          grid-area: kokari;
+          align-self: center;
+          justify-self: center;
+        }
 
-          .text {
-            padding: 2px;
-          }
+        .oikuri {
+          grid-area: oikuri;
+          align-self: center;
+          justify-self: center;
+        }
+
+        .drag-container {
+          display: grid;
+          grid-template-columns: 17.33px 17.33px 17.33px;
+          grid-template-rows: 17.33px 17.33px 17.33px;
+          grid-template-areas:
+            ". eturi ."
+            "kokari keskari oikuri"
+            ". takari .";
 
           .rounded {
             border-radius: 15px;
+          }
+
+          .text-container {
+            display: inline-block;
+            cursor: move;
+            font-size: 0.7rem;
           }
         }
       }
@@ -101,6 +124,7 @@
 }
 
 .trash-can-container {
+  position: absolute;
 
   span {
     font-size: 2rem;

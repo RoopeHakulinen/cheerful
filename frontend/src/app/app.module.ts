@@ -39,6 +39,10 @@ import { EightCounterComponent } from './eight-counter/eight-counter.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { IosInstallService } from './ios-install-popup.service';
 import { MatMenuModule } from '@angular/material/menu';
+import { TwoGroupComponent } from './choreography/groups/two-group/two-group.component';
+import { ThreeGroupComponent } from './choreography/groups/three-group/three-group.component';
+import { FourGroupComponent } from './choreography/groups/four-group/four-group.component';
+import { TypeOfPipe } from './typeof-pipe.pipe';
 
 
 @NgModule({
@@ -56,7 +60,11 @@ import { MatMenuModule } from '@angular/material/menu';
     AboutComponent,
     ToolbarComponent,
     SideMenuComponent,
-    EightCounterComponent
+    EightCounterComponent,
+    TwoGroupComponent,
+    ThreeGroupComponent,
+    FourGroupComponent,
+    TypeOfPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

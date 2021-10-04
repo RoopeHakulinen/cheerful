@@ -1,3 +1,5 @@
+import { Content } from './choreography-item';
+
 interface ChoreographyGroupStructure {
   type: GroupType;
 }
@@ -52,4 +54,25 @@ export function createEmptyGroup(groupType: GroupType): ChoreographyGroup {
   } else {
     throw `No group type ${groupType} exists`;
   }
+}
+
+export function isTwoGroup(content: Content): content is TwoGroup {
+  if (typeof content === 'string' || content === null) {
+    return false;
+  }
+  return content.type === 'two';
+}
+
+export function isThreeGroup(content: Content): content is ThreeGroup {
+  if (typeof content === 'string' || content === null) {
+    return false;
+  }
+  return content.type === 'three';
+}
+
+export function isFourGroup(content: Content): content is FourGroup {
+  if (typeof content === 'string' || content === null) {
+    return false;
+  }
+  return content.type === 'four';
 }

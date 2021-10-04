@@ -26,18 +26,34 @@
         [style.width]="tileDimension + 'px'"
         cdkDropList
         class="tile {{item.position[0]}}">
-        <span
-          *ngIf="item.text"
-          [style.left]="'-' + (tileDimension / 2) + 'px'"
-          [style.width]="2 * tileDimension + 'px'"
-          (cdkDragStarted)="dragStarted(index)"
-          cdkDrag class="text-container {{item.shape}} {{item.position[1]}}">
-          <span
-            [style.background-color]="item.color"
-            class="text {{item.shape}}">
-          {{item.text}}
-          </span>
-        </span>
+        <div (cdkDragStarted)="dragStarted(index)" cdkDrag class="drag-container">
+          <div
+            *ngIf="item.text && (item.text | typeOf) === 'string'"
+            [style.background]="item.color"
+            class="text-container {{item.shape}} keskari">
+            {{item.text}}
+          </div>
+          <div *ngIf="item.text && (isTwoGroup(item.text) || isThreeGroup(item.text) || isFourGroup(item.text))"
+               [style.background]="item.color"
+               class="text-container {{item.shape}} eturi">
+            {{item.text.eturi}}
+          </div>
+          <div *ngIf="item.text && (isTwoGroup(item.text) || isThreeGroup(item.text)  || isFourGroup(item.text))"
+               [style.background]="item.color"
+               class="text-container {{item.shape}} takari">
+            {{item.text.takari}}
+          </div>
+          <div *ngIf="item.text && (isThreeGroup(item.text)  || isFourGroup(item.text))"
+               [style.background]="item.color"
+               class="text-container {{item.shape}} kokari">
+            {{item.text.kokari}}
+          </div>
+          <div *ngIf="item.text && isFourGroup(item.text)"
+               [style.background]="item.color"
+               class="text-container {{item.shape}} oikuri">
+            {{item.text.nekari}}
+          </div>
+        </div>
       </div>
       <div [style.width]="tileDimension * carpet.width + 'px'" class="audience-container"> Audience</div>
       <div (cdkDropListDropped)="removeDraggedPerson()"

@@ -43,7 +43,7 @@
     <mat-card *ngIf="activeChoreographyItem" class="edit-item padding">
       <div fxLayout="row">
         <div fxLayout="row" fxLayoutWrap="wrap">
-          <div *ngIf="!isGroupModeOn" fxFlex>
+          <div *ngIf="!isActiveItemGroup" fxFlex>
             <mat-form-field>
               <mat-select [(ngModel)]="activeChoreographyItem.text" placeholder="Change person">
                 <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
@@ -60,10 +60,11 @@
             <!--            </mat-select>-->
             <!--          </mat-form-field>-->
           </div>
-          <div *ngIf="isGroupModeOn" fxFlex>
+          <div *ngIf="isActiveItemGroup" fxFlex>
             <mat-form-field>
-              <mat-select placeholder="Group type">
-                <mat-option (click)="switchGroupType(groupType)" *ngFor="let groupType of availableGroupTypes"
+              <mat-select (selectionChange)="switchGroupType($event.value)" [value]="activeGroupType"
+                          placeholder="Group type">
+                <mat-option *ngFor="let groupType of availableGroupTypes"
                             [value]="groupType">{{groupType}}
                 </mat-option>
               </mat-select>
@@ -83,89 +84,30 @@
           <!--        </div>-->
         </div>
         <div fxFlex="column">
-          <div *ngIf="isGroupModeOn" class="group-participants-container">
-            Choose the group type
-            <div [ngSwitch]="activeGroupType">
-              <div *ngSwitchCase="'two'">
-                <mat-form-field>
-                  <mat-select [(ngModel)]="activeChoreographyItem.text" placeholder="Eturi">
-                    <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select placeholder="Takuri">
-                    <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div *ngSwitchCase="'three'">
-                <mat-form-field>
-                  <mat-select placeholder="Eturi">
-                    <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select placeholder="Takuri">
-                    <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select placeholder="Kokuri">
-                    <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-              </div>
-              <div *ngSwitchCase="'four'">
-                <mat-form-field>
-                  <mat-select placeholder="Eturi">
-                    <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select placeholder="Takuri">
-                    <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select placeholder="Kokuri">
-                    <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select placeholder="Statisti">
-                    <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-              </div>
-
-
-            </div>
+          <div *ngIf="isActiveItemGroup" class="group-participants-container">
+            <app-two-group *ngIf="isTwoGroup(activeChoreographyItem.text)"
+                           [group]="activeChoreographyItem.text"
+                           [people]="choreography.people"></app-two-group>
+            <app-three-group *ngIf="isThreeGroup(activeChoreographyItem.text)"
+                             [group]="activeChoreographyItem.text"
+                             [people]="choreography.people"></app-three-group>
+            <app-four-group *ngIf="isFourGroup(activeChoreographyItem.text)"
+                            [group]="activeChoreographyItem.text"
+                            [people]="choreography.people"></app-four-group>
           </div>
         </div>
       </div>
 
-
-      <!--<mat-form-field>-->
-      <!--<input matInput placeholder="Sign" [(ngModel)]="activeChoreographyItem.sign.text">-->
-      <!--</mat-form-field>-->
+      <!--      <mat-form-field>-->
+      <!--        <input matInput placeholder="Sign" [(ngModel)]="activeChoreographyItem.sign.text">-->
+      <!--      </mat-form-field>-->
 
       <div>
         <button (click)="clearItem(activeChoreographyItem)" mat-raised-button>Remove person</button>
         <button (click)="activeChoreographyItem = null" mat-raised-button>Close window</button>
-        <button (click)="toggleBetweenGroupAndSingleMode()" *ngIf="!isGroupModeOn" mat-raised-button>Create a group
+        <button (click)="toggleBetweenGroupAndSingleMode()" *ngIf="!isActiveItemGroup" mat-raised-button>Create a group
         </button>
-        <button (click)="toggleBetweenGroupAndSingleMode()" *ngIf="isGroupModeOn" mat-raised-button>Exit group mode
+        <button (click)="toggleBetweenGroupAndSingleMode()" *ngIf="isActiveItemGroup" mat-raised-button>Exit group mode
         </button>
       </div>
     </mat-card>

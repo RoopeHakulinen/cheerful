@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Choreography } from '../choreography';
-import { ChoreographyItem } from '../choreography-item';
+import { ChoreographyItem, Content } from '../choreography-item';
 import { TEST_FRAMES } from '../testFrames';
-import { createEmptyGroup, GroupType } from '../choreography-group';
+import {
+  createEmptyGroup,
+  FourGroup,
+  GroupType,
+  isFourGroup,
+  isThreeGroup,
+  isTwoGroup,
+  ThreeGroup,
+  TwoGroup
+} from '../choreography-group';
 
 @Component({
   selector: 'app-choreography',
   templateUrl: './choreography.component.html',
   styleUrls: ['./choreography.component.scss']
 })
-export class ChoreographyComponent implements OnInit {
+export class ChoreographyComponent {
 
   choreography: Choreography = {
     name: 'SM-karsinnat',
@@ -77,15 +86,7 @@ export class ChoreographyComponent implements OnInit {
   tempo = 8;
   areNotesShown = false;
   availableGroupTypes: GroupType[] = ['two', 'three', 'four'];
-  activeGroupType = '';
-  isGroupModeOn = false;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-    this.choreography.frames[0].subframes[0].grid = this.generateGrid();
-  }
+  activeGroupType: string | null = null;
 
   addFrame(): void {
     this.choreography.frames.push({
@@ -102,29 +103,8 @@ export class ChoreographyComponent implements OnInit {
     }
   }
 
-  generateGrid(): ChoreographyItem[] {
-    return Array(this.choreography.carpet.height * this.choreography.carpet.width)
-      .fill({
-        text: '',
-        color: '',
-        shape: 'rounded',
-        position: ['center', 'center'],
-        sign: null
-      }).map(item => ({
-          ...item,
-          position: [...item.position],
-        })
-      ).map((item, index) => ({
-        ...item,
-        text: index % 3 === 0 ? this.choreography.people[index] : ''
-      }));
-  }
-
-  clearItem(item: ChoreographyItem): void {
-    item.text = '';
-    item.color = '';
-    item.position = ['center', 'center'];
-    item.sign = { text: '', color: '' };
+  get isActiveItemGroup(): boolean {
+    return typeof this.activeChoreographyItem?.text !== 'string' && this.activeChoreographyItem?.text !== null;
   }
 
   getAvailablePeopleForThisFrame(): string[] {
@@ -237,14 +217,37 @@ export class ChoreographyComponent implements OnInit {
     this.clearItem(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[index]);
   }
 
+  clearItem(item: ChoreographyItem): void {
+    item.text = null;
+    item.color = '';
+    item.position = ['center', 'center'];
+    item.sign = { text: '', color: '' };
+  }
+
   switchGroupType(groupType: GroupType): void {
     this.activeChoreographyItem!.text = createEmptyGroup(groupType);
+    this.activeGroupType = this.activeChoreographyItem!.text.type;
   }
 
   toggleBetweenGroupAndSingleMode(): void {
-    this.isGroupModeOn = !this.isGroupModeOn;
-    if (!this.isGroupModeOn) {
-      this.activeChoreographyItem!.text = '';
+    if (this.isActiveItemGroup) {
+      this.activeChoreographyItem!.text = null;
+      this.activeGroupType = null;
+    } else {
+      this.activeChoreographyItem!.text = createEmptyGroup('two');
+      this.activeGroupType = 'two';
     }
+  }
+
+  isTwoGroup(text: Content): text is TwoGroup {
+    return isTwoGroup(text);
+  }
+
+  isThreeGroup(text: Content): text is ThreeGroup {
+    return isThreeGroup(text);
+  }
+
+  isFourGroup(text: Content): text is FourGroup {
+    return isFourGroup(text);
   }
 }

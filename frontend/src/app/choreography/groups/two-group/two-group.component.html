@@ -1,0 +1,14 @@
+<mat-form-field>
+  <mat-select (selectionChange)="group.eturi = ($event.value)" placeholder="Eturi">
+    <mat-option *ngFor="let person of people"
+                [value]="person">{{person}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-select (selectionChange)="group.takari = ($event.value)" placeholder="Takari">
+    <mat-option *ngFor="let person of people"
+                [value]="person">{{person}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

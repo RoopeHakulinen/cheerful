@@ -12,8 +12,9 @@ import {
 import { Subscription } from 'rxjs';
 import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
-import { ChoreographyItem } from '../choreography-item';
+import { ChoreographyItem, Content } from '../choreography-item';
 import { ChoreographySubframe } from '../choreography-subframe';
+import { FourGroup, isFourGroup, isThreeGroup, isTwoGroup, ThreeGroup, TwoGroup } from '../choreography-group';
 
 @Component({
   selector: 'app-carpet',
@@ -141,5 +142,17 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     this.removePerson.emit(this.draggedItemIndex);
     this.draggedItemIndex = null;
     this.isDeletable = false;
+  }
+
+  isTwoGroup(text: Content): text is TwoGroup {
+    return isTwoGroup(text);
+  }
+
+  isThreeGroup(text: Content): text is ThreeGroup {
+    return isThreeGroup(text);
+  }
+
+  isFourGroup(text: Content): text is FourGroup {
+    return isFourGroup(text);
   }
 }
