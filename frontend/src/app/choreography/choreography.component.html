@@ -1,6 +1,6 @@
 <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
 <div fxLayout="column" fxLayout.gt-sm="row">
-  <div class="padding" fxFlex fxFlex.gt-sm="200px" fxFlexOrder.lt-md="3">
+  <div class="padding" fxFlex fxFlex.gt-sm="300px" fxFlexOrder.lt-md="3">
     <!--    <mat-form-field>-->
     <!--      <input [(ngModel)]="choreography.name" matInput placeholder="Name">-->
     <!--    </mat-form-field>-->
@@ -33,13 +33,13 @@
       [activeSubframe]="activeSubframe"
       [frames]="choreography.frames"
       [isPlaying]="playSubframeIntervalId !== null"></app-frame-manager>
-  </div>
-
-  <div fxFlex>
     <app-people
       (add)="choreography.people.push($event)"
       (remove)="removePerson($event)"
       [people]="choreography.people"></app-people>
+  </div>
+
+  <div fxFlex>
     <mat-card *ngIf="activeChoreographyItem" class="edit-item padding">
       <div fxLayout="row" fxLayoutWrap="wrap">
         <div fxFlex>
