@@ -42,7 +42,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { TwoGroupComponent } from './choreography/groups/two-group/two-group.component';
 import { ThreeGroupComponent } from './choreography/groups/three-group/three-group.component';
 import { FourGroupComponent } from './choreography/groups/four-group/four-group.component';
-import { TypeOfPipe } from './typeof-pipe.pipe';
+import { TypeOfPipe } from './typeof.pipe';
 
 
 @NgModule({

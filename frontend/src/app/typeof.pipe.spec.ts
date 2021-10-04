@@ -1,4 +1,4 @@
-import { TypeOfPipe } from './typeof-pipe.pipe';
+import { TypeOfPipe } from './typeof.pipe';
 
 describe('TypeOfPipe', () => {
   it('create an instance', () => {
