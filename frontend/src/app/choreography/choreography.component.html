@@ -1,143 +1,147 @@
-<app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
-<div fxLayout="column" fxLayout.gt-sm="row">
-  <div class="padding" fxFlex fxFlex.gt-sm="300px" fxFlexOrder.lt-md="3">
-    <!--    <mat-form-field>-->
-    <!--      <input [(ngModel)]="choreography.name" matInput placeholder="Name">-->
-    <!--    </mat-form-field>-->
-    <app-frame-manager
-      (changeActiveFrame)="activeFrame = $event"
-      (changeActiveSubframe)="activeSubframe = $event"
-      (add)="addFrame()"
-      (pauseFrames)="pause()"
-      (playFrames)="play()"
-      (remove)="removeFrame($event)"
-      (toggleAnimations)="toggleAnimations()"
-      (toggleLooping)="toggleLooping()"
-      (toggleVoiceSynthesis)="toggleVoiceSynthesis()"
-      (frameDurationChange)="frameDurationChange($event)"
-      (switchFramePosition)="switchFramePosition($event)"
-      (changeCarpetHeight)="changeCarpetHeight($event)"
-      (changeCarpetWidth)="changeCarpetWidth($event)"
-      (changeHorizontalSegments)="changeCarpetHorizontalSegments($event)"
-      (changeVerticalSegments)="changeCarpetVerticalSegments($event)"
+<div *ngIf="choreography">
+  <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
+  <div fxLayout="column" fxLayout.gt-sm="row">
+    <div class="padding" fxFlex fxFlex.gt-sm="300px" fxFlexOrder.lt-md="3">
+      <!--    <mat-form-field>-->
+      <!--      <input [(ngModel)]="choreography.name" matInput placeholder="Name">-->
+      <!--    </mat-form-field>-->
+      <app-frame-manager
+        (add)="addFrame()"
+        (changeActiveFrame)="activeFrame = $event"
+        (changeActiveSubframe)="activeSubframe = $event"
+        (changeCarpetHeight)="changeCarpetHeight($event)"
+        (changeCarpetWidth)="changeCarpetWidth($event)"
+        (changeHorizontalSegments)="changeCarpetHorizontalSegments($event)"
+        (changeVerticalSegments)="changeCarpetVerticalSegments($event)"
+        (frameDurationChange)="frameDurationChange($event)"
+        (pauseFrames)="pause()"
+        (playFrames)="play()"
+        (remove)="removeFrame($event)"
+        (switchFramePosition)="switchFramePosition($event)"
+        (toggleAnimations)="toggleAnimations()"
+        (toggleLooping)="toggleLooping()"
+        (toggleVoiceSynthesis)="toggleVoiceSynthesis()"
 
-      [areAnimationsOn]="areAnimationsOn"
-      [frameInterval]="frameInterval"
-      [carpetHeight]="choreography.carpet.height"
-      [carpetWidth]="choreography.carpet.width"
-      [carpetHorizontalSegments]="choreography.carpet.horizontalSegments"
-      [carpetVerticalSegments]="choreography.carpet.verticalSegments"
-      [isLoopingOn]="isLoopingOn"
-      [isVoiceSynthesisOn]="isVoiceSynthesisOn"
-      [active]="activeFrame"
-      [activeSubframe]="activeSubframe"
-      [frames]="choreography.frames"
-      [isPlaying]="playSubframeIntervalId !== null"></app-frame-manager>
-    <app-people
-      (add)="choreography.people.push($event)"
-      (remove)="removePerson($event)"
-      [people]="choreography.people"></app-people>
-  </div>
-
-  <div fxFlex>
-    <mat-card *ngIf="activeChoreographyItem" class="edit-item padding">
-      <div fxLayout="row">
-        <div fxLayout="row" fxLayoutWrap="wrap">
-          <div *ngIf="!isActiveItemGroup" fxFlex>
-            <mat-form-field>
-              <mat-select [(ngModel)]="activeChoreographyItem.content" placeholder="Change person">
-                <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color" type="color">
-            </mat-form-field>
-            <!--          <mat-form-field>-->
-            <!--            <mat-select [(ngModel)]="activeChoreographyItem.shape" placeholder="Shape">-->
-            <!--              <mat-option value="box">Box</mat-option>-->
-            <!--              <mat-option value="rounded">Rounded</mat-option>-->
-            <!--            </mat-select>-->
-            <!--          </mat-form-field>-->
-          </div>
-          <div *ngIf="isActiveItemGroup" fxFlex>
-            <mat-form-field>
-              <mat-select (selectionChange)="switchGroupType($event.value)"
-                          placeholder="Group type">
-                <mat-option *ngFor="let groupType of availableGroupTypes"
-                            [value]="groupType">{{groupType}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color" type="color">
-            </mat-form-field>
-          </div>
-
-          <!--        <div class="position-selector" fxFlex="120px">-->
-          <!--          <div-->
-          <!--            (click)="setPositionForItem(activeChoreographyItem, option)"-->
-          <!--            *ngFor="let option of [['top', 'left'], ['top', 'center'], ['top', 'right'], ['center', 'left'], ['center', 'center'], ['center', 'right'], ['bottom', 'left'], ['bottom', 'center'], ['bottom', 'right']]"-->
-          <!--            [class.active]="activeChoreographyItem.position[0] === option[0] && activeChoreographyItem.position[1] === option[1]"-->
-          <!--            class="option">-->
-          <!--          </div>-->
-          <!--        </div>-->
-        </div>
-        <div fxFlex="column">
-          <div *ngIf="isActiveItemGroup" class="group-participants-container">
-            <app-two-group *ngIf="isTwoGroup(activeChoreographyItem.content)"
-                           [group]="activeChoreographyItem.content"
-                           [people]="choreography.people"></app-two-group>
-            <app-three-group *ngIf="isThreeGroup(activeChoreographyItem.content)"
-                             [group]="activeChoreographyItem.content"
-                             [people]="choreography.people"></app-three-group>
-            <app-four-group *ngIf="isFourGroup(activeChoreographyItem.content)"
-                            [group]="activeChoreographyItem.content"
-                            [people]="choreography.people"></app-four-group>
-            <app-five-group *ngIf="isFiveGroup(activeChoreographyItem.content)"
-                            [group]="activeChoreographyItem.content"
-                            [people]="choreography.people"></app-five-group>
-          </div>
-        </div>
-      </div>
-
-      <!--      <mat-form-field>-->
-      <!--        <input matInput placeholder="Sign" [(ngModel)]="activeChoreographyItem.sign.text">-->
-      <!--      </mat-form-field>-->
-
-      <div>
-        <button (click)="clearItem(activeChoreographyItem)" mat-raised-button>Remove person</button>
-        <button (click)="activeChoreographyItem = null" mat-raised-button>Close window</button>
-        <button (click)="toggleBetweenGroupAndSingleMode()" mat-raised-button>
-          {{isActiveItemGroup ? 'Exit group mode' : 'Create a group'}}
-        </button>
-      </div>
-    </mat-card>
-
-    <app-carpet
-      (active)="activeChoreographyItem = $event"
-      (swap)="swapItems($event)"
-      (removePerson)="removePersonFromCarpet($event)"
-      [activeItem]="activeChoreographyItem"
-      [carpet]="choreography.carpet"
-      [animationDuration]="frameInterval / tempo"
-      [areAnimationsOn]="areAnimationsOn"
-      [frame]="choreography.frames[activeFrame]"
-      [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>
-    <div class="notes-container">
-      <button (click)="areNotesShown = !areNotesShown" mat-stroked-button> Notes</button>
-      <div class="notes-input">
-        <mat-form-field *ngIf="areNotesShown" appearance="fill" class="notes">
-          <mat-label>Insert notes here.</mat-label>
-          <textarea [(ngModel)]="choreography.frames[activeFrame].notes" cdkTextareaAutosize matInput></textarea>
-        </mat-form-field>
-      </div>
+        [activeSubframe]="activeSubframe"
+        [active]="activeFrame"
+        [areAnimationsOn]="areAnimationsOn"
+        [carpetHeight]="choreography.carpet.height"
+        [carpetHorizontalSegments]="choreography.carpet.horizontalSegments"
+        [carpetVerticalSegments]="choreography.carpet.verticalSegments"
+        [carpetWidth]="choreography.carpet.width"
+        [frameInterval]="frameInterval"
+        [frames]="choreography.frames"
+        [isLoopingOn]="isLoopingOn"
+        [isPlaying]="playSubframeIntervalId !== null"
+        [isVoiceSynthesisOn]="isVoiceSynthesisOn"></app-frame-manager>
+      <app-people
+        (add)="choreography.people.push($event)"
+        (remove)="removePerson($event)"
+        [people]="choreography.people"></app-people>
     </div>
-    <app-eight-counter
-      [duration]="frameInterval"
-      [frameIndex]="activeFrame"
-      [isPlayingOn]="playSubframeIntervalId !== null"
-      [isSpeechSynthesisOn]="isVoiceSynthesisOn"
-      [tempo]="tempo"></app-eight-counter>
+
+    <div fxFlex>
+      <mat-card *ngIf="activeChoreographyItem" class="edit-item padding">
+        <div fxLayout="row">
+          <div fxLayout="row" fxLayoutWrap="wrap">
+            <div *ngIf="!isActiveItemGroup" fxFlex>
+              <mat-form-field>
+                <mat-select [(ngModel)]="activeChoreographyItem.content" placeholder="Change person">
+                  <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color"
+                       type="color">
+              </mat-form-field>
+              <!--          <mat-form-field>-->
+              <!--            <mat-select [(ngModel)]="activeChoreographyItem.shape" placeholder="Shape">-->
+              <!--              <mat-option value="box">Box</mat-option>-->
+              <!--              <mat-option value="rounded">Rounded</mat-option>-->
+              <!--            </mat-select>-->
+              <!--          </mat-form-field>-->
+            </div>
+            <div *ngIf="isActiveItemGroup" fxFlex>
+              <mat-form-field>
+                <mat-select (selectionChange)="switchGroupType($event.value)"
+                            placeholder="Group type">
+                  <mat-option *ngFor="let groupType of availableGroupTypes"
+                              [value]="groupType">{{groupType}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color"
+                       type="color">
+              </mat-form-field>
+            </div>
+
+            <!--        <div class="position-selector" fxFlex="120px">-->
+            <!--          <div-->
+            <!--            (click)="setPositionForItem(activeChoreographyItem, option)"-->
+            <!--            *ngFor="let option of [['top', 'left'], ['top', 'center'], ['top', 'right'], ['center', 'left'], ['center', 'center'], ['center', 'right'], ['bottom', 'left'], ['bottom', 'center'], ['bottom', 'right']]"-->
+            <!--            [class.active]="activeChoreographyItem.position[0] === option[0] && activeChoreographyItem.position[1] === option[1]"-->
+            <!--            class="option">-->
+            <!--          </div>-->
+            <!--        </div>-->
+          </div>
+          <div fxFlex="column">
+            <div *ngIf="isActiveItemGroup" class="group-participants-container">
+              <app-two-group *ngIf="isTwoGroup(activeChoreographyItem.content)"
+                             [group]="activeChoreographyItem.content"
+                             [people]="choreography.people"></app-two-group>
+              <app-three-group *ngIf="isThreeGroup(activeChoreographyItem.content)"
+                               [group]="activeChoreographyItem.content"
+                               [people]="choreography.people"></app-three-group>
+              <app-four-group *ngIf="isFourGroup(activeChoreographyItem.content)"
+                              [group]="activeChoreographyItem.content"
+                              [people]="choreography.people"></app-four-group>
+              <app-five-group *ngIf="isFiveGroup(activeChoreographyItem.content)"
+                              [group]="activeChoreographyItem.content"
+                              [people]="choreography.people"></app-five-group>
+            </div>
+          </div>
+        </div>
+
+        <!--      <mat-form-field>-->
+        <!--        <input matInput placeholder="Sign" [(ngModel)]="activeChoreographyItem.sign.text">-->
+        <!--      </mat-form-field>-->
+
+        <div>
+          <button (click)="clearItem(activeChoreographyItem)" mat-raised-button>Remove person</button>
+          <button (click)="activeChoreographyItem = null" mat-raised-button>Close window</button>
+          <button (click)="toggleBetweenGroupAndSingleMode()" mat-raised-button>
+            {{isActiveItemGroup ? 'Exit group mode' : 'Create a group'}}
+          </button>
+        </div>
+      </mat-card>
+
+      <app-carpet
+        (active)="activeChoreographyItem = $event"
+        (removePerson)="removePersonFromCarpet($event)"
+        (swap)="swapItems($event)"
+        [activeItem]="activeChoreographyItem"
+        [animationDuration]="frameInterval / tempo"
+        [areAnimationsOn]="areAnimationsOn"
+        [carpet]="choreography.carpet"
+        [frame]="choreography.frames[activeFrame]"
+        [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>
+      <div class="notes-container">
+        <button (click)="areNotesShown = !areNotesShown" mat-stroked-button> Notes</button>
+        <div class="notes-input">
+          <mat-form-field *ngIf="areNotesShown" appearance="fill" class="notes">
+            <mat-label>Insert notes here.</mat-label>
+            <textarea [(ngModel)]="choreography.frames[activeFrame].notes" cdkTextareaAutosize matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <app-eight-counter
+        [duration]="frameInterval"
+        [frameIndex]="activeFrame"
+        [isPlayingOn]="playSubframeIntervalId !== null"
+        [isSpeechSynthesisOn]="isVoiceSynthesisOn"
+        [tempo]="tempo"></app-eight-counter>
+    </div>
   </div>
 </div>
