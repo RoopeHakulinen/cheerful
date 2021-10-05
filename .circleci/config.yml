@@ -3,11 +3,14 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.7
+
 workflows:
   ci:
 
     jobs:
       - node/test:
+          environment:
+            - CHROME_BIN: /usr/bin/google-chrome
           run-command: test:ci
           version: '16.10'
           app-dir: ~/project/frontend
