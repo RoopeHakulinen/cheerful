@@ -65,30 +65,54 @@
           align-items: flex-end;
         }
 
-        .text-container {
+        .grid-top {
+          grid-area: grid-top;
+          align-self: center;
+          justify-self: center;
+        }
+
+        .grid-bottom {
+          grid-area: grid-bottom;
+          align-self: center;
+          justify-self: center;
+        }
+
+        .grid-middle {
+          grid-area: grid-middle;
+          align-self: center;
+          justify-self: center;
+        }
+
+        .grid-left {
+          grid-area: grid-left;
+          align-self: center;
+          justify-self: center;
+        }
+
+        .grid-right {
+          grid-area: grid-right;
+          align-self: center;
+          justify-self: center;
+        }
+
+        .drag-container {
           position: absolute;
-          display: inline-block;
-          cursor: move;
-          font-size: 0.7rem;
-
-          &.rounded {
-            border-radius: 15px;
-          }
-
-          &.left {
-            text-align: left;
-          }
-
-          &.right {
-            text-align: right;
-          }
-
-          .text {
-            padding: 2px;
-          }
+          display: grid;
+          grid-template-columns: 17.33px 17.33px 17.33px;
+          grid-template-rows: 17.33px 17.33px 17.33px;
+          grid-template-areas:
+            ". grid-top ."
+            "grid-left grid-middle grid-right"
+            ". grid-bottom .";
 
           .rounded {
             border-radius: 15px;
+          }
+
+          .text-container {
+            display: inline-block;
+            cursor: move;
+            font-size: 0.7rem;
           }
         }
       }
@@ -101,6 +125,7 @@
 }
 
 .trash-can-container {
+  position: absolute;
 
   span {
     font-size: 2rem;

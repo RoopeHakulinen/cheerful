@@ -12,8 +12,9 @@ import {
 import { Subscription } from 'rxjs';
 import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
-import { ChoreographyItem } from '../choreography-item';
+import { ChoreographyItem, Content } from '../choreography-item';
 import { ChoreographySubframe } from '../choreography-subframe';
+import { FourGroup, isFourGroup, isThreeGroup, isTwoGroup, ThreeGroup, TwoGroup } from '../choreography-group';
 
 @Component({
   selector: 'app-carpet',
@@ -92,12 +93,11 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   }
 
   findTranslation(item: ChoreographyItem, index: number): { x: number, y: number } {
-    const lastItemIndex = this.findItemByText(item.text);
+    const lastItemIndex = this.findItemByText((item.content));
     return this.itemDifference(lastItemIndex, index);
   }
 
   getAnimationParams(item: ChoreographyItem, index: number): { x: number, y: number, time: string } {
-
     return {
       ...this.findTranslation(item, index),
       time: this.areAnimationsOn ? `${this.animationDuration / 1000}s` : '0s'
@@ -122,11 +122,11 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     };
   }
 
-  private findItemByText(text: string): number {
-    if (!this.lastItems || !text || text.length === 0) {
+  private findItemByText(content: Content): number {
+    if (!this.lastItems || !content) {
       return -1;
     }
-    return this.lastItems.findIndex(item => item.text === text);
+    return this.lastItems.findIndex(item => item.content === content);
   }
 
   dragStarted(index: number): void {
@@ -141,5 +141,17 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     this.removePerson.emit(this.draggedItemIndex);
     this.draggedItemIndex = null;
     this.isDeletable = false;
+  }
+
+  isTwoGroup(text: Content): text is TwoGroup {
+    return isTwoGroup(text);
+  }
+
+  isThreeGroup(text: Content): text is ThreeGroup {
+    return isThreeGroup(text);
+  }
+
+  isFourGroup(text: Content): text is FourGroup {
+    return isFourGroup(text);
   }
 }

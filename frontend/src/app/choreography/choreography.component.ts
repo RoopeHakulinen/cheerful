@@ -1,14 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Choreography } from '../choreography';
-import { ChoreographyItem } from '../choreography-item';
+import { ChoreographyItem, clearItem, Content } from '../choreography-item';
 import { TEST_FRAMES } from '../testFrames';
+import {
+  availableGroupTypes,
+  createEmptyGroup,
+  FourGroup,
+  GroupType,
+  isActiveItemGroup,
+  isFourGroup,
+  isThreeGroup,
+  isTwoGroup,
+  ThreeGroup,
+  TwoGroup
+} from '../choreography-group';
 
 @Component({
   selector: 'app-choreography',
   templateUrl: './choreography.component.html',
   styleUrls: ['./choreography.component.scss']
 })
-export class ChoreographyComponent implements OnInit {
+export class ChoreographyComponent {
 
   choreography: Choreography = {
     name: 'SM-karsinnat',
@@ -75,13 +87,7 @@ export class ChoreographyComponent implements OnInit {
   isVoiceSynthesisOn = false;
   tempo = 8;
   areNotesShown = false;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-    this.choreography.frames[0].subframes[0].grid = this.generateGrid();
-  }
+  availableGroupTypes = availableGroupTypes;
 
   addFrame(): void {
     this.choreography.frames.push({
@@ -98,40 +104,8 @@ export class ChoreographyComponent implements OnInit {
     }
   }
 
-  generateGrid(): ChoreographyItem[] {
-    return Array(this.choreography.carpet.height * this.choreography.carpet.width)
-      .fill({
-        text: '',
-        color: '',
-        shape: 'rounded',
-        position: ['center', 'center'],
-        sign: null
-      }).map(item => ({
-          ...item,
-          position: [...item.position],
-        })
-      ).map((item, index) => ({
-        ...item,
-        text: index % 3 === 0 ? this.choreography.people[index] : ''
-      }));
-  }
-
-  clearItem(item: ChoreographyItem): void {
-    item.text = '';
-    item.color = '';
-    item.position = ['center', 'center'];
-    item.sign = { text: '', color: '' };
-  }
-
-  getAvailablePeopleForThisFrame(): string[] {
-    return this.choreography.people.filter(
-      person => !this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
-        .reduce(
-          (acc, tile) => [
-            ...acc,
-            tile.text
-          ], [] as string[])
-        .includes(person));
+  get isActiveItemGroup(): boolean {
+    return isActiveItemGroup(this.activeChoreographyItem!.content);
   }
 
   swapItems({ first, second }: { first: number, second: number }): void {
@@ -159,22 +133,15 @@ export class ChoreographyComponent implements OnInit {
     this.playSubframeIntervalId = null;
   }
 
-  removePerson(name: string): void {
-    const index = this.choreography.people.findIndex(person => name === person);
-    if (index === -1) {
-      return;
-    }
-    this.choreography.people.splice(index, 1);
-    this.choreography.frames
-      .forEach(frame => frame.subframes
-        .forEach(subframe => subframe.grid
-          .forEach(item => {
-            if (item.text === name) {
-              this.clearItem(item);
-            }
-          })
-        )
-      );
+  getAvailablePeopleForThisFrame(): string[] {
+    return this.choreography.people.filter(
+      person => !this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
+        .reduce(
+          (acc, tile) => [
+            ...acc,
+            ...(typeof tile.content === 'string' ? tile.content : '')
+          ], [] as string[])
+        .includes(person));
   }
 
   setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any): void {
@@ -231,5 +198,51 @@ export class ChoreographyComponent implements OnInit {
 
   removePersonFromCarpet(index: number): void {
     this.clearItem(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[index]);
+  }
+
+  removePerson(name: string): void {
+    const index = this.choreography.people.findIndex(person => name === person);
+    if (index === -1) {
+      return;
+    }
+    this.choreography.people.splice(index, 1);
+    this.choreography.frames
+      .forEach(frame => frame.subframes
+        .forEach(subframe => subframe.grid
+          .forEach(item => {
+            if (item.content === name) {
+              this.clearItem(item);
+            }
+          })
+        )
+      );
+  }
+
+  clearItem(item: ChoreographyItem): void {
+    clearItem(item);
+  }
+
+  switchGroupType(groupType: GroupType): void {
+    this.activeChoreographyItem!.content = createEmptyGroup(groupType);
+  }
+
+  toggleBetweenGroupAndSingleMode(): void {
+    if (this.isActiveItemGroup) {
+      this.activeChoreographyItem!.content = null;
+    } else {
+      this.activeChoreographyItem!.content = createEmptyGroup('two');
+    }
+  }
+
+  isTwoGroup(content: Content): content is TwoGroup {
+    return isTwoGroup(content);
+  }
+
+  isThreeGroup(content: Content): content is ThreeGroup {
+    return isThreeGroup(content);
+  }
+
+  isFourGroup(content: Content): content is FourGroup {
+    return isFourGroup(content);
   }
 }

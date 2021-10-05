@@ -26,18 +26,36 @@
         [style.width]="tileDimension + 'px'"
         cdkDropList
         class="tile {{item.position[0]}}">
-        <span
-          *ngIf="item.text"
-          [style.left]="'-' + (tileDimension / 2) + 'px'"
-          [style.width]="2 * tileDimension + 'px'"
-          (cdkDragStarted)="dragStarted(index)"
-          cdkDrag class="text-container {{item.shape}} {{item.position[1]}}">
-          <span
-            [style.background-color]="item.color"
-            class="text {{item.shape}}">
-          {{item.text}}
-          </span>
-        </span>
+        <div (cdkDragStarted)="dragStarted(index)" cdkDrag class="drag-container">
+          <div
+            *ngIf="item.content && !(isTwoGroup(item.content) || isThreeGroup(item.content)  || isFourGroup(item.content))"
+            [style.background]="item.color"
+            class="text-container {{item.shape}} grid-middle">
+            {{item.content}}
+          </div>
+          <div
+            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content) || isFourGroup(item.content))"
+            [style.background]="item.color"
+            class="text-container {{item.shape}} grid-top">
+            {{item.content.flyer}}
+          </div>
+          <div
+            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content)  || isFourGroup(item.content))"
+            [style.background]="item.color"
+            class="text-container {{item.shape}} grid-bottom">
+            {{item.content.backspot}}
+          </div>
+          <div *ngIf="item.content && (isThreeGroup(item.content)  || isFourGroup(item.content))"
+               [style.background]="item.color"
+               class="text-container {{item.shape}} grid-left">
+            {{item.content.mainbase}}
+          </div>
+          <div *ngIf="item.content && isFourGroup(item.content)"
+               [style.background]="item.color"
+               class="text-container {{item.shape}} grid-right">
+            {{item.content.sidebase}}
+          </div>
+        </div>
       </div>
       <div [style.width]="tileDimension * carpet.width + 'px'" class="audience-container"> Audience</div>
       <div (cdkDropListDropped)="removeDraggedPerson()"
