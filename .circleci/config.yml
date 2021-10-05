@@ -9,8 +9,6 @@ workflows:
 
     jobs:
       - node/test:
-          environment:
-            CHROME_BIN: /usr/bin/google-chrome
           run-command: test:ci
           version: '16.10'
           app-dir: ~/project/frontend
