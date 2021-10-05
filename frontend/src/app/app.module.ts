@@ -42,7 +42,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { TwoGroupComponent } from './choreography/groups/two-group/two-group.component';
 import { ThreeGroupComponent } from './choreography/groups/three-group/three-group.component';
 import { FourGroupComponent } from './choreography/groups/four-group/four-group.component';
-import { TypeOfPipe } from './typeof.pipe';
+import { FiveGroupComponent } from './choreography/groups/five-group/five-group.component';
 
 
 @NgModule({
@@ -64,7 +64,7 @@ import { TypeOfPipe } from './typeof.pipe';
     TwoGroupComponent,
     ThreeGroupComponent,
     FourGroupComponent,
-    TypeOfPipe
+    FiveGroupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

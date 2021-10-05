@@ -5,9 +5,11 @@ import { TEST_FRAMES } from '../testFrames';
 import {
   availableGroupTypes,
   createEmptyGroup,
+  FiveGroup,
   FourGroup,
   GroupType,
   isActiveItemGroup,
+  isFiveGroup,
   isFourGroup,
   isThreeGroup,
   isTwoGroup,
@@ -244,5 +246,9 @@ export class ChoreographyComponent {
 
   isFourGroup(content: Content): content is FourGroup {
     return isFourGroup(content);
+  }
+
+  isFiveGroup(content: Content): content is FiveGroup {
+    return isFiveGroup(content);
   }
 }
