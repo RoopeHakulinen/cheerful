@@ -93,12 +93,11 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   }
 
   findTranslation(item: ChoreographyItem, index: number): { x: number, y: number } {
-    const lastItemIndex = this.findItemByText((item.text) as string);
+    const lastItemIndex = this.findItemByText((item.content));
     return this.itemDifference(lastItemIndex, index);
   }
 
   getAnimationParams(item: ChoreographyItem, index: number): { x: number, y: number, time: string } {
-
     return {
       ...this.findTranslation(item, index),
       time: this.areAnimationsOn ? `${this.animationDuration / 1000}s` : '0s'
@@ -123,11 +122,11 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     };
   }
 
-  private findItemByText(text: string): number {
-    if (!this.lastItems || !text || text.length === 0) {
+  private findItemByText(content: Content): number {
+    if (!this.lastItems || !content) {
       return -1;
     }
-    return this.lastItems.findIndex(item => item.text === text);
+    return this.lastItems.findIndex(item => item.content === content);
   }
 
   dragStarted(index: number): void {

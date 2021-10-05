@@ -28,30 +28,32 @@
         class="tile {{item.position[0]}}">
         <div (cdkDragStarted)="dragStarted(index)" cdkDrag class="drag-container">
           <div
-            *ngIf="item.text && (item.text | typeOf) === 'string'"
+            *ngIf="item.content && !(isTwoGroup(item.content) || isThreeGroup(item.content)  || isFourGroup(item.content))"
             [style.background]="item.color"
-            class="text-container {{item.shape}} keskari">
-            {{item.text}}
+            class="text-container {{item.shape}} grid-middle">
+            {{item.content}}
           </div>
-          <div *ngIf="item.text && (isTwoGroup(item.text) || isThreeGroup(item.text) || isFourGroup(item.text))"
-               [style.background]="item.color"
-               class="text-container {{item.shape}} eturi">
-            {{item.text.eturi}}
+          <div
+            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content) || isFourGroup(item.content))"
+            [style.background]="item.color"
+            class="text-container {{item.shape}} grid-top">
+            {{item.content.flyer}}
           </div>
-          <div *ngIf="item.text && (isTwoGroup(item.text) || isThreeGroup(item.text)  || isFourGroup(item.text))"
-               [style.background]="item.color"
-               class="text-container {{item.shape}} takari">
-            {{item.text.takari}}
+          <div
+            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content)  || isFourGroup(item.content))"
+            [style.background]="item.color"
+            class="text-container {{item.shape}} grid-bottom">
+            {{item.content.backspot}}
           </div>
-          <div *ngIf="item.text && (isThreeGroup(item.text)  || isFourGroup(item.text))"
+          <div *ngIf="item.content && (isThreeGroup(item.content)  || isFourGroup(item.content))"
                [style.background]="item.color"
-               class="text-container {{item.shape}} kokari">
-            {{item.text.kokari}}
+               class="text-container {{item.shape}} grid-left">
+            {{item.content.mainbase}}
           </div>
-          <div *ngIf="item.text && isFourGroup(item.text)"
+          <div *ngIf="item.content && isFourGroup(item.content)"
                [style.background]="item.color"
-               class="text-container {{item.shape}} oikuri">
-            {{item.text.nekari}}
+               class="text-container {{item.shape}} grid-right">
+            {{item.content.sidebase}}
           </div>
         </div>
       </div>

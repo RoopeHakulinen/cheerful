@@ -45,7 +45,7 @@
         <div fxLayout="row" fxLayoutWrap="wrap">
           <div *ngIf="!isActiveItemGroup" fxFlex>
             <mat-form-field>
-              <mat-select [(ngModel)]="activeChoreographyItem.text" placeholder="Change person">
+              <mat-select [(ngModel)]="activeChoreographyItem.content" placeholder="Change person">
                 <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
                 </mat-option>
               </mat-select>
@@ -62,7 +62,7 @@
           </div>
           <div *ngIf="isActiveItemGroup" fxFlex>
             <mat-form-field>
-              <mat-select (selectionChange)="switchGroupType($event.value)" [value]="activeGroupType"
+              <mat-select (selectionChange)="switchGroupType($event.value)"
                           placeholder="Group type">
                 <mat-option *ngFor="let groupType of availableGroupTypes"
                             [value]="groupType">{{groupType}}
@@ -85,14 +85,14 @@
         </div>
         <div fxFlex="column">
           <div *ngIf="isActiveItemGroup" class="group-participants-container">
-            <app-two-group *ngIf="isTwoGroup(activeChoreographyItem.text)"
-                           [group]="activeChoreographyItem.text"
+            <app-two-group *ngIf="isTwoGroup(activeChoreographyItem.content)"
+                           [group]="activeChoreographyItem.content"
                            [people]="choreography.people"></app-two-group>
-            <app-three-group *ngIf="isThreeGroup(activeChoreographyItem.text)"
-                             [group]="activeChoreographyItem.text"
+            <app-three-group *ngIf="isThreeGroup(activeChoreographyItem.content)"
+                             [group]="activeChoreographyItem.content"
                              [people]="choreography.people"></app-three-group>
-            <app-four-group *ngIf="isFourGroup(activeChoreographyItem.text)"
-                            [group]="activeChoreographyItem.text"
+            <app-four-group *ngIf="isFourGroup(activeChoreographyItem.content)"
+                            [group]="activeChoreographyItem.content"
                             [people]="choreography.people"></app-four-group>
           </div>
         </div>
@@ -105,9 +105,8 @@
       <div>
         <button (click)="clearItem(activeChoreographyItem)" mat-raised-button>Remove person</button>
         <button (click)="activeChoreographyItem = null" mat-raised-button>Close window</button>
-        <button (click)="toggleBetweenGroupAndSingleMode()" *ngIf="!isActiveItemGroup" mat-raised-button>Create a group
-        </button>
-        <button (click)="toggleBetweenGroupAndSingleMode()" *ngIf="isActiveItemGroup" mat-raised-button>Exit group mode
+        <button (click)="toggleBetweenGroupAndSingleMode()" mat-raised-button>
+          {{isActiveItemGroup ? 'Exit group mode' : 'Create a group'}}
         </button>
       </div>
     </mat-card>

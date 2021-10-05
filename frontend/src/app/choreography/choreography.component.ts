@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Choreography } from '../choreography';
-import { ChoreographyItem, Content } from '../choreography-item';
+import { ChoreographyItem, clearItem, Content } from '../choreography-item';
 import { TEST_FRAMES } from '../testFrames';
 import {
+  availableGroupTypes,
   createEmptyGroup,
   FourGroup,
   GroupType,
+  isActiveItemGroup,
   isFourGroup,
   isThreeGroup,
   isTwoGroup,
@@ -85,8 +87,7 @@ export class ChoreographyComponent {
   isVoiceSynthesisOn = false;
   tempo = 8;
   areNotesShown = false;
-  availableGroupTypes: GroupType[] = ['two', 'three', 'four'];
-  activeGroupType: string | null = null;
+  availableGroupTypes = availableGroupTypes;
 
   addFrame(): void {
     this.choreography.frames.push({
@@ -104,18 +105,7 @@ export class ChoreographyComponent {
   }
 
   get isActiveItemGroup(): boolean {
-    return typeof this.activeChoreographyItem?.text !== 'string' && this.activeChoreographyItem?.text !== null;
-  }
-
-  getAvailablePeopleForThisFrame(): string[] {
-    return this.choreography.people.filter(
-      person => !this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
-        .reduce(
-          (acc, tile) => [
-            ...acc,
-            ...(typeof tile.text === 'string' ? tile.text : '') // väliaikainen ratkaisu
-          ], [] as string[])
-        .includes(person));
+    return isActiveItemGroup(this.activeChoreographyItem!.content);
   }
 
   swapItems({ first, second }: { first: number, second: number }): void {
@@ -143,22 +133,15 @@ export class ChoreographyComponent {
     this.playSubframeIntervalId = null;
   }
 
-  removePerson(name: string): void {
-    const index = this.choreography.people.findIndex(person => name === person);
-    if (index === -1) {
-      return;
-    }
-    this.choreography.people.splice(index, 1);
-    this.choreography.frames
-      .forEach(frame => frame.subframes
-        .forEach(subframe => subframe.grid
-          .forEach(item => {
-            if (item.text === name) {
-              this.clearItem(item);
-            }
-          })
-        )
-      );
+  getAvailablePeopleForThisFrame(): string[] {
+    return this.choreography.people.filter(
+      person => !this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
+        .reduce(
+          (acc, tile) => [
+            ...acc,
+            ...(typeof tile.content === 'string' ? tile.content : '')
+          ], [] as string[])
+        .includes(person));
   }
 
   setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any): void {
@@ -217,37 +200,49 @@ export class ChoreographyComponent {
     this.clearItem(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[index]);
   }
 
+  removePerson(name: string): void {
+    const index = this.choreography.people.findIndex(person => name === person);
+    if (index === -1) {
+      return;
+    }
+    this.choreography.people.splice(index, 1);
+    this.choreography.frames
+      .forEach(frame => frame.subframes
+        .forEach(subframe => subframe.grid
+          .forEach(item => {
+            if (item.content === name) {
+              this.clearItem(item);
+            }
+          })
+        )
+      );
+  }
+
   clearItem(item: ChoreographyItem): void {
-    item.text = null;
-    item.color = '';
-    item.position = ['center', 'center'];
-    item.sign = { text: '', color: '' };
+    clearItem(item);
   }
 
   switchGroupType(groupType: GroupType): void {
-    this.activeChoreographyItem!.text = createEmptyGroup(groupType);
-    this.activeGroupType = this.activeChoreographyItem!.text.type;
+    this.activeChoreographyItem!.content = createEmptyGroup(groupType);
   }
 
   toggleBetweenGroupAndSingleMode(): void {
     if (this.isActiveItemGroup) {
-      this.activeChoreographyItem!.text = null;
-      this.activeGroupType = null;
+      this.activeChoreographyItem!.content = null;
     } else {
-      this.activeChoreographyItem!.text = createEmptyGroup('two');
-      this.activeGroupType = 'two';
+      this.activeChoreographyItem!.content = createEmptyGroup('two');
     }
   }
 
-  isTwoGroup(text: Content): text is TwoGroup {
-    return isTwoGroup(text);
+  isTwoGroup(content: Content): content is TwoGroup {
+    return isTwoGroup(content);
   }
 
-  isThreeGroup(text: Content): text is ThreeGroup {
-    return isThreeGroup(text);
+  isThreeGroup(content: Content): content is ThreeGroup {
+    return isThreeGroup(content);
   }
 
-  isFourGroup(text: Content): text is FourGroup {
-    return isFourGroup(text);
+  isFourGroup(content: Content): content is FourGroup {
+    return isFourGroup(content);
   }
 }

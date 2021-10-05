@@ -65,44 +65,45 @@
           align-items: flex-end;
         }
 
-        .eturi {
-          grid-area: eturi;
+        .grid-top {
+          grid-area: grid-top;
           align-self: center;
           justify-self: center;
         }
 
-        .takari {
-          grid-area: takari;
+        .grid-bottom {
+          grid-area: grid-bottom;
           align-self: center;
           justify-self: center;
         }
 
-        .keskari {
-          grid-area: keskari;
+        .grid-middle {
+          grid-area: grid-middle;
           align-self: center;
           justify-self: center;
         }
 
-        .kokari {
-          grid-area: kokari;
+        .grid-left {
+          grid-area: grid-left;
           align-self: center;
           justify-self: center;
         }
 
-        .oikuri {
-          grid-area: oikuri;
+        .grid-right {
+          grid-area: grid-right;
           align-self: center;
           justify-self: center;
         }
 
         .drag-container {
+          position: absolute;
           display: grid;
           grid-template-columns: 17.33px 17.33px 17.33px;
           grid-template-rows: 17.33px 17.33px 17.33px;
           grid-template-areas:
-            ". eturi ."
-            "kokari keskari oikuri"
-            ". takari .";
+            ". grid-top ."
+            "grid-left grid-middle grid-right"
+            ". grid-bottom .";
 
           .rounded {
             border-radius: 15px;

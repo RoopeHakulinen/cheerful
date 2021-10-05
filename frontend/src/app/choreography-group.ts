@@ -6,50 +6,70 @@ interface ChoreographyGroupStructure {
 
 export interface TwoGroup extends ChoreographyGroupStructure {
   type: 'two';
-  takari: string;
-  eturi: string;
+  flyer: string;
+  backspot: string;
 }
 
 export interface ThreeGroup extends ChoreographyGroupStructure {
   type: 'three';
-  takari: string;
-  eturi: string;
-  kokari: string;
+  flyer: string;
+  backspot: string;
+  mainbase: string;
 }
 
 export interface FourGroup extends ChoreographyGroupStructure {
   type: 'four';
-  takari: string;
-  eturi: string;
-  kokari: string;
-  nekari: string;
+  flyer: string;
+  backspot: string;
+  mainbase: string;
+  sidebase: string;
 }
 
-export type ChoreographyGroup = TwoGroup | ThreeGroup | FourGroup;
+export interface FiveGroup extends ChoreographyGroupStructure {
+  type: 'five';
+  flyer: string;
+  backspot: string;
+  mainbase: string;
+  sidebase: string;
+  frontspot: string;
+}
 
-export type GroupType = 'two' | 'three' | 'four';
+export type ChoreographyGroup = TwoGroup | ThreeGroup | FourGroup | FiveGroup;
+
+export type GroupType = 'two' | 'three' | 'four' | 'five';
+
+export const availableGroupTypes: GroupType[] = ['two', 'three', 'four', 'five'];
 
 export function createEmptyGroup(groupType: GroupType): ChoreographyGroup {
   if (groupType === 'two') {
     return {
       type: 'two',
-      eturi: '',
-      takari: ''
+      flyer: '',
+      backspot: ''
     };
   } else if (groupType === 'three') {
     return {
       type: 'three',
-      eturi: '',
-      takari: '',
-      kokari: ''
+      flyer: '',
+      backspot: '',
+      mainbase: ''
     };
   } else if (groupType === 'four') {
     return {
       type: 'four',
-      eturi: '',
-      takari: '',
-      kokari: '',
-      nekari: ''
+      flyer: '',
+      backspot: '',
+      mainbase: '',
+      sidebase: ''
+    };
+  } else if (groupType === 'five') {
+    return {
+      type: 'five',
+      flyer: '',
+      backspot: '',
+      mainbase: '',
+      sidebase: '',
+      frontspot: ''
     };
   } else {
     throw `No group type ${groupType} exists`;
@@ -75,4 +95,15 @@ export function isFourGroup(content: Content): content is FourGroup {
     return false;
   }
   return content.type === 'four';
+}
+
+export function isFiveGroup(content: Content): content is FiveGroup {
+  if (typeof content === 'string' || content === null) {
+    return false;
+  }
+  return content.type === 'five';
+}
+
+export function isActiveItemGroup(content: Content): boolean {
+  return typeof content !== 'string' && content !== null;
 }
