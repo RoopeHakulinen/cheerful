@@ -14,7 +14,16 @@ import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
 import { ChoreographyItem, Content } from '../choreography-item';
 import { ChoreographySubframe } from '../choreography-subframe';
-import { FourGroup, isFourGroup, isThreeGroup, isTwoGroup, ThreeGroup, TwoGroup } from '../choreography-group';
+import {
+  FiveGroup,
+  FourGroup,
+  isFiveGroup,
+  isFourGroup,
+  isThreeGroup,
+  isTwoGroup,
+  ThreeGroup,
+  TwoGroup
+} from '../choreography-group';
 
 @Component({
   selector: 'app-carpet',
@@ -153,5 +162,9 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   isFourGroup(text: Content): text is FourGroup {
     return isFourGroup(text);
+  }
+
+  isFiveGroup(text: Content): text is FiveGroup {
+    return isFiveGroup(text);
   }
 }

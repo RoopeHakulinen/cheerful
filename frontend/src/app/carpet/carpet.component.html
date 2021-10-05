@@ -28,32 +28,42 @@
         class="tile {{item.position[0]}}">
         <div (cdkDragStarted)="dragStarted(index)" cdkDrag class="drag-container">
           <div
-            *ngIf="item.content && !(isTwoGroup(item.content) || isThreeGroup(item.content)  || isFourGroup(item.content))"
+            *ngIf="item.content && !(isTwoGroup(item.content) || isThreeGroup(item.content)
+            || isFourGroup(item.content) || isFiveGroup(item.content))"
             [style.background]="item.color"
             class="text-container {{item.shape}} grid-middle">
             {{item.content}}
           </div>
           <div
-            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content) || isFourGroup(item.content))"
+            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content)
+            || isFourGroup(item.content) || isFiveGroup(item.content))"
             [style.background]="item.color"
             class="text-container {{item.shape}} grid-top">
             {{item.content.flyer}}
           </div>
           <div
-            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content)  || isFourGroup(item.content))"
+            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content)
+            || isFourGroup(item.content) || isFiveGroup(item.content))"
             [style.background]="item.color"
             class="text-container {{item.shape}} grid-bottom">
             {{item.content.backspot}}
           </div>
-          <div *ngIf="item.content && (isThreeGroup(item.content)  || isFourGroup(item.content))"
-               [style.background]="item.color"
-               class="text-container {{item.shape}} grid-left">
+          <div
+            *ngIf="item.content && (isThreeGroup(item.content)  || isFourGroup(item.content)
+            || isFiveGroup(item.content))"
+            [style.background]="item.color"
+            class="text-container {{item.shape}} grid-left">
             {{item.content.mainbase}}
           </div>
-          <div *ngIf="item.content && isFourGroup(item.content)"
+          <div *ngIf="item.content && (isFourGroup(item.content) || isFiveGroup(item.content))"
                [style.background]="item.color"
                class="text-container {{item.shape}} grid-right">
             {{item.content.sidebase}}
+          </div>
+          <div *ngIf="item.content && isFiveGroup(item.content)"
+               [style.background]="item.color"
+               class="text-container {{item.shape}} grid-middle">
+            {{item.content.frontspot}}
           </div>
         </div>
       </div>
