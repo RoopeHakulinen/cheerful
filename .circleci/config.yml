@@ -3,7 +3,6 @@ version: 2.1
 
 jobs:
   ci:
-    working_directory: ~/project/frontend
     docker:
       - image: circleci/node:16-browsers
         environment:
@@ -13,19 +12,24 @@ jobs:
       - run:
           name: Install node_modules with npm
           command: npm install
+          working_directory: ~/project/frontend
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+          working_directory: ~/project/frontend
       - run:
           name: Unit tests
           command: npm run test:ci
+          working_directory: ~/project/frontend
       - run:
           name: Lint
           command: npm run lint
+          working_directory: ~/project/frontend
       - run:
           name: Build
           command: npm run build
+          working_directory: ~/project/frontend
 
 workflows:
   ci:
