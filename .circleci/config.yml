@@ -14,10 +14,9 @@ jobs:
           command: npm install
           working_directory: ~/project/frontend
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "~/project/frontend/package.json" }}
           paths:
-            - ./node_modules
-          working_directory: ~/project/frontend
+            - ~/project/frontend/node_modules
       - run:
           name: Unit tests
           command: npm run test:ci
