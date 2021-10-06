@@ -1,0 +1,7 @@
+<mat-form-field>
+  <mat-select (selectionChange)="changeGroupMember.emit($event.value)" placeholder="{{spot}}">
+    <mat-option *ngFor="let person of people"
+                [value]="person">{{person}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
