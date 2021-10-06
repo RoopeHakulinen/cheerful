@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { IosInstallService } from './ios-install-popup.service';
 import { ChoreographyService } from './choreography.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,23 +17,24 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.checkForUpdates();
-    this.checkForIosInstallPopup();
-    this.initializeLocalization();
+    this.initializeLocalization().subscribe(() => {
+      this.checkForUpdates();
+      this.checkForIosInstallPopup();
+    });
   }
 
   private checkForUpdates(): void {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
-        this.translate.get(['COMMON.UPDATE_PROMPT', 'COMMON.CLOSE']).subscribe(translation => this.snackBar.open(translation['COMMON.UPDATE_PROMPT'], translation['COMMON.CLOSE'], {
+        this.snackBar.open(this.translate.instant('COMMON.UPDATE_PROMPT'), this.translate.instant('COMMON.CLOSE'), {
           duration: 10000
-        }));
+        });
       });
       this.swUpdate.activateUpdate()
         .then(() => {
-          this.translate.get(['COMMON.UPDATE_SUCCESFUL', 'COMMON.CLOSE']).subscribe(translation => this.snackBar.open(translation['COMMON.UPDATE_SUCCESFUL'], translation['COMMON.CLOSE'], {
+          this.snackBar.open(this.translate.instant('COMMON.UPDATE_SUCCESSFUL'), this.translate.instant('COMMON.CLOSE'), {
             duration: 3000
-          }));
+          });
         })
         .catch(err => {
           console.log(err);
@@ -44,8 +46,8 @@ export class AppComponent implements OnInit {
     this.iosInstallService.showPopupIfOnIos();
   }
 
-  private initializeLocalization(): void {
+  private initializeLocalization(): Observable<boolean> {
     this.translate.setDefaultLang('fi');
-    this.translate.use('fi');
+    return this.translate.use('fi');
   }
 }

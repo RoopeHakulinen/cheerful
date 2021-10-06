@@ -2,7 +2,7 @@
   "COMMON": {
     "UPDATE_PROMPT": "Uusi versio saatavilla. Päivitä sivu asentaaksesi päivityksen.",
     "INSTALL_PROMPT": "Kosketa ikonia ↑ ja lisää aloitusnäyttöön",
-    "UPDATE_SUCCESFUL": "Asennus onnistui.",
+    "UPDATE_SUCCESSFUL": "Asennus onnistui.",
     "CLOSE": "Sulje",
     "COLOR": "Väri",
     "ADD": "Lisää",

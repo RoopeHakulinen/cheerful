@@ -90,7 +90,6 @@ export class FrameManagerComponent implements OnChanges {
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private translate: TranslateService) {
     this.carpetHeightOptions = Array(16).fill(0).map((x, i) => i);
     this.carpetWidthOptions = Array(16).fill(0).map((x, i) => i);
-    this.initializeLocalization();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -105,9 +104,9 @@ export class FrameManagerComponent implements OnChanges {
 
   removeClicked(index: number): void {
     if (this.frames.length === 1) {
-      this.translate.get(['FRAME_MANAGER.ONE_FRAME_LEFT', 'COMMON.CLOSE']).subscribe(translation => this.snackBar.open(translation['FRAME_MANAGER.ONE_FRAME_LEFT'], translation['COMMON.CLOSE'], {
-        duration: 5000
-      }));
+      this.snackBar.open(this.translate.instant('FRAME_MANAGER.ONE_FRAME_LEFT'), this.translate.instant('COMMON.CLOSE'), {
+        duration: 3000
+      });
       return;
     }
 
@@ -115,9 +114,9 @@ export class FrameManagerComponent implements OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.remove.emit(index);
-        this.translate.get(['FRAME_MANAGER.FRAME_REMOVED', 'COMMON.CLOSE']).subscribe(translation => this.snackBar.open(translation['FRAME_MANAGER.FRAME_REMOVED'], translation['COMMON.CLOSE'], {
+        this.snackBar.open(this.translate.instant('FRAME_MANAGER.FRAME_REMOVED'), this.translate.instant('COMMON.CLOSE'), {
           duration: 2500
-        }));
+        });
       }
     });
   }
@@ -142,10 +141,5 @@ export class FrameManagerComponent implements OnChanges {
     if (newHeight < this.carpetHorizontalSegments || newHeight % this.carpetHorizontalSegments !== 0) {
       this.changeHorizontalSegments.emit(newHeight);
     }
-  }
-
-  private initializeLocalization(): void {
-    this.translate.setDefaultLang('fi');
-    this.translate.use('fi');
   }
 }

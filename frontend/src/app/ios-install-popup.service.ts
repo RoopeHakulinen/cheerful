@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class IosInstallService {
 
   constructor(private snackBar: MatSnackBar, private translate: TranslateService) {
-    this.initializeLocalization();
   }
 
   private static isIos(): boolean {
@@ -20,14 +19,9 @@ export class IosInstallService {
 
   showPopupIfOnIos(): void {
     if (IosInstallService.isIos() && !IosInstallService.isInStandaloneMode()) {
-      this.translate.get(['COMMON.INSTALL_PROMPT', 'COMMON.CLOSE']).subscribe(translation => this.snackBar.open(translation['COMMON.INSTALL_PROMPT'], translation['COMMON.CLOSE'], {
+      this.snackBar.open(this.translate.instant('COMMON.INSTALL_PROMPT'), this.translate.instant('COMMON.CLOSE'), {
         duration: 5000
-      }));
+      });
     }
-  }
-
-  private initializeLocalization(): void {
-    this.translate.setDefaultLang('fi');
-    this.translate.use('fi');
   }
 }
