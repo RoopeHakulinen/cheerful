@@ -9,7 +9,8 @@
     "test": "ng test",
     "test:ci": "ng test --browsers ChromeHeadless --watch false",
     "lint": "ng lint",
-    "deploy": "ng deploy --base-href=/cheerful/"
+    "deploy": "ng deploy --base-href=/cheerful/",
+    "analyze-size": "ng build --sourceMap=true --output-hashing=none && source-map-explorer dist/frontend/main.js"
   },
   "private": true,
   "dependencies": {
@@ -49,6 +50,7 @@
     "karma-coverage": "2.0.3",
     "karma-jasmine": "4.0.1",
     "karma-jasmine-html-reporter": "1.7.0",
+    "source-map-explorer": "^2.5.2",
     "typescript": "4.3.5"
   }
 }
