@@ -3,6 +3,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { MenuService } from './menu.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IosInstallService } from './ios-install-popup.service';
+import { ChoreographyService } from './choreography.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { IosInstallService } from './ios-install-popup.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private swUpdate: SwUpdate, private snackBar: MatSnackBar, public menuService: MenuService, private iosInstallService: IosInstallService) {
+  constructor(private swUpdate: SwUpdate, private snackBar: MatSnackBar, public menuService: MenuService, private iosInstallService: IosInstallService, public choreographyService: ChoreographyService) {
   }
 
   ngOnInit(): void {

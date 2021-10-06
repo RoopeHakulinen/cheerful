@@ -1,14 +1,10 @@
-<mat-form-field>
-  <mat-select (selectionChange)="group.flyer = ($event.value)" placeholder="Flyer">
-    <mat-option *ngFor="let person of people"
-                [value]="person">{{person}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <mat-select (selectionChange)="group.backspot = ($event.value)" placeholder="Backspot">
-    <mat-option *ngFor="let person of people"
-                [value]="person">{{person}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<app-group-options (changeGroupMember)="group.flyer = $event"
+                   [people]="people"
+                   spot="Flyer"
+></app-group-options>
+<app-group-options (changeGroupMember)="group.backspot = $event"
+                   [people]="people"
+                   spot="Backspot"
+></app-group-options>
+
+

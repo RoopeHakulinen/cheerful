@@ -44,6 +44,7 @@ import { ThreeGroupComponent } from './choreography/groups/three-group/three-gro
 import { FourGroupComponent } from './choreography/groups/four-group/four-group.component';
 import { FiveGroupComponent } from './choreography/groups/five-group/five-group.component';
 import { ChoreographyService } from './choreography.service';
+import { GroupPersonSelectorComponent } from './choreography/groups/group-options/group-person-selector.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { ChoreographyService } from './choreography.service';
     TwoGroupComponent,
     ThreeGroupComponent,
     FourGroupComponent,
-    FiveGroupComponent
+    FiveGroupComponent,
+    GroupPersonSelectorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
