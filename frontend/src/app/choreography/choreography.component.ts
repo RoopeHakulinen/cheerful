@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Choreography } from '../choreography';
 import { ChoreographyItem, clearItem, Content } from '../choreography-item';
-import { TEST_FRAMES } from '../testFrames';
 import {
   availableGroupTypes,
   createEmptyGroup,
@@ -16,6 +15,8 @@ import {
   ThreeGroup,
   TwoGroup
 } from '../choreography-group';
+import { ChoreographyService } from '../choreography.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-choreography',
@@ -24,64 +25,10 @@ import {
 })
 export class ChoreographyComponent {
 
-  choreography: Choreography = {
-    name: 'SM-karsinnat',
-    team: 'Flash',
-    people: [
-      'Roope',
-      'Olli',
-      'Darya',
-      'Arina',
-      'Ansku',
-      'Kimi',
-      'Kille',
-      'Kimara',
-      'Katri',
-      'Lasso',
-      'Anna',
-      'Vilho',
-      'Väinö',
-      'Jaana',
-      'Ville',
-      'Niina',
-      'Marjo',
-      'Napoleon',
-      'Maria',
-      'Kari',
-      'Sari',
-      'Antti',
-      'Janne',
-      'Teppo',
-      'Matti',
-      'Joonas',
-    ],
-    frames: [{
-      subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
-      notes: ''
-    }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' },
-      {
-        subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
-        notes: ''
-      }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' }, {
-        subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
-        notes: ''
-      }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' },
-      {
-        subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
-        notes: ''
-      }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' }],
-    carpet: {
-      color: '#5151b8',
-      height: 12,
-      width: 12,
-      horizontalSegments: 12,
-      verticalSegments: 6
-    }
-  };
+  choreography!: Choreography;
   activeFrame = 0;
   activeSubframe = 0;
   activeChoreographyItem: ChoreographyItem | null = null;
-
   playSubframeIntervalId: number | null = null;
   frameInterval = 3333;
   areAnimationsOn = true;
@@ -90,6 +37,11 @@ export class ChoreographyComponent {
   tempo = 8;
   areNotesShown = false;
   availableGroupTypes = availableGroupTypes;
+
+  constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute) {
+    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+    this.choreographyService.getChoreographiesById(id).subscribe(choreography => this.choreography = choreography);
+  }
 
   addFrame(): void {
     this.choreography.frames.push({

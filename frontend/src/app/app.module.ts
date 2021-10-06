@@ -43,6 +43,7 @@ import { TwoGroupComponent } from './choreography/groups/two-group/two-group.com
 import { ThreeGroupComponent } from './choreography/groups/three-group/three-group.component';
 import { FourGroupComponent } from './choreography/groups/four-group/four-group.component';
 import { FiveGroupComponent } from './choreography/groups/five-group/five-group.component';
+import { ChoreographyService } from './choreography.service';
 
 
 @NgModule({
@@ -95,7 +96,7 @@ import { FiveGroupComponent } from './choreography/groups/five-group/five-group.
     MatProgressBarModule,
     MatMenuModule
   ],
-  providers: [MenuService, IosInstallService],
+  providers: [MenuService, IosInstallService, ChoreographyService],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent]
 })

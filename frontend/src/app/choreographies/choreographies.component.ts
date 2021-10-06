@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ChoreographyService } from '../choreography.service';
+import { Choreography } from '../choreography';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-choreographies',
@@ -6,22 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./choreographies.component.scss']
 })
 export class ChoreographiesComponent {
-  choreographies = [
-    {
-      name: 'Joulunäytös',
-      team: 'Flames'
-    },
-    {
-      name: 'Kevätnäytös',
-      team: 'Lightnings'
-    },
-    {
-      name: 'SM-karsinnat',
-      team: 'Flash'
-    }
-  ];
 
-  constructor() {
+  choreographies$: Observable<Choreography[]>;
+
+  constructor(public choreographyService: ChoreographyService) {
+    this.choreographies$ = this.choreographyService.getChoreographies();
   }
 
 }
