@@ -126,7 +126,7 @@ export class ChoreographyService {
   }
 
   getChoreographiesById(id: number): Observable<Choreography> {
-    return timer(500).pipe(mapTo(this.choreographies[id - 1]));
+    return timer(500).pipe(mapTo(this.choreographies.find(choreography => choreography.id === id)!));
   }
 
 }

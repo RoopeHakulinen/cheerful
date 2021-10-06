@@ -10,10 +10,10 @@ import { Observable } from 'rxjs';
 })
 export class ChoreographiesComponent {
 
-  choreographies: Observable<Choreography[]>;
+  choreographies$: Observable<Choreography[]>;
 
   constructor(public choreographyService: ChoreographyService) {
-    this.choreographies = this.choreographyService.getChoreographies();
+    this.choreographies$ = this.choreographyService.getChoreographies();
   }
 
 }
