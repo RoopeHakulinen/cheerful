@@ -122,8 +122,8 @@
             translate="COMMON.CLOSE"></button>
           <button
             (click)="toggleBetweenGroupAndSingleMode()"
-            [translate]="isActiveItemGroup ? 'CHOREOGRAPHY.EXIT_GROUP' : 'CHOREOGRAPHY.CREATE_GROUP'"
             mat-raised-button>
+            {{(isActiveItemGroup ? 'CHOREOGRAPHY.EXIT_GROUP' : 'CHOREOGRAPHY.CREATE_GROUP') | translate}}
           </button>
         </div>
       </mat-card>

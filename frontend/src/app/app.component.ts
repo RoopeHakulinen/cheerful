@@ -40,7 +40,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-
   private checkForIosInstallPopup(): void {
     this.iosInstallService.showPopupIfOnIos();
   }
