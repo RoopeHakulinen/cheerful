@@ -46,13 +46,15 @@
           <div fxLayout="row" fxLayoutWrap="wrap">
             <div *ngIf="!isActiveItemGroup" fxFlex>
               <mat-form-field>
-                <mat-select [(ngModel)]="activeChoreographyItem.content" placeholder="Change person">
+                <mat-select [(ngModel)]="activeChoreographyItem.content"
+                            [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate">
                   <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field>
-                <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color"
+                <input [(ngModel)]="activeChoreographyItem.color" [placeholder]="'COMMON.COLOR' | translate" matInput
+                       name="color"
                        type="color">
               </mat-form-field>
               <!--          <mat-form-field>-->
@@ -65,14 +67,15 @@
             <div *ngIf="isActiveItemGroup" fxFlex>
               <mat-form-field>
                 <mat-select (selectionChange)="switchGroupType($event.value)"
-                            placeholder="Group type">
+                            [placeholder]="'CHOREOGRAPHY.GROUP_TYPE' | translate">
                   <mat-option *ngFor="let groupType of availableGroupTypes"
                               [value]="groupType">{{groupType}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field>
-                <input [(ngModel)]="activeChoreographyItem.color" matInput name="color" placeholder="Color"
+                <input [(ngModel)]="activeChoreographyItem.color" [placeholder]="'COMMON.COLOR' | translate" matInput
+                       name="color"
                        type="color">
               </mat-form-field>
             </div>
@@ -109,14 +112,21 @@
         <!--      </mat-form-field>-->
 
         <div>
-          <button (click)="clearItem(activeChoreographyItem)" mat-raised-button>Remove person</button>
-          <button (click)="activeChoreographyItem = null" mat-raised-button>Close window</button>
-          <button (click)="toggleBetweenGroupAndSingleMode()" mat-raised-button>
-            {{isActiveItemGroup ? 'Exit group mode' : 'Create a group'}}
+          <button
+            (click)="clearItem(activeChoreographyItem)"
+            mat-raised-button
+            translate="COMMON.REMOVE"></button>
+          <button
+            (click)="activeChoreographyItem = null"
+            mat-raised-button
+            translate="COMMON.CLOSE"></button>
+          <button
+            (click)="toggleBetweenGroupAndSingleMode()"
+            [translate]="isActiveItemGroup ? 'CHOREOGRAPHY.EXIT_GROUP' : 'CHOREOGRAPHY.CREATE_GROUP'"
+            mat-raised-button>
           </button>
         </div>
       </mat-card>
-
       <app-carpet
         (active)="activeChoreographyItem = $event"
         (removePerson)="removePersonFromCarpet($event)"
@@ -128,10 +138,11 @@
         [frame]="choreography.frames[activeFrame]"
         [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>
       <div class="notes-container">
-        <button (click)="areNotesShown = !areNotesShown" mat-stroked-button> Notes</button>
+        <button (click)="areNotesShown = !areNotesShown"
+                mat-stroked-button translate="CHOREOGRAPHY.NOTES"></button>
         <div class="notes-input">
           <mat-form-field *ngIf="areNotesShown" appearance="fill" class="notes">
-            <mat-label>Insert notes here.</mat-label>
+            <mat-label translate="CHOREOGRAPHY.NOTES_HINT"></mat-label>
             <textarea [(ngModel)]="choreography.frames[activeFrame].notes" cdkTextareaAutosize matInput></textarea>
           </mat-form-field>
         </div>

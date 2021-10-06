@@ -4,6 +4,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-frame-manager',
@@ -86,9 +87,10 @@ export class FrameManagerComponent implements OnChanges {
     return '-';
   }
 
-  constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private translate: TranslateService) {
     this.carpetHeightOptions = Array(16).fill(0).map((x, i) => i);
     this.carpetWidthOptions = Array(16).fill(0).map((x, i) => i);
+    this.initializeLocalization();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -103,9 +105,9 @@ export class FrameManagerComponent implements OnChanges {
 
   removeClicked(index: number): void {
     if (this.frames.length === 1) {
-      this.snackBar.open('Only one frame left', 'Close', {
+      this.translate.get(['FRAME_MANAGER.ONE_FRAME_LEFT', 'COMMON.CLOSE']).subscribe(translation => this.snackBar.open(translation['FRAME_MANAGER.ONE_FRAME_LEFT'], translation['COMMON.CLOSE'], {
         duration: 5000
-      });
+      }));
       return;
     }
 
@@ -113,9 +115,9 @@ export class FrameManagerComponent implements OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.remove.emit(index);
-        this.snackBar.open('Frame removed', 'Close', {
+        this.translate.get(['FRAME_MANAGER.FRAME_REMOVED', 'COMMON.CLOSE']).subscribe(translation => this.snackBar.open(translation['FRAME_MANAGER.FRAME_REMOVED'], translation['COMMON.CLOSE'], {
           duration: 2500
-        });
+        }));
       }
     });
   }
@@ -140,5 +142,10 @@ export class FrameManagerComponent implements OnChanges {
     if (newHeight < this.carpetHorizontalSegments || newHeight % this.carpetHorizontalSegments !== 0) {
       this.changeHorizontalSegments.emit(newHeight);
     }
+  }
+
+  private initializeLocalization(): void {
+    this.translate.setDefaultLang('fi');
+    this.translate.use('fi');
   }
 }

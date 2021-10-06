@@ -14,67 +14,67 @@
     cdkDrag
     [cdkDragStartDelay]="100"
     class="frame clickable frame-box">
-    Frame {{index + 1}}
+    {{'FRAME_MANAGER.FRAME' | translate}} {{index + 1}}
     <div (click)="changeActiveSubframe.emit(subindex)"
          *ngFor="let subframe of frame.subframes; index as subindex"
          [class.active]="subindex === activeSubframe"
          class="subframe">
       <span *ngIf="index === active">
-          Subframe {{subindex + 1}}</span>
+          {{'FRAME_MANAGER.SUBFRAME' | translate}} {{subindex + 1}}</span>
     </div>
   </div>
 </div>
 <div class="controls">
-  <button (click)="add.emit()" mat-raised-button>Add</button>
-  <button (click)="removeClicked(active)" mat-raised-button>Remove</button>
+  <button (click)="add.emit()" mat-raised-button translate="COMMON.ADD"></button>
+  <button (click)="removeClicked(active)" mat-raised-button translate="COMMON.REMOVE"></button>
 </div>
 <mat-accordion>
   <mat-expansion-panel class="mat-elevation-z0">
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        Options
-      </mat-panel-title>
+      <mat-panel-title translate="FRAME_MANAGER.OPTIONS"></mat-panel-title>
     </mat-expansion-panel-header>
     <div class="controls">
       <div class="toggle-container">
-        <mat-checkbox (change)="toggleAnimations.emit()" [checked]="areAnimationsOn">Animations</mat-checkbox>
-        <mat-checkbox (change)="toggleLooping.emit()" [checked]="isLoopingOn">Looping</mat-checkbox>
-        <mat-checkbox (change)="toggleVoiceSynthesis.emit()" [checked]="isVoiceSynthesisOn">Voice Synthesis
-        </mat-checkbox>
-        <!--        <mat-form-field class="input-container">-->
-        <!--          Frame duration (s)-->
-        <!--          <input (change)="emitFrameDurationChange($event)" [valueAsNumber]="frameIntervalAsSeconds" matInput-->
-        <!--                 max="24"-->
-        <!--                 min="1"-->
-        <!--                 step="0.5"-->
-        <!--                 type="number">-->
-        <!--        </mat-form-field>-->
-        <button [matMenuTriggerFor]="frameinterval" mat-button>Tempo: {{frameIntervalAsTempo}}</button>
+        <mat-checkbox (change)="toggleAnimations.emit()"
+                      [checked]="areAnimationsOn">{{'FRAME_MANAGER.ANIMATIONS' | translate}} </mat-checkbox>
+        <mat-checkbox (change)="toggleLooping.emit()"
+                      [checked]="isLoopingOn">{{'FRAME_MANAGER.LOOPING' | translate}} </mat-checkbox>
+        <mat-checkbox (change)="toggleVoiceSynthesis.emit()"
+                      [checked]="isVoiceSynthesisOn">{{'FRAME_MANAGER.VOICE_SYNTHESIS' | translate}} </mat-checkbox>
+        <button [matMenuTriggerFor]="frameinterval" mat-button
+                translate="FRAME_MANAGER.TEMPO"> : {{frameIntervalAsTempo}}</button>
         <mat-menu #frameinterval="matMenu">
-          <button (click)="emitFrameDurationChange(2)" mat-menu-item>2/10 - slow</button>
-          <button (click)="emitFrameDurationChange(3)" mat-menu-item>3/10 - normal</button>
-          <button (click)="emitFrameDurationChange(4)" mat-menu-item>4/10 - fast</button>
+          <button (click)="emitFrameDurationChange(2)" mat-menu-item>2/10
+            -  {{'FRAME_MANAGER.SLOW_TEMPO' | translate}}</button>
+          <button (click)="emitFrameDurationChange(3)" mat-menu-item>3/10
+            -  {{'FRAME_MANAGER.NORMAL_TEMPO' | translate}}</button>
+          <button (click)="emitFrameDurationChange(4)" mat-menu-item>4/10
+            -  {{'FRAME_MANAGER.FAST_TEMPO' | translate}}</button>
         </mat-menu>
-        <button [matMenuTriggerFor]="segments" mat-button>Carpet size</button>
+        <button [matMenuTriggerFor]="segments" mat-button translate="FRAME_MANAGER.CARPET_SIZE"></button>
         <mat-menu #segments="matMenu">
-          <button [matMenuTriggerFor]="carpetheight" mat-menu-item> Carpet height: {{carpetHeight}}  </button>
-          <button [matMenuTriggerFor]="carpetwidth" mat-menu-item> Carpet width: {{carpetWidth}} </button>
-          <button [matMenuTriggerFor]="horizontal" mat-menu-item> Horizontal
-            segments: {{carpetHorizontalSegments}} </button>
-          <button [matMenuTriggerFor]="vertical" mat-menu-item> Vertical segments: {{carpetVerticalSegments}} </button>
+          <button [matMenuTriggerFor]="carpetheight"
+                  mat-menu-item>{{'FRAME_MANAGER.CARPET_HEIGHT' | translate}} : {{carpetHeight}}</button>
+          <button [matMenuTriggerFor]="carpetwidth"
+                  mat-menu-item>{{'FRAME_MANAGER.CARPET_WIDTH' | translate}} : {{carpetWidth}}</button>
+          <button [matMenuTriggerFor]="horizontal"
+                  mat-menu-item>{{'FRAME_MANAGER.HORIZONTAL_SEGMENTS' | translate}}
+            : {{carpetHorizontalSegments}}</button>
+          <button [matMenuTriggerFor]="vertical"
+                  mat-menu-item>{{'FRAME_MANAGER.VERTICAL_SEGMENTS' | translate}} : {{carpetVerticalSegments}}</button>
         </mat-menu>
         <mat-menu #carpetheight="matMenu">
           <div *ngFor="let heigthOptions of carpetHeightOptions">
             <button
               (click)="emitCarpetHeightChange(heigthOptions + 1)"
-              mat-menu-item> {{heigthOptions + 1}} </button>
+              mat-menu-item>{{heigthOptions + 1}}</button>
           </div>
         </mat-menu>
         <mat-menu #carpetwidth="matMenu">
           <div *ngFor="let widthOptions of carpetWidthOptions">
             <button
               (click)="emitCarpetWidthChange(widthOptions + 1)"
-              mat-menu-item> {{widthOptions + 1}} </button>
+              mat-menu-item>{{widthOptions + 1}}</button>
           </div>
         </mat-menu>
         <mat-menu #horizontal="matMenu">
