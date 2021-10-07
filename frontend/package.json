@@ -10,7 +10,9 @@
     "test:ci": "ng test --browsers ChromeHeadless --watch false",
     "lint": "ng lint",
     "deploy": "ng deploy --no-silent --base-href=/cheerful/",
-    "analyze-size": "ng build --sourceMap=true --output-hashing=none && source-map-explorer dist/frontend/main.js"
+    "analyze-size": "ng build --sourceMap=true --output-hashing=none && source-map-explorer dist/frontend/main.js",
+    "e2e:full": "concurrently --kill-others \"npm start\" \"sleep 15 && playwright test -c ./e2e\"",
+    "e2e": "playwright test -c ./e2e"
   },
   "private": true,
   "dependencies": {
