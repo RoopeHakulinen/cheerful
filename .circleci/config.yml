@@ -37,12 +37,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build
-          command: npm run build
-          working_directory: ~/project/frontend
-      - run:
           name: Install node_modules with npm
           command: npm install
+          working_directory: ~/project/frontend
+      - run:
+          name: Build
+          command: npm run build
           working_directory: ~/project/frontend
       - run:
           name: Deploy to roopehakulinen.github.io/cheerful
