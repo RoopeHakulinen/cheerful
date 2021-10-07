@@ -41,6 +41,12 @@ jobs:
           command: npm install
           working_directory: ~/project/frontend
       - run:
+          name: Authenticate to Git
+          command: |
+            git config user.email "makinenvi@gmail.com"
+            git config user.name "vilimakinen"
+          working_directory: ~/project/frontend
+      - run:
           name: Deploy to roopehakulinen.github.io/cheerful
           command: npm run deploy
           working_directory: ~/project/frontend
