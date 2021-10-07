@@ -120,9 +120,7 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "message": "[ci skip] Auto generated commit."
-          }
+          "options": {}
         }
       }
     }
