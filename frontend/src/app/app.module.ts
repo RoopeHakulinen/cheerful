@@ -45,7 +45,13 @@ import { FourGroupComponent } from './choreography/groups/four-group/four-group.
 import { FiveGroupComponent } from './choreography/groups/five-group/five-group.component';
 import { ChoreographyService } from './choreography.service';
 import { GroupPersonSelectorComponent } from './choreography/groups/group-options/group-person-selector.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
+export function HttpLoaderFactory(http: HttpClient): any {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -96,7 +102,15 @@ import { GroupPersonSelectorComponent } from './choreography/groups/group-option
     DragDropModule,
     MatCheckboxModule,
     MatProgressBarModule,
-    MatMenuModule
+    MatMenuModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    HttpClientModule
   ],
   providers: [MenuService, IosInstallService, ChoreographyService],
   bootstrap: [AppComponent],

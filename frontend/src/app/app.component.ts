@@ -4,6 +4,8 @@ import { MenuService } from './menu.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IosInstallService } from './ios-install-popup.service';
 import { ChoreographyService } from './choreography.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,34 +13,43 @@ import { ChoreographyService } from './choreography.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private swUpdate: SwUpdate, private snackBar: MatSnackBar, public menuService: MenuService, private iosInstallService: IosInstallService, public choreographyService: ChoreographyService) {
+  constructor(private swUpdate: SwUpdate, private snackBar: MatSnackBar, public menuService: MenuService, private iosInstallService: IosInstallService, public choreographyService: ChoreographyService, private translate: TranslateService) {
   }
 
   ngOnInit(): void {
-    this.checkForUpdates();
-    this.checkForIosInstallPopup();
+    this.initializeLocalization().subscribe(() => {
+      this.checkForUpdates();
+      this.checkForIosInstallPopup();
+    });
   }
 
   private checkForUpdates(): void {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
-        this.snackBar.open('A newer version is now available. Restart the app to update.', 'Close', {
+        this.snackBar.open(this.translate.instant('COMMON.UPDATE_PROMPT'), this.translate.instant('COMMON.CLOSE'), {
           duration: 10000
         });
-        this.swUpdate.activateUpdate()
-          .then(() => {
-            this.snackBar.open('New version installed.', 'Close', {
-              duration: 3000
-            });
-          })
-          .catch(err => {
-            console.log(err);
-          });
       });
+      this.swUpdate.activateUpdate()
+        .then(() => {
+          this.snackBar.open(this.translate.instant('COMMON.UPDATE_SUCCESSFUL'), this.translate.instant('COMMON.CLOSE'), {
+            duration: 3000
+          });
+        })
+        .catch(err => {
+          this.snackBar.open(this.translate.instant('COMMON.UPDATE_NOT_SUCCESSFUL' + err), this.translate.instant('COMMON.CLOSE'), {
+            duration: 5000
+          });
+        });
     }
   }
 
   private checkForIosInstallPopup(): void {
     this.iosInstallService.showPopupIfOnIos();
+  }
+
+  private initializeLocalization(): Observable<boolean> {
+    this.translate.setDefaultLang('fi');
+    return this.translate.use('fi');
   }
 }

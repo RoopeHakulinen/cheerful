@@ -1,6 +1,6 @@
 <app-toolbar [title]="'Choreographies'"></app-toolbar>
 <mat-list>
-  <h3 mat-subheader>Mine</h3>
+  <h3 mat-subheader translate="CHOREOGRAPHIES.MY_CHOREOGRAPHIES"></h3>
   <mat-list-item *ngFor="let choreography of choreographies$ | async"
                  [routerLink]="['/choreographies', choreography.id]"
                  class="clickable">

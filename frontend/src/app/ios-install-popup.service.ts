@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class IosInstallService {
 
-  constructor(private snackBar: MatSnackBar) {
+  constructor(private snackBar: MatSnackBar, private translate: TranslateService) {
   }
 
   private static isIos(): boolean {
@@ -18,7 +19,7 @@ export class IosInstallService {
 
   showPopupIfOnIos(): void {
     if (IosInstallService.isIos() && !IosInstallService.isInStandaloneMode()) {
-      this.snackBar.open('Tap the share button ↑ and add to Home Screen', 'Close', {
+      this.snackBar.open(this.translate.instant('COMMON.INSTALL_PROMPT'), this.translate.instant('COMMON.CLOSE'), {
         duration: 5000
       });
     }

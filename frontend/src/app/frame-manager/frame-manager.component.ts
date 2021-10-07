@@ -4,6 +4,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-frame-manager',
@@ -86,7 +87,7 @@ export class FrameManagerComponent implements OnChanges {
     return '-';
   }
 
-  constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private translate: TranslateService) {
     this.carpetHeightOptions = Array(16).fill(0).map((x, i) => i);
     this.carpetWidthOptions = Array(16).fill(0).map((x, i) => i);
   }
@@ -103,8 +104,8 @@ export class FrameManagerComponent implements OnChanges {
 
   removeClicked(index: number): void {
     if (this.frames.length === 1) {
-      this.snackBar.open('Only one frame left', 'Close', {
-        duration: 5000
+      this.snackBar.open(this.translate.instant('FRAME_MANAGER.ONE_FRAME_LEFT'), this.translate.instant('COMMON.CLOSE'), {
+        duration: 3000
       });
       return;
     }
@@ -113,7 +114,7 @@ export class FrameManagerComponent implements OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.remove.emit(index);
-        this.snackBar.open('Frame removed', 'Close', {
+        this.snackBar.open(this.translate.instant('FRAME_MANAGER.FRAME_REMOVED'), this.translate.instant('COMMON.CLOSE'), {
           duration: 2500
         });
       }
