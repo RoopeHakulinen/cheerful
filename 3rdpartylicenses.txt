@@ -94,6 +94,12 @@ MIT
 @angular/service-worker
 MIT
 
+@ngx-translate/core
+MIT
+
+@ngx-translate/http-loader
+MIT
+
 rxjs
 Apache-2.0
                                Apache License

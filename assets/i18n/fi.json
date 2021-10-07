@@ -1,0 +1,61 @@
+{
+  "COMMON": {
+    "UPDATE_PROMPT": "Uusi versio saatavilla. Päivitä sivu asentaaksesi päivityksen.",
+    "INSTALL_PROMPT": "Kosketa ikonia ↑ ja lisää aloitusnäyttöön",
+    "UPDATE_SUCCESSFUL": "Asennus onnistui.",
+    "UPDATE_NOT_SUCCESSFUL": "Asennus epäonnistui. Virhe: ",
+    "CLOSE": "Sulje",
+    "COLOR": "Väri",
+    "ADD": "Lisää",
+    "REMOVE": "Poista",
+    "NAME": "Nimi",
+    "CANCEL": "Peruuta"
+  },
+  "CARPET": {
+    "AUDIENCE": "Yleisö"
+  },
+  "CHOREOGRAPHIES": {
+    "MY_CHOREOGRAPHIES": "Minun koreografiat"
+  },
+  "CHOREOGRAPHY": {
+    "CHANGE_PERSON": "Vaihda henkilöä",
+    "GROUP_TYPE": "Ryhmän tyyppi",
+    "REMOVE": "Poista henkilö",
+    "EXIT_GROUP": "Poistu ryhmän luonnista",
+    "CREATE_GROUP": "Luo ryhmä",
+    "NOTES": "Muistiinpanot",
+    "NOTES_HINT": "Kirjoita muistiinpanot tähän."
+  },
+  "FRAME_MANAGER": {
+    "FRAME": "Freimi",
+    "SUBFRAME": "Alafreimi",
+    "OPTIONS": "Asetukset",
+    "ANIMATIONS": "Animaatiot",
+    "LOOPING": "Jatkuva toisto",
+    "VOICE_SYNTHESIS": "Äänet",
+    "TEMPO": "Tempo",
+    "SLOW_TEMPO": "Hidas",
+    "NORMAL_TEMPO": "Normaali",
+    "FAST_TEMPO": "Nopea",
+    "CARPET_SIZE": "Maton koko",
+    "CARPET_HEIGHT": "Maton korkeus",
+    "CARPET_WIDTH": "Maton leveys",
+    "HORIZONTAL_SEGMENTS": "Vaakajako",
+    "VERTICAL_SEGMENTS": "Pystyjako",
+    "FRAME_REMOVED": "Freimi poistettu.",
+    "ONE_FRAME_LEFT": "Vain yksi freimi jäljellä."
+  },
+  "PEOPLE": {
+    "PEOPLE": "Henkilöt",
+    "DESCRIPTION": "Hallitse tämän koreografian henkilöitä.",
+    "HINT": "Napauta henkilöä poistaaksesi hänet listalta.",
+    "NO_PEOPLE": "Koreografiassa ei ole vielä henkilöitä."
+  },
+  "EIGHT_COUNTER": {
+    "FRAME_NUMBER": "Freimin numero"
+  },
+  "CONFIRM_DIALOG": {
+    "TITLE": "Oletko varma?",
+    "WARNING": "Oletko varma? Tätä operaatiota ei voi peruuttaa."
+  }
+}
