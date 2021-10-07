@@ -36,11 +36,11 @@
     <div class="controls">
       <div class="toggle-container">
         <mat-checkbox (change)="toggleAnimations.emit()"
-                      [checked]="areAnimationsOn">{{'FRAME_MANAGER.ANIMATIONS' | translate}} </mat-checkbox>
+                      [checked]="areAnimationsOn">{{'FRAME_MANAGER.ANIMATIONS' | translate}}</mat-checkbox>
         <mat-checkbox (change)="toggleLooping.emit()"
-                      [checked]="isLoopingOn">{{'FRAME_MANAGER.LOOPING' | translate}} </mat-checkbox>
+                      [checked]="isLoopingOn">{{'FRAME_MANAGER.LOOPING' | translate}}</mat-checkbox>
         <mat-checkbox (change)="toggleVoiceSynthesis.emit()"
-                      [checked]="isVoiceSynthesisOn">{{'FRAME_MANAGER.VOICE_SYNTHESIS' | translate}} </mat-checkbox>
+                      [checked]="isVoiceSynthesisOn">{{'FRAME_MANAGER.VOICE_SYNTHESIS' | translate}}</mat-checkbox>
         <button [matMenuTriggerFor]="frameinterval" mat-button
                 translate="FRAME_MANAGER.TEMPO"> : {{frameIntervalAsTempo}}</button>
         <mat-menu #frameinterval="matMenu">
