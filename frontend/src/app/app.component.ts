@@ -37,7 +37,9 @@ export class AppComponent implements OnInit {
           });
         })
         .catch(err => {
-          console.log(err);
+          this.snackBar.open(this.translate.instant('COMMON.UPDATE_NOT_SUCCESSFUL' + err), this.translate.instant('COMMON.CLOSE'), {
+            duration: 5000
+          });
         });
     }
   }
