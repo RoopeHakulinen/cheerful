@@ -53,9 +53,9 @@
         </mat-menu>
         <button [matMenuTriggerFor]="segments" mat-button translate="FRAME_MANAGER.CARPET_SIZE"></button>
         <mat-menu #segments="matMenu">
-          <button [matMenuTriggerFor]="carpetheight"
+          <button [matMenuTriggerFor]="carpetHeightMenu"
                   mat-menu-item>{{'FRAME_MANAGER.CARPET_HEIGHT' | translate}} : {{carpetHeight}}</button>
-          <button [matMenuTriggerFor]="carpetwidth"
+          <button [matMenuTriggerFor]="carpetWidthMenu"
                   mat-menu-item>{{'FRAME_MANAGER.CARPET_WIDTH' | translate}} : {{carpetWidth}}</button>
           <button [matMenuTriggerFor]="horizontal"
                   mat-menu-item>{{'FRAME_MANAGER.HORIZONTAL_SEGMENTS' | translate}}
@@ -63,14 +63,14 @@
           <button [matMenuTriggerFor]="vertical"
                   mat-menu-item>{{'FRAME_MANAGER.VERTICAL_SEGMENTS' | translate}} : {{carpetVerticalSegments}}</button>
         </mat-menu>
-        <mat-menu #carpetheight="matMenu">
-          <div *ngFor="let heigthOptions of carpetHeightOptions">
+        <mat-menu #carpetHeightMenu="matMenu">
+          <div *ngFor="let heightOptions of carpetHeightOptions">
             <button
-              (click)="emitCarpetHeightChange(heigthOptions + 1)"
-              mat-menu-item>{{heigthOptions + 1}}</button>
+              (click)="emitCarpetHeightChange(heightOptions + 1)"
+              mat-menu-item>{{heightOptions + 1}}</button>
           </div>
         </mat-menu>
-        <mat-menu #carpetwidth="matMenu">
+        <mat-menu #carpetWidthMenu="matMenu">
           <div *ngFor="let widthOptions of carpetWidthOptions">
             <button
               (click)="emitCarpetWidthChange(widthOptions + 1)"
