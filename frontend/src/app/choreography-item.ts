@@ -1,7 +1,8 @@
 import { ChoreographySign } from './choreography-sign';
 import { ChoreographyGroup } from './choreography-group';
+import { Person } from './people';
 
-export type Content = string | ChoreographyGroup | null;
+export type Content = Person | ChoreographyGroup | null;
 
 export interface ChoreographyItem {
   content: Content;

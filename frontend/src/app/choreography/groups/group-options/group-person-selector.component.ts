@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Person } from '../../../people';
 
 @Component({
   selector: 'app-group-options',
@@ -8,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class GroupPersonSelectorComponent {
 
   @Input()
-  people: string[] = [];
+  people: Person[] = [];
 
   @Input()
   spot: string = '';

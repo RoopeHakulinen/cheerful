@@ -6,10 +6,12 @@ import {
   createEmptyGroup,
   FiveGroup,
   FourGroup,
+  getPeopleFromGroup,
   GroupType,
-  isActiveItemGroup,
   isFiveGroup,
   isFourGroup,
+  isGroup,
+  isPerson,
   isThreeGroup,
   isTwoGroup,
   ThreeGroup,
@@ -17,6 +19,7 @@ import {
 } from '../choreography-group';
 import { ChoreographyService } from '../choreography.service';
 import { ActivatedRoute } from '@angular/router';
+import { Person } from '../people';
 
 @Component({
   selector: 'app-choreography',
@@ -59,7 +62,7 @@ export class ChoreographyComponent {
   }
 
   get isActiveItemGroup(): boolean {
-    return isActiveItemGroup(this.activeChoreographyItem!.content);
+    return isGroup(this.activeChoreographyItem!.content);
   }
 
   swapItems({ first, second }: { first: number, second: number }): void {
@@ -87,15 +90,23 @@ export class ChoreographyComponent {
     this.playSubframeIntervalId = null;
   }
 
-  getAvailablePeopleForThisFrame(): string[] {
+  getAvailablePeopleForThisFrame(): Person[] {
+    function getPeopleForContent(content: Content): Person[] {
+      if (content === null) {
+        return [];
+      }
+      return isPerson(content) ? [content] : getPeopleFromGroup(content);
+    }
+
     return this.choreography.people.filter(
       person => !this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
         .reduce(
           (acc, tile) => [
             ...acc,
-            ...(typeof tile.content === 'string' ? tile.content : '')
-          ], [] as string[])
-        .includes(person));
+            ...getPeopleForContent(tile.content)
+          ], [] as Person[])
+        .map(person => person.name)
+        .includes(person.name));
   }
 
   setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any): void {
@@ -154,8 +165,8 @@ export class ChoreographyComponent {
     this.clearItem(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[index]);
   }
 
-  removePerson(name: string): void {
-    const index = this.choreography.people.findIndex(person => name === person);
+  removePerson(person: Person): void {
+    const index = this.choreography.people.map(person => person.name).findIndex(choreographyPerson => choreographyPerson === person.name);
     if (index === -1) {
       return;
     }
@@ -164,7 +175,7 @@ export class ChoreographyComponent {
       .forEach(frame => frame.subframes
         .forEach(subframe => subframe.grid
           .forEach(item => {
-            if (item.content === name) {
+            if (item.content === person) {
               this.clearItem(item);
             }
           })

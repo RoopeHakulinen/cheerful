@@ -35,7 +35,7 @@
         [isPlaying]="playSubframeIntervalId !== null"
         [isVoiceSynthesisOn]="isVoiceSynthesisOn"></app-frame-manager>
       <app-people
-        (add)="choreography.people.push($event)"
+        (add)="choreography.people.push({name: $event, color: '#5151b8'})"
         (remove)="removePerson($event)"
         [people]="choreography.people"></app-people>
     </div>
@@ -48,7 +48,8 @@
               <mat-form-field>
                 <mat-select [(ngModel)]="activeChoreographyItem.content"
                             [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate">
-                  <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()" [value]="person">{{person}}
+                  <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()"
+                              [value]="person.name">{{person.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

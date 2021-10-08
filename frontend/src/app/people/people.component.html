@@ -4,30 +4,35 @@
       <mat-panel-title>{{'PEOPLE.PEOPLE' | translate}} ({{people.length}})</mat-panel-title>
       <mat-panel-description translate="PEOPLE.DESCRIPTION"></mat-panel-description>
     </mat-expansion-panel-header>
-    <div class="people">
-      <div *ngIf="people.length; else noPeople">
-        <p translate="PEOPLE.HINT"></p>
-        <div class="people-list">
-          <div *ngFor="let person of people" class="person">
-            <div class="container">
-              <button (click)="remove.emit(person)" color="warn" mat-icon-button>
-                <mat-icon>remove</mat-icon>
-              </button>
-              {{person}}
-            </div>
-          </div>
-        </div>
-      </div>
-      <ng-template #noPeople translate="PEOPLE.NO_PEOPLE"></ng-template>
-    </div>
     <div class="add">
       <mat-form-field>
         <input #name [placeholder]="'COMMON.NAME' | translate" matInput name="name">
       </mat-form-field>
 
-      <button (click)="add.emit(name.value); name.value = ''" mat-icon-button>
+      <button (click)="add.emit(createPerson(name.value)); name.value = ''" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
+    </div>
+    <div class="people">
+      <div *ngIf="people.length; else noPeople">
+        <p translate="PEOPLE.HINT"></p>
+        <div class="people-list">
+          <div *ngFor="let person of people" class="person">
+            <div class="people-managing-container">
+              <div class="container">
+                <button (click)="remove.emit(createPerson(person.name))" color="warn" mat-icon-button>
+                  <mat-icon>remove</mat-icon>
+                </button>
+                {{person.name}}
+              </div>
+              <div>
+                <input class="color-picker" type="color">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noPeople translate="PEOPLE.NO_PEOPLE"></ng-template>
     </div>
   </mat-expansion-panel>
 </mat-accordion>
