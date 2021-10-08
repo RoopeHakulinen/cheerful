@@ -16,11 +16,12 @@ jobs:
           key: dependency-cache-{{ checksum "~/project/frontend/package.json" }}
           paths:
             - ~/project/frontend/node_modules
-      # TODO enable when there are tests.
-      #      - run:
-      #          name: Unit tests
-      #          command: npm run test:ci
-      #          working_directory: ~/project/frontend
+      - run:
+          name: Playwright tests
+          command: |
+            npm run e2e:init
+            npm run e2e
+          working_directory: ~/project/frontend
       - run:
           name: Lint
           command: npm run lint
