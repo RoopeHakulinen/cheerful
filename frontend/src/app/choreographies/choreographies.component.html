@@ -1,4 +1,4 @@
-<app-toolbar [title]="'Choreographies'"></app-toolbar>
+<app-toolbar [title]="'CHOREOGRAPHIES.TITLE' | translate"></app-toolbar>
 <mat-list>
   <h3 mat-subheader translate="CHOREOGRAPHIES.MY_CHOREOGRAPHIES"></h3>
   <mat-list-item *ngFor="let choreography of choreographies$ | async"
