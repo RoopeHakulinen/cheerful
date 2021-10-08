@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('landing page test', async ({ page }) => {
-  await page.goto('localhost:4200');
+  await page.goto('/');
   const title = page.locator('.title');
-  await expect(title).toHaveText('Choreographies');
+  await expect(title).toHaveText('Koreografiat');
 });
