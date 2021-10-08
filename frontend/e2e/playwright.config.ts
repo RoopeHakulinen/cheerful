@@ -5,14 +5,7 @@ const BASE_URL = process.env.BASE_URL;
 const config: PlaywrightTestConfig = {
   use: {
     trace: 'retain-on-failure'
-  },
-  webServer: {
-    command: 'npm start',
-    port: 4200,
-    timeout: 120 * 1000,
-    reuseExistingServer: !process.env.CI,
-  },
-
+  }
 };
 
 if (BASE_URL) {
@@ -23,7 +16,7 @@ if (BASE_URL) {
   config.webServer = {
     command: 'npm start',
     port: 4200,
-    timeout: 60 * 1000,
+    timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   };
 }

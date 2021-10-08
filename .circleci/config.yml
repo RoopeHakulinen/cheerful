@@ -18,7 +18,9 @@ jobs:
             - ~/project/frontend/node_modules
       - run:
           name: Playwright tests
-          command: npm run e2e
+          command: |
+            npm run e2e:init
+            npm run e2e
           working_directory: ~/project/frontend
       - run:
           name: Lint

@@ -11,7 +11,8 @@
     "lint": "ng lint",
     "deploy": "ng deploy --no-silent --base-href=/cheerful/",
     "analyze-size": "ng build --sourceMap=true --output-hashing=none && source-map-explorer dist/frontend/main.js",
-    "e2e": "playwright test -c ./e2e"
+    "e2e": "playwright test -c ./e2e",
+    "e2e:init": "playwright install"
   },
   "private": true,
   "dependencies": {
