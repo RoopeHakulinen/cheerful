@@ -98,6 +98,14 @@
             </div>
           </div>
         </div>
+        <div *ngIf="isActiveItemGroup">
+          <mat-form-field>
+            <mat-select (selectionChange)="changeGroupColor($event.value)" [placeholder]="'COMMON.COLOR' | translate">
+              <mat-option value="black">black</mat-option>
+              <mat-option value="red">red</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
         <!--      <mat-form-field>-->
         <!--        <input matInput placeholder="Sign" [(ngModel)]="activeChoreographyItem.sign.text">-->

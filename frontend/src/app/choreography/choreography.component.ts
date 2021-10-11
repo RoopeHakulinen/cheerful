@@ -224,4 +224,14 @@ export class ChoreographyComponent {
   isFiveGroup(content: Content): content is FiveGroup {
     return isFiveGroup(content);
   }
+
+  changeGroupColor(color: string): void {
+    if (!isGroup(this.activeChoreographyItem!.content)) {
+      return;
+    }
+    if (this.activeChoreographyItem === null) {
+      return;
+    }
+    this.activeChoreographyItem.content.groupColor = color;
+  }
 }
