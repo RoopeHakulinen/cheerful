@@ -19,11 +19,13 @@ import {
   FourGroup,
   isFiveGroup,
   isFourGroup,
+  isPerson,
   isThreeGroup,
   isTwoGroup,
   ThreeGroup,
   TwoGroup
 } from '../choreography-group';
+import { Person } from '../people';
 
 @Component({
   selector: 'app-carpet',
@@ -166,5 +168,9 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   isFiveGroup(text: Content): text is FiveGroup {
     return isFiveGroup(text);
+  }
+
+  isPerson(text: Content): text is Person {
+    return isPerson(text);
   }
 }
