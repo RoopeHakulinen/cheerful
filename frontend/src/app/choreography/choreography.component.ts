@@ -232,6 +232,6 @@ export class ChoreographyComponent {
     if (this.activeChoreographyItem === null) {
       return;
     }
-    this.activeChoreographyItem.content.groupColor = color;
+    this.activeChoreographyItem.content.color = color;
   }
 }

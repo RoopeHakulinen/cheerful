@@ -3,7 +3,7 @@ import { Person } from './people';
 
 interface ChoreographyGroupStructure {
   type: GroupType;
-  groupColor: string | null;
+  color: string | null;
 }
 
 export interface TwoGroup extends ChoreographyGroupStructure {
@@ -46,14 +46,14 @@ export function createEmptyGroup(groupType: GroupType): ChoreographyGroup {
   if (groupType === 'two') {
     return {
       type: 'two',
-      groupColor: null,
+      color: null,
       flyer: null,
       backspot: null
     };
   } else if (groupType === 'three') {
     return {
       type: 'three',
-      groupColor: null,
+      color: null,
       flyer: null,
       backspot: null,
       mainbase: null
@@ -61,7 +61,7 @@ export function createEmptyGroup(groupType: GroupType): ChoreographyGroup {
   } else if (groupType === 'four') {
     return {
       type: 'four',
-      groupColor: null,
+      color: null,
       flyer: null,
       backspot: null,
       mainbase: null,
@@ -70,7 +70,7 @@ export function createEmptyGroup(groupType: GroupType): ChoreographyGroup {
   } else if (groupType === 'five') {
     return {
       type: 'five',
-      groupColor: null,
+      color: null,
       flyer: null,
       backspot: null,
       mainbase: null,

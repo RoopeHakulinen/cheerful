@@ -36,31 +36,31 @@
           <div
             *ngIf="isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)"
-            [style.background]="item.content?.groupColor !== null ? item.content.groupColor : item.content.flyer?.color"
+            [style.background]="item.content?.color !== null ? item.content.color : item.content.flyer?.color"
             class="text-container {{item.shape}} grid-top">
             {{item.content.flyer?.name}}
           </div>
           <div
             *ngIf="isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)"
-            [style.background]="item.content?.groupColor !== null ? item.content.groupColor : item.content.backspot?.color"
+            [style.background]="item.content?.color !== null ? item.content.color : item.content.backspot?.color"
             class="text-container {{item.shape}} grid-bottom">
             {{item.content.backspot?.name}}
           </div>
           <div
             *ngIf="isThreeGroup(item.content)  || isFourGroup(item.content)
             || isFiveGroup(item.content)"
-            [style.background]="item.content?.groupColor !== null ? item.content.groupColor : item.content.mainbase?.color"
+            [style.background]="item.content?.color !== null ? item.content.color : item.content.mainbase?.color"
             class="text-container {{item.shape}} grid-left">
             {{item.content.mainbase?.name}}
           </div>
           <div *ngIf="isFourGroup(item.content) || isFiveGroup(item.content)"
-               [style.background]="item.content?.groupColor !== null ? item.content.groupColor : item.content.sidebase?.color"
+               [style.background]="item.content?.color !== null ? item.content.color : item.content.sidebase?.color"
                class="text-container {{item.shape}} grid-right">
             {{item.content.sidebase?.name}}
           </div>
           <div *ngIf="isFiveGroup(item.content)"
-               [style.background]="item.content?.groupColor !== null ? item.content.groupColor : item.content.frontspot?.color"
+               [style.background]="item.content?.color !== null ? item.content.color : item.content.frontspot?.color"
                class="text-container {{item.shape}} grid-middle">
             {{item.content.frontspot?.name}}
           </div>

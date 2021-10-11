@@ -19,11 +19,13 @@ import {
   FourGroup,
   isFiveGroup,
   isFourGroup,
+  isPerson,
   isThreeGroup,
   isTwoGroup,
   ThreeGroup,
   TwoGroup
 } from '../choreography-group';
+import { Person } from '../people';
 
 @Component({
   selector: 'app-carpet',
@@ -152,19 +154,23 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     this.isDeletable = false;
   }
 
-  isTwoGroup(text: Content): text is TwoGroup {
-    return isTwoGroup(text);
+  isTwoGroup(content: Content): content is TwoGroup {
+    return isTwoGroup(content);
   }
 
-  isThreeGroup(text: Content): text is ThreeGroup {
-    return isThreeGroup(text);
+  isThreeGroup(content: Content): content is ThreeGroup {
+    return isThreeGroup(content);
   }
 
-  isFourGroup(text: Content): text is FourGroup {
-    return isFourGroup(text);
+  isFourGroup(content: Content): content is FourGroup {
+    return isFourGroup(content);
   }
 
-  isFiveGroup(text: Content): text is FiveGroup {
-    return isFiveGroup(text);
+  isFiveGroup(content: Content): content is FiveGroup {
+    return isFiveGroup(content);
+  }
+
+  isPerson(content: Content): content is Person {
+    return isPerson(content);
   }
 }
