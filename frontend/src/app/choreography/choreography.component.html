@@ -113,6 +113,11 @@
             mat-raised-button>
             {{(isActiveItemGroup ? 'CHOREOGRAPHY.EXIT_GROUP' : 'CHOREOGRAPHY.CREATE_GROUP') | translate}}
           </button>
+          <button
+            (click)="clearItem(activeChoreographyItem)"
+            *ngIf="activeChoreographyItem.content !== null"
+            mat-raised-button
+            translate="COMMON.REMOVE"></button>
         </div>
       </mat-card>
       <app-carpet
