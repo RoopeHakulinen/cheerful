@@ -35,7 +35,7 @@
         [isPlaying]="playSubframeIntervalId !== null"
         [isVoiceSynthesisOn]="isVoiceSynthesisOn"></app-frame-manager>
       <app-people
-        (add)="choreography.people.push({name: $event, color: '#5151b8'})"
+        (add)="choreography.people.push($event)"
         (remove)="removePerson($event)"
         [people]="choreography.people"></app-people>
     </div>
@@ -48,16 +48,12 @@
               <mat-form-field>
                 <mat-select [(ngModel)]="activeChoreographyItem.content"
                             [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate">
-                  <mat-option *ngFor="let person of getAvailablePeopleForThisFrame()"
-                              [value]="person.name">{{person.name}}
+                  <mat-option *ngFor="let person of availablePeople"
+                              [value]="person">{{person.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-form-field>
-                <input [(ngModel)]="activeChoreographyItem.color" [placeholder]="'COMMON.COLOR' | translate" matInput
-                       name="color"
-                       type="color">
-              </mat-form-field>
+
               <!--          <mat-form-field>-->
               <!--            <mat-select [(ngModel)]="activeChoreographyItem.shape" placeholder="Shape">-->
               <!--              <mat-option value="box">Box</mat-option>-->
@@ -74,11 +70,6 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-form-field>
-                <input [(ngModel)]="activeChoreographyItem.color" [placeholder]="'COMMON.COLOR' | translate" matInput
-                       name="color"
-                       type="color">
-              </mat-form-field>
             </div>
 
             <!--        <div class="position-selector" fxFlex="120px">-->
@@ -94,16 +85,16 @@
             <div *ngIf="isActiveItemGroup" class="group-participants-container">
               <app-two-group *ngIf="isTwoGroup(activeChoreographyItem.content)"
                              [group]="activeChoreographyItem.content"
-                             [people]="choreography.people"></app-two-group>
+                             [people]="getAvailablePeopleForThisFrame()"></app-two-group>
               <app-three-group *ngIf="isThreeGroup(activeChoreographyItem.content)"
                                [group]="activeChoreographyItem.content"
-                               [people]="choreography.people"></app-three-group>
+                               [people]="getAvailablePeopleForThisFrame()"></app-three-group>
               <app-four-group *ngIf="isFourGroup(activeChoreographyItem.content)"
                               [group]="activeChoreographyItem.content"
-                              [people]="choreography.people"></app-four-group>
+                              [people]="getAvailablePeopleForThisFrame()"></app-four-group>
               <app-five-group *ngIf="isFiveGroup(activeChoreographyItem.content)"
                               [group]="activeChoreographyItem.content"
-                              [people]="choreography.people"></app-five-group>
+                              [people]="getAvailablePeopleForThisFrame()"></app-five-group>
             </div>
           </div>
         </div>
@@ -113,10 +104,6 @@
         <!--      </mat-form-field>-->
 
         <div>
-          <button
-            (click)="clearItem(activeChoreographyItem)"
-            mat-raised-button
-            translate="COMMON.REMOVE"></button>
           <button
             (click)="activeChoreographyItem = null"
             mat-raised-button

@@ -199,6 +199,16 @@ export class ChoreographyComponent {
     }
   }
 
+  get availablePeople(): Person[] {
+    if (this.activeChoreographyItem?.content === null) {
+      return this.getAvailablePeopleForThisFrame();
+    }
+    if (!isPerson(this.activeChoreographyItem?.content!)) {
+      return this.getAvailablePeopleForThisFrame();
+    }
+    return [...this.getAvailablePeopleForThisFrame(), this.activeChoreographyItem?.content!];
+  }
+
   isTwoGroup(content: Content): content is TwoGroup {
     return isTwoGroup(content);
   }

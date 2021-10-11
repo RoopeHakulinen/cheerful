@@ -1,9 +1,11 @@
 <app-group-options (changeGroupMember)="group.flyer = $event"
                    [people]="people"
+                   [value]="group.flyer"
                    spot="Flyer"
 ></app-group-options>
 <app-group-options (changeGroupMember)="group.backspot = $event"
                    [people]="people"
+                   [value]="group.backspot"
                    spot="Backspot"
 ></app-group-options>
 

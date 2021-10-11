@@ -14,7 +14,16 @@ export class GroupPersonSelectorComponent {
   @Input()
   spot: string = '';
 
-  @Output()
-  changeGroupMember = new EventEmitter<string>()
+  @Input()
+  value: Person | null = null;
 
+  @Output()
+  changeGroupMember = new EventEmitter<Person>()
+
+  get availablePeople(): Person[] {
+    if (this.value === null) {
+      return this.people;
+    }
+    return [...this.people, this.value];
+  }
 }
