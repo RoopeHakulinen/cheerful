@@ -173,4 +173,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   isPerson(content: Content): content is Person {
     return isPerson(content);
   }
+
+  isPerson(text: Content): text is Person {
+    return isPerson(text);
+  }
 }
