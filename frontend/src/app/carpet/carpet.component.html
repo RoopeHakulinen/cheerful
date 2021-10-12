@@ -28,42 +28,41 @@
         class="tile {{item.position[0]}}">
         <div (cdkDragStarted)="dragStarted(index)" cdkDrag class="drag-container">
           <div
-            *ngIf="item.content && !(isTwoGroup(item.content) || isThreeGroup(item.content)
-            || isFourGroup(item.content) || isFiveGroup(item.content))"
-            [style.background]="item.color"
+            *ngIf="isPerson(item.content)"
+            [style.background]="item.content.color"
             class="text-container {{item.shape}} grid-middle">
-            {{item.content}}
+            {{item.content.name}}
           </div>
           <div
-            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content)
-            || isFourGroup(item.content) || isFiveGroup(item.content))"
-            [style.background]="item.color"
+            *ngIf="isTwoGroup(item.content) || isThreeGroup(item.content)
+            || isFourGroup(item.content) || isFiveGroup(item.content)"
+            [style.background]="item.content?.color !== null ? item.content.color : item.content.flyer?.color"
             class="text-container {{item.shape}} grid-top">
-            {{item.content.flyer}}
+            {{item.content.flyer?.name}}
           </div>
           <div
-            *ngIf="item.content && (isTwoGroup(item.content) || isThreeGroup(item.content)
-            || isFourGroup(item.content) || isFiveGroup(item.content))"
-            [style.background]="item.color"
+            *ngIf="isTwoGroup(item.content) || isThreeGroup(item.content)
+            || isFourGroup(item.content) || isFiveGroup(item.content)"
+            [style.background]="item.content?.color !== null ? item.content.color : item.content.backspot?.color"
             class="text-container {{item.shape}} grid-bottom">
-            {{item.content.backspot}}
+            {{item.content.backspot?.name}}
           </div>
           <div
-            *ngIf="item.content && (isThreeGroup(item.content)  || isFourGroup(item.content)
-            || isFiveGroup(item.content))"
-            [style.background]="item.color"
+            *ngIf="isThreeGroup(item.content)  || isFourGroup(item.content)
+            || isFiveGroup(item.content)"
+            [style.background]="item.content?.color !== null ? item.content.color : item.content.mainbase?.color"
             class="text-container {{item.shape}} grid-left">
-            {{item.content.mainbase}}
+            {{item.content.mainbase?.name}}
           </div>
-          <div *ngIf="item.content && (isFourGroup(item.content) || isFiveGroup(item.content))"
-               [style.background]="item.color"
+          <div *ngIf="isFourGroup(item.content) || isFiveGroup(item.content)"
+               [style.background]="item.content?.color !== null ? item.content.color : item.content.sidebase?.color"
                class="text-container {{item.shape}} grid-right">
-            {{item.content.sidebase}}
+            {{item.content.sidebase?.name}}
           </div>
-          <div *ngIf="item.content && isFiveGroup(item.content)"
-               [style.background]="item.color"
+          <div *ngIf="isFiveGroup(item.content)"
+               [style.background]="item.content?.color !== null ? item.content.color : item.content.frontspot?.color"
                class="text-container {{item.shape}} grid-middle">
-            {{item.content.frontspot}}
+            {{item.content.frontspot?.name}}
           </div>
         </div>
       </div>

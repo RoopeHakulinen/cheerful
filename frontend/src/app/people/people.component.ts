@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { createPerson, Person } from '../people';
 
 @Component({
   selector: 'app-people',
@@ -8,14 +9,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class PeopleComponent {
 
   @Input()
-  people: string[] = [];
+  people: Person[] = [];
 
   @Output()
-  add = new EventEmitter<string>();
+  add = new EventEmitter<Person>();
   @Output()
-  remove = new EventEmitter<string>();
+  remove = new EventEmitter<Person>();
 
   constructor() {
   }
 
+  createPerson(name: string): Person {
+    return createPerson(name);
+  }
 }

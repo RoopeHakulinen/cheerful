@@ -9,9 +9,18 @@
       flex-grow: 0;
       text-align: center;
 
+      .people-managing-container {
+        display: flex;
+      }
+
       .container {
-        width: 120px;
+        width: 150px;
         text-align: left;
+      }
+
+      .color-picker {
+        text-align: right;
+        align-self: center;
       }
     }
   }
