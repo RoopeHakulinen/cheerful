@@ -57,6 +57,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   animationDuration!: number;
   @Input()
   areAnimationsOn!: boolean;
+  @Input()
+  people: Person[] | null = null;
 
   @Output()
   active = new EventEmitter<ChoreographyItem>();
@@ -80,6 +82,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     const second = event;
     this.swap.emit({ first, second });
     this.isDeletable = false;
+    this.active.emit(this.subframe.grid[event]);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
