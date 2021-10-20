@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { createPerson, Person } from '../people';
+import { Person } from '../people';
 
 @Component({
   selector: 'app-people',
@@ -19,7 +19,7 @@ export class PeopleComponent {
   constructor() {
   }
 
-  createPerson(name: string): Person {
-    return createPerson(name);
-  }
+  // createPerson(name: string): Person {
+  //   return createPerson(name);
+  // }
 }

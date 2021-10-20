@@ -38,31 +38,31 @@
             || isFourGroup(item.content) || isFiveGroup(item.content)"
             [style.background]="item.content?.color !== null ? item.content.color : item.content.flyer?.color"
             class="text-container {{item.shape}} grid-top">
-            {{item.content.flyer?.name}}
+            {{item.content.flyer?.id! | personNamePipe:people!}}
           </div>
           <div
             *ngIf="isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)"
             [style.background]="item.content?.color !== null ? item.content.color : item.content.backspot?.color"
             class="text-container {{item.shape}} grid-bottom">
-            {{item.content.backspot?.name}}
+            {{item.content.backspot?.id! | personNamePipe:people!}}
           </div>
           <div
             *ngIf="isThreeGroup(item.content)  || isFourGroup(item.content)
             || isFiveGroup(item.content)"
             [style.background]="item.content?.color !== null ? item.content.color : item.content.mainbase?.color"
             class="text-container {{item.shape}} grid-left">
-            {{item.content.mainbase?.name}}
+            {{item.content.mainbase?.id! | personNamePipe:people!}}
           </div>
           <div *ngIf="isFourGroup(item.content) || isFiveGroup(item.content)"
                [style.background]="item.content?.color !== null ? item.content.color : item.content.sidebase?.color"
                class="text-container {{item.shape}} grid-right">
-            {{item.content.sidebase?.name}}
+            {{item.content.sidebase?.id! | personNamePipe:people!}}
           </div>
           <div *ngIf="isFiveGroup(item.content)"
                [style.background]="item.content?.color !== null ? item.content.color : item.content.frontspot?.color"
                class="text-container {{item.shape}} grid-middle">
-            {{item.content.frontspot?.name}}
+            {{item.content.frontspot?.id! | personNamePipe:people!}}
           </div>
         </div>
       </div>
