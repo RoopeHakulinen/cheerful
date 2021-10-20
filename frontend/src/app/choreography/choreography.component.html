@@ -49,7 +49,7 @@
                 <mat-select [(ngModel)]="activeChoreographyItem.content"
                             [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate">
                   <mat-option *ngFor="let person of availablePeople"
-                              [value]="person">{{person.name}}
+                              [value]="person">{{person.id | personNamePipe:choreography.people}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -137,6 +137,7 @@
         [areAnimationsOn]="areAnimationsOn"
         [carpet]="choreography.carpet"
         [frame]="choreography.frames[activeFrame]"
+        [people]="choreography.people"
         [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>
       <div class="notes-container">
         <button (click)="areNotesShown = !areNotesShown"

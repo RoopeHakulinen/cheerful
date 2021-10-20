@@ -9,9 +9,9 @@
         <input #name [placeholder]="'COMMON.NAME' | translate" matInput name="name">
       </mat-form-field>
 
-      <button (click)="add.emit(createPerson(name.value)); name.value = ''" mat-icon-button>
-        <mat-icon>add</mat-icon>
-      </button>
+      <!--      <button (click)="add.emit(createPerson(name.value)); name.value = ''" mat-icon-button>-->
+      <!--        <mat-icon>add</mat-icon>-->
+      <!--      </button>-->
     </div>
     <div class="people">
       <div *ngIf="people.length; else noPeople">
@@ -20,9 +20,9 @@
           <div *ngFor="let person of people" class="person">
             <div class="people-managing-container">
               <div class="container">
-                <button (click)="remove.emit(createPerson(person.name))" color="warn" mat-icon-button>
-                  <mat-icon>remove</mat-icon>
-                </button>
+                <!--                <button (click)="remove.emit(createPerson(person.name))" color="warn" mat-icon-button>-->
+                <!--                  <mat-icon>remove</mat-icon>-->
+                <!--                </button>-->
                 {{person.name}}
               </div>
               <div>

@@ -48,6 +48,7 @@ import { GroupPersonSelectorComponent } from './choreography/groups/group-option
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { PersonNamePipePipe } from './person-name-pipe.pipe';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -73,7 +74,8 @@ export function HttpLoaderFactory(http: HttpClient): any {
     ThreeGroupComponent,
     FourGroupComponent,
     FiveGroupComponent,
-    GroupPersonSelectorComponent
+    GroupPersonSelectorComponent,
+    PersonNamePipePipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
