@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Choreography } from '../choreography';
-import { ChoreographyItem, clearItem, Content } from '../choreography-item';
+import { ChoreographyItem, clearItem, Content, PersonContent } from '../choreography-item';
 import {
   availableGroupTypes,
+  ChoreographyGroup,
   createEmptyGroup,
   FiveGroup,
   FourGroup,
@@ -15,11 +16,12 @@ import {
   isThreeGroup,
   isTwoGroup,
   ThreeGroup,
-  TwoGroup
+  TwoGroup,
 } from '../choreography-group';
 import { ChoreographyService } from '../choreography.service';
 import { ActivatedRoute } from '@angular/router';
 import { Person } from '../people';
+import { PeopleService } from '../people.service';
 
 @Component({
   selector: 'app-choreography',
@@ -27,7 +29,6 @@ import { Person } from '../people';
   styleUrls: ['./choreography.component.scss']
 })
 export class ChoreographyComponent {
-
   choreography!: Choreography;
   activeFrame = 0;
   activeSubframe = 0;
@@ -41,7 +42,7 @@ export class ChoreographyComponent {
   areNotesShown = false;
   availableGroupTypes = availableGroupTypes;
 
-  constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute) {
+  constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute, private peopleService: PeopleService) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.choreographyService.getChoreographiesById(id).subscribe(choreography => this.choreography = choreography);
   }
@@ -61,8 +62,23 @@ export class ChoreographyComponent {
     }
   }
 
-  get isActiveItemGroup(): boolean {
-    return isGroup(this.activeChoreographyItem!.content);
+  get people(): Person[] {
+    return this.peopleService.getPeopleForChoreography(this.choreography.id);
+  }
+
+  get availablePeople(): Person[] {
+    if (this.activeChoreographyItem?.content === null) {
+      return this.getAvailablePeopleForThisFrame();
+    }
+    if (isGroup(this.activeChoreographyItem?.content!)) {
+      // TODO Add logic
+      return this.getAvailablePeopleForThisFrame();
+    }
+    return [...this.getAvailablePeopleForThisFrame(), this.peopleService.getPersonById(this.activeChoreographyItem?.content.personId!)];
+  }
+
+  isPerson(content: Content): content is PersonContent {
+    return isPerson(content);
   }
 
   swapItems({ first, second }: { first: number, second: number }): void {
@@ -90,23 +106,8 @@ export class ChoreographyComponent {
     this.playSubframeIntervalId = null;
   }
 
-  getAvailablePeopleForThisFrame(): Person[] {
-    function getPeopleForContent(content: Content): Person[] {
-      if (content === null) {
-        return [];
-      }
-      return isPerson(content) ? [content] : getPeopleFromGroup(content);
-    }
-
-    return this.choreography.people.filter(
-      person => !this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
-        .reduce(
-          (acc, tile) => [
-            ...acc,
-            ...getPeopleForContent(tile.content)
-          ], [] as Person[])
-        .map(person => person.name)
-        .includes(person.name));
+  isGroup(content: Content): content is ChoreographyGroup {
+    return isGroup(content);
   }
 
   setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any): void {
@@ -165,22 +166,28 @@ export class ChoreographyComponent {
     this.clearItem(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[index]);
   }
 
-  removePerson(person: Person): void {
-    const index = this.choreography.people.map(person => person.name).findIndex(choreographyPerson => choreographyPerson === person.name);
-    if (index === -1) {
-      return;
+  getAvailablePeopleForThisFrame(): Person[] {
+    function getPeopleForContent(content: Content): number[] {
+      if (content === null) {
+        return [];
+      }
+      return isPerson(content) ? [content.personId] : getPeopleFromGroup(content);
     }
-    this.choreography.people.splice(index, 1);
-    this.choreography.frames
-      .forEach(frame => frame.subframes
-        .forEach(subframe => subframe.grid
-          .forEach(item => {
-            if (item.content === person) {
-              this.clearItem(item);
-            }
-          })
-        )
-      );
+
+    const getPeopleCurrentlyInChoreography = this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
+      .reduce(
+        (acc, tile) => [
+          ...acc,
+          ...getPeopleForContent(tile.content),
+        ], [] as number[]);
+
+    return this.people
+      .filter(person => !getPeopleCurrentlyInChoreography.includes(person.id));
+  }
+
+  addPerson(person: Person): void {
+    // TODO Redo
+    // this.choreography.people.push($event)
   }
 
   clearItem(item: ChoreographyItem): void {
@@ -191,22 +198,36 @@ export class ChoreographyComponent {
     this.activeChoreographyItem!.content = createEmptyGroup(groupType);
   }
 
+  removePerson(person: Person): void {
+    // TODO Redo
+    const index = this.people.map(person => person.name).findIndex(choreographyPerson => choreographyPerson === person.name);
+    if (index === -1) {
+      return;
+    }
+    this.people.splice(index, 1);
+    // TODO Use lenses?
+    this.choreography.frames
+      .forEach(frame => frame.subframes
+        .forEach(subframe => subframe.grid
+          .forEach(item => {
+            if (isPerson(item.content) && item.content.personId === person.id) {
+              this.clearItem(item);
+            }
+          }),
+        ),
+      );
+  }
+
   toggleBetweenGroupAndSingleMode(): void {
-    if (this.isActiveItemGroup) {
+    if (this.activeChoreographyItem === null) {
+      return;
+    }
+
+    if (this.isGroup(this.activeChoreographyItem.content)) {
       this.activeChoreographyItem!.content = null;
     } else {
       this.activeChoreographyItem!.content = createEmptyGroup('two');
     }
-  }
-
-  get availablePeople(): Person[] {
-    if (this.activeChoreographyItem?.content === null) {
-      return this.getAvailablePeopleForThisFrame();
-    }
-    if (!isPerson(this.activeChoreographyItem?.content!)) {
-      return this.getAvailablePeopleForThisFrame();
-    }
-    return [...this.getAvailablePeopleForThisFrame(), this.activeChoreographyItem?.content!];
   }
 
   isTwoGroup(content: Content): content is TwoGroup {

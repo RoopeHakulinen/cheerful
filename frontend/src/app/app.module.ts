@@ -49,6 +49,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PersonNamePipe } from './person-name-pipe.pipe';
+import { PeopleService } from './people.service';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -109,14 +110,14 @@ export function HttpLoaderFactory(http: HttpClient): any {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [MenuService, IosInstallService, ChoreographyService],
+  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmDialogComponent]
+  entryComponents: [ConfirmDialogComponent],
 })
 export class AppModule {
 }

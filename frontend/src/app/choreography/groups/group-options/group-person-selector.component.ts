@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Person } from '../../../people';
+import { PeopleService } from '../../../people.service';
 
 @Component({
   selector: 'app-group-options',
@@ -15,15 +16,18 @@ export class GroupPersonSelectorComponent {
   spot: string = '';
 
   @Input()
-  value: Person | null = null;
+  value: number | null = null;
 
   @Output()
-  changeGroupMember = new EventEmitter<Person>()
+  changeGroupMember = new EventEmitter<number>()
+
+  constructor(private peopleService: PeopleService) {
+  }
 
   get availablePeople(): Person[] {
     if (this.value === null) {
       return this.people;
     }
-    return [...this.people, this.value];
+    return [...this.people, this.peopleService.getPersonById(this.value)];
   }
 }

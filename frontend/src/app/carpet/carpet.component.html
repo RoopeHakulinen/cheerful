@@ -27,42 +27,44 @@
         cdkDropList
         class="tile {{item.position[0]}}">
         <div (cdkDragStarted)="dragStarted(index)" cdkDrag class="drag-container">
+          <!-- TODO Fix the background color: [style.background]="item.content.color" -->
           <div
             *ngIf="isPerson(item.content)"
-            [style.background]="item.content.color"
+            [style.background]="'red'"
             class="text-container {{item.shape}} grid-middle">
-            {{item.content.name}}
+            {{item.content.personId | personName}}
           </div>
+          <!-- TODO Fix the background color logic for groups with something like: item.content?.color !== null ? item.content.color : item.content.backspotId.color -->
           <div
             *ngIf="isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)"
-            [style.background]="item.content?.color !== null ? item.content.color : item.content.flyer?.color"
+            [style.background]="item.content.color"
             class="text-container {{item.shape}} grid-top">
-            {{item.content.flyer?.id! | personName:people!}}
+            {{item.content.flyerId | personName}}
           </div>
           <div
             *ngIf="isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)"
-            [style.background]="item.content?.color !== null ? item.content.color : item.content.backspot?.color"
+            [style.background]="item.content.color"
             class="text-container {{item.shape}} grid-bottom">
-            {{item.content.backspot?.id! | personName:people!}}
+            {{item.content.backspotId | personName}}
           </div>
           <div
             *ngIf="isThreeGroup(item.content)  || isFourGroup(item.content)
             || isFiveGroup(item.content)"
-            [style.background]="item.content?.color !== null ? item.content.color : item.content.mainbase?.color"
+            [style.background]="item.content.color"
             class="text-container {{item.shape}} grid-left">
-            {{item.content.mainbase?.id! | personName:people!}}
+            {{item.content.mainbaseId | personName}}
           </div>
           <div *ngIf="isFourGroup(item.content) || isFiveGroup(item.content)"
-               [style.background]="item.content?.color !== null ? item.content.color : item.content.sidebase?.color"
+               [style.background]="item.content.color"
                class="text-container {{item.shape}} grid-right">
-            {{item.content.sidebase?.id! | personName:people!}}
+            {{item.content.sidebaseId | personName}}
           </div>
           <div *ngIf="isFiveGroup(item.content)"
-               [style.background]="item.content?.color !== null ? item.content.color : item.content.frontspot?.color"
+               [style.background]="item.content.color"
                class="text-container {{item.shape}} grid-middle">
-            {{item.content.frontspot?.id! | personName:people!}}
+            {{item.content.frontspotId | personName}}
           </div>
         </div>
       </div>

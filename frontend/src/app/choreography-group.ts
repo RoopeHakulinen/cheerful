@@ -1,5 +1,4 @@
-import { Content } from './choreography-item';
-import { Person } from './people';
+import { Content, PersonContent } from './choreography-item';
 
 interface ChoreographyGroupStructure {
   type: GroupType;
@@ -8,32 +7,32 @@ interface ChoreographyGroupStructure {
 
 export interface TwoGroup extends ChoreographyGroupStructure {
   type: 'two';
-  flyer: Person | null;
-  backspot: Person | null;
+  flyerId: number | null;
+  backspotId: number | null;
 }
 
 export interface ThreeGroup extends ChoreographyGroupStructure {
   type: 'three';
-  flyer: Person | null;
-  backspot: Person | null;
-  mainbase: Person | null;
+  flyerId: number | null;
+  backspotId: number | null;
+  mainbaseId: number | null;
 }
 
 export interface FourGroup extends ChoreographyGroupStructure {
   type: 'four';
-  flyer: Person | null;
-  backspot: Person | null;
-  mainbase: Person | null;
-  sidebase: Person | null;
+  flyerId: number | null;
+  backspotId: number | null;
+  mainbaseId: number | null;
+  sidebaseId: number | null;
 }
 
 export interface FiveGroup extends ChoreographyGroupStructure {
   type: 'five';
-  flyer: Person | null;
-  backspot: Person | null;
-  mainbase: Person | null;
-  sidebase: Person | null;
-  frontspot: Person | null;
+  flyerId: number | null;
+  backspotId: number | null;
+  mainbaseId: number | null;
+  sidebaseId: number | null;
+  frontspotId: number | null;
 }
 
 export type ChoreographyGroup = TwoGroup | ThreeGroup | FourGroup | FiveGroup;
@@ -47,35 +46,35 @@ export function createEmptyGroup(groupType: GroupType): ChoreographyGroup {
     return {
       type: 'two',
       color: null,
-      flyer: null,
-      backspot: null
+      flyerId: null,
+      backspotId: null,
     };
   } else if (groupType === 'three') {
     return {
       type: 'three',
       color: null,
-      flyer: null,
-      backspot: null,
-      mainbase: null
+      flyerId: null,
+      backspotId: null,
+      mainbaseId: null,
     };
   } else if (groupType === 'four') {
     return {
       type: 'four',
       color: null,
-      flyer: null,
-      backspot: null,
-      mainbase: null,
-      sidebase: null
+      flyerId: null,
+      backspotId: null,
+      mainbaseId: null,
+      sidebaseId: null,
     };
   } else if (groupType === 'five') {
     return {
       type: 'five',
       color: null,
-      flyer: null,
-      backspot: null,
-      mainbase: null,
-      sidebase: null,
-      frontspot: null
+      flyerId: null,
+      backspotId: null,
+      mainbaseId: null,
+      sidebaseId: null,
+      frontspotId: null,
     };
   } else {
     throw `No group type ${groupType} exists`;
@@ -111,23 +110,23 @@ export function isFiveGroup(content: Content): content is FiveGroup {
 }
 
 export function isGroup(content: Content): content is ChoreographyGroup {
-  return content !== null && content.hasOwnProperty('type');
+  return content !== null && !isPerson(content);
 }
 
-export function isPerson(content: Content): content is Person {
-  return content !== null && content.hasOwnProperty('name');
+export function isPerson(content: Content): content is PersonContent {
+  return content !== null && content.type === 'person';
 }
 
-export function getPeopleFromGroup(content: ChoreographyGroup): Person[] {
-  let result: (Person | null)[] = [];
+export function getPeopleFromGroup(content: ChoreographyGroup): number[] {
+  let result: (number | null)[] = [];
   if (isTwoGroup(content)) {
-    result = [content.flyer, content.backspot];
+    result = [content.flyerId, content.backspotId];
   } else if (isThreeGroup(content)) {
-    result = [content.flyer, content.backspot, content.mainbase];
+    result = [content.flyerId, content.backspotId, content.mainbaseId];
   } else if (isFourGroup(content)) {
-    result = [content.flyer, content.backspot, content.mainbase, content.sidebase];
+    result = [content.flyerId, content.backspotId, content.mainbaseId, content.sidebaseId];
   } else if (isFiveGroup(content)) {
-    result = [content.flyer, content.backspot, content.mainbase, content.sidebase, content.frontspot];
+    result = [content.flyerId, content.backspotId, content.mainbaseId, content.sidebaseId, content.frontspotId];
   }
-  return result.filter(person => person !== null) as Person[];
+  return result.filter(personId => personId !== null) as number[];
 }

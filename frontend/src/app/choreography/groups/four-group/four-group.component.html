@@ -1,20 +1,20 @@
-<app-group-options (changeGroupMember)="group.flyer = $event"
+<app-group-options (changeGroupMember)="group.flyerId = $event"
                    [people]="people"
-                   [value]="group.flyer"
+                   [value]="group.flyerId"
                    spot="Flyer"
 ></app-group-options>
-<app-group-options (changeGroupMember)="group.backspot = $event"
+<app-group-options (changeGroupMember)="group.backspotId = $event"
                    [people]="people"
-                   [value]="group.backspot"
+                   [value]="group.backspotId"
                    spot="Backspot"
 ></app-group-options>
-<app-group-options (changeGroupMember)="group.mainbase = $event"
+<app-group-options (changeGroupMember)="group.mainbaseId = $event"
                    [people]="people"
-                   [value]="group.mainbase"
+                   [value]="group.mainbaseId"
                    spot="Mainbase"
 ></app-group-options>
-<app-group-options (changeGroupMember)="group.sidebase = $event"
-                   [value]="group.sidebase"
+<app-group-options (changeGroupMember)="group.sidebaseId = $event"
+                   [value]="group.sidebaseId"
                    [people]="people"
                    spot="Sidebase"
 ></app-group-options>

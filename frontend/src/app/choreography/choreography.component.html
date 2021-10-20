@@ -35,21 +35,24 @@
         [isPlaying]="playSubframeIntervalId !== null"
         [isVoiceSynthesisOn]="isVoiceSynthesisOn"></app-frame-manager>
       <app-people
-        (add)="choreography.people.push($event)"
+        (add)="addPerson($event)"
         (remove)="removePerson($event)"
-        [people]="choreography.people"></app-people>
+        [people]="people"></app-people>
     </div>
 
     <div fxFlex>
       <mat-card *ngIf="activeChoreographyItem" class="edit-item padding">
         <div fxLayout="row">
           <div fxLayout="row" fxLayoutWrap="wrap">
-            <div *ngIf="!isActiveItemGroup" fxFlex>
+            <div *ngIf="isPerson(activeChoreographyItem.content) || activeChoreographyItem.content === null" fxFlex>
               <mat-form-field>
-                <mat-select [(ngModel)]="activeChoreographyItem.content"
-                            [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate">
-                  <mat-option *ngFor="let person of availablePeople"
-                              [value]="person">{{person.id | personName:choreography.people}}
+                <mat-select
+                  (valueChange)="activeChoreographyItem.content = { type: 'person', personId: $event}"
+                  [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate"
+                  [value]="activeChoreographyItem.content?.personId ?? ''">
+                  <mat-option
+                    *ngFor="let person of availablePeople"
+                    [value]="person.id">{{person.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -61,10 +64,12 @@
               <!--            </mat-select>-->
               <!--          </mat-form-field>-->
             </div>
-            <div *ngIf="isActiveItemGroup" fxFlex>
+            <div *ngIf="isGroup(activeChoreographyItem.content)" fxFlex>
               <mat-form-field>
-                <mat-select (selectionChange)="switchGroupType($event.value)"
-                            [placeholder]="'CHOREOGRAPHY.GROUP_TYPE' | translate">
+                <mat-select
+                  (valueChange)="switchGroupType($event.value)"
+                  [placeholder]="'CHOREOGRAPHY.GROUP_TYPE' | translate"
+                  [value]="activeChoreographyItem.content?.type ?? ''">
                   <mat-option *ngFor="let groupType of availableGroupTypes"
                               [value]="groupType">{{groupType}}
                   </mat-option>
@@ -82,7 +87,7 @@
             <!--        </div>-->
           </div>
           <div fxFlex="column">
-            <div *ngIf="isActiveItemGroup" class="group-participants-container">
+            <div *ngIf="isGroup" class="group-participants-container">
               <app-two-group *ngIf="isTwoGroup(activeChoreographyItem.content)"
                              [group]="activeChoreographyItem.content"
                              [people]="getAvailablePeopleForThisFrame()"></app-two-group>
@@ -98,7 +103,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="isActiveItemGroup">
+        <div *ngIf="isGroup(activeChoreographyItem.content)">
           <mat-form-field>
             <mat-select (selectionChange)="changeGroupColor($event.value)" [placeholder]="'COMMON.COLOR' | translate">
               <mat-option value="black">black</mat-option>
@@ -119,7 +124,7 @@
           <button
             (click)="toggleBetweenGroupAndSingleMode()"
             mat-raised-button>
-            {{(isActiveItemGroup ? 'CHOREOGRAPHY.EXIT_GROUP' : 'CHOREOGRAPHY.CREATE_GROUP') | translate}}
+            {{(isGroup(activeChoreographyItem.content) ? 'CHOREOGRAPHY.EXIT_GROUP' : 'CHOREOGRAPHY.CREATE_GROUP') | translate}}
           </button>
           <button
             (click)="clearItem(activeChoreographyItem)"
@@ -137,7 +142,7 @@
         [areAnimationsOn]="areAnimationsOn"
         [carpet]="choreography.carpet"
         [frame]="choreography.frames[activeFrame]"
-        [people]="choreography.people"
+        [people]="people"
         [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>
       <div class="notes-container">
         <button (click)="areNotesShown = !areNotesShown"

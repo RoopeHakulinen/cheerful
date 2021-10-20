@@ -7,12 +7,12 @@ import {
   OnChanges,
   OnDestroy,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
-import { ChoreographyItem, Content } from '../choreography-item';
+import { ChoreographyItem, Content, PersonContent } from '../choreography-item';
 import { ChoreographySubframe } from '../choreography-subframe';
 import {
   FiveGroup,
@@ -23,7 +23,7 @@ import {
   isThreeGroup,
   isTwoGroup,
   ThreeGroup,
-  TwoGroup
+  TwoGroup,
 } from '../choreography-group';
 import { Person } from '../people';
 
@@ -173,7 +173,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     return isFiveGroup(content);
   }
 
-  isPerson(content: Content): content is Person {
+  isPerson(content: Content): content is PersonContent {
     return isPerson(content);
   }
 }
