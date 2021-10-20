@@ -49,7 +49,7 @@
                 <mat-select [(ngModel)]="activeChoreographyItem.content"
                             [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate">
                   <mat-option *ngFor="let person of availablePeople"
-                              [value]="person">{{person.id | personNamePipe:choreography.people}}
+                              [value]="person">{{person.id | personName:choreography.people}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

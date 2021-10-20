@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Person } from './people';
 
 @Pipe({
-  name: 'personNamePipe'
+  name: 'personName',
 })
-export class PersonNamePipePipe implements PipeTransform {
+export class PersonNamePipe implements PipeTransform {
 
   transform(id: number, people: Person[]): string {
     if (id === null) {
