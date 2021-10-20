@@ -185,9 +185,30 @@ export class ChoreographyComponent {
       .filter(person => !getPeopleCurrentlyInChoreography.includes(person.id));
   }
 
-  addPerson(person: Person): void {
-    // TODO Redo
-    // this.choreography.people.push($event)
+  addPerson(personId: number): void {
+    this.choreography.people.push({ personId: personId, color: null });
+  }
+
+  removePerson(personId: number): void {
+    const index = this.choreography.people.map(person => person.personId).indexOf(personId);
+    if (index === -1) {
+      throw new Error(`The person with id ${personId} to be deleted is not present in the people list of the choreography.`);
+    }
+    this.choreography.people.splice(index, 1);
+
+    // Clear person from the grid of all frames
+    // TODO Use lenses?
+    this.choreography.frames
+      .forEach(frame => frame.subframes
+        .forEach(subframe => subframe.grid
+          .forEach(item => {
+            if (isPerson(item.content) && item.content.personId === personId) {
+              this.clearItem(item);
+            }
+            // TODO Remove from groups too
+          }),
+        ),
+      );
   }
 
   clearItem(item: ChoreographyItem): void {
@@ -196,26 +217,6 @@ export class ChoreographyComponent {
 
   switchGroupType(groupType: GroupType): void {
     this.activeChoreographyItem!.content = createEmptyGroup(groupType);
-  }
-
-  removePerson(person: Person): void {
-    // TODO Redo
-    const index = this.people.map(person => person.name).findIndex(choreographyPerson => choreographyPerson === person.name);
-    if (index === -1) {
-      return;
-    }
-    this.people.splice(index, 1);
-    // TODO Use lenses?
-    this.choreography.frames
-      .forEach(frame => frame.subframes
-        .forEach(subframe => subframe.grid
-          .forEach(item => {
-            if (isPerson(item.content) && item.content.personId === person.id) {
-              this.clearItem(item);
-            }
-          }),
-        ),
-      );
   }
 
   toggleBetweenGroupAndSingleMode(): void {
@@ -247,10 +248,7 @@ export class ChoreographyComponent {
   }
 
   changeGroupColor(color: string): void {
-    if (!isGroup(this.activeChoreographyItem!.content)) {
-      return;
-    }
-    if (this.activeChoreographyItem === null) {
+    if (this.activeChoreographyItem === null || !isGroup(this.activeChoreographyItem!.content)) {
       return;
     }
     this.activeChoreographyItem.content.color = color;

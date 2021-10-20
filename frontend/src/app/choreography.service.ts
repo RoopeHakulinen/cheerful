@@ -13,26 +13,33 @@ export class ChoreographyService {
       team: 'Flames',
       frames: [{
         subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
-        notes: ''
+        notes: '',
       }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' },
         {
           subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
-          notes: ''
+          notes: '',
         }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' }, {
           subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
-          notes: ''
+          notes: '',
         }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' },
         {
           subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
-          notes: ''
+          notes: '',
         }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' }],
       carpet: {
         color: '#5151b8',
         height: 12,
         width: 12,
         horizontalSegments: 12,
-        verticalSegments: 6
-      }
+        verticalSegments: 6,
+      },
+      people: [
+        { personId: 1, color: '#ff0000' },
+        { personId: 2, color: '#00ff00' },
+        { personId: 3, color: '#0000ff' },
+        { personId: 4, color: '#880000' },
+        { personId: 5, color: '#220000' },
+      ],
     },
     {
       id: 2,
@@ -40,16 +47,18 @@ export class ChoreographyService {
       team: 'Flames',
       frames: [{
         subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
-        notes: ''
+        notes: '',
       }],
       carpet: {
         color: '#5151b8',
         height: 8,
         width: 8,
         horizontalSegments: 8,
-        verticalSegments: 4
-      }
-    }];
+        verticalSegments: 4,
+      },
+      people: [],
+    },
+  ];
 
   constructor() {
   }

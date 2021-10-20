@@ -26,6 +26,7 @@ import {
   TwoGroup,
 } from '../choreography-group';
 import { Person } from '../people';
+import { Choreography } from '../choreography';
 
 @Component({
   selector: 'app-carpet',
@@ -38,13 +39,15 @@ import { Person } from '../people';
         animate('{{time}}', style({ transform: 'translate(0px, 0px)' }))
       ], {
         params: {
-          time: '0s'
-        }
+          time: '0s',
+        },
       })
     ])
   ]
 })
 export class CarpetComponent implements OnChanges, OnDestroy {
+  @Input()
+  choreography!: Choreography;
   @Input()
   carpet!: Carpet;
   @Input()

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Person } from '../people';
+import { ChoreographyPerson } from '../choreography';
 
 @Component({
   selector: 'app-people',
@@ -9,12 +9,12 @@ import { Person } from '../people';
 export class PeopleComponent {
 
   @Input()
-  people: Person[] = [];
+  people: ChoreographyPerson[] = [];
 
   @Output()
-  add = new EventEmitter<Person>();
+  add = new EventEmitter<number>();
   @Output()
-  remove = new EventEmitter<Person>();
+  remove = new EventEmitter<number>();
 
   constructor() {
   }

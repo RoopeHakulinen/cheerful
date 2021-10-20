@@ -1,7 +1,6 @@
 export interface Person {
   name: string;
   id: number;
-  color: string;
 }
 
 // export function createPerson(name: string): Person {

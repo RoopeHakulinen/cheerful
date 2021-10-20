@@ -6,12 +6,15 @@
     </mat-expansion-panel-header>
     <div class="add">
       <mat-form-field>
-        <input #name [placeholder]="'COMMON.NAME' | translate" matInput name="name">
+        <mat-label translate="COMMON.NAME"></mat-label>
+        <input [matAutocomplete]="auto" matInput type="text">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="add.emit($event.option.value)">
+          <!-- TODO Use a real list from people service -->
+          <mat-option *ngFor="let option of [{ id: 1, name: 'VATTeeee' }]" [value]="option.id">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
-
-      <!--      <button (click)="add.emit(createPerson(name.value)); name.value = ''" mat-icon-button>-->
-      <!--        <mat-icon>add</mat-icon>-->
-      <!--      </button>-->
     </div>
     <div class="people">
       <div *ngIf="people.length; else noPeople">
@@ -20,10 +23,10 @@
           <div *ngFor="let person of people" class="person">
             <div class="people-managing-container">
               <div class="container">
-                <!--                <button (click)="remove.emit(createPerson(person.name))" color="warn" mat-icon-button>-->
-                <!--                  <mat-icon>remove</mat-icon>-->
-                <!--                </button>-->
-                {{person.name}}
+                <button (click)="remove.emit(person.personId)" color="warn" mat-icon-button>
+                  <mat-icon>remove</mat-icon>
+                </button>
+                {{(person.personId | person).name}}
               </div>
               <div>
                 <input [(ngModel)]="person.color" class="color-picker" type="color">

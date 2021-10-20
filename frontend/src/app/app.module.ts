@@ -48,8 +48,10 @@ import { GroupPersonSelectorComponent } from './choreography/groups/group-option
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { PersonNamePipe } from './person-name-pipe.pipe';
+import { PersonPipe } from './person-pipe.pipe';
 import { PeopleService } from './people.service';
+import { ChoreographyPersonPipe } from './choreography-person-pipe.pipe';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -76,7 +78,8 @@ export function HttpLoaderFactory(http: HttpClient): any {
     FourGroupComponent,
     FiveGroupComponent,
     GroupPersonSelectorComponent,
-    PersonNamePipe,
+    PersonPipe,
+    ChoreographyPersonPipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -100,12 +103,13 @@ export function HttpLoaderFactory(http: HttpClient): any {
     MatListModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
     DragDropModule,
     MatCheckboxModule,
     MatProgressBarModule,
     MatMenuModule,
+    MatAutocompleteModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
