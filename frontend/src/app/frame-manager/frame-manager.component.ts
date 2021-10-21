@@ -84,6 +84,9 @@ export class FrameManagerComponent implements OnChanges {
     if (this.frameInterval === 5000) {
       return '2/10';
     }
+    if (this.frameInterval === 10000) {
+      return '1/10';
+    }
     return '-';
   }
 
