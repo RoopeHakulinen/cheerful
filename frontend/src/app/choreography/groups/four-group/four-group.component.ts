@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { FourGroup } from '../../../choreography-group';
-import { Person } from '../../../people';
 
 @Component({
   selector: 'app-four-group',
@@ -10,7 +9,7 @@ import { Person } from '../../../people';
 export class FourGroupComponent {
 
   @Input()
-  people: Person[] = [];
+  people: number[] = [];
 
   @Input()
   group!: FourGroup;

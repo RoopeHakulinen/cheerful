@@ -15,6 +15,7 @@ import {
   isPerson,
   isThreeGroup,
   isTwoGroup,
+  removePersonFromGroup,
   ThreeGroup,
   TwoGroup,
 } from '../choreography-group';
@@ -42,6 +43,10 @@ export class ChoreographyComponent {
   areNotesShown = false;
   availableGroupTypes = availableGroupTypes;
 
+  get localStorageEmpty(): any {
+    return localStorage.getItem('choreography') === null;
+  }
+
   constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute, private peopleService: PeopleService) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.choreographyService.getChoreographiesById(id).subscribe(choreography => this.choreography = choreography);
@@ -62,19 +67,15 @@ export class ChoreographyComponent {
     }
   }
 
-  get people(): Person[] {
+  get allAvailablePeople(): Person[] {
     return this.peopleService.getPeopleForChoreography(this.choreography.id);
   }
 
-  get availablePeople(): Person[] {
-    if (this.activeChoreographyItem?.content === null) {
+  get availablePeople(): number[] {
+    if (this.activeChoreographyItem?.content === null || isGroup(this.activeChoreographyItem?.content!)) {
       return this.getAvailablePeopleForThisFrame();
     }
-    if (isGroup(this.activeChoreographyItem?.content!)) {
-      // TODO Add logic
-      return this.getAvailablePeopleForThisFrame();
-    }
-    return [...this.getAvailablePeopleForThisFrame(), this.peopleService.getPersonById(this.activeChoreographyItem?.content.personId!)];
+    return [...this.getAvailablePeopleForThisFrame(), this.activeChoreographyItem?.content.personId!];
   }
 
   isPerson(content: Content): content is PersonContent {
@@ -166,7 +167,7 @@ export class ChoreographyComponent {
     this.clearItem(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[index]);
   }
 
-  getAvailablePeopleForThisFrame(): Person[] {
+  getAvailablePeopleForThisFrame(): number[] {
     function getPeopleForContent(content: Content): number[] {
       if (content === null) {
         return [];
@@ -181,8 +182,9 @@ export class ChoreographyComponent {
           ...getPeopleForContent(tile.content),
         ], [] as number[]);
 
-    return this.people
-      .filter(person => !getPeopleCurrentlyInChoreography.includes(person.id));
+    return this.choreography.people
+      .map(person => person.personId)
+      .filter(personId => !getPeopleCurrentlyInChoreography.includes(personId));
   }
 
   addPerson(personId: number): void {
@@ -195,17 +197,15 @@ export class ChoreographyComponent {
       throw new Error(`The person with id ${personId} to be deleted is not present in the people list of the choreography.`);
     }
     this.choreography.people.splice(index, 1);
-
-    // Clear person from the grid of all frames
-    // TODO Use lenses?
     this.choreography.frames
       .forEach(frame => frame.subframes
         .forEach(subframe => subframe.grid
           .forEach(item => {
             if (isPerson(item.content) && item.content.personId === personId) {
               this.clearItem(item);
+            } else if (isGroup(item.content)) {
+              removePersonFromGroup(item.content, personId);
             }
-            // TODO Remove from groups too
           }),
         ),
       );
@@ -252,5 +252,17 @@ export class ChoreographyComponent {
       return;
     }
     this.activeChoreographyItem.content.color = color;
+  }
+
+  saveChoreography(): void {
+    localStorage.setItem('choreography', JSON.stringify(this.choreography));
+  }
+
+  loadChoreography(): void {
+    const loadedChoreography = localStorage.getItem('choreography');
+    if (loadedChoreography === null) {
+      return;
+    }
+    this.choreography = JSON.parse(loadedChoreography);
   }
 }

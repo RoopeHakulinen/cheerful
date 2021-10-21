@@ -7,11 +7,15 @@
     <div class="add">
       <mat-form-field>
         <mat-label translate="COMMON.NAME"></mat-label>
-        <input [matAutocomplete]="auto" matInput type="text">
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="add.emit($event.option.value)">
-          <!-- TODO Use a real list from people service -->
-          <mat-option *ngFor="let option of [{ id: 1, name: 'VATTeeee' }]" [value]="option.id">
-            {{option.name}}
+        <input #input
+               [formControl]="filterNamesControl"
+               [matAutocomplete]="auto" matInput
+               type="text">
+        <mat-autocomplete #auto="matAutocomplete"
+                          (optionSelected)="addPerson($event.option.value); input.blur()">
+          <mat-option *ngFor="let option of filteredOptions | async"
+                      [value]="option">
+            {{option}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
