@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Person } from '../../../people';
 import { PeopleService } from '../../../people.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { PeopleService } from '../../../people.service';
 export class GroupPersonSelectorComponent {
 
   @Input()
-  people: Person[] = [];
+  people: number[] = [];
 
   @Input()
   spot: string = '';
@@ -24,10 +23,10 @@ export class GroupPersonSelectorComponent {
   constructor(private peopleService: PeopleService) {
   }
 
-  get availablePeople(): Person[] {
+  get availablePeople(): number[] {
     if (this.value === null) {
       return this.people;
     }
-    return [...this.people, this.peopleService.getPersonById(this.value)];
+    return [...this.people, this.value];
   }
 }

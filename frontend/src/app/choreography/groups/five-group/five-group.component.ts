@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { FiveGroup } from '../../../choreography-group';
-import { Person } from '../../../people';
 
 @Component({
   selector: 'app-five-group',
@@ -10,7 +9,7 @@ import { Person } from '../../../people';
 export class FiveGroupComponent {
 
   @Input()
-  people: Person[] = [];
+  people: number[] = [];
 
   @Input()
   group!: FiveGroup;
