@@ -9,7 +9,9 @@
     "ADD": "Lisää",
     "REMOVE": "Poista",
     "NAME": "Nimi",
-    "CANCEL": "Peruuta"
+    "CANCEL": "Peruuta",
+    "LOAD": "Lataa",
+    "SAVE": "Tallenna"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
