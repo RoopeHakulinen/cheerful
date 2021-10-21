@@ -130,3 +130,17 @@ export function getPeopleFromGroup(content: ChoreographyGroup): number[] {
   }
   return result.filter(personId => personId !== null) as number[];
 }
+
+export function removePersonFromGroup(content: TwoGroup | ThreeGroup | FourGroup | FiveGroup, personId: number): void {
+  function clear(content: any, position: string, personId: number): void {
+    if (content.hasOwnProperty(position) && content[position] === personId) {
+      content[position] = null;
+    }
+  }
+
+  clear(content, 'flyerId', personId);
+  clear(content, 'backspotId', personId);
+  clear(content, 'mainbaseId', personId);
+  clear(content, 'sidebaseId', personId);
+  clear(content, 'frontspotId', personId);
+}
