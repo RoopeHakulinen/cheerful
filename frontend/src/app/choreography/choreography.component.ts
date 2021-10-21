@@ -67,7 +67,7 @@ export class ChoreographyComponent {
     }
   }
 
-  get peopleInDatabase(): Person[] {
+  get allAvailablePeople(): Person[] {
     return this.peopleService.getPeopleForChoreography(this.choreography.id);
   }
 
@@ -183,8 +183,8 @@ export class ChoreographyComponent {
         ], [] as number[]);
 
     return this.choreography.people
-      .filter(person => !getPeopleCurrentlyInChoreography.includes(person.personId))
-      .map(person => person.personId);
+      .map(person => person.personId)
+      .filter(personId => !getPeopleCurrentlyInChoreography.includes(personId));
   }
 
   addPerson(personId: number): void {

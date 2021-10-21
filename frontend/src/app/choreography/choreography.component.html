@@ -39,13 +39,16 @@
         (remove)="removePerson($event)"
         [people]="choreography.people"></app-people>
       <div class="save-div">
-        <button (click)="saveChoreography()" mat-raised-button>
-          Save
+        <button
+          (click)="saveChoreography()"
+          mat-raised-button
+          translate="COMMON.SAVE">
         </button>
-        <button (click)="loadChoreography()"
-                [disabled]="localStorageEmpty"
-                mat-raised-button>
-          Load
+        <button
+          (click)="loadChoreography()"
+          [disabled]="localStorageEmpty"
+          mat-raised-button
+          translate="COMMON.LOAD">
         </button>
       </div>
     </div>
@@ -151,7 +154,7 @@
         [carpet]="choreography.carpet"
         [frame]="choreography.frames[activeFrame]"
         (removePerson)="removePersonFromCarpet($event)"
-        [people]="peopleInDatabase"
+        [people]="allAvailablePeople"
         (swap)="swapItems($event)"
         [activeItem]="activeChoreographyItem"
         [animationDuration]="frameInterval / tempo"
