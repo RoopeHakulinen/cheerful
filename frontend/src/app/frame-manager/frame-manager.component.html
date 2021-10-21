@@ -44,6 +44,8 @@
         <button [matMenuTriggerFor]="frameinterval" mat-button
                 translate="FRAME_MANAGER.TEMPO"> : {{frameIntervalAsTempo}}</button>
         <mat-menu #frameinterval="matMenu">
+          <button (click)="emitFrameDurationChange(1)" mat-menu-item>1/10
+            -  {{'FRAME_MANAGER.SUPER_SLOW_TEMPO' | translate}}</button>
           <button (click)="emitFrameDurationChange(2)" mat-menu-item>2/10
             -  {{'FRAME_MANAGER.SLOW_TEMPO' | translate}}</button>
           <button (click)="emitFrameDurationChange(3)" mat-menu-item>3/10

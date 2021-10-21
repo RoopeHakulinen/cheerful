@@ -37,6 +37,7 @@
     "LOOPING": "Jatkuva toisto",
     "VOICE_SYNTHESIS": "Äänet",
     "TEMPO": "Tempo",
+    "SUPER_SLOW_TEMPO": "Todella hidas",
     "SLOW_TEMPO": "Hidas",
     "NORMAL_TEMPO": "Normaali",
     "FAST_TEMPO": "Nopea",
