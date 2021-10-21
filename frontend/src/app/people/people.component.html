@@ -8,9 +8,11 @@
       <mat-form-field>
         <mat-label translate="COMMON.NAME"></mat-label>
         <input [matAutocomplete]="auto" matInput type="text">
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="add.emit($event.option.value)">
-          <!-- TODO Use a real list from people service -->
-          <mat-option *ngFor="let option of [{ id: 1, name: 'VATTeeee' }]" [value]="option.id">
+        <mat-autocomplete #auto="matAutocomplete"
+                          (optionSelected)="add.emit($event.option.value)"
+                          [displayWith]="showPersonName">
+          <mat-option *ngFor="let option of availablePeopleToAdd"
+                      [value]="option.id">
             {{option.name}}
           </mat-option>
         </mat-autocomplete>

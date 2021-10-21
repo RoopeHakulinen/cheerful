@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ChoreographyPerson } from '../choreography';
+import { Person } from '../people';
+import { PeopleService } from '../people.service';
 
 @Component({
   selector: 'app-people',
@@ -16,10 +18,15 @@ export class PeopleComponent {
   @Output()
   remove = new EventEmitter<number>();
 
-  constructor() {
+  constructor(private peopleService: PeopleService) {
   }
 
-  // createPerson(name: string): Person {
-  //   return createPerson(name);
-  // }
+  get availablePeopleToAdd(): Person[] {
+    return this.peopleService.getPeopleForChoreography(1)
+      .filter(person => !this.people.find(choreographyPerson => choreographyPerson.personId === person.id));
+  }
+
+  showPersonName(): string {
+    return ``;
+  }
 }
