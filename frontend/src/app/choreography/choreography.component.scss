@@ -40,3 +40,12 @@
   margin-top: 10px;
   text-align: center;
 }
+
+.tile-options {
+  width: 20%;
+  display: flex;
+
+  .tile-options-buttons {
+    margin-bottom: 10px;
+  }
+}
