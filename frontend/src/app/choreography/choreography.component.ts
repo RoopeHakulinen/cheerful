@@ -23,6 +23,8 @@ import { ChoreographyService } from '../choreography.service';
 import { ActivatedRoute } from '@angular/router';
 import { Person } from '../people';
 import { PeopleService } from '../people.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-choreography',
@@ -47,7 +49,9 @@ export class ChoreographyComponent {
     return localStorage.getItem('choreography') === null;
   }
 
-  constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute, private peopleService: PeopleService) {
+  constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute,
+              private peopleService: PeopleService, private snackBar: MatSnackBar,
+              private translate: TranslateService) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.choreographyService.getChoreographiesById(id).subscribe(choreography => this.choreography = choreography);
   }
@@ -209,6 +213,9 @@ export class ChoreographyComponent {
           }),
         ),
       );
+    this.snackBar.open(`${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`, this.translate.instant('COMMON.CLOSE'), {
+      duration: 2000
+    });
   }
 
   clearItem(item: ChoreographyItem): void {
