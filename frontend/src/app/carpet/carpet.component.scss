@@ -112,7 +112,12 @@
           .text-container {
             display: inline-block;
             cursor: move;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
+          }
+
+          .flyer {
+            text-decoration: underline;
+            font-weight: bold;
           }
         }
       }
