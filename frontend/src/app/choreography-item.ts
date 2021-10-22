@@ -1,5 +1,5 @@
 import { ChoreographySign } from './choreography-sign';
-import { ChoreographyGroup } from './choreography-group';
+import { ChoreographyGroup, getPeopleFromGroup, isPerson } from './choreography-group';
 
 export interface PersonContent {
   type: 'person';
@@ -20,4 +20,11 @@ export function clearItem(item: ChoreographyItem): void {
   item.shape = 'box';
   item.position = ['center', 'center'];
   item.sign = { text: '', color: '' };
+}
+
+export function getPeopleForContent(content: Content): number[] {
+  if (content === null) {
+    return [];
+  }
+  return isPerson(content) ? [content.personId] : getPeopleFromGroup(content);
 }

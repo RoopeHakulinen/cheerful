@@ -30,8 +30,8 @@
     "NOTES_HINT": "Kirjoita muistiinpanot tähän."
   },
   "FRAME_MANAGER": {
-    "FRAME": "Freimi",
-    "SUBFRAME": "Alafreimi",
+    "FRAME": "Kasi",
+    "SUBFRAME": "Tahti",
     "OPTIONS": "Asetukset",
     "ANIMATIONS": "Animaatiot",
     "LOOPING": "Jatkuva toisto",
@@ -47,7 +47,8 @@
     "HORIZONTAL_SEGMENTS": "Vaakajako",
     "VERTICAL_SEGMENTS": "Pystyjako",
     "FRAME_REMOVED": "Freimi poistettu.",
-    "ONE_FRAME_LEFT": "Vain yksi freimi jäljellä."
+    "ONE_FRAME_LEFT": "Vain yksi freimi jäljellä.",
+    "COPY_FROM_PREVIOUS": "Kopioi tahti edellisestä"
   },
   "PEOPLE": {
     "PEOPLE": "Henkilöt",

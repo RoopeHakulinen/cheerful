@@ -27,6 +27,7 @@
         cdkDropList
         class="tile {{item.position[0]}}">
         <div (cdkDragStarted)="dragStarted(index)" cdkDrag class="drag-container">
+          <div *cdkDragPreview></div>
           <div
             *ngIf="isPerson(item.content)"
             [style.background]="(item.content.personId | choreographyPerson:choreography.id | async)?.color ?? 'transparent'"

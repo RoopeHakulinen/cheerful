@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { Choreography } from '../choreography';
-import { ChoreographyItem, clearItem, Content, PersonContent } from '../choreography-item';
+import { ChoreographyItem, clearItem, Content, getPeopleForContent, PersonContent } from '../choreography-item';
 import {
   availableGroupTypes,
   ChoreographyGroup,
   createEmptyGroup,
   FiveGroup,
   FourGroup,
-  getPeopleFromGroup,
   GroupType,
   isFiveGroup,
   isFourGroup,
@@ -172,13 +171,6 @@ export class ChoreographyComponent {
   }
 
   getAvailablePeopleForThisFrame(): number[] {
-    function getPeopleForContent(content: Content): number[] {
-      if (content === null) {
-        return [];
-      }
-      return isPerson(content) ? [content.personId] : getPeopleFromGroup(content);
-    }
-
     const getPeopleCurrentlyInChoreography = this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
       .reduce(
         (acc, tile) => [
@@ -271,5 +263,10 @@ export class ChoreographyComponent {
       return;
     }
     this.choreography = JSON.parse(loadedChoreography);
+  }
+
+  copySubframeFromPreviousSubframe(): void {
+    this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
+      = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe - 1].grid));
   }
 }

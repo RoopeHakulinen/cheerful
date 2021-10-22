@@ -16,13 +16,8 @@ test.describe('Frame manager', function () {
 
   test('Add a frame test', async ({ page }) => {
     await page.click('text=Lisää');
-    await page.click('text=Freimi 1');
-    await expect(page.locator('text= Freimi 9 ').first()).toHaveText(' Freimi 9 ');
-  });
-
-  test('Delete a frame test', async ({ page }) => {
-    await page.click('text=Poista');
-    await expect(page.locator('text=Alafreimi 7').first()).toHaveText('Alafreimi 7');
+    await page.click('text=1. Kasi');
+    await expect(page.locator('text=9. Kasi ').first()).toHaveText(' 9. Kasi ');
   });
 
   test('Options test', async ({ page }) => {
