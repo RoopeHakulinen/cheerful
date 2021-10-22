@@ -72,7 +72,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   verticalSegments: void[] = [];
   horizontalSegments: void[] = [];
-  tileDimension = 50;
+  tileDimension = 60;
   animate = false;
   lastItems: ChoreographyItem[] = [];
   subscriptions = new Subscription();
@@ -106,7 +106,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     if (el === null) {
       return;
     }
-    this.tileDimension = Math.min((el.clientWidth - 20) / this.carpet.width, 50);
+    this.tileDimension = Math.min((el.clientWidth - 20) / this.carpet.width, 60);
   }
 
   findTranslation(item: ChoreographyItem, index: number): { x: number, y: number } {
