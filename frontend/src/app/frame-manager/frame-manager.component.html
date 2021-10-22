@@ -14,7 +14,7 @@
     cdkDrag
     [cdkDragStartDelay]="100"
     class="frame clickable frame-box">
-    {{'FRAME_MANAGER.FRAME' | translate}} {{index + 1}}
+    {{index + 1}}. {{'FRAME_MANAGER.FRAME' | translate}}
     <div (click)="changeActiveSubframe.emit(subindex)"
          *ngFor="let subframe of frame.subframes; index as subindex"
          [class.active]="subindex === activeSubframe"
@@ -27,6 +27,8 @@
 <div class="controls">
   <button (click)="add.emit()" mat-raised-button translate="COMMON.ADD"></button>
   <button (click)="removeClicked(active)" mat-raised-button translate="COMMON.REMOVE"></button>
+  <button (click)="copySubframeFromPreviousSubframe()" mat-raised-button
+          translate="FRAME_MANAGER.COPY_FROM_PREVIOUS"></button>
 </div>
 <mat-accordion>
   <mat-expansion-panel class="mat-elevation-z0">
