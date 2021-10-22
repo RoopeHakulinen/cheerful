@@ -12,13 +12,14 @@ import {
 import { Subscription } from 'rxjs';
 import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
-import { ChoreographyItem, Content, PersonContent } from '../choreography-item';
+import { ChoreographyItem, Content, getPeopleForContent, PersonContent } from '../choreography-item';
 import { ChoreographySubframe } from '../choreography-subframe';
 import {
   FiveGroup,
   FourGroup,
   isFiveGroup,
   isFourGroup,
+  isGroup,
   isPerson,
   isThreeGroup,
   isTwoGroup,
@@ -72,13 +73,12 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   verticalSegments: void[] = [];
   horizontalSegments: void[] = [];
-  tileDimension = 60;
+  tileDimension = 50;
   animate = false;
   lastItems: ChoreographyItem[] = [];
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
   isDeletable = false;
-
 
   swapPositions(event: number): void {
     const first = this.draggedItemIndex!;
@@ -106,11 +106,11 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     if (el === null) {
       return;
     }
-    this.tileDimension = Math.min((el.clientWidth - 20) / this.carpet.width, 60);
+    this.tileDimension = Math.min((el.clientWidth - 20) / this.carpet.width, 50);
   }
 
   findTranslation(item: ChoreographyItem, index: number): { x: number, y: number } {
-    const lastItemIndex = this.findItemByText((item.content));
+    const lastItemIndex = this.findItemByContent((item.content));
     return this.itemDifference(lastItemIndex, index);
   }
 
@@ -139,11 +139,15 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     };
   }
 
-  private findItemByText(content: Content): number {
+  private findItemByContent(content: Content): number {
     if (!this.lastItems || !content) {
       return -1;
     }
-    return this.lastItems.findIndex(item => item.content === content);
+    return this.lastItems.findIndex(item => {
+      const isSameIdentity = JSON.stringify(getPeopleForContent(item.content)) === JSON.stringify(getPeopleForContent(content));
+      const personBelongsToGroupFromLastRound = isGroup(item.content) && isPerson(content) && getPeopleForContent(item.content).includes(content.personId);
+      return isSameIdentity || personBelongsToGroupFromLastRound;
+    });
   }
 
   dragStarted(index: number): void {
