@@ -68,6 +68,8 @@ export class FrameManagerComponent implements OnChanges {
   changeHorizontalSegments = new EventEmitter<number>();
   @Output()
   changeVerticalSegments = new EventEmitter<number>();
+  @Output()
+  changeSubframeToPreviousSubframe = new EventEmitter<void>();
 
   horizontalLineOptions: number[] = [];
   verticalLineOptions: number[] = [];
@@ -144,5 +146,9 @@ export class FrameManagerComponent implements OnChanges {
     if (newHeight < this.carpetHorizontalSegments || newHeight % this.carpetHorizontalSegments !== 0) {
       this.changeHorizontalSegments.emit(newHeight);
     }
+  }
+
+  copySubframeFromPreviousSubframe(): void {
+    this.changeSubframeToPreviousSubframe.emit();
   }
 }
