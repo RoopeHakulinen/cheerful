@@ -11,7 +11,7 @@
     "NAME": "Nimi",
     "CANCEL": "Peruuta",
     "LOAD": "Lataa",
-    "SAVE": "Tallenna"
+    "SAVE": "Tallenna koreografia"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
@@ -53,7 +53,9 @@
     "PEOPLE": "Henkilöt",
     "DESCRIPTION": "Hallitse tämän koreografian henkilöitä.",
     "HINT": "Napauta henkilöä poistaaksesi hänet listalta.",
-    "NO_PEOPLE": "Koreografiassa ei ole vielä henkilöitä."
+    "NO_PEOPLE": "Koreografiassa ei ole vielä henkilöitä.",
+    "PERSON_ADDED": "Henkilö lisätty",
+    "PERSON_REMOVED": "Henkilö poistettu"
   },
   "EIGHT_COUNTER": {
     "FRAME_NUMBER": "Freimin numero"

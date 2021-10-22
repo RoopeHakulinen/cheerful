@@ -37,7 +37,7 @@
             *ngIf="(isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.flyerId !== null"
             [style.background]="item.content.color ?? (item.content.flyerId !== null ? (item.content.flyerId | choreographyPerson:choreography.id | async)?.color : 'transparent')"
-            class="text-container {{item.shape}} grid-top">
+            class="text-container {{item.shape}} grid-top flyer">
             {{(item.content.flyerId | person).name}}
           </div>
           <div
