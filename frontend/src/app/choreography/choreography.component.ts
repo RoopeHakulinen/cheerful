@@ -57,10 +57,11 @@ export class ChoreographyComponent {
 
   addFrame(): void {
     this.choreography.frames.push({
-      subframes: JSON.parse(JSON.stringify(this.choreography.frames[this.choreography.frames.length - 1].subframes))
-      , notes: ''
+      subframes: createDeepCopy(this.choreography.frames[this.choreography.frames.length - 1].subframes),
+      notes: ''
     });
     this.activeFrame = this.choreography.frames.length - 1;
+    this.activeSubframe = 0;
   }
 
   removeFrame(index: number): void {
@@ -87,8 +88,8 @@ export class ChoreographyComponent {
 
   swapItems({ first, second }: { first: number, second: number }): void {
     this.disableAnimationsForNextTick();
-    const temp = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[first]));
-    const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[second]));
+    const temp = createDeepCopy(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[first]);
+    const temp2 = createDeepCopy(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[second]);
     this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[first] = temp2;
     this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[second] = temp;
   }

@@ -1,6 +1,5 @@
 import { Carpet } from './carpet';
 import { ChoreographyFrame } from './choreography-frame';
-import { ChoreographyItem } from './choreography-item';
 
 export interface ChoreographyPerson {
   personId: number;
@@ -16,6 +15,6 @@ export interface Choreography {
   people: ChoreographyPerson[];
 }
 
-export function createDeepCopy(choreography: ChoreographyItem[]): ChoreographyItem[] {
+export function createDeepCopy(choreography: any): any {
   return JSON.parse(JSON.stringify(choreography));
 }
