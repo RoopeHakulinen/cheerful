@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { mapTo, Observable, timer } from 'rxjs';
-import { Choreography } from './choreography';
+import { Choreography, createDeepCopy } from './choreography';
 import { TEST_FRAMES } from './testFrames';
 
 @Injectable()
@@ -12,20 +12,20 @@ export class ChoreographyService {
       name: 'SM-karsinnat',
       team: 'Flames',
       frames: [{
-        subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
+        subframes: createDeepCopy(TEST_FRAMES),
         notes: '',
-      }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' },
+      }, { subframes: createDeepCopy(TEST_FRAMES), notes: '' },
         {
-          subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
+          subframes: createDeepCopy(TEST_FRAMES),
           notes: '',
-        }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' }, {
-          subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
+        }, { subframes: createDeepCopy(TEST_FRAMES), notes: '' }, {
+          subframes: createDeepCopy(TEST_FRAMES),
           notes: '',
-        }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' },
+        }, { subframes: createDeepCopy(TEST_FRAMES), notes: '' },
         {
-          subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
+          subframes: createDeepCopy(TEST_FRAMES),
           notes: '',
-        }, { subframes: JSON.parse(JSON.stringify(TEST_FRAMES)), notes: '' }],
+        }, { subframes: createDeepCopy(TEST_FRAMES), notes: '' }],
       carpet: {
         color: '#5151b8',
         height: 12,
@@ -57,7 +57,7 @@ export class ChoreographyService {
       name: 'EM-karsinnat',
       team: 'Flames',
       frames: [{
-        subframes: JSON.parse(JSON.stringify(TEST_FRAMES)),
+        subframes: createDeepCopy(TEST_FRAMES),
         notes: '',
       }],
       carpet: {

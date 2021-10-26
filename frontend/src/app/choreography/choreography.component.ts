@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Choreography } from '../choreography';
+import { Choreography, createDeepCopy } from '../choreography';
 import { ChoreographyItem, clearItem, Content, getPeopleForContent, PersonContent } from '../choreography-item';
 import {
   availableGroupTypes,
@@ -57,10 +57,11 @@ export class ChoreographyComponent {
 
   addFrame(): void {
     this.choreography.frames.push({
-      subframes: JSON.parse(JSON.stringify(this.choreography.frames[this.choreography.frames.length - 1].subframes))
-      , notes: ''
+      subframes: createDeepCopy(this.choreography.frames[this.choreography.frames.length - 1].subframes),
+      notes: ''
     });
     this.activeFrame = this.choreography.frames.length - 1;
+    this.activeSubframe = 0;
   }
 
   removeFrame(index: number): void {
@@ -87,8 +88,8 @@ export class ChoreographyComponent {
 
   swapItems({ first, second }: { first: number, second: number }): void {
     this.disableAnimationsForNextTick();
-    const temp = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[first]));
-    const temp2 = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[second]));
+    const temp = createDeepCopy(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[first]);
+    const temp2 = createDeepCopy(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[second]);
     this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[first] = temp2;
     this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid[second] = temp;
   }
@@ -268,17 +269,11 @@ export class ChoreographyComponent {
   copySubframeFromPreviousSubframe(): void {
     console.log(this.activeFrame, this.activeSubframe);
     if (this.activeSubframe === 0) {
-      if (this.activeFrame === 0) {
-        this.snackBar.open(this.translate.instant('CHOREOGRAPHY.FRAME_COPY_ERROR'), this.translate.instant('COMMON.CLOSE'), {
-          duration: 3000
-        });
-        return;
-      }
       this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid =
-        JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame - 1].subframes[7].grid));
+        createDeepCopy(this.choreography.frames[this.activeFrame - 1].subframes[7].grid);
     } else {
       this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
-        = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe - 1].grid));
+        = createDeepCopy(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe - 1].grid);
     }
   }
 
@@ -292,22 +287,18 @@ export class ChoreographyComponent {
 
   exportAsJson(): void {
     const data = JSON.stringify(this.choreography);
-    const fileName = `choreography-${this.choreography.name}`;
+    const fileName = `choreography-${this.choreography.name}.json`;
     const file = new Blob([data]);
-    if (window.navigator.msSaveOrOpenBlob)
-      window.navigator.msSaveOrOpenBlob(file, fileName);
-    else {
-      const a = document.createElement('a'),
-        url = URL.createObjectURL(file);
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(function () {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }, 0);
-    }
+    const a = document.createElement('a'),
+      url = URL.createObjectURL(file);
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 0);
   }
 
   onFileSelected(file: any): void {

@@ -14,3 +14,7 @@ export interface Choreography {
   carpet: Carpet;
   people: ChoreographyPerson[];
 }
+
+export function createDeepCopy(choreography: any): any {
+  return JSON.parse(JSON.stringify(choreography));
+}

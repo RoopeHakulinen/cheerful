@@ -12,8 +12,8 @@
     "CANCEL": "Peruuta",
     "LOAD": "Lataa muistista",
     "SAVE": "Tallenna",
-    "EXPORT_JSON": "Tallenna (.txt)",
-    "IMPORT_JSON": "Lataa (.txt)"
+    "EXPORT_JSON": "Tallenna (.json)",
+    "IMPORT_JSON": "Lataa (.json)"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"

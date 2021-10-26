@@ -27,7 +27,8 @@
 <div class="controls">
   <button (click)="add.emit()" mat-raised-button translate="COMMON.ADD"></button>
   <button (click)="removeClicked(active)" mat-raised-button translate="COMMON.REMOVE"></button>
-  <button (click)="copySubframeFromPreviousSubframe()" mat-raised-button
+  <button (click)="copySubframeFromPreviousSubframe()" [disabled]="active === 0 && activeSubframe === 0"
+          mat-raised-button
           translate="FRAME_MANAGER.COPY_FROM_PREVIOUS"></button>
 </div>
 <mat-accordion>
