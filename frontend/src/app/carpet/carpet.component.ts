@@ -146,7 +146,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     return this.lastItems.findIndex(item => {
       const isSameIdentity = JSON.stringify(getPeopleForContent(item.content)) === JSON.stringify(getPeopleForContent(content));
       const doesPersonBelongToGroupFromLastRound = isGroup(item.content) && isPerson(content) && getPeopleForContent(item.content).includes(content.personId);
-      return isSameIdentity || personBelongsToGroupFromLastRound;
+      return isSameIdentity || doesPersonBelongToGroupFromLastRound;
     });
   }
 
