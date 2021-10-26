@@ -4,7 +4,7 @@
     <div class="padding" fxFlex fxFlex.gt-sm="300px" fxFlexOrder.lt-md="3">
       <app-frame-manager
         (add)="addFrame()"
-        (changeActiveFrame)="activeFrame = $event"
+        (changeActiveFrame)="changeActiveFrame($event)"
         (changeActiveSubframe)="activeSubframe = $event"
         (changeCarpetHeight)="changeCarpetHeight($event)"
         (changeCarpetWidth)="changeCarpetWidth($event)"
@@ -48,11 +48,22 @@
           mat-raised-button
           translate="COMMON.LOAD">
         </button>
+        <button (click)="exportAsJson()"
+                class="single-button"
+                mat-raised-button
+                translate="COMMON.EXPORT_JSON">
+        </button>
+        <input #fileUpload (change)="onFileSelected($event)"
+               class="file-input" type="file">
+        <button (click)="fileUpload.click()" class="upload-file single-button"
+                mat-raised-button
+                translate="COMMON.IMPORT_JSON">
+        </button>
       </div>
     </div>
     <div fxFlex>
       <app-carpet
-        (active)="activeChoreographyItem = $event"
+        (active)="this.activeChoreographyItem = $event"
         [carpet]="choreography.carpet"
         [frame]="choreography.frames[activeFrame]"
         (removePerson)="removePersonFromCarpet($event)"
