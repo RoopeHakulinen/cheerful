@@ -266,7 +266,66 @@ export class ChoreographyComponent {
   }
 
   copySubframeFromPreviousSubframe(): void {
-    this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
-      = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe - 1].grid));
+    console.log(this.activeFrame, this.activeSubframe);
+    if (this.activeSubframe === 0) {
+      if (this.activeFrame === 0) {
+        this.snackBar.open(this.translate.instant('CHOREOGRAPHY.FRAME_COPY_ERROR'), this.translate.instant('COMMON.CLOSE'), {
+          duration: 3000
+        });
+        return;
+      }
+      this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid =
+        JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame - 1].subframes[7].grid));
+    } else {
+      this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid
+        = JSON.parse(JSON.stringify(this.choreography.frames[this.activeFrame].subframes[this.activeSubframe - 1].grid));
+    }
+  }
+
+  changeActiveFrame(selectedFrameNumber: number): void {
+    if (this.activeFrame === selectedFrameNumber) {
+      return;
+    }
+    this.activeFrame = selectedFrameNumber;
+    this.activeSubframe = 0;
+  }
+
+  exportAsJson(): void {
+    const data = JSON.stringify(this.choreography);
+    const fileName = `choreography-${this.choreography.name}`;
+    const file = new Blob([data]);
+    if (window.navigator.msSaveOrOpenBlob)
+      window.navigator.msSaveOrOpenBlob(file, fileName);
+    else {
+      const a = document.createElement('a'),
+        url = URL.createObjectURL(file);
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 0);
+    }
+  }
+
+  onFileSelected(file: any): void {
+    if (file.target === null) {
+      return;
+    }
+    const jsonFile = file.target.files[0];
+    if (file.target.files.length !== 1) {
+      throw new Error('Cannot use multiple files');
+    }
+    const reader = new FileReader();
+    reader.readAsText(jsonFile);
+    reader.onload = (e: any) => {
+      if (typeof reader.result === 'string') {
+        this.choreography = JSON.parse(reader.result);
+      } else {
+        throw new Error('Invalid file!');
+      }
+    };
   }
 }
