@@ -1,4 +1,4 @@
-<div *ngIf="choreography" class="choreography">
+<div *ngIf="choreography">
   <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
   <div fxLayout="column" fxLayout.gt-sm="row">
     <div class="padding" fxFlex fxFlex.gt-sm="300px" fxFlexOrder.lt-md="3">
