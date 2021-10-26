@@ -12,7 +12,7 @@ import {
 import { Subscription } from 'rxjs';
 import { Carpet } from '../carpet';
 import { ChoreographyFrame } from '../choreography-frame';
-import { ChoreographyItem, Content, getPeopleForContent, PersonContent } from '../choreography-item';
+import { ChoreographyItem, Content, getPeopleForContent, PersonContent, Position } from '../choreography-item';
 import { ChoreographySubframe } from '../choreography-subframe';
 import {
   FiveGroup,
@@ -28,6 +28,11 @@ import {
 } from '../choreography-group';
 import { Person } from '../people';
 import { Choreography } from '../choreography';
+
+interface PositionCoordinates {
+  x: number;
+  y: number;
+}
 
 @Component({
   selector: 'app-carpet',
@@ -109,9 +114,9 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     this.tileDimension = Math.min((el.clientWidth - 20) / this.carpet.width, 50);
   }
 
-  findTranslation(item: ChoreographyItem, index: number): { x: number, y: number } {
-    const lastItemIndex = this.findItemByContent((item.content));
-    return this.itemDifference(lastItemIndex, index);
+  findTranslation(item: ChoreographyItem, index: number): PositionCoordinates {
+    const [lastItem, lastItemIndex] = this.findItemByContent(item.content);
+    return this.itemDifference(lastItem, lastItemIndex, index, item.position);
   }
 
   getAnimationParams(item: ChoreographyItem, index: number): { x: number, y: number, time: string } {
@@ -125,29 +130,38 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  private itemDifference(lastIndex: number, currentIndex: number): { x: number, y: number } {
-    if (lastIndex === -1 || currentIndex === -1) {
-      return { x: 0, y: 0 };
+  adjustItemDifferenceBasedOnPosition(param: PositionCoordinates, endPosition: Position, startPosition: Position): PositionCoordinates {
+    let x = param.x;
+
+    if (startPosition === 'right' && endPosition === 'left') {
+      x = param.x + 46;
+    } else if (startPosition === 'center' && endPosition === 'left') {
+      x = param.x + 23;
+    } else if (startPosition === 'left' && endPosition === 'right') {
+      x = param.x - 46;
+    } else if (startPosition === 'center' && endPosition === 'right') {
+      x = param.x - 23;
+    } else if (startPosition === 'left' && endPosition === 'center') {
+      x = param.x - 23;
+    } else if (startPosition === 'right' && endPosition === 'center') {
+      x = param.x + 23;
     }
-    const startX = lastIndex % this.carpet.width;
-    const startY = Math.floor(lastIndex / this.carpet.height);
-    const endX = currentIndex % this.carpet.width;
-    const endY = Math.floor(currentIndex / this.carpet.height);
-    return {
-      x: (startX - endX) * this.tileDimension,
-      y: (startY - endY) * this.tileDimension
-    };
+
+    return { ...param, x };
   }
 
-  private findItemByContent(content: Content): number {
-    if (!this.lastItems || !content) {
-      return -1;
+  private itemDifference(startItem: ChoreographyItem | null, lastItemIndex: number, currentIndex: number, endPosition: Position): PositionCoordinates {
+    if (startItem === null || currentIndex === -1) {
+      return { x: 0, y: 0 };
     }
-    return this.lastItems.findIndex(item => {
-      const isSameIdentity = JSON.stringify(getPeopleForContent(item.content)) === JSON.stringify(getPeopleForContent(content));
-      const doesPersonBelongToGroupFromLastRound = isGroup(item.content) && isPerson(content) && getPeopleForContent(item.content).includes(content.personId);
-      return isSameIdentity || doesPersonBelongToGroupFromLastRound;
-    });
+    const startX = lastItemIndex % this.carpet.width;
+    const startY = Math.floor(lastItemIndex / this.carpet.height);
+    const endX = currentIndex % this.carpet.width;
+    const endY = Math.floor(currentIndex / this.carpet.height);
+    return this.adjustItemDifferenceBasedOnPosition({
+      x: (startX - endX) * this.tileDimension,
+      y: (startY - endY) * this.tileDimension
+    }, endPosition, startItem.position);
   }
 
   dragStarted(index: number): void {
@@ -182,5 +196,19 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   isPerson(content: Content): content is PersonContent {
     return isPerson(content);
+  }
+
+  private findItemByContent(content: Content): [ChoreographyItem | null, number] {
+    if (!this.lastItems || !content) {
+      return [null, -1];
+    }
+
+    function itemIdentityPredicate(item: ChoreographyItem): boolean {
+      const isSameIdentity = JSON.stringify(getPeopleForContent(item.content)) === JSON.stringify(getPeopleForContent(content));
+      const doesPersonBelongToGroupFromLastRound = isGroup(item.content) && isPerson(content) && getPeopleForContent(item.content).includes(content.personId);
+      return isSameIdentity || doesPersonBelongToGroupFromLastRound;
+    }
+
+    return [this.lastItems.find(itemIdentityPredicate) ?? null, this.lastItems.findIndex(itemIdentityPredicate)];
   }
 }

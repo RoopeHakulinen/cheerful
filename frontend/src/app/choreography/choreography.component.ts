@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { Choreography, createDeepCopy } from '../choreography';
-import { ChoreographyItem, clearItem, Content, getPeopleForContent, PersonContent } from '../choreography-item';
+import {
+  ChoreographyItem,
+  clearItem,
+  Content,
+  getPeopleForContent,
+  PersonContent,
+  Position
+} from '../choreography-item';
 import {
   availableGroupTypes,
   ChoreographyGroup,
@@ -43,6 +50,7 @@ export class ChoreographyComponent {
   tempo = 8;
   areNotesShown = false;
   availableGroupTypes = availableGroupTypes;
+  positionOptions: Position[] = ['left', 'center', 'right'];
 
   get localStorageEmpty(): any {
     return localStorage.getItem('choreography') === null;
@@ -115,8 +123,8 @@ export class ChoreographyComponent {
     return isGroup(content);
   }
 
-  setPositionForItem(activeChoreographyItem: ChoreographyItem, option: any): void {
-    activeChoreographyItem.position = option;
+  setPositionForItem(activeChoreographyItem: ChoreographyItem, position: Position): void {
+    activeChoreographyItem.position = position;
   }
 
   toggleAnimations(): void {

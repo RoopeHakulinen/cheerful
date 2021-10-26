@@ -8,10 +8,12 @@ export interface PersonContent {
 
 export type Content = PersonContent | ChoreographyGroup | null;
 
+export type Position = 'left' | 'center' | 'right';
+
 export interface ChoreographyItem {
   content: Content;
   shape: 'box' | 'rounded';
-  position: 'left' | 'center' | 'right';
+  position: Position;
   sign?: ChoreographySign;
 }
 

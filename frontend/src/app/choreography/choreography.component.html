@@ -167,9 +167,9 @@
         </div>
         <div *ngIf="!isGroup(activeChoreographyItem.content)" class="position-selector" fxFlex="120px">
           <div
-            (click)="setPositionForItem(activeChoreographyItem, option)"
-            *ngFor="let option of ['left', 'center', 'right']"
-            [class.active]="activeChoreographyItem.position === option"
+            (click)="setPositionForItem(activeChoreographyItem, position)"
+            *ngFor="let position of positionOptions"
+            [class.active]="activeChoreographyItem.position === position"
             class="option">
           </div>
         </div>

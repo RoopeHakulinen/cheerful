@@ -96,22 +96,28 @@
         }
 
         .left {
-          grid-area: grid-left;
+          grid-area: grid-middle;
           align-self: center;
           justify-self: center;
+          position: relative;
+          left: -23px;
         }
 
         .right {
-          grid-area: grid-right;
+          grid-area: grid-middle;
           align-self: center;
           justify-self: center;
+          position: relative;
+          left: 23px;
         }
 
         .drag-container {
           position: absolute;
           display: grid;
-          grid-template-columns: 2.5px 45px 2.5px;
-          grid-template-rows: 17.33px 17.33px 17.33px;
+          width: 100%;
+          height: 100%;
+          grid-template-columns: 33% 33% 33%;
+          grid-template-rows: 33% 33% 33%;
           grid-template-areas:
             ". grid-top ."
             "grid-left grid-middle grid-right"
