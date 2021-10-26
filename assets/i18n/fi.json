@@ -10,8 +10,10 @@
     "REMOVE": "Poista",
     "NAME": "Nimi",
     "CANCEL": "Peruuta",
-    "LOAD": "Lataa",
-    "SAVE": "Tallenna koreografia"
+    "LOAD": "Lataa muistista",
+    "SAVE": "Tallenna",
+    "EXPORT_JSON": "Tallenna (.txt)",
+    "IMPORT_JSON": "Lataa (.txt)"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
@@ -27,7 +29,8 @@
     "EXIT_GROUP": "Poistu ryhmän luonnista",
     "CREATE_GROUP": "Luo ryhmä",
     "NOTES": "Muistiinpanot",
-    "NOTES_HINT": "Kirjoita muistiinpanot tähän."
+    "NOTES_HINT": "Kirjoita muistiinpanot tähän.",
+    "CHOREOGRAPHY.FRAME_COPY_ERROR": "Ei ole edellistä tahtia, mistä kopioida."
   },
   "FRAME_MANAGER": {
     "FRAME": "Kasi",
