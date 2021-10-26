@@ -77,7 +77,7 @@
           justify-self: center;
         }
 
-        .grid-middle {
+        .center {
           grid-area: grid-middle;
           align-self: center;
           justify-self: center;
@@ -95,10 +95,22 @@
           justify-self: center;
         }
 
+        .left {
+          grid-area: grid-left;
+          align-self: center;
+          justify-self: center;
+        }
+
+        .right {
+          grid-area: grid-right;
+          align-self: center;
+          justify-self: center;
+        }
+
         .drag-container {
           position: absolute;
           display: grid;
-          grid-template-columns: 17.33px 17.33px 17.33px;
+          grid-template-columns: 2.5px 45px 2.5px;
           grid-template-rows: 17.33px 17.33px 17.33px;
           grid-template-areas:
             ". grid-top ."
