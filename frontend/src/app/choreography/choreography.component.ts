@@ -29,8 +29,8 @@ import { ChoreographyService } from '../choreography.service';
 import { ActivatedRoute } from '@angular/router';
 import { Person } from '../people';
 import { PeopleService } from '../people.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { PopupService } from '../popup.service';
 
 @Component({
   selector: 'app-choreography',
@@ -57,7 +57,7 @@ export class ChoreographyComponent {
   }
 
   constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute,
-              private peopleService: PeopleService, private snackBar: MatSnackBar,
+              private peopleService: PeopleService, private popupService: PopupService,
               private translate: TranslateService) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.choreographyService.getChoreographiesById(id).subscribe(choreography => this.choreography = choreography);
@@ -214,9 +214,7 @@ export class ChoreographyComponent {
           }),
         ),
       );
-    this.snackBar.open(`${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`, this.translate.instant('COMMON.CLOSE'), {
-      duration: 2000
-    });
+    this.popupService.createPopup(`${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`, 3000);
   }
 
   clearItem(item: ChoreographyItem): void {
@@ -275,7 +273,6 @@ export class ChoreographyComponent {
   }
 
   copySubframeFromPreviousSubframe(): void {
-    console.log(this.activeFrame, this.activeSubframe);
     if (this.activeSubframe === 0) {
       this.choreography.frames[this.activeFrame].subframes[this.activeSubframe].grid =
         createDeepCopy(this.choreography.frames[this.activeFrame - 1].subframes[7].grid);

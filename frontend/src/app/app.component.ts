@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { MenuService } from './menu.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { IosInstallService } from './ios-install-popup.service';
+import { IosInstallService } from './ios-install.service';
 import { ChoreographyService } from './choreography.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { PopupService } from './popup.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private swUpdate: SwUpdate, private snackBar: MatSnackBar, public menuService: MenuService, private iosInstallService: IosInstallService, public choreographyService: ChoreographyService, private translate: TranslateService) {
+  constructor(private swUpdate: SwUpdate, public menuService: MenuService, private iosInstallService: IosInstallService, public choreographyService: ChoreographyService, private popupService: PopupService, private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -26,20 +26,14 @@ export class AppComponent implements OnInit {
   private checkForUpdates(): void {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.available.subscribe(() => {
-        this.snackBar.open(this.translate.instant('COMMON.UPDATE_PROMPT'), this.translate.instant('COMMON.CLOSE'), {
-          duration: 10000
-        });
+        this.popupService.createPopup('COMMON.UPDATE_PROMPT', 10000);
       });
       this.swUpdate.activateUpdate()
         .then(() => {
-          this.snackBar.open(this.translate.instant('COMMON.UPDATE_SUCCESSFUL'), this.translate.instant('COMMON.CLOSE'), {
-            duration: 3000
-          });
+          this.popupService.createPopup('COMMON.UPDATE_SUCCESSFUL', 3000);
         })
         .catch(err => {
-          this.snackBar.open(this.translate.instant('COMMON.UPDATE_NOT_SUCCESSFUL' + err), this.translate.instant('COMMON.CLOSE'), {
-            duration: 5000
-          });
+          this.popupService.createPopup('COMMON.UPDATE_NOT_SUCCESSFUL', 5000);
         });
     }
   }

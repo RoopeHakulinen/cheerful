@@ -2,9 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { ChoreographyFrame } from '../choreography-frame';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { TranslateService } from '@ngx-translate/core';
+import { PopupService } from '../popup.service';
 
 @Component({
   selector: 'app-frame-manager',
@@ -92,7 +91,7 @@ export class FrameManagerComponent implements OnChanges {
     return '-';
   }
 
-  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private translate: TranslateService) {
+  constructor(private dialog: MatDialog, private popupService: PopupService) {
     this.carpetHeightOptions = Array(16).fill(0).map((x, i) => i);
     this.carpetWidthOptions = Array(16).fill(0).map((x, i) => i);
   }
@@ -109,9 +108,7 @@ export class FrameManagerComponent implements OnChanges {
 
   removeClicked(index: number): void {
     if (this.frames.length === 1) {
-      this.snackBar.open(this.translate.instant('FRAME_MANAGER.ONE_FRAME_LEFT'), this.translate.instant('COMMON.CLOSE'), {
-        duration: 3000
-      });
+      this.popupService.createPopup('FRAME_MANAGER.ONE_FRAME_LEFT', 3000);
       return;
     }
 
@@ -119,9 +116,7 @@ export class FrameManagerComponent implements OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.remove.emit(index);
-        this.snackBar.open(this.translate.instant('FRAME_MANAGER.FRAME_REMOVED'), this.translate.instant('COMMON.CLOSE'), {
-          duration: 2500
-        });
+        this.popupService.createPopup('FRAME_MANAGER.FRAME_REMOVED', 2500);
       }
     });
   }
