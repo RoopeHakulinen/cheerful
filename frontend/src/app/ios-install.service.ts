@@ -18,7 +18,7 @@ export class IosInstallService {
 
   showPopupIfOnIos(): void {
     if (IosInstallService.isIos() && !IosInstallService.isInStandaloneMode()) {
-      this.popupService.createPopup('COMMON.INSTALL_PROMPT', 3000);
+      this.popupService.createToast('COMMON.INSTALL_PROMPT');
     }
   }
 }

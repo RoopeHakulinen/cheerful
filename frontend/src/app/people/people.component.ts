@@ -50,6 +50,6 @@ export class PeopleComponent implements OnInit {
   addPerson(name: string): void {
     this.add.emit(this.availablePeopleToAdd.find(person => person.name === name)!.id);
     this.filterNamesControl.setValue('');
-    this.popupService.createPopup(`${this.translate.instant('PEOPLE.PERSON_ADDED')}: ${name}`, 2000);
+    this.popupService.createToastRaw(`${this.translate.instant('PEOPLE.PERSON_ADDED')}: ${name}`);
   }
 }

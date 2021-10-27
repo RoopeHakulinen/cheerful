@@ -214,7 +214,7 @@ export class ChoreographyComponent {
           }),
         ),
       );
-    this.popupService.createPopup(`${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`, 3000);
+    this.popupService.createToastRaw(`${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`);
   }
 
   clearItem(item: ChoreographyItem): void {
@@ -316,7 +316,7 @@ export class ChoreographyComponent {
     }
     const reader = new FileReader();
     reader.readAsText(jsonFile);
-    reader.onload = (e: any) => {
+    reader.onload = (_: any) => {
       if (typeof reader.result === 'string') {
         this.choreography = JSON.parse(reader.result);
       } else {

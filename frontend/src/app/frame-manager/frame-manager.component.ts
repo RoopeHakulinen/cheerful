@@ -108,7 +108,7 @@ export class FrameManagerComponent implements OnChanges {
 
   removeClicked(index: number): void {
     if (this.frames.length === 1) {
-      this.popupService.createPopup('FRAME_MANAGER.ONE_FRAME_LEFT', 3000);
+      this.popupService.createToast('FRAME_MANAGER.ONE_FRAME_LEFT');
       return;
     }
 
@@ -116,7 +116,7 @@ export class FrameManagerComponent implements OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.remove.emit(index);
-        this.popupService.createPopup('FRAME_MANAGER.FRAME_REMOVED', 2500);
+        this.popupService.createToast('FRAME_MANAGER.FRAME_REMOVED');
       }
     });
   }
