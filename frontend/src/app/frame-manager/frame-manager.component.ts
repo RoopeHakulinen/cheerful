@@ -3,7 +3,7 @@ import { ChoreographyFrame } from '../choreography-frame';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { PopupService } from '../popup.service';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-frame-manager',
@@ -91,7 +91,7 @@ export class FrameManagerComponent implements OnChanges {
     return '-';
   }
 
-  constructor(private dialog: MatDialog, private popupService: PopupService) {
+  constructor(private dialog: MatDialog, private toastService: ToastService) {
     this.carpetHeightOptions = Array(16).fill(0).map((x, i) => i);
     this.carpetWidthOptions = Array(16).fill(0).map((x, i) => i);
   }
@@ -108,7 +108,7 @@ export class FrameManagerComponent implements OnChanges {
 
   removeClicked(index: number): void {
     if (this.frames.length === 1) {
-      this.popupService.createToast('FRAME_MANAGER.ONE_FRAME_LEFT');
+      this.toastService.createToast('FRAME_MANAGER.ONE_FRAME_LEFT');
       return;
     }
 
@@ -116,7 +116,7 @@ export class FrameManagerComponent implements OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.remove.emit(index);
-        this.popupService.createToast('FRAME_MANAGER.FRAME_REMOVED');
+        this.toastService.createToast('FRAME_MANAGER.FRAME_REMOVED');
       }
     });
   }

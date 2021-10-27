@@ -5,7 +5,7 @@ import { PeopleService } from '../people.service';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { PopupService } from '../popup.service';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-people',
@@ -33,7 +33,7 @@ export class PeopleComponent implements OnInit {
       );
   }
 
-  constructor(private peopleService: PeopleService, private popupService: PopupService, private translate: TranslateService) {
+  constructor(private peopleService: PeopleService, private toastService: ToastService, private translate: TranslateService) {
   }
 
   get availablePeopleToAdd(): Person[] {
@@ -50,6 +50,6 @@ export class PeopleComponent implements OnInit {
   addPerson(name: string): void {
     this.add.emit(this.availablePeopleToAdd.find(person => person.name === name)!.id);
     this.filterNamesControl.setValue('');
-    this.popupService.createToastRaw(`${this.translate.instant('PEOPLE.PERSON_ADDED')}: ${name}`);
+    this.toastService.createToastRaw(`${this.translate.instant('PEOPLE.PERSON_ADDED')}: ${name}`);
   }
 }

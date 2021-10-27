@@ -30,7 +30,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Person } from '../people';
 import { PeopleService } from '../people.service';
 import { TranslateService } from '@ngx-translate/core';
-import { PopupService } from '../popup.service';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-choreography',
@@ -57,7 +57,7 @@ export class ChoreographyComponent {
   }
 
   constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute,
-              private peopleService: PeopleService, private popupService: PopupService,
+              private peopleService: PeopleService, private toastService: ToastService,
               private translate: TranslateService) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.choreographyService.getChoreographiesById(id).subscribe(choreography => this.choreography = choreography);
@@ -214,7 +214,7 @@ export class ChoreographyComponent {
           }),
         ),
       );
-    this.popupService.createToastRaw(`${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`);
+    this.toastService.createToastRaw(`${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`);
   }
 
   clearItem(item: ChoreographyItem): void {

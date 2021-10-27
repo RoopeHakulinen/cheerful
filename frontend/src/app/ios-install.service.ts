@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { PopupService } from './popup.service';
+import { ToastService } from './toast.service';
 
 @Injectable()
 export class IosInstallService {
 
-  constructor(private popupService: PopupService) {
+  constructor(private toastService: ToastService) {
   }
 
   private static isIos(): boolean {
@@ -18,7 +18,7 @@ export class IosInstallService {
 
   showPopupIfOnIos(): void {
     if (IosInstallService.isIos() && !IosInstallService.isInStandaloneMode()) {
-      this.popupService.createToast('COMMON.INSTALL_PROMPT');
+      this.toastService.createToast('COMMON.INSTALL_PROMPT');
     }
   }
 }

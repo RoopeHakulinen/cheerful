@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable({
   providedIn: 'root'
 })
-export class PopupService {
+export class ToastService {
 
   constructor(private snackBar: MatSnackBar, private translate: TranslateService) {
   }
