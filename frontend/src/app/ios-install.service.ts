@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
+import { ToastService } from './toast.service';
 
 @Injectable()
 export class IosInstallService {
 
-  constructor(private snackBar: MatSnackBar, private translate: TranslateService) {
+  constructor(private toastService: ToastService) {
   }
 
   private static isIos(): boolean {
@@ -19,9 +18,7 @@ export class IosInstallService {
 
   showPopupIfOnIos(): void {
     if (IosInstallService.isIos() && !IosInstallService.isInStandaloneMode()) {
-      this.snackBar.open(this.translate.instant('COMMON.INSTALL_PROMPT'), this.translate.instant('COMMON.CLOSE'), {
-        duration: 5000
-      });
+      this.toastService.createToast('COMMON.INSTALL_PROMPT');
     }
   }
 }
