@@ -5,22 +5,6 @@ test.describe('Frame manager', function () {
     await page.goto('/choreographies/1');
   });
 
-  test('Play/pause button test', async ({ page }) => {
-
-  });
-
-  test('Move frames', async ({ page }) => {
-
-  });
-
-  test('Add a frame test', async ({ page }) => {
-
-  });
-
-  test('Options test', async ({ page }) => {
-
-  });
-
 });
 
 test.describe('Carpet', function () {
@@ -29,14 +13,6 @@ test.describe('Carpet', function () {
   });
 
   test('Move a person test', async ({ page }) => {
-
-  });
-
-  test('Open the tile manager test', async ({ page }) => {
-
-  });
-
-  test('Open notes test', async ({ page }) => {
 
   });
 
