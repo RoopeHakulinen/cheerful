@@ -124,7 +124,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   getAnimationParams(item: ChoreographyItem, index: number): { x: number, y: number, time: string } {
     const baseDuration = this.animationDuration / 1000;
-    const duration = this.frame.type === 'transition' ? this.frame.duration * baseDuration : baseDuration;
+    const duration = this.frame.type === 'transition' ? (this.frame.duration + 1) * baseDuration : baseDuration;
     return {
       ...this.findTranslation(item, index),
       time: this.areAnimationsOn ? `${duration}s` : '0s',

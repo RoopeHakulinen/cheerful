@@ -10,7 +10,6 @@
   <div
     (click)="changeActiveFrame.emit(framesToShow[index][0].originalFrameIndex)"
     *ngFor="let frames of framesToShow; index as index"
-    [cdkDragStartDelay]="100"
     [class.active]="isFrameActive(frames)"
     cdkDrag
     class="cycle clickable frame-box">
@@ -20,7 +19,7 @@
         (click)="changeActiveFrame.emit(frame.originalFrameIndex)"
         [class.active]="activeFrameIndex === frame.originalFrameIndex"
         [class.disabled]="!frame.isActualFrame"
-        class="frame">
+        class="frame clickable">
       <span *ngIf="isFrameActive(frames)">
         <ng-container *ngIf="frame.type === 'transition'">{{frameIndex + 1}}
           . {{'FRAME_MANAGER.TRANSITION' | translate}}</ng-container>
