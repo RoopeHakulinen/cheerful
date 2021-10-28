@@ -13,7 +13,9 @@
     "LOAD": "Lataa muistista",
     "SAVE": "Tallenna",
     "EXPORT_JSON": "Tallenna (.json)",
-    "IMPORT_JSON": "Lataa (.json)"
+    "IMPORT_JSON": "Lataa (.json)",
+    "CREATE": "Luo",
+    "DURATION": "Kesto"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
@@ -33,8 +35,8 @@
     "CHOREOGRAPHY.FRAME_COPY_ERROR": "Ei ole edellistä tahtia, mistä kopioida."
   },
   "FRAME_MANAGER": {
-    "FRAME": "Kasi",
-    "SUBFRAME": "Tahti",
+    "CYCLE": "Kasi",
+    "FRAME": "Tahti",
     "OPTIONS": "Asetukset",
     "ANIMATIONS": "Animaatiot",
     "LOOPING": "Jatkuva toisto",
@@ -51,7 +53,16 @@
     "VERTICAL_SEGMENTS": "Pystyjako",
     "FRAME_REMOVED": "Kasi poistettu.",
     "ONE_FRAME_LEFT": "Vain yksi kasi jäljellä.",
-    "COPY_FROM_PREVIOUS": "Kopioi tahti edellisestä"
+    "COPY_FROM_PREVIOUS": "Kopioi tahti edellisestä",
+    "TRANSITION": "Siirtymä",
+    "CONTENT_FRAME_DEFAULT_NAME": "Uusi tahti",
+    "CONTENT_NAME_DIALOG": {
+      "TITLE": "Kuvion lisäys",
+      "TEXT": "Anna kuviolle nimi"
+    },
+    "FRAME_ADDED": "Kuvio lisätty.",
+    "ADD_CONTENT": "Lisää kuvio",
+    "ADD_TRANSITION": "Lisää siirtymä"
   },
   "PEOPLE": {
     "PEOPLE": "Henkilöt",
