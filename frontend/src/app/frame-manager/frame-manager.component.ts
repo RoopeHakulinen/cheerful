@@ -1,23 +1,23 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { ChoreographyFrame } from '../choreography-frame';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ToastService } from '../toast.service';
+import { FrameForShowing } from '../choreography/choreography.component';
+import { ChoreographyContentNameDialogComponent } from './choreography-content-name-dialog/choreography-content-name-dialog.component';
 
 @Component({
   selector: 'app-frame-manager',
   templateUrl: './frame-manager.component.html',
-  styleUrls: ['./frame-manager.component.scss']
+  styleUrls: ['./frame-manager.component.scss'],
 })
 export class FrameManagerComponent implements OnChanges {
-
   @Input()
-  frames!: ChoreographyFrame[];
+  framesToShow!: FrameForShowing[][];
   @Input()
-  active!: number;
+  activeFrameIndex!: number;
   @Input()
-  activeSubframe!: number;
+  tempo!: number;
   @Input()
   isPlaying!: boolean;
   @Input()
@@ -38,11 +38,11 @@ export class FrameManagerComponent implements OnChanges {
   carpetVerticalSegments!: number;
 
   @Output()
-  add = new EventEmitter<void>();
+  addContentFrame = new EventEmitter<string>();
+  @Output()
+  addTransitionFrame = new EventEmitter<void>();
   @Output()
   changeActiveFrame = new EventEmitter<number>();
-  @Output()
-  changeActiveSubframe = new EventEmitter<number>();
   @Output()
   remove = new EventEmitter<number>();
   @Output()
@@ -68,7 +68,7 @@ export class FrameManagerComponent implements OnChanges {
   @Output()
   changeVerticalSegments = new EventEmitter<number>();
   @Output()
-  changeSubframeToPreviousSubframe = new EventEmitter<void>();
+  changeFrameToPreviousFrame = new EventEmitter<void>();
 
   horizontalLineOptions: number[] = [];
   verticalLineOptions: number[] = [];
@@ -107,7 +107,7 @@ export class FrameManagerComponent implements OnChanges {
   }
 
   removeClicked(index: number): void {
-    if (this.frames.length === 1) {
+    if (this.activeFrameIndex === 0 && this.framesToShow[this.activeFrameIndex].length === 1) {
       this.toastService.createToast('FRAME_MANAGER.ONE_FRAME_LEFT');
       return;
     }
@@ -143,7 +143,21 @@ export class FrameManagerComponent implements OnChanges {
     }
   }
 
-  copySubframeFromPreviousSubframe(): void {
-    this.changeSubframeToPreviousSubframe.emit();
+  copyFrameFromPreviousFrame(): void {
+    this.changeFrameToPreviousFrame.emit();
+  }
+
+  isFrameActive(frames: FrameForShowing[]): boolean {
+    return frames.some(frame => frame.originalFrameIndex === this.activeFrameIndex);
+  }
+
+  addContentClicked(): void {
+    const dialogRef = this.dialog.open(ChoreographyContentNameDialogComponent, {});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addContentFrame.emit(result);
+        this.toastService.createToast('FRAME_MANAGER.FRAME_ADDED');
+      }
+    });
   }
 }

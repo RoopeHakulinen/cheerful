@@ -3,9 +3,9 @@
   <div fxLayout="column" fxLayout.gt-sm="row">
     <div class="padding" fxFlex fxFlex.gt-sm="300px" fxFlexOrder.lt-md="3">
       <app-frame-manager
-        (add)="addFrame()"
+        (addContentFrame)="addContentFrame($event)"
+        (addTransitionFrame)="addTransitionFrame()"
         (changeActiveFrame)="changeActiveFrame($event)"
-        (changeActiveSubframe)="activeSubframe = $event"
         (changeCarpetHeight)="changeCarpetHeight($event)"
         (changeCarpetWidth)="changeCarpetWidth($event)"
         (changeHorizontalSegments)="changeCarpetHorizontalSegments($event)"
@@ -18,19 +18,18 @@
         (toggleAnimations)="toggleAnimations()"
         (toggleLooping)="toggleLooping()"
         (toggleVoiceSynthesis)="toggleVoiceSynthesis()"
-        (changeSubframeToPreviousSubframe)="copySubframeFromPreviousSubframe()"
-
-        [activeSubframe]="activeSubframe"
-        [active]="activeFrame"
+        (changeFrameToPreviousFrame)="copyFrameFromPreviousFrame()"
+        [activeFrameIndex]="activeFrameIndex"
+        [framesToShow]="framesToShow"
         [areAnimationsOn]="areAnimationsOn"
         [carpetHeight]="choreography.carpet.height"
         [carpetHorizontalSegments]="choreography.carpet.horizontalSegments"
         [carpetVerticalSegments]="choreography.carpet.verticalSegments"
         [carpetWidth]="choreography.carpet.width"
         [frameInterval]="frameInterval"
-        [frames]="choreography.frames"
+        [isPlaying]="playFrameIntervalId !== null"
         [isLoopingOn]="isLoopingOn"
-        [isPlaying]="playSubframeIntervalId !== null"
+        [tempo]="tempo"
         [isVoiceSynthesisOn]="isVoiceSynthesisOn"></app-frame-manager>
       <app-people
         (add)="addPerson($event)"
@@ -63,31 +62,48 @@
     </div>
     <div fxFlex>
       <app-carpet
-        (active)="activeChoreographyItem = $event"
         [carpet]="choreography.carpet"
-        [frame]="choreography.frames[activeFrame]"
+        (active)="activeChoreographyItem = $event"
         (removePerson)="removePersonFromCarpet($event)"
         [people]="allAvailablePeople"
-        (swap)="swapItems($event)"
         [activeItem]="activeChoreographyItem"
         [animationDuration]="frameInterval / tempo"
         [areAnimationsOn]="areAnimationsOn"
         [choreography]="choreography"
-        [subframe]="choreography.frames[activeFrame].subframes[activeSubframe]"></app-carpet>
-      <div class="notes-container">
-        <button (click)="areNotesShown = !areNotesShown"
-                mat-stroked-button translate="CHOREOGRAPHY.NOTES"></button>
-        <div class="notes-input">
-          <mat-form-field *ngIf="areNotesShown" appearance="fill" class="notes">
-            <mat-label translate="CHOREOGRAPHY.NOTES_HINT"></mat-label>
-            <textarea [(ngModel)]="choreography.frames[activeFrame].notes" cdkTextareaAutosize matInput></textarea>
+        (swap)="swapItems($event)"
+        [frame]="activeFrame"
+        [nextFrame]="choreography.frames[(activeFrameIndex + 1) % choreography.frames.length]"></app-carpet>
+      <div class="frame-options-container">
+        <div class="notes">
+          <button
+            (click)="areNotesShown = !areNotesShown"
+            mat-stroked-button
+            translate="CHOREOGRAPHY.NOTES"></button>
+          <div class="notes-input">
+            <mat-form-field *ngIf="areNotesShown" appearance="fill" class="notes">
+              <mat-label translate="CHOREOGRAPHY.NOTES_HINT"></mat-label>
+              <textarea [(ngModel)]="choreography.frames[activeFrameIndex].notes" cdkTextareaAutosize
+                        matInput></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div *ngIf="choreography.frames[activeFrameIndex].type === 'content'" class="name">
+          <mat-form-field appearance="fill" class="name">
+            <mat-label translate="COMMON.NAME"></mat-label>
+            <input [(ngModel)]="choreography.frames[activeFrameIndex].name" matInput />
+          </mat-form-field>
+        </div>
+        <div class="duration">
+          <mat-form-field appearance="fill" class="duration">
+            <mat-label translate="COMMON.DURATION"></mat-label>
+            <input [(ngModel)]="choreography.frames[activeFrameIndex].duration" matInput type="number" />
           </mat-form-field>
         </div>
       </div>
       <app-eight-counter
         [duration]="frameInterval"
-        [frameIndex]="activeFrame"
-        [isPlayingOn]="playSubframeIntervalId !== null"
+        [cycleNumber]="cycleNumber"
+        [isPlayingOn]="playFrameIntervalId !== null"
         [isSpeechSynthesisOn]="isVoiceSynthesisOn"
         [tempo]="tempo"></app-eight-counter>
     </div>

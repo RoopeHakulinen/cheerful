@@ -12,9 +12,9 @@
       cdkDropListGroup
       class="tile-container">
       <div
+        *ngFor="let item of frameToShow.grid.slice(0, carpet.height*carpet.width); index as index"
         (cdkDropListDropped)="swapPositions(index)"
         (click)="active.emit(item)"
-        *ngFor="let item of subframe.grid.slice(0, carpet.height*carpet.width); index as index"
         [@animate]="{value: animate, params: getAnimationParams(item, index)}"
         [attr.index]="index"
         [class.active]="activeItem && activeItem === item"

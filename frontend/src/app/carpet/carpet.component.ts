@@ -11,9 +11,8 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Carpet } from '../carpet';
-import { ChoreographyFrame } from '../choreography-frame';
 import { ChoreographyItem, Content, getPeopleForContent, PersonContent, Position } from '../choreography-item';
-import { ChoreographySubframe } from '../choreography-subframe';
+import { Frame } from '../frame';
 import {
   FiveGroup,
   FourGroup,
@@ -57,9 +56,9 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
   carpet!: Carpet;
   @Input()
-  frame!: ChoreographyFrame;
+  frame!: Frame;
   @Input()
-  subframe!: ChoreographySubframe;
+  nextFrame!: Frame;
   @Input()
   activeItem: ChoreographyItem | null = null;
   @Input()
@@ -85,17 +84,21 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   draggedItemIndex: number | null = null;
   isDeletable = false;
 
+  get frameToShow(): Frame {
+    return this.frame.type === 'transition' ? this.nextFrame : this.frame;
+  }
+
   swapPositions(event: number): void {
     const first = this.draggedItemIndex!;
     const second = event;
     this.swap.emit({ first, second });
     this.isDeletable = false;
-    this.active.emit(this.subframe.grid[event]);
+    this.active.emit(this.frame.grid[event]);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.subframe && changes.subframe.previousValue && changes.subframe.previousValue.grid !== changes.subframe.currentValue.grid) {
-      this.lastItems = changes.subframe.previousValue.grid;
+    if (changes.frame && changes.frame.previousValue && changes.frame.previousValue.grid !== changes.frame.currentValue.grid) {
+      this.lastItems = changes.frame.previousValue.grid;
       this.animate = !this.animate;
     }
     if (changes.carpet && changes.carpet.previousValue !== changes.carpet.currentValue) {
@@ -115,14 +118,16 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   }
 
   findTranslation(item: ChoreographyItem, index: number): PositionCoordinates {
-    const [lastItem, lastItemIndex] = this.findItemByContent(item.content);
-    return this.itemDifference(lastItem, lastItemIndex, index, item.position);
+    const [lastItem, lastItemIndex] = this.findItemByContent(this.lastItems, item.content);
+    return this.itemDifference(lastItem, item, lastItemIndex, index);
   }
 
   getAnimationParams(item: ChoreographyItem, index: number): { x: number, y: number, time: string } {
+    const baseDuration = this.animationDuration / 1000;
+    const duration = this.frame.type === 'transition' ? this.frame.duration * baseDuration : baseDuration;
     return {
       ...this.findTranslation(item, index),
-      time: this.areAnimationsOn ? `${this.animationDuration / 1000}s` : '0s'
+      time: this.areAnimationsOn ? `${duration}s` : '0s',
     };
   }
 
@@ -150,18 +155,27 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     return { ...param, x };
   }
 
-  private itemDifference(startItem: ChoreographyItem | null, lastItemIndex: number, currentIndex: number, endPosition: Position): PositionCoordinates {
-    if (startItem === null || currentIndex === -1) {
+  private itemDifference(startItem: ChoreographyItem | null, endItem: ChoreographyItem, startItemIndex: number, endItemIndex: number): PositionCoordinates {
+    if (startItem === null || startItemIndex === -1) {
       return { x: 0, y: 0 };
     }
-    const startX = lastItemIndex % this.carpet.width;
-    const startY = Math.floor(lastItemIndex / this.carpet.height);
-    const endX = currentIndex % this.carpet.width;
-    const endY = Math.floor(currentIndex / this.carpet.height);
+    let adjustedEndItem: ChoreographyItem = endItem;
+    let adjustedEndItemIndex = endItemIndex;
+    if (this.frame.type === 'transition') {
+      const [tempItem, tempItemIndex] = this.findItemByContent(this.nextFrame.grid, startItem.content);
+      adjustedEndItem = tempItem!;
+      adjustedEndItemIndex = tempItemIndex;
+    }
+
+    const startX = startItemIndex % this.carpet.width;
+    const startY = Math.floor(startItemIndex / this.carpet.height);
+    const endX = adjustedEndItemIndex % this.carpet.width;
+    const endY = Math.floor(adjustedEndItemIndex / this.carpet.height);
+
     return this.adjustItemDifferenceBasedOnPosition({
       x: (startX - endX) * this.tileDimension,
-      y: (startY - endY) * this.tileDimension
-    }, endPosition, startItem.position);
+      y: (startY - endY) * this.tileDimension,
+    }, adjustedEndItem.position, startItem.position);
   }
 
   dragStarted(index: number): void {
@@ -198,8 +212,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     return isPerson(content);
   }
 
-  private findItemByContent(content: Content): [ChoreographyItem | null, number] {
-    if (!this.lastItems || !content) {
+  private findItemByContent(items: ChoreographyItem[], content: Content): [ChoreographyItem | null, number] {
+    if (!items || !content) {
       return [null, -1];
     }
 
@@ -209,6 +223,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
       return isSameIdentity || doesPersonBelongToGroupFromLastRound;
     }
 
-    return [this.lastItems.find(itemIdentityPredicate) ?? null, this.lastItems.findIndex(itemIdentityPredicate)];
+    return [items.find(itemIdentityPredicate) ?? null, items.findIndex(itemIdentityPredicate)];
   }
 }

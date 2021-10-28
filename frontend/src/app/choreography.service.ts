@@ -11,21 +11,7 @@ export class ChoreographyService {
       id: 1,
       name: 'SM-karsinnat',
       team: 'Flames',
-      frames: [{
-        subframes: createDeepCopy(TEST_FRAMES),
-        notes: '',
-      }, { subframes: createDeepCopy(TEST_FRAMES), notes: '' },
-        {
-          subframes: createDeepCopy(TEST_FRAMES),
-          notes: '',
-        }, { subframes: createDeepCopy(TEST_FRAMES), notes: '' }, {
-          subframes: createDeepCopy(TEST_FRAMES),
-          notes: '',
-        }, { subframes: createDeepCopy(TEST_FRAMES), notes: '' },
-        {
-          subframes: createDeepCopy(TEST_FRAMES),
-          notes: '',
-        }, { subframes: createDeepCopy(TEST_FRAMES), notes: '' }],
+      frames: createDeepCopy(TEST_FRAMES),
       carpet: {
         color: '#5151b8',
         height: 12,
@@ -56,10 +42,7 @@ export class ChoreographyService {
       id: 2,
       name: 'EM-karsinnat',
       team: 'Flames',
-      frames: [{
-        subframes: createDeepCopy(TEST_FRAMES),
-        notes: '',
-      }],
+      frames: createDeepCopy(TEST_FRAMES),
       carpet: {
         color: '#5151b8',
         height: 8,

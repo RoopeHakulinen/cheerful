@@ -1,5 +1,5 @@
 import { Carpet } from './carpet';
-import { ChoreographyFrame } from './choreography-frame';
+import { Frame } from './frame';
 
 export interface ChoreographyPerson {
   personId: number;
@@ -10,7 +10,7 @@ export interface Choreography {
   id: number;
   name: string;
   team: string;
-  frames: ChoreographyFrame[];
+  frames: Frame[];
   carpet: Carpet;
   people: ChoreographyPerson[];
 }

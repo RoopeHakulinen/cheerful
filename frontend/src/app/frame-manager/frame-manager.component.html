@@ -8,26 +8,33 @@
 </div>
 <div (cdkDropListDropped)="moveFrames($event)" cdkDropList>
   <div
-    (click)="changeActiveFrame.emit(index)"
-    *ngFor="let frame of frames; index as index"
-    [class.active]="index === active"
-    cdkDrag
+    (click)="changeActiveFrame.emit(framesToShow[index][0].originalFrameIndex)"
+    *ngFor="let frames of framesToShow; index as index"
     [cdkDragStartDelay]="100"
-    class="frame clickable frame-box">
+    [class.active]="isFrameActive(frames)"
+    cdkDrag
+    class="cycle clickable frame-box">
     {{index + 1}}. {{'FRAME_MANAGER.FRAME' | translate}}
-    <div (click)="changeActiveSubframe.emit(subindex)"
-         *ngFor="let subframe of frame.subframes; index as subindex"
-         [class.active]="subindex === activeSubframe"
-         class="subframe">
-      <span *ngIf="index === active">
-          {{'FRAME_MANAGER.SUBFRAME' | translate}} {{subindex + 1}}</span>
-    </div>
+    <ng-container *ngFor="let frame of frames; index as frameIndex">
+      <div
+        (click)="changeActiveFrame.emit(frame.originalFrameIndex)"
+        [class.active]="activeFrameIndex === frame.originalFrameIndex"
+        [class.disabled]="!frame.isActualFrame"
+        class="frame">
+      <span *ngIf="isFrameActive(frames)">
+        <ng-container *ngIf="frame.type === 'transition'">{{frameIndex + 1}}
+          . {{'FRAME_MANAGER.TRANSITION' | translate}}</ng-container>
+        <ng-container *ngIf="frame.type === 'content'">{{frameIndex + 1}}. {{frame.name}}</ng-container>
+      </span>
+      </div>
+    </ng-container>
   </div>
 </div>
 <div class="controls">
-  <button (click)="add.emit()" mat-raised-button translate="COMMON.ADD"></button>
-  <button (click)="removeClicked(active)" mat-raised-button translate="COMMON.REMOVE"></button>
-  <button (click)="copySubframeFromPreviousSubframe()" [disabled]="active === 0 && activeSubframe === 0"
+  <button (click)="addContentClicked()" mat-raised-button translate="FRAME_MANAGER.ADD_CONTENT"></button>
+  <button (click)="addTransitionFrame.emit()" mat-raised-button translate="FRAME_MANAGER.ADD_TRANSITION"></button>
+  <button (click)="removeClicked(this.activeFrameIndex)" mat-raised-button translate="COMMON.REMOVE"></button>
+  <button (click)="copyFrameFromPreviousFrame()" [disabled]="this.activeFrameIndex === 0"
           mat-raised-button
           translate="FRAME_MANAGER.COPY_FROM_PREVIOUS"></button>
 </div>

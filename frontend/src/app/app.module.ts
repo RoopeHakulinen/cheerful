@@ -52,6 +52,7 @@ import { PersonPipe } from './person-pipe.pipe';
 import { PeopleService } from './people.service';
 import { ChoreographyPersonPipe } from './choreography-person-pipe.pipe';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ChoreographyContentNameDialogComponent } from './frame-manager/choreography-content-name-dialog/choreography-content-name-dialog.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -68,6 +69,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     PeopleComponent,
     FrameManagerComponent,
     ConfirmDialogComponent,
+    ChoreographyContentNameDialogComponent,
     ChoreographiesComponent,
     AboutComponent,
     ToolbarComponent,
@@ -121,7 +123,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
   ],
   providers: [MenuService, IosInstallService, ChoreographyService, PeopleService],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmDialogComponent],
+  entryComponents: [ConfirmDialogComponent, ChoreographyContentNameDialogComponent],
 })
 export class AppModule {
 }

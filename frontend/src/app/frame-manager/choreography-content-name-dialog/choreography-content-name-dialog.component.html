@@ -1,0 +1,19 @@
+<h1 mat-dialog-title translate="FRAME_MANAGER.CONTENT_NAME_DIALOG.TITLE"></h1>
+<div mat-dialog-content>
+  <p translate="FRAME_MANAGER.CONTENT_NAME_DIALOG.TEXT"></p>
+</div>
+<div mat-dialog-actions>
+  <mat-form-field>
+    <mat-label translate="COMMON.NAME"></mat-label>
+    <input [(ngModel)]="name" cdkFocusInitial matInput />
+  </mat-form-field>
+  <button
+    [mat-dialog-close]="false"
+    mat-button
+    translate="COMMON.CANCEL"></button>
+  <button
+    (click)="dialogRef.close(name)"
+    [disabled]="name.length === 0"
+    mat-button
+    translate="COMMON.CREATE"></button>
+</div>

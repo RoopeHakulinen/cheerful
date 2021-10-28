@@ -6,33 +6,30 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
   styleUrls: ['./eight-counter.component.scss']
 })
 export class EightCounterComponent implements OnChanges {
-
   @Input()
   duration!: number;
   @Input()
   tempo!: number;
   @Input()
-  frameIndex!: number;
+  cycleNumber!: number;
   @Input()
   isPlayingOn!: boolean;
   @Input()
   isSpeechSynthesisOn!: boolean;
 
-  frameNumber = 1;
   speechSynthesisWindow: SpeechSynthesis = window.speechSynthesis;
   speechSynthesis: SpeechSynthesisUtterance = new SpeechSynthesisUtterance();
   timerId: number | null = null;
   progressBarValue = 0;
   frameCount = 1;
-  private subFrameIntervalId: number | null = null;
+  private frameIntervalId: number | null = null;
 
   constructor() {
     this.speechSynthesis.rate = 2;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.frameIndex && changes.frameIndex.previousValue !== this.frameIndex) {
-      this.setFrameNumber();
+    if (changes.cycleNumber && changes.cycleNumber.previousValue !== this.cycleNumber) {
       this.resetCounterNumber();
       this.resetProgressBar();
     }
@@ -77,15 +74,8 @@ export class EightCounterComponent implements OnChanges {
     window.cancelAnimationFrame(this.timerId);
   }
 
-  private setFrameNumber(): void {
-    this.frameNumber = this.frameIndex + 1;
-  }
-
   private startSpeechSynthesis(): void {
-    if (this.frameNumber === null) {
-      return;
-    }
-    this.speechSynthesis.text = this.frameNumber.toString();
+    this.speechSynthesis.text = this.cycleNumber.toString();
     this.speechSynthesisWindow.speak(this.speechSynthesis);
   }
 
@@ -96,23 +86,23 @@ export class EightCounterComponent implements OnChanges {
   }
 
   private setCounterNumber(): void {
-    let timeElapsedInSubFrame = 0;
-    this.subFrameIntervalId = window.setInterval(() => {
-      if (timeElapsedInSubFrame >= this.duration || !this.isPlayingOn) {
+    let timeElapsedInFrame = 0;
+    this.frameIntervalId = window.setInterval(() => {
+      if (timeElapsedInFrame >= this.duration || !this.isPlayingOn) {
         this.resetCounterNumber();
       } else {
-        timeElapsedInSubFrame += 100;
-        this.frameCount = Math.floor((timeElapsedInSubFrame / this.duration) * 8) + 1;
+        timeElapsedInFrame += 100;
+        this.frameCount = Math.floor((timeElapsedInFrame / this.duration) * this.tempo) + 1;
       }
     }, 100);
   }
 
   private resetCounterNumber(): void {
-    if (this.subFrameIntervalId === null) {
+    if (this.frameIntervalId === null) {
       return;
     }
-    window.clearInterval(this.subFrameIntervalId);
-    this.subFrameIntervalId = null;
+    window.clearInterval(this.frameIntervalId);
+    this.frameIntervalId = null;
     this.frameCount = 1;
   }
 }

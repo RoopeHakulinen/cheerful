@@ -8,7 +8,7 @@
   }
 }
 
-.frame {
+.cycle {
   text-align: center;
 
   &.active {
@@ -16,12 +16,16 @@
   }
 }
 
-.subframe {
+.frame {
   font-size: 0.8rem;
   font-weight: normal;
 
   &.active {
     font-weight: bold;
+  }
+
+  &.disabled {
+    color: gray;
   }
 }
 
