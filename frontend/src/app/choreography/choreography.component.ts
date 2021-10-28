@@ -68,7 +68,7 @@ export class ChoreographyComponent {
   activeFrameIndex = 0;
   activeChoreographyItem: ChoreographyItem | null = null;
   playFrameIntervalId: number | null = null;
-  frameInterval = 3333;
+  frameInterval = 10000;
   areAnimationsOn = true;
   isLoopingOn = true;
   isVoiceSynthesisOn = false;
@@ -155,6 +155,7 @@ export class ChoreographyComponent {
     this.playFrameIntervalId = window.setInterval(() => {
       if (this.activeFrame.type === 'content') {
         this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
+        this.transitionFrameDurationCounter = null;
         return;
       }
 
@@ -333,7 +334,7 @@ export class ChoreographyComponent {
   }
 
   copyFrameFromPreviousFrame(): void {
-    this.choreography.frames[this.activeFrameIndex] = createDeepCopy(this.choreography.frames[this.activeFrameIndex - 1]);
+    this.choreography.frames[this.activeFrameIndex].grid = createDeepCopy(this.choreography.frames[this.activeFrameIndex - 1]).grid;
   }
 
   changeActiveFrame(selectedFrameIndex: number): void {
