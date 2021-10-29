@@ -153,7 +153,7 @@ export class FrameManagerComponent implements OnChanges {
     this.changeFrameToPreviousFrame.emit();
   }
 
-  isFrameActive(frames: FrameForShowing[]): boolean {
+  isEightActive(frames: FrameForShowing[]): boolean {
     return frames.some(frame => frame.originalFrameIndex === this.activeFrameIndex);
   }
 
