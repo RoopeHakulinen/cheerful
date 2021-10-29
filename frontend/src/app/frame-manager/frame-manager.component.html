@@ -6,12 +6,11 @@
     <mat-icon (click)="pauseFrames.emit()">pause</mat-icon>
   </button>
 </div>
-<div (cdkDropListDropped)="moveFrames($event)" cdkDropList>
+<div>
   <div
     (click)="changeActiveFrame.emit(framesToShow[index][0].originalFrameIndex)"
     *ngFor="let frames of framesToShow; index as index"
     [class.active]="isFrameActive(frames)"
-    cdkDrag
     class="cycle clickable frame-box">
     {{index + 1}}. {{'FRAME_MANAGER.FRAME' | translate}}
     <ng-container *ngFor="let frame of frames; index as frameIndex">
@@ -19,6 +18,7 @@
         (click)="changeActiveFrame.emit(frame.originalFrameIndex)"
         [class.active]="activeFrameIndex === frame.originalFrameIndex"
         [class.disabled]="!frame.isActualFrame"
+        [class.transition]="frame.type === 'transition'"
         class="frame clickable">
       <span *ngIf="isFrameActive(frames)">
         <ng-container *ngIf="frame.type === 'transition'">{{frameIndex + 1}}
@@ -30,12 +30,26 @@
   </div>
 </div>
 <div class="controls">
-  <button (click)="addContentClicked()" mat-raised-button translate="FRAME_MANAGER.ADD_CONTENT"></button>
-  <button (click)="addTransitionFrame.emit()" mat-raised-button translate="FRAME_MANAGER.ADD_TRANSITION"></button>
-  <button (click)="removeClicked(this.activeFrameIndex)" mat-raised-button translate="COMMON.REMOVE"></button>
-  <button (click)="copyFrameFromPreviousFrame()" [disabled]="this.activeFrameIndex === 0"
-          mat-raised-button
-          translate="FRAME_MANAGER.COPY_FROM_PREVIOUS"></button>
+  <div class="add-content-buttons">
+    <button (click)="addContentClicked()" mat-raised-button translate="FRAME_MANAGER.ADD_CONTENT"></button>
+    <button (click)="addTransitionFrame.emit()" mat-raised-button translate="FRAME_MANAGER.ADD_TRANSITION"></button>
+  </div>
+  <div class="change-content-buttons">
+    <button (click)="removeClicked(this.activeFrameIndex)" mat-raised-button>
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button (click)="copyFrameFromPreviousFrame()" [disabled]="this.activeFrameIndex === 0"
+            mat-raised-button>
+      <mat-icon>file_copy</mat-icon>
+    </button>
+    <button (click)="changeFramePosition.emit('up')" [disabled]="activeFrameIndex === 0" mat-raised-button>
+      <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+    <button (click)="changeFramePosition.emit('down')" [disabled]="activeFrameIndex + 1 === frames.length"
+            mat-raised-button>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+  </div>
 </div>
 <mat-accordion>
   <mat-expansion-panel class="mat-elevation-z0">

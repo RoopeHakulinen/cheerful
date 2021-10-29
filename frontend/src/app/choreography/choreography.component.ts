@@ -76,7 +76,7 @@ export class ChoreographyComponent {
   areNotesShown = false;
   availableGroupTypes = availableGroupTypes;
   positionOptions: Position[] = ['left', 'center', 'right'];
-  private transitionFrameDurationCounter: number | null = null;
+  private waitForDurationBeforeChangingFrames: number | null = null;
 
   get cycleNumber(): number {
     return this.framesToShow.findIndex(frame => frame.some(frame => frame.originalFrameIndex === this.activeFrameIndex));
@@ -153,20 +153,33 @@ export class ChoreographyComponent {
 
   play(): void {
     this.playFrameIntervalId = window.setInterval(() => {
-      if (this.activeFrame.type === 'content') {
+      if (this.activeFrame.type === 'content' && this.activeFrame.duration === 1) {
         this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
-        this.transitionFrameDurationCounter = null;
+        this.waitForDurationBeforeChangingFrames = null;
         return;
-      }
-
-      if (this.transitionFrameDurationCounter === null) {
-        this.transitionFrameDurationCounter = 1;
-      } else {
-        if (this.transitionFrameDurationCounter === this.activeFrame.duration) {
-          this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
-          this.transitionFrameDurationCounter = null;
+      } else if (this.activeFrame.type === 'transition') {
+        if (this.waitForDurationBeforeChangingFrames === null) {
+          this.waitForDurationBeforeChangingFrames = 1;
         } else {
-          this.transitionFrameDurationCounter++;
+          if (this.waitForDurationBeforeChangingFrames === this.activeFrame.duration) {
+            this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
+            // setTimeout is needed in order to set the starting transition item first and then start the transition to the next one
+            setTimeout(() => this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length, 0);
+            this.waitForDurationBeforeChangingFrames = null;
+          } else {
+            this.waitForDurationBeforeChangingFrames++;
+          }
+        }
+      } else if (this.activeFrame.type === 'content' && this.activeFrame.duration !== 1) {
+        if (this.waitForDurationBeforeChangingFrames === null) {
+          this.waitForDurationBeforeChangingFrames = 2;
+        } else {
+          if (this.waitForDurationBeforeChangingFrames === this.activeFrame.duration) {
+            this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
+            this.waitForDurationBeforeChangingFrames = null;
+          } else {
+            this.waitForDurationBeforeChangingFrames++;
+          }
         }
       }
     }, this.frameInterval / this.tempo);
@@ -374,5 +387,17 @@ export class ChoreographyComponent {
         throw new Error('Invalid file!');
       }
     };
+  }
+
+  moveFrameUpOrDown(direction: string): void {
+    if (direction === 'up') {
+      [this.choreography.frames[this.activeFrameIndex], this.choreography.frames[this.activeFrameIndex - 1]]
+        = [this.choreography.frames[this.activeFrameIndex - 1], this.choreography.frames[this.activeFrameIndex]];
+      this.activeFrameIndex--;
+    } else if (direction === 'down') {
+      [this.choreography.frames[this.activeFrameIndex], this.choreography.frames[this.activeFrameIndex + 1]]
+        = [this.choreography.frames[this.activeFrameIndex + 1], this.choreography.frames[this.activeFrameIndex]];
+      this.activeFrameIndex++;
+    }
   }
 }

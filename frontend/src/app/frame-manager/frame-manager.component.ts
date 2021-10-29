@@ -5,6 +5,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ToastService } from '../toast.service';
 import { FrameForShowing } from '../choreography/choreography.component';
 import { ChoreographyContentNameDialogComponent } from './choreography-content-name-dialog/choreography-content-name-dialog.component';
+import { Frame } from '../frame';
 
 @Component({
   selector: 'app-frame-manager',
@@ -12,6 +13,9 @@ import { ChoreographyContentNameDialogComponent } from './choreography-content-n
   styleUrls: ['./frame-manager.component.scss'],
 })
 export class FrameManagerComponent implements OnChanges {
+
+  @Input()
+  frames!: Frame[];
   @Input()
   framesToShow!: FrameForShowing[][];
   @Input()
@@ -69,6 +73,8 @@ export class FrameManagerComponent implements OnChanges {
   changeVerticalSegments = new EventEmitter<number>();
   @Output()
   changeFrameToPreviousFrame = new EventEmitter<void>();
+  @Output()
+  changeFramePosition = new EventEmitter<string>();
 
   horizontalLineOptions: number[] = [];
   verticalLineOptions: number[] = [];
