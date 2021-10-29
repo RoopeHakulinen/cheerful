@@ -12,26 +12,24 @@
     [class.active]="isEightActive(frames)"
     class="cycle clickable frame-box">
     <span (click)="changeActiveFrame.emit(framesToShow[index][0].originalFrameIndex)" class="frame-text">
-      <span class="frame-index">{{index + 1}}.</span><span
-      class="frame-name"> {{'FRAME_MANAGER.FRAME' | translate}}</span>
+      {{'FRAME_MANAGER.FRAME' | translate}} {{index + 1}}
     </span>
     <ng-container *ngFor="let frame of frames; index as frameIndex">
       <div
         (click)="changeActiveFrame.emit(frame.originalFrameIndex)"
         [class.active]="activeFrameIndex === frame.originalFrameIndex"
         [class.disabled]="!frame.isActualFrame"
-        [class.transition]="frame.type === 'transition'"
         *ngIf="isEightActive(frames)"
-        class="frame clickable">
+        class="frame clickable frame-text">
         <ng-container>
           <div>
             <span *ngIf="frame.type === 'transition'" class="frame-text">
-            <span class="frame-index">{{frameIndex + 1}}.</span><span
-              class="frame-name">{{'FRAME_MANAGER.TRANSITION' | translate}}</span></span>
+            <span class="frame-index transition-text">{{frameIndex + 1}}</span><span
+              class="frame-name transition-text">. {{'FRAME_MANAGER.TRANSITION' | translate}}</span></span>
           </div>
           <div>
             <span *ngIf="frame.type !== 'transition'" class="frame-text">
-              <span class="frame-index">{{frameIndex + 1}}.</span><span class="frame-name">{{frame.name}}</span>
+              <span class="frame-index">{{frameIndex + 1}}</span><span class="frame-name">. {{frame.name}}</span>
             </span>
           </div>
         </ng-container>

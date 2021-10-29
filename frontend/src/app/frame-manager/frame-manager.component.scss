@@ -37,6 +37,7 @@
 }
 
 .frame {
+
   font-size: 1rem;
   font-weight: normal;
 
@@ -70,14 +71,21 @@
 
 .frame-text {
   width: 100%;
+  display: inline-block;
 
   .frame-index {
-    width: 45%;
+    display: inline-block;
+    width: 35%;
     text-align: right;
   }
 
   .frame-name {
-    width: 55%;
+    display: inline-block;
+    width: 65%;
     text-align: left;
   }
+}
+
+.transition-text {
+  text-decoration: underline;
 }
