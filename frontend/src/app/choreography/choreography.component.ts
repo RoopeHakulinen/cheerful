@@ -389,7 +389,7 @@ export class ChoreographyComponent {
     };
   }
 
-  moveFrameUpOrDown(direction: string): void {
+  moveFrameUpOrDown(direction: 'up' | 'down'): void {
     if (direction === 'up') {
       [this.choreography.frames[this.activeFrameIndex], this.choreography.frames[this.activeFrameIndex - 1]]
         = [this.choreography.frames[this.activeFrameIndex - 1], this.choreography.frames[this.activeFrameIndex]];

@@ -74,7 +74,7 @@ export class FrameManagerComponent implements OnChanges {
   @Output()
   changeFrameToPreviousFrame = new EventEmitter<void>();
   @Output()
-  changeFramePosition = new EventEmitter<string>();
+  changeFramePosition = new EventEmitter<('up' | 'down')>();
 
   horizontalLineOptions: number[] = [];
   verticalLineOptions: number[] = [];
