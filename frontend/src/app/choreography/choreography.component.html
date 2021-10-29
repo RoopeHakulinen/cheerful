@@ -22,7 +22,6 @@
         (changeFramePosition)="moveFrameUpOrDown($event)"
         [activeFrameIndex]="activeFrameIndex"
         [frames]="choreography.frames"
-        [framesToShow]="framesToShow"
         [areAnimationsOn]="areAnimationsOn"
         [carpetHeight]="choreography.carpet.height"
         [carpetHorizontalSegments]="choreography.carpet.horizontalSegments"
@@ -106,8 +105,8 @@
         </div>
       </div>
       <app-eight-counter
+        [activeFrame]="actualActiveFrameIndex"
         [duration]="frameInterval"
-        [cycleNumber]="cycleNumber"
         [isPlayingOn]="playFrameIntervalId !== null"
         [isSpeechSynthesisOn]="isVoiceSynthesisOn"
         [tempo]="tempo"></app-eight-counter>

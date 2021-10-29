@@ -36,7 +36,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EightCounterComponent } from './eight-counter/eight-counter.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { IosInstallService } from './ios-install.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { TwoGroupComponent } from './choreography/groups/two-group/two-group.component';
@@ -109,7 +108,6 @@ export function HttpLoaderFactory(http: HttpClient): any {
     }),
     DragDropModule,
     MatCheckboxModule,
-    MatProgressBarModule,
     MatMenuModule,
     MatAutocompleteModule,
     TranslateModule.forRoot({

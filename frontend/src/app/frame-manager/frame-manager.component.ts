@@ -17,8 +17,6 @@ export class FrameManagerComponent implements OnChanges {
   @Input()
   frames!: Frame[];
   @Input()
-  framesToShow!: FrameForShowing[][];
-  @Input()
   activeFrameIndex!: number;
   @Input()
   tempo!: number;
@@ -81,6 +79,8 @@ export class FrameManagerComponent implements OnChanges {
   carpetHeightOptions: number[] = [];
   carpetWidthOptions: number[] = [];
 
+  framesToShow!: FrameForShowing[][];
+
   get frameIntervalAsTempo(): string {
     if (this.frameInterval === 2500) {
       return '4/10';
@@ -103,13 +103,31 @@ export class FrameManagerComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     if (changes.carpetHorizontalSegments || changes.carpetHeight) {
       this.horizontalLineOptions = Array(this.carpetHeight).fill(0).map((x, i) => i);
     }
     if (changes.carpetVerticalSegments || changes.carpetWidth) {
       this.verticalLineOptions = Array(this.carpetWidth).fill(0).map((x, i) => i);
     }
+    if (changes.frames) {
+      this.framesToShow = this.buildFramesToShow();
+    }
+  }
+
+  private buildFramesToShow(): FrameForShowing[][] {
+    const result = [];
+    let index = 0;
+    const artificialFrames = this.frames.map(frame => {
+      const originalIndex = index;
+      index++;
+      return Array.from(Array(frame.duration)).map((_, durationIndex) => {
+        return { ...frame, originalFrameIndex: originalIndex, isActualFrame: durationIndex === 0 };
+      });
+    }).flat();
+    for (let i = 0; i < artificialFrames.length; i += this.tempo) {
+      result.push(artificialFrames.slice(i, i + this.tempo));
+    }
+    return result;
   }
 
   removeClicked(index: number): void {

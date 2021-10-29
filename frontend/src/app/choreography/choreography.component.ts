@@ -39,25 +39,6 @@ export interface FrameForShowing extends Frame {
   isActualFrame: boolean;
 }
 
-function buildFramesToShow(frames: Frame[], chunkSize: number): FrameForShowing[][] {
-  if (chunkSize <= 0) {
-    throw 'Invalid chunk size';
-  }
-  const result = [];
-  let index = 0;
-  const artificialFrames = frames.map(frame => {
-    const originalIndex = index;
-    index++;
-    return Array.from(Array(frame.duration)).map((_, durationIndex) => {
-      return { ...frame, originalFrameIndex: originalIndex, isActualFrame: durationIndex === 0 };
-    });
-  }).flat();
-  for (let i = 0; i < artificialFrames.length; i += chunkSize) {
-    result.push(artificialFrames.slice(i, i + chunkSize));
-  }
-  return result;
-}
-
 @Component({
   selector: 'app-choreography',
   templateUrl: './choreography.component.html',
@@ -76,18 +57,11 @@ export class ChoreographyComponent {
   areNotesShown = false;
   availableGroupTypes = availableGroupTypes;
   positionOptions: Position[] = ['left', 'center', 'right'];
-  private waitForDurationBeforeChangingFrames: number | null = null;
-
-  get cycleNumber(): number {
-    return this.framesToShow.findIndex(frame => frame.some(frame => frame.originalFrameIndex === this.activeFrameIndex));
-  }
+  actualActiveFrameIndex = 0;
+  waitForDurationBeforeChangingFrames: number | null = null;
 
   get activeFrame(): Frame {
     return this.choreography.frames[this.activeFrameIndex];
-  }
-
-  get framesToShow(): FrameForShowing[][] {
-    return buildFramesToShow(this.choreography.frames, this.tempo);
   }
 
   get localStorageEmpty(): any {
@@ -153,6 +127,7 @@ export class ChoreographyComponent {
 
   play(): void {
     this.playFrameIntervalId = window.setInterval(() => {
+      this.actualActiveFrameIndex = (this.actualActiveFrameIndex + 1) % this.choreography.frames.reduce((acc, frame) => acc + frame.duration, 0);
       if (this.activeFrame.type === 'content' && this.activeFrame.duration === 1) {
         this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
         this.waitForDurationBeforeChangingFrames = null;

@@ -16,10 +16,10 @@
     </span>
     <ng-container *ngFor="let frame of frames; index as frameIndex">
       <div
+        *ngIf="isEightActive(frames)"
         (click)="changeActiveFrame.emit(frame.originalFrameIndex)"
         [class.active]="activeFrameIndex === frame.originalFrameIndex"
         [class.disabled]="!frame.isActualFrame"
-        *ngIf="isEightActive(frames)"
         class="frame clickable frame-text">
         <ng-container>
           <div>
