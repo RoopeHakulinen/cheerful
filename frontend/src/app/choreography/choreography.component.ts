@@ -76,30 +76,35 @@ export class ChoreographyComponent {
   }
 
   addContentFrame(name: string): void {
-    this.choreography.frames.push({
+    const newContentFrame = {
       ...createDeepCopy(this.choreography.frames[this.choreography.frames.length - 1]),
       notes: '',
       type: 'content',
       name,
-    });
+
+    };
+    this.choreography.frames = [...this.choreography.frames, newContentFrame];
     this.activeFrameIndex++;
   }
 
   addTransitionFrame(): void {
-    this.choreography.frames.push({
+    const newTransitionFrame = {
       ...createDeepCopy(this.choreography.frames[this.choreography.frames.length - 1]),
       notes: '',
       type: 'transition',
       name: '',
-    });
+    };
+    this.choreography.frames = [...this.choreography.frames, newTransitionFrame];
     this.activeFrameIndex++;
   }
 
   removeFrame(index: number): void {
-    this.choreography.frames.splice(index, 1);
-    if (this.activeFrameIndex >= this.choreography.frames.length) {
-      this.activeFrameIndex = this.choreography.frames.length - 1;
+    const newFrames = createDeepCopy(this.choreography.frames);
+    newFrames.splice(index, 1);
+    if (this.activeFrameIndex >= newFrames.length) {
+      this.activeFrameIndex = newFrames.length - 1;
     }
+    this.choreography.frames = newFrames;
   }
 
   get allAvailablePeople(): Person[] {
@@ -365,14 +370,18 @@ export class ChoreographyComponent {
   }
 
   moveFrameUpOrDown(direction: 'up' | 'down'): void {
+    const newFrames = createDeepCopy(this.choreography.frames);
     if (direction === 'up') {
-      [this.choreography.frames[this.activeFrameIndex], this.choreography.frames[this.activeFrameIndex - 1]]
-        = [this.choreography.frames[this.activeFrameIndex - 1], this.choreography.frames[this.activeFrameIndex]];
+      const previousFrame = this.choreography.frames[this.activeFrameIndex - 1];
+      newFrames[this.activeFrameIndex - 1] = this.choreography.frames[this.activeFrameIndex];
+      newFrames[this.activeFrameIndex] = previousFrame;
       this.activeFrameIndex--;
     } else if (direction === 'down') {
-      [this.choreography.frames[this.activeFrameIndex], this.choreography.frames[this.activeFrameIndex + 1]]
-        = [this.choreography.frames[this.activeFrameIndex + 1], this.choreography.frames[this.activeFrameIndex]];
+      const nextFrame = this.choreography.frames[this.activeFrameIndex + 1];
+      newFrames[this.activeFrameIndex + 1] = this.choreography.frames[this.activeFrameIndex];
+      newFrames[this.activeFrameIndex] = nextFrame;
       this.activeFrameIndex++;
     }
+    this.choreography.frames = newFrames;
   }
 }

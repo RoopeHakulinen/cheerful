@@ -39,25 +39,25 @@
       <div class="save-div">
         <button
           (click)="saveChoreography()"
-          mat-raised-button
-          translate="COMMON.SAVE">
+          mat-raised-button>
+          <mat-icon>save</mat-icon>
         </button>
         <button
           (click)="loadChoreography()"
           [disabled]="localStorageEmpty"
-          mat-raised-button
-          translate="COMMON.LOAD">
+          mat-raised-button>
+          <mat-icon>restore</mat-icon>
         </button>
         <button (click)="exportAsJson()"
                 class="single-button"
-                mat-raised-button
-                translate="COMMON.EXPORT_JSON">
+                mat-raised-button>
+          <mat-icon>file_upload</mat-icon>
         </button>
         <input #fileUpload (change)="onFileSelected($event)"
                class="file-input" type="file">
         <button (click)="fileUpload.click()" class="upload-file single-button"
-                mat-raised-button
-                translate="COMMON.IMPORT_JSON">
+                mat-raised-button>
+          <mat-icon>file_download</mat-icon>
         </button>
       </div>
     </div>
