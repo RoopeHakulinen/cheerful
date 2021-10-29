@@ -4,6 +4,7 @@
   margin: 0 auto;
   text-align: center;
   justify-content: center;
+  align-items: center;
 
   button {
     margin-top: 5px;
@@ -65,4 +66,18 @@
   font-size: 1.2rem;
   background: white;
   font-family: Calibri, serif;
+}
+
+.frame-text {
+  width: 100%;
+
+  .frame-index {
+    width: 45%;
+    text-align: right;
+  }
+
+  .frame-name {
+    width: 55%;
+    text-align: left;
+  }
 }

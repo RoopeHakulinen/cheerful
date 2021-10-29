@@ -71,7 +71,7 @@
            [style.width]="tileDimension + 'px'"
            cdkDropList
            class="tile trash-can-container">
-        <span *ngIf="isDeletable" cdkDrag> 🗑️ </span>
+        <span *ngIf="isDeletable" cdkDrag> <mat-icon class="trash-icon">delete</mat-icon> </span>
       </div>
     </div>
   </div>
