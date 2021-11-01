@@ -111,13 +111,6 @@ export class ChoreographyComponent {
     return this.peopleService.getPeopleForChoreography(this.choreography.id);
   }
 
-  get availablePeople(): number[] {
-    if (this.activeChoreographyItem?.content === null || isGroup(this.activeChoreographyItem?.content!)) {
-      return this.getAvailablePeopleForThisFrame();
-    }
-    return [...this.getAvailablePeopleForThisFrame(), this.activeChoreographyItem?.content.personId!];
-  }
-
   isPerson(content: Content): content is PersonContent {
     return isPerson(content);
   }
@@ -234,18 +227,15 @@ export class ChoreographyComponent {
     this.clearItem(frame.grid[index]);
   }
 
-  getAvailablePeopleForThisFrame(): number[] {
-    const frame = this.choreography.frames[this.activeFrameIndex];
-    const getPeopleCurrentlyInChoreography = frame.grid
-      .reduce(
-        (acc, tile) => [
-          ...acc,
-          ...getPeopleForContent(tile.content),
-        ], [] as number[]);
-
-    return this.choreography.people
-      .map(person => person.personId)
-      .filter(personId => !getPeopleCurrentlyInChoreography.includes(personId));
+  removeExistingPersonFromCarpet(personId: number): void {
+    const tile = this.choreography.frames[this.activeFrameIndex].grid.find(item => getPeopleForContent(item.content).includes(personId));
+    if (typeof tile === 'undefined') {
+      return;
+    } else if (isPerson(tile.content)) {
+      this.clearItem(tile);
+    } else if (isGroup(tile.content)) {
+      removePersonFromGroup(tile.content, personId);
+    }
   }
 
   addPerson(personId: number): void {
@@ -395,5 +385,14 @@ export class ChoreographyComponent {
     const newFrames = createDeepCopy(this.choreography.frames);
     newFrames[this.activeFrameIndex].duration = duration;
     this.choreography.frames = newFrames;
+  }
+
+  changePersonOnCarpet(id: number): void {
+    this.removeExistingPersonFromCarpet(id);
+    this.activeChoreographyItem!.content = { type: 'person', personId: id };
+  }
+
+  changePersonOnGroup(id: number): void {
+    this.removeExistingPersonFromCarpet(id);
   }
 }

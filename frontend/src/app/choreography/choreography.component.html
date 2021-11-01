@@ -63,15 +63,15 @@
     </div>
     <div fxFlex>
       <app-carpet
-        [carpet]="choreography.carpet"
         (active)="activeChoreographyItem = $event"
         (removePerson)="removePersonFromCarpet($event)"
+        (swap)="swapItems($event)"
         [people]="allAvailablePeople"
         [activeItem]="activeChoreographyItem"
         [animationDuration]="frameInterval / tempo"
         [areAnimationsOn]="areAnimationsOn"
         [choreography]="choreography"
-        (swap)="swapItems($event)"
+        [carpet]="choreography.carpet"
         [frame]="activeFrame"
         [nextFrame]="choreography.frames[(activeFrameIndex + 1) % choreography.frames.length]"></app-carpet>
       <div class="frame-options-container">
@@ -129,7 +129,6 @@
               translate="COMMON.REMOVE"></button>
             <button
               (click)="toggleBetweenGroupAndSingleMode()"
-              [disabled]="availablePeople.length === 0"
               mat-raised-button>
               {{(isGroup(activeChoreographyItem.content) ? 'CHOREOGRAPHY.EXIT_GROUP' : 'CHOREOGRAPHY.CREATE_GROUP') | translate}}
             </button>
@@ -139,13 +138,12 @@
               <div *ngIf="isPerson(activeChoreographyItem.content) || activeChoreographyItem.content === null" fxFlex>
                 <mat-form-field>
                   <mat-select
-                    (valueChange)="activeChoreographyItem.content = { type: 'person', personId: $event}"
-                    [disabled]="availablePeople.length === 0"
+                    (valueChange)="changePersonOnCarpet($event)"
                     [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate"
                     [value]="activeChoreographyItem.content?.personId ?? ''">
                     <mat-option
-                      *ngFor="let personId of availablePeople"
-                      [value]="personId">{{(personId | person).name}}
+                      *ngFor="let person of choreography.people"
+                      [value]="person.personId">{{(person.personId | person).name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -173,17 +171,21 @@
             <div fxFlex="column">
               <div *ngIf="isGroup(activeChoreographyItem.content)" class="group-participants-container">
                 <app-two-group *ngIf="isTwoGroup(activeChoreographyItem.content)"
+                               (changePersonInGroup)="changePersonOnGroup($event)"
                                [group]="activeChoreographyItem.content"
-                               [people]="getAvailablePeopleForThisFrame()"></app-two-group>
+                               [people]="choreography.people"></app-two-group>
                 <app-three-group *ngIf="isThreeGroup(activeChoreographyItem.content)"
+                                 (changePersonInGroup)="changePersonOnGroup($event)"
                                  [group]="activeChoreographyItem.content"
-                                 [people]="getAvailablePeopleForThisFrame()"></app-three-group>
+                                 [people]="choreography.people"></app-three-group>
                 <app-four-group *ngIf="isFourGroup(activeChoreographyItem.content)"
+                                (changePersonInGroup)="changePersonOnGroup($event)"
                                 [group]="activeChoreographyItem.content"
-                                [people]="getAvailablePeopleForThisFrame()"></app-four-group>
+                                [people]="choreography.people"></app-four-group>
                 <app-five-group *ngIf="isFiveGroup(activeChoreographyItem.content)"
+                                (changePersonInGroup)="changePersonOnGroup($event)"
                                 [group]="activeChoreographyItem.content"
-                                [people]="getAvailablePeopleForThisFrame()"></app-five-group>
+                                [people]="choreography.people"></app-five-group>
               </div>
             </div>
           </div>

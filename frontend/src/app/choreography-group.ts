@@ -144,3 +144,20 @@ export function removePersonFromGroup(content: TwoGroup | ThreeGroup | FourGroup
   clear(content, 'sidebaseId', personId);
   clear(content, 'frontspotId', personId);
 }
+
+export function changePersonInGroup(personId: number, groupPosition: string, group: Content): void {
+  if (group === null) {
+    return;
+  }
+  if (groupPosition === 'flyer' && isGroup(group)) {
+    group.flyerId = personId;
+  } else if (groupPosition === 'backspot' && isGroup(group)) {
+    group.backspotId = personId;
+  } else if (groupPosition === 'mainbase' && (isThreeGroup(group) || isFourGroup(group) || isFiveGroup(group))) {
+    group.mainbaseId = personId;
+  } else if (groupPosition === 'sidebase' && (isFourGroup(group) || isFiveGroup(group))) {
+    group.sidebaseId = personId;
+  } else if (groupPosition === 'frontspot' && isFiveGroup(group)) {
+    group.frontspotId = personId;
+  }
+}

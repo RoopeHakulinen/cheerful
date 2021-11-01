@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { TwoGroup } from '../../../choreography-group';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { changePersonInGroup, TwoGroup } from '../../../choreography-group';
+import { ChoreographyPerson } from '../../../choreography';
 
 @Component({
   selector: 'app-two-group',
@@ -9,9 +10,16 @@ import { TwoGroup } from '../../../choreography-group';
 export class TwoGroupComponent {
 
   @Input()
-  people: number[] = [];
+  people: ChoreographyPerson[] = [];
 
   @Input()
   group!: TwoGroup;
 
+  @Output()
+  changePersonInGroup = new EventEmitter<number>();
+
+  changeGroupMember(personId: number, groupPosition: string): void {
+    this.changePersonInGroup.emit(personId);
+    changePersonInGroup(personId, groupPosition, this.group);
+  }
 }
