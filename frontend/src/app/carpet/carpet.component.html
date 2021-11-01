@@ -58,7 +58,7 @@
           </div>
           <div *ngIf="isFiveGroup(item.content) && item.content.frontspotId !== null"
                [style.background]="item.content.color ?? (item.content.frontspotId !== null ? (item.content.frontspotId | choreographyPerson:choreography.id | async)?.color : 'transparent')"
-               class="text-container {{item.shape}} grid-middle">
+               class="text-container {{item.shape}} center">
             {{(item.content.frontspotId | person).name}}
           </div>
         </div>
