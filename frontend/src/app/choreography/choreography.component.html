@@ -79,14 +79,17 @@
           <div class="name">
             <mat-form-field appearance="fill" class="name">
               <mat-label translate="COMMON.NAME"></mat-label>
-              <input [(ngModel)]="choreography.frames[activeFrameIndex].name"
+              <input (ngModelChange)="changeFrameName($event)"
+                     [ngModel]="choreography.frames[activeFrameIndex].name"
                      [disabled]="choreography.frames[activeFrameIndex].type !== 'content'" matInput/>
             </mat-form-field>
           </div>
           <div class="duration">
             <mat-form-field appearance="fill" class="duration">
               <mat-label translate="COMMON.DURATION"></mat-label>
-              <input [(ngModel)]="choreography.frames[activeFrameIndex].duration" matInput type="number"/>
+              <input (ngModelChange)="changeFrameDuration($event)"
+                     [ngModel]="choreography.frames[activeFrameIndex].duration"
+                     matInput type="number"/>
             </mat-form-field>
           </div>
         </div>

@@ -384,4 +384,16 @@ export class ChoreographyComponent {
     }
     this.choreography.frames = newFrames;
   }
+
+  changeFrameName(name: string): void {
+    const newFrames = createDeepCopy(this.choreography.frames);
+    newFrames[this.activeFrameIndex].name = name;
+    this.choreography.frames = newFrames;
+  }
+
+  changeFrameDuration(duration: number): void {
+    const newFrames = createDeepCopy(this.choreography.frames);
+    newFrames[this.activeFrameIndex].duration = duration;
+    this.choreography.frames = newFrames;
+  }
 }
