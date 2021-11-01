@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { FourGroup } from '../../../choreography-group';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { changePersonInGroup, FourGroup } from '../../../choreography-group';
+import { ChoreographyPerson } from '../../../choreography';
 
 @Component({
   selector: 'app-four-group',
@@ -9,9 +10,16 @@ import { FourGroup } from '../../../choreography-group';
 export class FourGroupComponent {
 
   @Input()
-  people: number[] = [];
+  people: ChoreographyPerson[] = [];
 
   @Input()
   group!: FourGroup;
 
+  @Output()
+  changePersonInGroup = new EventEmitter<number>();
+
+  changeGroupMember(personId: number, groupPosition: string): void {
+    this.changePersonInGroup.emit(personId);
+    changePersonInGroup(personId, groupPosition, this.group);
+  }
 }

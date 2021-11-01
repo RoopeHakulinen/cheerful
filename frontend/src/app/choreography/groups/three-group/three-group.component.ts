@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { ThreeGroup } from '../../../choreography-group';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { changePersonInGroup, ThreeGroup } from '../../../choreography-group';
+import { ChoreographyPerson } from '../../../choreography';
 
 @Component({
   selector: 'app-three-group',
@@ -9,10 +10,18 @@ import { ThreeGroup } from '../../../choreography-group';
 export class ThreeGroupComponent {
 
   @Input()
-  people: number[] = [];
+  people: ChoreographyPerson[] = [];
 
   @Input()
   group!: ThreeGroup;
+
+  @Output()
+  changePersonInGroup = new EventEmitter<number>();
+
+  changeGroupMember(personId: number, groupPosition: string): void {
+    this.changePersonInGroup.emit(personId);
+    changePersonInGroup(personId, groupPosition, this.group);
+  }
 
 
 }
