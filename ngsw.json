@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1635852776390,
+  "timestamp": 1635915458091,
   "index": "/cheerful/index.html",
   "assetGroups": [
     {
@@ -58,7 +58,7 @@
     "/cheerful/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/cheerful/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/cheerful/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/cheerful/index.html": "7a1ed7518a374f57db97efcfa6fa009b7a8bb2c0",
+    "/cheerful/index.html": "f0998098c48a7c45844ed39c9ae7f0026f1e5948",
     "/cheerful/main.2ba3fdf6be5c451868da.js": "ab2e08efc3c050286d90a85c598c70955296d35b",
     "/cheerful/manifest.webmanifest": "63b272452f7323ec09705c84044faa394ce82a79",
     "/cheerful/polyfills.ef1933fad7e21e1f42a5.js": "f4392c63e75bca5471e43477ec7f3d6a521f2e7d",
