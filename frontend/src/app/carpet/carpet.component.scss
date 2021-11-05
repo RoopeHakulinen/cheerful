@@ -133,6 +133,25 @@
             font-size: 0.8rem;
           }
 
+          &.five {
+
+            .text-container {
+              font-size: 0.7rem;
+            }
+
+            .grid-right {
+              padding-top: 10px;
+            }
+
+            .grid-left {
+              padding-top: 10px;
+            }
+          }
+
+          .five-group {
+            padding-bottom: 10px;
+          }
+
           .flyer {
             text-decoration: underline;
             font-weight: bold;

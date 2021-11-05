@@ -156,7 +156,7 @@
                     [value]="activeChoreographyItem.content?.type ?? ''">
                     <mat-option
                       *ngFor="let groupType of availableGroupTypes"
-                      [value]="groupType">{{groupType | titlecase}}
+                      [value]="groupType">{{'CHOREOGRAPHY.GROUP_TYPE_NAMES.' + (groupType | uppercase) | translate}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>

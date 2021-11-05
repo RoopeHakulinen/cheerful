@@ -23,7 +23,7 @@
         [style.width]="tileDimension + 'px'"
         cdkDropList
         class="tile">
-        <div (cdkDragStarted)="dragStarted(index)" cdkDrag class="drag-container">
+        <div (cdkDragStarted)="dragStarted(index)" [class]="item.content?.type" cdkDrag class="drag-container">
           <div *cdkDragPreview></div>
           <div
             *ngIf="isPerson(item.content)"
