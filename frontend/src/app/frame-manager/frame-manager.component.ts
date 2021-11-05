@@ -44,7 +44,7 @@ export class FrameManagerComponent implements OnChanges {
   @Output()
   addTransitionFrame = new EventEmitter<void>();
   @Output()
-  changeActiveFrame = new EventEmitter<number>();
+  changeActiveFrame = new EventEmitter<number[]>();
   @Output()
   remove = new EventEmitter<number>();
   @Output()
@@ -128,6 +128,16 @@ export class FrameManagerComponent implements OnChanges {
       result.push(artificialFrames.slice(i, i + this.tempo));
     }
     return result;
+  }
+
+  frameIndexToShow(frameIndex: number): number {
+    if (frameIndex === 0) {
+      return 0;
+    }
+    return this.frames
+      .slice(0, frameIndex)
+      .map(frame => frame.duration)
+      .reduce((previousValue, currentValue) => previousValue + currentValue);
   }
 
   removeClicked(index: number): void {
