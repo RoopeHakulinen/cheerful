@@ -136,9 +136,13 @@ export class ChoreographyComponent {
         } else {
           if (this.waitForDurationBeforeChangingFrames === this.activeFrame.duration) {
             this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
-            // setTimeout is needed in order to set the starting transition item first and then start the transition to the next one
-            setTimeout(() => this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length, 0);
-            this.waitForDurationBeforeChangingFrames = null;
+            if (this.activeFrame.duration === 1) {
+              // setTimeout is needed in order to set the starting transition item first and then start the transition to the next one
+              setTimeout(() => this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length, 0);
+              this.waitForDurationBeforeChangingFrames = null;
+            } else {
+              this.waitForDurationBeforeChangingFrames = 2;
+            }
           } else {
             this.waitForDurationBeforeChangingFrames++;
           }
@@ -320,8 +324,9 @@ export class ChoreographyComponent {
     this.choreography.frames[this.activeFrameIndex].grid = createDeepCopy(this.choreography.frames[this.activeFrameIndex - 1]).grid;
   }
 
-  changeActiveFrame(selectedFrameIndex: number): void {
-    this.activeFrameIndex = selectedFrameIndex;
+  changeActiveFrame(selectedFrameIndex: number[]): void {
+    this.activeFrameIndex = selectedFrameIndex[0];
+    this.actualActiveFrameIndex = selectedFrameIndex[1];
   }
 
   exportAsJson(): void {
