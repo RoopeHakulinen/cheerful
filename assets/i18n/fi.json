@@ -30,6 +30,12 @@
     "REMOVE": "Poista henkilö",
     "EXIT_GROUP": "Poistu ryhmän luonnista",
     "CREATE_GROUP": "Luo ryhmä",
+    "GROUP_TYPE_NAMES": {
+      "TWO": "Kaksi",
+      "THREE": "Kolme",
+      "FOUR": "Neljä",
+      "FIVE": "Viisi"
+    },
     "NOTES": "Muistiinpanot",
     "NOTES_HINT": "Kirjoita muistiinpanot tähän.",
     "CHOREOGRAPHY.FRAME_COPY_ERROR": "Ei ole edellistä tahtia, mistä kopioida."
