@@ -11,7 +11,8 @@
     *ngFor="let frames of framesToShow; index as index"
     [class.active]="isEightActive(frames)"
     class="cycle clickable frame-box">
-    <span (click)="changeActiveFrame.emit([framesToShow[index][0].originalFrameIndex, (index * 8)])" class="frame-text">
+    <span (click)="changeActiveFrame.emit([framesToShow[index][0].originalFrameIndex, (index * tempo)])"
+          class="frame-text">
       {{'FRAME_MANAGER.FRAME' | translate}} {{index + 1}}
     </span>
     <ng-container *ngFor="let frame of frames; index as frameIndex">
