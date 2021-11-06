@@ -1,13 +1,17 @@
-.carpet {
-  margin: 10px auto;
-  user-select: none;
+.container {
+  display: grid;
+  grid-template-areas:
+    "carpet"
+    "audience";
 
-  .grid {
+  .carpet-container {
+    grid-area: carpet;
     position: relative;
 
     .lines {
       position: absolute;
       display: flex;
+      width: 100%;
 
       &.vertical {
         .line {
@@ -32,7 +36,6 @@
       }
 
       height: 100%;
-      width: 100%;
       pointer-events: none;
 
       .line {
@@ -41,9 +44,11 @@
       }
     }
 
-    .tile-container {
-      display: flex;
-      flex-wrap: wrap;
+    .carpet {
+      margin: 10px auto;
+      user-select: none;
+      width: 100%;
+      display: grid;
 
       .tile {
         box-sizing: border-box;
@@ -51,10 +56,11 @@
         color: white;
         display: flex;
         position: relative;
-        border: aliceblue;
+        padding-top: 100%;
 
         &.active {
           border: 1px solid red;
+          padding-top: calc(100% - 2px);
         }
 
         &.center {
@@ -112,6 +118,7 @@
         }
 
         .drag-container {
+          margin-top: -100%;
           position: absolute;
           display: grid;
           width: 100%;
@@ -134,7 +141,6 @@
           }
 
           &.five {
-
             .text-container {
               font-size: 0.7rem;
             }
@@ -160,30 +166,17 @@
       }
     }
   }
-}
 
-.gu-mirror {
-  text-align: center;
-}
-
-.trash-can-container {
-  position: absolute;
-
-  span {
-    font-size: 2rem;
+  .gu-mirror {
+    text-align: center;
   }
 
-  .trash-icon {
-    transform: scale(3);
-    color: black;
-    margin-top: 20px;
-    margin-left: 10px;
+  .audience {
+    grid-area: audience;
+    background: brown;
+    color: white;
+    text-align: center;
+    border: black 1px solid;
+    width: 100%;
   }
-}
-
-.audience-container {
-  background: brown;
-  color: white;
-  text-align: center;
-  border: black 1px solid;
 }

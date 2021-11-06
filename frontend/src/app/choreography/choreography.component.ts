@@ -124,6 +124,7 @@ export class ChoreographyComponent {
   }
 
   play(): void {
+    this.activeChoreographyItem = null;
     this.playFrameIntervalId = window.setInterval(() => {
       this.actualActiveFrameIndex = (this.actualActiveFrameIndex + 1) % this.choreography.frames.reduce((acc, frame) => acc + frame.duration, 0);
       if (this.activeFrame.type === 'content' && this.activeFrame.duration === 1) {
@@ -399,5 +400,12 @@ export class ChoreographyComponent {
 
   changePersonOnGroup(id: number): void {
     this.removeExistingPersonFromCarpet(id);
+  }
+
+  setActiveChoreographyItem(item: ChoreographyItem): void {
+    if (this.playFrameIntervalId !== null) {
+      return;
+    }
+    this.activeChoreographyItem = item;
   }
 }

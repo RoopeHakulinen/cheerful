@@ -1,13 +1,14 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import {
   Component,
+  ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   OnChanges,
   OnDestroy,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Carpet } from '../carpet';
@@ -41,14 +42,14 @@ interface PositionCoordinates {
     trigger('animate', [
       transition('void => *', [
         style({ transform: `translate({{x}}px, {{y}}px)` }),
-        animate('{{time}}', style({ transform: 'translate(0px, 0px)' }))
+        animate('{{time}}', style({ transform: 'translate(0px, 0px)' })),
       ], {
         params: {
           time: '0s',
         },
-      })
-    ])
-  ]
+      }),
+    ]),
+  ],
 })
 export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
@@ -75,9 +76,11 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Output()
   removePerson = new EventEmitter<number>();
 
+  @ViewChild('tile', { read: ElementRef })
+  tileReference!: ElementRef;
+
   verticalSegments: void[] = [];
   horizontalSegments: void[] = [];
-  tileDimension = 50;
   animate = false;
   lastItems: ChoreographyItem[] = [];
   subscriptions = new Subscription();
@@ -104,17 +107,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     if (changes.carpet && changes.carpet.previousValue !== changes.carpet.currentValue) {
       this.verticalSegments = Array(changes.carpet.currentValue.verticalSegments).fill(0);
       this.horizontalSegments = Array(changes.carpet.currentValue.horizontalSegments).fill(0);
-      this.setTileDimension();
     }
-  }
-
-  @HostListener('window:resize')
-  setTileDimension(): void {
-    const el = document.querySelector('.carpet')?.parentElement?.parentElement ?? null;
-    if (el === null) {
-      return;
-    }
-    this.tileDimension = Math.min((el.clientWidth - 20) / this.carpet.width, 50);
   }
 
   findTranslation(item: ChoreographyItem, index: number): PositionCoordinates {
@@ -173,8 +166,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     const endY = Math.floor(adjustedEndItemIndex / this.carpet.height);
 
     return this.adjustItemDifferenceBasedOnPosition({
-      x: (startX - endX) * this.tileDimension,
-      y: (startY - endY) * this.tileDimension,
+      x: (startX - endX) * this.tileReference?.nativeElement?.clientWidth ?? 0,
+      y: (startY - endY) * this.tileReference?.nativeElement?.clientHeight ?? 0,
     }, adjustedEndItem.position, startItem.position);
   }
 
