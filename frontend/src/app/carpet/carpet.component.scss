@@ -3,6 +3,9 @@
   grid-template-areas:
     "carpet"
     "audience";
+  width: 100%;
+  max-width: 75vh;
+  margin: auto;
 
   .carpet-container {
     grid-area: carpet;

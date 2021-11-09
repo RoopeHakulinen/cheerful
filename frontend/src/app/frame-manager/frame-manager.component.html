@@ -11,31 +11,34 @@
     *ngFor="let frames of framesToShow; index as index"
     [class.active]="isEightActive(frames)"
     class="cycle clickable frame-box">
-    <span (click)="changeActiveFrame.emit([framesToShow[index][0].originalFrameIndex, (index * tempo)])"
-          class="frame-text">
-      {{'FRAME_MANAGER.FRAME' | translate}} {{index + 1}}
-    </span>
-    <ng-container *ngFor="let frame of frames; index as frameIndex">
-      <div
-        *ngIf="isEightActive(frames)"
-        (click)="changeActiveFrame.emit([frame.originalFrameIndex, frameIndexToShow(frame.originalFrameIndex)])"
-        [class.active]="activeFrameIndex === frame.originalFrameIndex"
-        [class.disabled]="!frame.isActualFrame"
-        class="frame clickable frame-text">
-        <ng-container>
-          <div>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span [style.font-weight]="isEightActive(frames) ? 'bold' : 'normal'"
+                class="frame-text">{{'FRAME_MANAGER.FRAME' | translate}} {{index + 1}}</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let frame of frames; index as frameIndex">
+        <div
+          (click)="changeActiveFrame.emit([frame.originalFrameIndex, frameIndexToShow(frame.originalFrameIndex)])"
+          [class.active]="activeFrameIndex === frame.originalFrameIndex"
+          [class.disabled]="!frame.isActualFrame"
+          class="frame clickable frame-text">
+          <ng-container>
+            <div>
             <span *ngIf="frame.type === 'transition'" class="frame-text">
             <span class="frame-index transition-text">{{frameIndex + 1}}</span><span
               class="frame-name transition-text">. {{'FRAME_MANAGER.TRANSITION' | translate}}</span></span>
-          </div>
-          <div>
+            </div>
+            <div>
             <span *ngIf="frame.type !== 'transition'" class="frame-text">
               <span class="frame-index">{{frameIndex + 1}}</span><span class="frame-name">. {{frame.name}}</span>
             </span>
-          </div>
-        </ng-container>
-      </div>
-    </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </mat-expansion-panel>
   </div>
 </div>
 <div class="controls">
