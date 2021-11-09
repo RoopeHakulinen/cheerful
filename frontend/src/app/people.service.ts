@@ -21,7 +21,8 @@ const people: Person[] = [
   { name: 'Venla', id: 17 },
   { name: 'Alissa', id: 18 },
   { name: 'Elle', id: 19 },
-  { name: 'Lara', id: 20 }
+  { name: 'Lara', id: 20 },
+  { name: 'Elli', id: 21 }
 ];
 
 @Injectable({
