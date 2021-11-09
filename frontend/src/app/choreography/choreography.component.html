@@ -1,7 +1,7 @@
 <div *ngIf="choreography">
   <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
   <div fxLayout="column" fxLayout.gt-sm="row">
-    <div class="padding" fxFlex fxFlex.gt-sm="300px" fxFlexOrder.lt-md="3">
+    <div class="padding" fxFlex.gt-sm="300px" fxFlexOrder.lt-md="3">
       <app-frame-manager
         (addContentFrame)="addContentFrame($event)"
         (addTransitionFrame)="addTransitionFrame()"
@@ -61,9 +61,9 @@
         </button>
       </div>
     </div>
-    <div fxFlex>
+    <div fxFlex="grow">
       <app-carpet
-        (active)="activeChoreographyItem = $event"
+        (active)="setActiveChoreographyItem($event)"
         (removePerson)="removePersonFromCarpet($event)"
         (swap)="swapItems($event)"
         [people]="allAvailablePeople"
@@ -114,7 +114,7 @@
         [isSpeechSynthesisOn]="isVoiceSynthesisOn"
         [tempo]="tempo"></app-eight-counter>
     </div>
-    <div class="tile-options">
+    <div class="tile-options" fxFlex.gt-sm="200px">
       <div *ngIf="activeChoreographyItem" class="edit-item padding">
         <div>
           <div class="tile-options-buttons">
@@ -190,7 +190,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="!isGroup(activeChoreographyItem.content)" class="position-selector" fxFlex="120px">
+        <div *ngIf="!isGroup(activeChoreographyItem.content)" class="position-selector">
           <div
             (click)="setPositionForItem(activeChoreographyItem, position)"
             *ngFor="let position of positionOptions"

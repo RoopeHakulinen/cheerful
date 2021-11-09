@@ -1,16 +1,14 @@
-<div
-  [style.background-color]="carpet.color"
-  [style.height]="(carpet.height * tileDimension) + 'px'"
-  [style.width]="(carpet.width * tileDimension) + 'px'"
-  class="carpet">
-  <div class="grid">
+<div class="container">
+  <div class="carpet-container">
     <div class="lines vertical">
       <div *ngFor="let _ of verticalSegments" class="line"></div>
     </div>
     <div
-      [style.height]="(carpet.height * tileDimension) + 'px'"
+      [style.background-color]="carpet.color"
       cdkDropListGroup
-      class="tile-container">
+      [style.grid-template-columns]="'repeat(' + carpet.width + ', 1fr)'"
+      [style.grid-template-rows]="'repeat(' + carpet.height + ', 1fr)'"
+      class="carpet">
       <div
         *ngFor="let item of frameToShow.grid.slice(0, carpet.height*carpet.width); index as index"
         (cdkDropListDropped)="swapPositions(index)"
@@ -18,10 +16,8 @@
         [@animate]="{value: animate, params: getAnimationParams(item, index)}"
         [attr.index]="index"
         [class.active]="activeItem && activeItem === item"
-        [style.flex]="'0 1 ' + tileDimension + 'px'"
-        [style.height]="tileDimension + 'px'"
-        [style.width]="tileDimension + 'px'"
         cdkDropList
+        #tile
         class="tile">
         <div (cdkDragStarted)="dragStarted(index)" [class]="item.content?.type" cdkDrag class="drag-container">
           <div *cdkDragPreview></div>
@@ -63,16 +59,7 @@
           </div>
         </div>
       </div>
-      <div [style.width]="tileDimension * carpet.width + 'px'" class="audience-container"
-           translate="CARPET.AUDIENCE"></div>
-      <div (cdkDropListDropped)="removeDraggedPerson()"
-           [style.flex]="'0 1 ' + tileDimension + 'px'"
-           [style.height]="tileDimension + 'px'"
-           [style.width]="tileDimension + 'px'"
-           cdkDropList
-           class="tile trash-can-container">
-        <span *ngIf="isDeletable" cdkDrag> <mat-icon class="trash-icon">delete</mat-icon> </span>
-      </div>
     </div>
   </div>
+  <div class="audience" translate="CARPET.AUDIENCE"></div>
 </div>
