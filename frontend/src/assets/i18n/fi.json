@@ -17,7 +17,9 @@
     "CREATE": "Luo",
     "DURATION": "Kesto",
     "BLACK": "Musta",
-    "RED": "Punainen"
+    "RED": "Punainen",
+    "GREEN": "Vihreä",
+    "ORANGE": "Oranssi"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
