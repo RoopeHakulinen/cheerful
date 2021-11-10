@@ -35,6 +35,7 @@ import { Frame } from '../frame';
 import { MatDialog } from '@angular/material/dialog';
 import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreography-dialog/save-choreography-dialog.component';
 import { LoadChoreographyDialogComponent } from '../frame-manager/load-choreography-dialog/load-choreography-dialog.component';
+import { filter } from 'rxjs';
 
 
 export interface FrameForShowing extends Frame {
@@ -314,26 +315,22 @@ export class ChoreographyComponent {
 
   saveChoreography(): void {
     const dialogRef = this.dialog.open(SaveChoreographyDialogComponent, {});
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        localStorage.setItem('choreography', JSON.stringify(this.choreography));
-        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED');
-      }
+    dialogRef.afterClosed().pipe(filter(result => !!result)).subscribe(() => {
+      localStorage.setItem('choreography', JSON.stringify(this.choreography));
+      this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED');
     });
   }
 
   loadChoreography(): void {
     const dialogRef = this.dialog.open(LoadChoreographyDialogComponent, {});
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const loadedChoreography = localStorage.getItem('choreography');
-        if (loadedChoreography === null) {
-          this.toastService.createToast('FRAME_MANAGER.NO_CHOREOGRAPHIES_IN_STORAGE');
-          return;
-        }
-        this.choreography = JSON.parse(loadedChoreography);
-        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_LOADED');
+    dialogRef.afterClosed().pipe(filter(result => !!result)).subscribe(result => {
+      const loadedChoreography = localStorage.getItem('choreography');
+      if (loadedChoreography === null) {
+        this.toastService.createToast('FRAME_MANAGER.NO_CHOREOGRAPHIES_IN_STORAGE');
+        return;
       }
+      this.choreography = JSON.parse(loadedChoreography);
+      this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_LOADED');
     });
   }
 
