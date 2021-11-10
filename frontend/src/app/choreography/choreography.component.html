@@ -39,25 +39,29 @@
       <div class="save-div">
         <button
           (click)="saveChoreography()"
+          [matTooltip]="'FRAME_MANAGER.SAVE_TO_STORAGE_TOOLTIP' | translate"
           mat-raised-button>
           <mat-icon>save</mat-icon>
         </button>
         <button
           (click)="loadChoreography()"
           [disabled]="localStorageEmpty"
+          [matTooltip]="'FRAME_MANAGER.LOAD_FROM_STORAGE_TOOLTIP' | translate"
           mat-raised-button>
           <mat-icon>restore</mat-icon>
         </button>
         <button (click)="exportAsJson()"
                 class="single-button"
+                [matTooltip]="'FRAME_MANAGER.SAVE_TO_FILE_TOOLTIP' | translate"
                 mat-raised-button>
-          <mat-icon>file_upload</mat-icon>
+          <mat-icon>file_download</mat-icon>
         </button>
         <input #fileUpload (change)="onFileSelected($event)"
                class="file-input" type="file">
         <button (click)="fileUpload.click()" class="upload-file single-button"
+                [matTooltip]="'FRAME_MANAGER.LOAD_FROM_FILE_TOOLTIP' | translate"
                 mat-raised-button>
-          <mat-icon>file_download</mat-icon>
+          <mat-icon>file_upload</mat-icon>
         </button>
       </div>
     </div>
@@ -114,7 +118,7 @@
         [isSpeechSynthesisOn]="isVoiceSynthesisOn"
         [tempo]="tempo"></app-eight-counter>
     </div>
-    <div class="tile-options" fxFlex.gt-sm="350px">
+    <div class="tile-options" fxFlex.gt-sm="400px">
       <div *ngIf="activeChoreographyItem" class="edit-item padding">
         <div>
           <div class="tile-options-buttons">
@@ -162,8 +166,10 @@
                 </mat-form-field>
                 <mat-form-field>
                   <mat-select (valueChange)="changeGroupColor($event)" [placeholder]="'COMMON.COLOR' | translate">
-                    <mat-option value="black">Black</mat-option>
-                    <mat-option value="red">Red</mat-option>
+                    <mat-option translate="COMMON.BLACK" value="black"></mat-option>
+                    <mat-option translate="COMMON.RED" value="red"></mat-option>
+                    <mat-option translate="COMMON.GREEN" value="green"></mat-option>
+                    <mat-option translate="COMMON.ORANGE" value="orange"></mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -190,7 +196,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="!isGroup(activeChoreographyItem.content)" class="position-selector">
+        <div class="position-selector">
           <div
             (click)="setPositionForItem(activeChoreographyItem, position)"
             *ngFor="let position of positionOptions"

@@ -52,6 +52,9 @@ import { PeopleService } from './people.service';
 import { ChoreographyPersonPipe } from './choreography-person-pipe.pipe';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ChoreographyContentNameDialogComponent } from './frame-manager/choreography-content-name-dialog/choreography-content-name-dialog.component';
+import { SaveChoreographyDialogComponent } from './frame-manager/save-choreography-dialog/save-choreography-dialog.component';
+import { LoadChoreographyDialogComponent } from './frame-manager/load-choreography-dialog/load-choreography-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -81,6 +84,8 @@ export function HttpLoaderFactory(http: HttpClient): any {
     GroupPersonSelectorComponent,
     PersonPipe,
     ChoreographyPersonPipe,
+    SaveChoreographyDialogComponent,
+    LoadChoreographyDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -118,6 +123,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
       },
     }),
     HttpClientModule,
+    MatTooltipModule,
   ],
   providers: [MenuService, IosInstallService, ChoreographyService, PeopleService],
   bootstrap: [AppComponent],
