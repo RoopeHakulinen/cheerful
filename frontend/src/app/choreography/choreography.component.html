@@ -64,6 +64,12 @@
           <mat-icon>file_upload</mat-icon>
         </button>
       </div>
+      <app-eight-counter
+        [activeFrame]="actualActiveFrameIndex"
+        [duration]="frameInterval"
+        [isPlayingOn]="playFrameIntervalId !== null"
+        [isSpeechSynthesisOn]="isVoiceSynthesisOn"
+        [tempo]="tempo"></app-eight-counter>
     </div>
     <div fxFlex="grow">
       <app-carpet
@@ -111,12 +117,6 @@
           </mat-form-field>
         </div>
       </div>
-      <app-eight-counter
-        [activeFrame]="actualActiveFrameIndex"
-        [duration]="frameInterval"
-        [isPlayingOn]="playFrameIntervalId !== null"
-        [isSpeechSynthesisOn]="isVoiceSynthesisOn"
-        [tempo]="tempo"></app-eight-counter>
     </div>
     <div class="tile-options" fxFlex.gt-sm="400px">
       <div *ngIf="activeChoreographyItem" class="edit-item padding">
