@@ -1,0 +1,14 @@
+<h1 mat-dialog-title translate="FRAME_MANAGER.SAVE_CHOREOGRAPHY_DIALOG.TITLE"></h1>
+<div mat-dialog-content>
+  <p translate="FRAME_MANAGER.SAVE_CHOREOGRAPHY_DIALOG.TEXT"></p>
+</div>
+<div mat-dialog-actions>
+  <button
+    (click)="dialogRef.close(true)"
+    mat-button
+    translate="COMMON.SAVE"></button>
+  <button
+    [mat-dialog-close]="false"
+    mat-button
+    translate="COMMON.CANCEL"></button>
+</div>

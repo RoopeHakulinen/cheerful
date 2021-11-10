@@ -32,6 +32,9 @@ import { PeopleService } from '../people.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../toast.service';
 import { Frame } from '../frame';
+import { MatDialog } from '@angular/material/dialog';
+import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreography-dialog/save-choreography-dialog.component';
+import { LoadChoreographyDialogComponent } from '../frame-manager/load-choreography-dialog/load-choreography-dialog.component';
 
 
 export interface FrameForShowing extends Frame {
@@ -70,7 +73,7 @@ export class ChoreographyComponent {
 
   constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute,
               private peopleService: PeopleService, private toastService: ToastService,
-              private translate: TranslateService) {
+              private translate: TranslateService, private dialog: MatDialog) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.choreographyService.getChoreographiesById(id).subscribe(choreography => this.choreography = choreography);
   }
@@ -310,15 +313,28 @@ export class ChoreographyComponent {
   }
 
   saveChoreography(): void {
-    localStorage.setItem('choreography', JSON.stringify(this.choreography));
+    const dialogRef = this.dialog.open(SaveChoreographyDialogComponent, {});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        localStorage.setItem('choreography', JSON.stringify(this.choreography));
+        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED');
+      }
+    });
   }
 
   loadChoreography(): void {
-    const loadedChoreography = localStorage.getItem('choreography');
-    if (loadedChoreography === null) {
-      return;
-    }
-    this.choreography = JSON.parse(loadedChoreography);
+    const dialogRef = this.dialog.open(LoadChoreographyDialogComponent, {});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const loadedChoreography = localStorage.getItem('choreography');
+        if (loadedChoreography === null) {
+          this.toastService.createToast('FRAME_MANAGER.NO_CHOREOGRAPHIES_IN_STORAGE');
+          return;
+        }
+        this.choreography = JSON.parse(loadedChoreography);
+        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_LOADED');
+      }
+    });
   }
 
   copyFrameFromPreviousFrame(): void {
