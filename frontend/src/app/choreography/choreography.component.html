@@ -190,7 +190,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="!isGroup(activeChoreographyItem.content)" class="position-selector">
+        <div class="position-selector">
           <div
             (click)="setPositionForItem(activeChoreographyItem, position)"
             *ngFor="let position of positionOptions"

@@ -19,12 +19,13 @@
         cdkDropList
         #tile
         class="tile">
-        <div (cdkDragStarted)="dragStarted(index)" [class]="item.content?.type" cdkDrag class="drag-container">
+        <div (cdkDragStarted)="dragStarted(index)" [class]="item.content?.type" cdkDrag
+             class="drag-container {{item.position}}">
           <div *cdkDragPreview></div>
           <div
             *ngIf="isPerson(item.content)"
             [style.background]="(item.content.personId | choreographyPerson:choreography.id | async)?.color ?? 'transparent'"
-            class="text-container {{item.shape}} {{item.position}}">
+            class="text-container {{item.shape}} {{item.position}} single-person">
             {{(item.content.personId | person).name}}
           </div>
           <div

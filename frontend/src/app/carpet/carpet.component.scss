@@ -74,6 +74,12 @@
           align-items: flex-end;
         }
 
+        .center {
+          grid-area: grid-middle;
+          align-self: center;
+          justify-self: center;
+        }
+
         .grid-top {
           grid-area: grid-top;
           align-self: center;
@@ -82,12 +88,6 @@
 
         .grid-bottom {
           grid-area: grid-bottom;
-          align-self: center;
-          justify-self: center;
-        }
-
-        .center {
-          grid-area: grid-middle;
           align-self: center;
           justify-self: center;
         }
@@ -104,20 +104,21 @@
           justify-self: center;
         }
 
-        .left {
-          grid-area: grid-middle;
-          align-self: center;
-          justify-self: center;
-          position: relative;
-          left: -150%;
-        }
+        .single-person {
 
-        .right {
-          grid-area: grid-middle;
-          align-self: center;
-          justify-self: center;
-          position: relative;
-          left: 150%;
+          &.left {
+            grid-area: grid-middle;
+            align-self: center;
+            justify-self: center;
+            position: relative;
+          }
+
+          &.right {
+            grid-area: grid-middle;
+            align-self: center;
+            justify-self: center;
+            position: relative;
+          }
         }
 
         .drag-container {
@@ -132,6 +133,14 @@
             ". grid-top ."
             "grid-left grid-middle grid-right"
             ". grid-bottom .";
+
+          &.left {
+            left: -50%;
+          }
+
+          &.right {
+            right: -50%;
+          }
 
           .rounded {
             border-radius: 15px;
