@@ -73,8 +73,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   active = new EventEmitter<ChoreographyItem>();
   @Output()
   swap = new EventEmitter<{ first: number, second: number }>();
-  @Output()
-  removePerson = new EventEmitter<number>();
 
   @ViewChild('tile', { read: ElementRef })
   tileReference!: ElementRef;
@@ -174,15 +172,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   dragStarted(index: number): void {
     this.draggedItemIndex = index;
     this.isDeletable = true;
-  }
-
-  removeDraggedPerson(): void {
-    if (this.draggedItemIndex === null) {
-      return;
-    }
-    this.removePerson.emit(this.draggedItemIndex);
-    this.draggedItemIndex = null;
-    this.isDeletable = false;
   }
 
   isTwoGroup(content: Content): content is TwoGroup {

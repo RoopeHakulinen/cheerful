@@ -323,7 +323,7 @@ export class ChoreographyComponent {
 
   loadChoreography(): void {
     const dialogRef = this.dialog.open(LoadChoreographyDialogComponent, {});
-    dialogRef.afterClosed().pipe(filter(result => !!result)).subscribe(result => {
+    dialogRef.afterClosed().pipe(filter(result => !!result)).subscribe(() => {
       const loadedChoreography = localStorage.getItem('choreography');
       if (loadedChoreography === null) {
         this.toastService.createToast('FRAME_MANAGER.NO_CHOREOGRAPHIES_IN_STORAGE');
