@@ -86,7 +86,11 @@
     "LOAD_CHOREOGRAPHY_DIALOG": {
       "TITLE": "Koreografian lataaminen muistista",
       "TEXT": "Oletko varma? Kaikki tekemäsi muutokset katoavat."
-    }
+    },
+    "DELETE_FRAME": "Poista tahti",
+    "COPY_FROM_PREVIOUS": "Kopioi kuvio edellisestä kuviosta",
+    "MOVE_FRAME_UP": "Siirrä valittu kuvio tai siirtymä yksi askel ylöspäin koreografiassa.",
+    "MOVE_FRAME_DOWN": "Siirrä valittu kuvio tai siirtymä yksi askel alaspäin koreografiassa."
   },
   "PEOPLE": {
     "PEOPLE": "Henkilöt",

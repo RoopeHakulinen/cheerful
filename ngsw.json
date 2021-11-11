@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1636602606401,
+  "timestamp": 1636637493971,
   "index": "/cheerful/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "/cheerful/favicon.ico",
         "/cheerful/index.html",
-        "/cheerful/main.e4aba38bba81605643e4.js",
+        "/cheerful/main.a11a07b79ace8740d457.js",
         "/cheerful/manifest.webmanifest",
         "/cheerful/polyfills.ef1933fad7e21e1f42a5.js",
         "/cheerful/runtime.d35a90d739c98f5ae408.js",
-        "/cheerful/styles.59deaed04766e1de711c.css"
+        "/cheerful/styles.ec6f6954a32a60bc7cee.css"
       ],
       "patterns": []
     },
@@ -47,7 +47,7 @@
   "dataGroups": [],
   "hashTable": {
     "/cheerful/assets/i18n/en.json": "ddde7243c65aba71ae979398655312a99287af94",
-    "/cheerful/assets/i18n/fi.json": "2b7dcf4ee533a8673c0b5fcc10ed6c5960677264",
+    "/cheerful/assets/i18n/fi.json": "836ff92740880e17a53120413a86e3b84e0c53bc",
     "/cheerful/assets/icons/cheerful-icon.png": "9f482b2dfd5073eabfef906cd70290fb40710f4e",
     "/cheerful/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
     "/cheerful/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
@@ -58,12 +58,12 @@
     "/cheerful/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/cheerful/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/cheerful/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/cheerful/index.html": "8d4000ff34b910a8da024f2f4b9b9f7f4d8dd906",
-    "/cheerful/main.e4aba38bba81605643e4.js": "38bfa2a1cfbf122897a8bf5e6972782341cf841e",
+    "/cheerful/index.html": "40cd5a9a8c9235beeb49d5c8c441b707196de449",
+    "/cheerful/main.a11a07b79ace8740d457.js": "399cd9e8ab1ea115d1d82d65604921b37ea5b500",
     "/cheerful/manifest.webmanifest": "4cdbd3b54ddfee61293d6959afbbba30f1ceaf1d",
     "/cheerful/polyfills.ef1933fad7e21e1f42a5.js": "f4392c63e75bca5471e43477ec7f3d6a521f2e7d",
     "/cheerful/runtime.d35a90d739c98f5ae408.js": "cb8b38c9a3a99994472ee4b85ff248abf58c69d9",
-    "/cheerful/styles.59deaed04766e1de711c.css": "2e5a311745f51a81a4c97f49f52ba11ae4e836df"
+    "/cheerful/styles.ec6f6954a32a60bc7cee.css": "7a2f4c345689bb65da30a531c6b0e18cb34fa88e"
   },
   "navigationUrls": [
     {
