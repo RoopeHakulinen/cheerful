@@ -47,17 +47,23 @@
     <button (click)="addTransitionFrame.emit()" mat-raised-button translate="FRAME_MANAGER.ADD_TRANSITION"></button>
   </div>
   <div class="change-content-buttons">
-    <button (click)="removeClicked(this.activeFrameIndex)" mat-raised-button>
+    <button (click)="removeClicked(this.activeFrameIndex)"
+            [matTooltip]="'FRAME_MANAGER.DELETE_FRAME' | translate"
+            mat-raised-button>
       <mat-icon>delete</mat-icon>
     </button>
     <button (click)="copyFrameFromPreviousFrame()" [disabled]="this.activeFrameIndex === 0"
+            [matTooltip]="'FRAME_MANAGER.COPY_FROM_PREVIOUS' | translate"
             mat-raised-button>
       <mat-icon>file_copy</mat-icon>
     </button>
-    <button (click)="changeFramePosition.emit('up')" [disabled]="activeFrameIndex === 0" mat-raised-button>
+    <button (click)="changeFramePosition.emit('up')" [disabled]="activeFrameIndex === 0"
+            [matTooltip]="'FRAME_MANAGER.MOVE_FRAME_UP' | translate"
+            mat-raised-button>
       <mat-icon>keyboard_arrow_up</mat-icon>
     </button>
     <button (click)="changeFramePosition.emit('down')" [disabled]="activeFrameIndex + 1 === frames.length"
+            [matTooltip]="'FRAME_MANAGER.MOVE_FRAME_DOWN' | translate"
             mat-raised-button>
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>

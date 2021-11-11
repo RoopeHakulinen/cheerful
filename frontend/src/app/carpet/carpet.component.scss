@@ -6,10 +6,14 @@
   width: 100%;
   max-width: 75vh;
   margin: auto;
+  font-family: 'Roboto', sans-serif;;
 
   .carpet-container {
+    margin-top: 25px;
     grid-area: carpet;
     position: relative;
+    border: 40px darkred;
+    border-style: inset inset outset outset;
 
     .lines {
       position: absolute;
@@ -48,7 +52,7 @@
     }
 
     .carpet {
-      margin: 10px auto;
+      margin: auto;
       user-select: none;
       width: 100%;
       display: grid;
@@ -147,15 +151,16 @@
           }
 
           .text-container {
-            display: inline-block;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: move;
-            font-size: 0.8rem;
+            font-size: 1.3vh;
           }
 
           &.five {
-            .text-container {
-              font-size: 0.7rem;
-            }
 
             .grid-right {
               padding-top: 10px;
@@ -185,10 +190,18 @@
 
   .audience {
     grid-area: audience;
-    background: brown;
     color: white;
+    background: black;
     text-align: center;
-    border: black 1px solid;
     width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    .carpet-container {
+      border: 2vh darkred;
+      border-style: inset inset outset outset;
+    }
   }
 }
