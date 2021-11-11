@@ -1,7 +1,7 @@
 <div *ngIf="choreography">
   <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
   <div fxLayout="column" fxLayout.gt-sm="row">
-    <div class="padding" fxFlex.gt-sm="300px" fxFlexOrder.lt-md="3">
+    <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="3">
       <app-frame-manager
         (addContentFrame)="addContentFrame($event)"
         (addTransitionFrame)="addTransitionFrame()"
@@ -87,7 +87,7 @@
       <div class="frame-options-container">
         <div class="frame-options-settings">
           <div class="name">
-            <mat-form-field appearance="fill" class="name">
+            <mat-form-field appearance="legacy" class="name">
               <mat-label translate="COMMON.NAME"></mat-label>
               <input (ngModelChange)="changeFrameName($event)"
                      [ngModel]="choreography.frames[activeFrameIndex].name"
@@ -95,7 +95,7 @@
             </mat-form-field>
           </div>
           <div class="duration">
-            <mat-form-field appearance="fill" class="duration">
+            <mat-form-field appearance="legacy" class="duration">
               <mat-label translate="COMMON.DURATION"></mat-label>
               <input (ngModelChange)="changeFrameDuration($event)"
                      [ngModel]="choreography.frames[activeFrameIndex].duration"
@@ -118,7 +118,7 @@
         </div>
       </div>
     </div>
-    <div class="tile-options" fxFlex.gt-sm="400px">
+    <div class="tile-options" fxFlex.gt-sm="350px">
       <div *ngIf="activeChoreographyItem" class="edit-item padding">
         <div>
           <div class="tile-options-buttons">
