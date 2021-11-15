@@ -4,8 +4,9 @@ const BASE_URL = process.env.BASE_URL;
 
 const config: PlaywrightTestConfig = {
   use: {
-    trace: 'retain-on-failure'
-  }
+    trace: 'retain-on-failure',
+  },
+  retries: 2,
 };
 
 if (BASE_URL) {
