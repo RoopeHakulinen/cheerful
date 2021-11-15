@@ -1,22 +1,27 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ChoreographiesService } from './choreographies.service';
+import { Choreography } from './choreography.entity';
 
-interface Choreography {
-  id: number;
+export interface CreateChoreographyDto {
   name: string;
 }
 
 @Controller('choreographies')
 export class ChoreographiesController {
+  constructor(private choreographiesService: ChoreographiesService) {}
+
   @Get()
-  getAll(): Choreography[] {
-    return [];
+  getAll(): Promise<Choreography[]> {
+    return this.choreographiesService.findAll();
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string): Choreography {
-    return {
-      id: parseInt(id, 10),
-      name: '',
-    };
+  getOne(@Param('id') id: string): Promise<Choreography> {
+    return this.choreographiesService.findOne(parseInt(id, 10));
+  }
+
+  @Post()
+  create(@Body() createChoreographyDto: CreateChoreographyDto): Promise<Choreography> {
+    return this.choreographiesService.create(createChoreographyDto);
   }
 }
