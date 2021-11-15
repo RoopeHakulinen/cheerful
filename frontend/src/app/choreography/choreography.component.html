@@ -117,7 +117,7 @@
         </div>
       </div>
     </div>
-    <div class="tile-options" fxFlex.gt-sm="350px">
+    <div class="tile-options" fxFlex.gt-sm="300px">
       <div *ngIf="activeChoreographyItem" class="edit-item padding">
         <div>
           <div class="tile-options-buttons">
@@ -130,13 +130,23 @@
               [disabled]="activeChoreographyItem.content === null"
               mat-raised-button
               translate="COMMON.REMOVE"></button>
+          </div>
+          <div class="tile-options-group-button">
             <button
               (click)="toggleBetweenGroupAndSingleMode()"
               mat-raised-button>
               {{(isGroup(activeChoreographyItem.content) ? 'CHOREOGRAPHY.EXIT_GROUP' : 'CHOREOGRAPHY.CREATE_GROUP') | translate}}
             </button>
           </div>
-          <div fxLayout="row">
+          <div fxLayout="column">
+            <div class="position-selector">
+              <div
+                (click)="setPositionForItem(activeChoreographyItem, position)"
+                *ngFor="let position of positionOptions"
+                [class.active]="activeChoreographyItem.position === position"
+                class="option">
+              </div>
+            </div>
             <div fxLayout="row" fxLayoutWrap="wrap">
               <div *ngIf="isPerson(activeChoreographyItem.content) || activeChoreographyItem.content === null" fxFlex>
                 <mat-form-field>
@@ -164,7 +174,9 @@
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field>
-                  <mat-select (valueChange)="changeGroupColor($event)" [placeholder]="'COMMON.COLOR' | translate">
+                  <mat-select (valueChange)="changeGroupColor($event)"
+                              [placeholder]="'COMMON.COLOR' | translate"
+                              [value]="activeChoreographyItem.content?.color ?? ''">>
                     <mat-option translate="COMMON.BLACK" value="black"></mat-option>
                     <mat-option translate="COMMON.RED" value="red"></mat-option>
                     <mat-option translate="COMMON.GREEN" value="green"></mat-option>
@@ -193,14 +205,6 @@
                                 [people]="choreography.people"></app-five-group>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="position-selector">
-          <div
-            (click)="setPositionForItem(activeChoreographyItem, position)"
-            *ngFor="let position of positionOptions"
-            [class.active]="activeChoreographyItem.position === position"
-            class="option">
           </div>
         </div>
       </div>
