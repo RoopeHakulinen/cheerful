@@ -19,7 +19,7 @@ export interface ChoreographyItem {
 
 export function clearItem(item: ChoreographyItem): void {
   item.content = null;
-  item.shape = 'box';
+  item.shape = 'rounded';
   item.position = 'center';
   item.sign = { text: '', color: '' };
 }
