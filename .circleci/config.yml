@@ -22,10 +22,10 @@ jobs:
             npm run e2e:init
             npm run e2e
           working_directory: ~/project/frontend
-      #      - run:
-      #          name: Lint
-      #          command: npm run lint
-      #          working_directory: ~/project/frontend
+      - run:
+          name: Lint
+          command: npm run lint
+          working_directory: ~/project/frontend
       - run:
           name: Build
           command: npm run build

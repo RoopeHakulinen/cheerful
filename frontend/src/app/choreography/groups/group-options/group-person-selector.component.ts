@@ -19,7 +19,7 @@ export class GroupPersonSelectorComponent {
   value: number | null = null;
 
   @Output()
-  changeGroupMember = new EventEmitter<number>()
+  changeGroupMember = new EventEmitter<number>();
 
   constructor(private peopleService: PeopleService) {
   }
