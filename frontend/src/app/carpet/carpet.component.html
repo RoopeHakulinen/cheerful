@@ -24,37 +24,37 @@
           <div *cdkDragPreview></div>
           <div
             *ngIf="isPerson(item.content)"
-            [style.background]="(item.content.personId | choreographyPerson:choreography.id | async)?.color"
+            [style.background]="(item.content.personId | choreographyPerson:choreography)?.color"
             class="text-container {{item.shape}} {{item.position}} single-person">
             {{(item.content.personId | person).name}}
           </div>
           <div
             *ngIf="(isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.flyerId !== null"
-            [style.background]="item.content.color ?? (item.content.flyerId !== null ? (item.content.flyerId | choreographyPerson:choreography.id | async)?.color : 'transparent')"
+            [style.background]="item.content.color ?? (item.content.flyerId !== null ? (item.content.flyerId | choreographyPerson:choreography)?.color : 'transparent')"
             class="text-container {{item.shape}} grid-bottom flyer">
             {{(item.content.flyerId | person).name}}
           </div>
           <div
             *ngIf="(isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.backspotId !== null"
-            [style.background]="item.content.color ?? (item.content.backspotId !== null ? (item.content.backspotId | choreographyPerson:choreography.id | async)?.color : 'transparent')"
+            [style.background]="item.content.color ?? (item.content.backspotId !== null ? (item.content.backspotId | choreographyPerson:choreography)?.color : 'transparent')"
             class="text-container {{item.shape}} grid-top">
             {{(item.content.backspotId | person).name}}
           </div>
           <div
             *ngIf="(isThreeGroup(item.content)  || isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.mainbaseId !== null"
-            [style.background]="item.content.color ?? (item.content.mainbaseId !== null ? (item.content.mainbaseId | choreographyPerson:choreography.id | async)?.color : 'transparent')"
+            [style.background]="item.content.color ?? (item.content.mainbaseId !== null ? (item.content.mainbaseId | choreographyPerson:choreography)?.color : 'transparent')"
             class="text-container {{item.shape}} grid-left">
             {{(item.content.mainbaseId | person).name}}
           </div>
           <div *ngIf="(isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.sidebaseId !== null"
-               [style.background]="item.content.color ?? (item.content.sidebaseId !== null ? (item.content.sidebaseId | choreographyPerson:choreography.id | async)?.color : 'transparent')"
+               [style.background]="item.content.color ?? (item.content.sidebaseId !== null ? (item.content.sidebaseId | choreographyPerson:choreography)?.color : 'transparent')"
                class="text-container {{item.shape}} grid-right">
             {{(item.content.sidebaseId | person).name}}
           </div>
           <div *ngIf="isFiveGroup(item.content) && item.content.frontspotId !== null"
-               [style.background]="item.content.color ?? (item.content.frontspotId !== null ? (item.content.frontspotId | choreographyPerson:choreography.id | async)?.color : 'transparent')"
+               [style.background]="item.content.color ?? (item.content.frontspotId !== null ? (item.content.frontspotId | choreographyPerson:choreography)?.color : 'transparent')"
                class="text-container {{item.shape}} center">
             {{(item.content.frontspotId | person).name}}
           </div>
