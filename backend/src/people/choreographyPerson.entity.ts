@@ -1,13 +1,7 @@
-import {
-  Column,
-  Entity,
-  Index,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Choreography } from '../choreographies/choreography.entity';
+import { Person } from './person.entity';
 
-@Index(['personId'], { unique: true })
 @Entity()
 export class ChoreographyPerson {
   @PrimaryGeneratedColumn()
@@ -15,9 +9,9 @@ export class ChoreographyPerson {
 
   @Column()
   color: string | null;
-  //
-  // @ManyToOne((type) => Person, (person) => person.choreographyPeople)
-  // person: Person;
+
+  @ManyToOne((type) => Person, (person) => person.choreographyPeople)
+  person: Person;
 
   @ManyToOne(
     (type) => Choreography,

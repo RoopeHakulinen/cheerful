@@ -1,17 +1,16 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   OneToMany,
   OneToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ChoreographyPerson } from '../people/choreographyPerson.entity';
 import { Carpet } from '../carpet/carpet.entity';
 
 @Entity()
 export class Choreography {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
@@ -23,8 +22,9 @@ export class Choreography {
   // @Column({ type: 'json' })
   // frames: any;
 
-  @OneToOne((type) => Carpet, (carpet) => carpet.choreography)
-  @JoinColumn()
+  @OneToOne((type) => Carpet, (carpet) => carpet.choreography, {
+    cascade: true,
+  })
   carpet: Carpet;
 
   @OneToMany(

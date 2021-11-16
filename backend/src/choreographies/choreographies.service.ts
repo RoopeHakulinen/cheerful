@@ -3,12 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Choreography } from './choreography.entity';
 import { CreateChoreographyDto } from './choreographies.controller';
+import { Carpet } from '../carpet/carpet.entity';
 
 @Injectable()
 export class ChoreographiesService {
   constructor(
     @InjectRepository(Choreography)
     private choreographyRepository: Repository<Choreography>,
+    @InjectRepository(Carpet)
+    private carpetRepository: Repository<Carpet>,
   ) {}
 
   findAll(): Promise<Choreography[]> {
@@ -31,15 +34,17 @@ export class ChoreographiesService {
   }
 
   createSpecial(): Promise<Choreography> {
+    const carpet = this.carpetRepository.create({
+      width: 5,
+      height: 5,
+      color: 'red',
+      horizontalSegments: 5,
+      verticalSegments: 5,
+    });
+
     const choreography = this.choreographyRepository.create({
       name: 'foobar',
-      carpet: {
-        width: 5,
-        height: 5,
-        color: 'red',
-        horizontalSegments: 5,
-        verticalSegments: 5,
-      },
+      carpet,
       team: 'PP-70',
     });
     return this.choreographyRepository.save(choreography);

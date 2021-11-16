@@ -1,4 +1,10 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Choreography } from '../choreographies/choreography.entity';
 
 @Entity()
@@ -22,5 +28,6 @@ export class Carpet {
   verticalSegments: number;
 
   @OneToOne((type) => Choreography, (choreography) => choreography.carpet)
+  @JoinColumn()
   choreography: Choreography;
 }

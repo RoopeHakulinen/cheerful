@@ -1,34 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ChoreographyPerson } from './choreographyPerson.entity';
-import { CreateChoreographyDto } from './people.controller';
+import { Person } from './person.entity';
 
 @Injectable()
-export class ChoreographyPeopleService {
+export class PeopleService {
   constructor(
-    @InjectRepository(ChoreographyPerson)
-    private peopleRepository: Repository<ChoreographyPerson>,
+    @InjectRepository(Person)
+    private peopleRepository: Repository<Person>,
   ) {}
 
-  findAll(): Promise<ChoreographyPerson[]> {
+  findAll(): Promise<Person[]> {
     return this.peopleRepository.find();
   }
 
-  findOne(id: number): Promise<ChoreographyPerson> {
+  findOne(id: number): Promise<Person> {
     return this.peopleRepository.findOne(id, { relations: ['people'] });
   }
 
   async remove(id: number): Promise<void> {
     await this.peopleRepository.delete(id);
-  }
-
-  create(
-    createChoreographyDto: CreateChoreographyDto,
-  ): Promise<ChoreographyPerson> {
-    const choreographyPerson = this.peopleRepository.create(
-      createChoreographyDto,
-    );
-    return this.peopleRepository.save(choreographyPerson);
   }
 }

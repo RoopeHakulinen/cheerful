@@ -1,25 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
-import { ChoreographyPeopleService } from './people.service';
-import { ChoreographyPerson } from './choreographyPerson.entity';
-import { IsNumber, IsString } from 'class-validator';
-
-export class CreateChoreographyDto {
-  @IsNumber()
-  personId: number;
-
-  @IsString()
-  color: string | null;
-
-  @IsNumber()
-  choreographies: number[];
-}
+import { PeopleService } from './people.service';
+import { Person } from './person.entity';
 
 @Controller('people')
 export class PeopleController {
-  constructor(private peopleService: ChoreographyPeopleService) {}
+  constructor(private peopleService: PeopleService) {}
 
   @Get()
-  getAll(): Promise<ChoreographyPerson[]> {
+  getAll(): Promise<Person[]> {
     return this.peopleService.findAll();
   }
 }

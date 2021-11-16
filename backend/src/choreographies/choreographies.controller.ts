@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { ChoreographiesService } from './choreographies.service';
 import { Choreography } from './choreography.entity';
 import { IsString } from 'class-validator';
@@ -23,9 +23,8 @@ export class ChoreographiesController {
   }
 
   @Post()
-  create(
-    @Body() createChoreographyDto: CreateChoreographyDto,
-  ): Promise<Choreography> {
+  create(): // @Body() createChoreographyDto: CreateChoreographyDto,
+  Promise<Choreography> {
     return this.choreographiesService.createSpecial();
   }
 }

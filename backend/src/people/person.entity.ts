@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ChoreographyPerson } from './choreographyPerson.entity';
 
 @Entity()
 export class Person {
@@ -8,9 +9,9 @@ export class Person {
   @Column()
   name: string;
 
-  // @OneToMany(
-  //   (type) => ChoreographyPerson,
-  //   (choreographyPerson) => choreographyPerson.person,
-  // )
-  // choreographyPeople: ChoreographyPerson[];
+  @OneToMany(
+    (type) => ChoreographyPerson,
+    (choreographyPerson) => choreographyPerson.person,
+  )
+  choreographyPeople: ChoreographyPerson[];
 }
