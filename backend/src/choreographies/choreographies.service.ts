@@ -24,7 +24,24 @@ export class ChoreographiesService {
   }
 
   create(createChoreographyDto: CreateChoreographyDto): Promise<Choreography> {
-    const choreography = this.choreographyRepository.create(createChoreographyDto);
+    const choreography = this.choreographyRepository.create(
+      createChoreographyDto,
+    );
+    return this.choreographyRepository.save(choreography);
+  }
+
+  createSpecial(): Promise<Choreography> {
+    const choreography = this.choreographyRepository.create({
+      name: 'foobar',
+      carpet: {
+        width: 5,
+        height: 5,
+        color: 'red',
+        horizontalSegments: 5,
+        verticalSegments: 5,
+      },
+      team: 'PP-70',
+    });
     return this.choreographyRepository.save(choreography);
   }
 }

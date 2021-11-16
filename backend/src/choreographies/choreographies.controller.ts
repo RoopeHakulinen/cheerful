@@ -1,8 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ChoreographiesService } from './choreographies.service';
 import { Choreography } from './choreography.entity';
+import { IsString } from 'class-validator';
 
-export interface CreateChoreographyDto {
+export class CreateChoreographyDto {
+  @IsString()
   name: string;
 }
 
@@ -21,7 +23,9 @@ export class ChoreographiesController {
   }
 
   @Post()
-  create(@Body() createChoreographyDto: CreateChoreographyDto): Promise<Choreography> {
-    return this.choreographiesService.create(createChoreographyDto);
+  create(
+    @Body() createChoreographyDto: CreateChoreographyDto,
+  ): Promise<Choreography> {
+    return this.choreographiesService.createSpecial();
   }
 }
