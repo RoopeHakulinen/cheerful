@@ -18,7 +18,7 @@ export class Choreography {
 
   @Column()
   team: string;
-  //
+
   // @Column({ type: 'json' })
   // frames: any;
 
@@ -30,6 +30,7 @@ export class Choreography {
   @OneToMany(
     (type) => ChoreographyPerson,
     (choreographyPerson) => choreographyPerson.choreography,
+    { cascade: true },
   )
   choreographyPeople: ChoreographyPerson[];
 }

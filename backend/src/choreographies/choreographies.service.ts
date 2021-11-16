@@ -34,17 +34,15 @@ export class ChoreographiesService {
   }
 
   createSpecial(): Promise<Choreography> {
-    const carpet = this.carpetRepository.create({
-      width: 5,
-      height: 5,
-      color: 'red',
-      horizontalSegments: 5,
-      verticalSegments: 5,
-    });
-
     const choreography = this.choreographyRepository.create({
       name: 'foobar',
-      carpet,
+      carpet: {
+        width: 5,
+        height: 5,
+        color: 'red',
+        horizontalSegments: 5,
+        verticalSegments: 5,
+      },
       team: 'PP-70',
     });
     return this.choreographyRepository.save(choreography);
