@@ -4,7 +4,6 @@ import { Frame } from './frame';
 export interface ChoreographyPerson {
   personId: number;
   color: string | null;
-  choreographies?: number[];
 }
 
 export interface Choreography {

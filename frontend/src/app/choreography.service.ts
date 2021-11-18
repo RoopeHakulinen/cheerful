@@ -1,23 +1,26 @@
 import { Injectable } from '@angular/core';
-import { mapTo, Observable, timer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Choreography } from './choreography';
 import { ChoreographyItem } from './choreography-item';
+import { HttpClient } from '@angular/common/http';
+import { query, QueryOutput } from 'rx-query';
 
 @Injectable()
 export class ChoreographyService {
-
   choreographies: Choreography[] = [
     {
       id: 1,
       name: 'SM-karsinnat',
       team: 'Flames',
-      frames: [{
-        name: 'Alkutila',
-        type: 'content',
-        duration: 1,
-        grid: this.generateGrid(),
-        notes: ''
-      }],
+      frames: [
+        {
+          name: 'Alkutila',
+          type: 'content',
+          duration: 1,
+          grid: this.generateGrid(),
+          notes: '',
+        },
+      ],
       carpet: {
         color: '#5151b8',
         height: 12,
@@ -26,18 +29,21 @@ export class ChoreographyService {
         verticalSegments: 6,
       },
       people: [],
-    }
+    },
   ];
 
-  constructor() {
+  constructor(private http: HttpClient) {}
+
+  getChoreographies(): Observable<QueryOutput<Choreography[]>> {
+    return query('choreographies', () =>
+      this.http.get<Choreography[]>(`/api/choreographies/`)
+    );
   }
 
-  getChoreographies(): Observable<Choreography[]> {
-    return timer(1000).pipe(mapTo(this.choreographies));
-  }
-
-  getChoreographiesById(id: number): Observable<Choreography> {
-    return timer(0).pipe(mapTo(this.choreographies.find(choreography => choreography.id === id)!));
+  getChoreographiesById(id: number): Observable<QueryOutput<Choreography>> {
+    return query('choreography', id, (_id) =>
+      this.http.get<Choreography>(`/api/choreographies/${_id}`)
+    );
   }
 
   private generateGrid(): ChoreographyItem[] {
@@ -46,10 +52,7 @@ export class ChoreographyService {
       .map(() => ({
         content: null,
         shape: 'rounded',
-        position: 'center'
+        position: 'center',
       }));
-
   }
 }
-
-
