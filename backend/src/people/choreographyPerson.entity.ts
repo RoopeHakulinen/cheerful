@@ -9,15 +9,12 @@ export class ChoreographyPerson {
 
   @ManyToOne((type) => Person, (person) => person.choreographyPeople, {
     primary: true,
+    eager: true,
   })
   person: Person;
 
-  @ManyToOne(
-    (type) => Choreography,
-    (choreography) => choreography.choreographyPeople,
-    {
-      primary: true,
-    },
-  )
+  @ManyToOne((type) => Choreography, (choreography) => choreography.people, {
+    primary: true,
+  })
   choreography: Choreography;
 }

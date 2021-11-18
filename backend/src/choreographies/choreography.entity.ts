@@ -19,18 +19,22 @@ export class Choreography {
   @Column()
   team: string;
 
-  // @Column({ type: 'json' })
-  // frames: any;
+  @Column({ type: 'json' })
+  frames: any;
 
   @OneToOne((type) => Carpet, (carpet) => carpet.choreography, {
     cascade: true,
+    eager: true,
   })
   carpet: Carpet;
 
   @OneToMany(
     (type) => ChoreographyPerson,
     (choreographyPerson) => choreographyPerson.choreography,
-    { cascade: true },
+    {
+      cascade: true,
+      eager: true,
+    },
   )
-  choreographyPeople: ChoreographyPerson[];
+  people: ChoreographyPerson[];
 }
