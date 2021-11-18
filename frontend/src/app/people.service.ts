@@ -39,7 +39,7 @@ export class PeopleService {
 
   getPersonById(id: number): Observable<QueryOutput<Person>> {
     return query('person', id, (_id) =>
-      this.http.get<Person>(`api/people/${_id}`)
+      this.http.get<Person>(`/api/people/${_id}`)
     );
   }
 
