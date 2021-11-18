@@ -28,6 +28,9 @@ export class Carpet {
   verticalSegments: number;
 
   @OneToOne((type) => Choreography, (choreography) => choreography.carpet)
-  @JoinColumn()
+  @JoinColumn({ name: 'choreographyId' })
   choreography: Choreography;
+
+  @Column()
+  choreographyId: number;
 }

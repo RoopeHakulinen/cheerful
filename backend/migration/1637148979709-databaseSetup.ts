@@ -71,6 +71,7 @@ export class databaseSetup1637148979709 implements MigrationInterface {
           {
             name: 'choreographyId',
             type: 'int',
+            isNullable: false,
             isUnique: true,
           },
         ],

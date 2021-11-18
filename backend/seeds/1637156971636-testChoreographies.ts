@@ -7,16 +7,38 @@ export class testChoreographies1637156971636 implements MigrationInterface {
       .insert()
       .into('choreography')
       .values([
-        { name: 'SM-karsinnat', team: 'Pyrintö-A', frames: '' },
+        {
+          name: 'SM-karsinnat',
+          team: 'Pyrintö-A',
+          frames: {
+            name: 'Alkutila',
+            type: 'content',
+            duration: 2,
+            grid: '',
+            notes: '',
+          },
+        },
         {
           name: 'EM-karsinnat',
           team: 'Pyrintö-B',
-          frames: '',
+          frames: {
+            name: 'Alkutila',
+            type: 'content',
+            duration: 2,
+            grid: '',
+            notes: '',
+          },
         },
         {
           name: 'MM-karsinnat',
           team: 'Pyrintö-C',
-          frames: '',
+          frames: {
+            name: 'Alkutila',
+            type: 'content',
+            duration: 2,
+            grid: '',
+            notes: '',
+          },
         },
       ])
       .execute();
