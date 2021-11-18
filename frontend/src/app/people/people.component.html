@@ -30,7 +30,7 @@
                 <button (click)="remove.emit(person.personId)" color="warn" mat-icon-button>
                   <mat-icon>remove</mat-icon>
                 </button>
-                {{(person.personId | person).name}}
+                {{(person.personId | person | async)?.name}}
               </div>
               <div>
                 <input [(ngModel)]="person.color" class="color-picker" type="color">

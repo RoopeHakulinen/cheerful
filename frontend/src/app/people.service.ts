@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Person } from './people';
+import { query, QueryOutput } from 'rx-query';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 const people: Person[] = [
   { name: '1', id: 1 },
@@ -25,15 +28,19 @@ const people: Person[] = [
   { name: '21', id: 21 },
   { name: '22', id: 22 },
   { name: '23', id: 23 },
-  { name: '24', id: 24 }
+  { name: '24', id: 24 },
 ];
 
 @Injectable({
   providedIn: 'root',
 })
 export class PeopleService {
-  getPersonById(id: number): Person {
-    return people.find(person => person.id === id)!;
+  constructor(private http: HttpClient) {}
+
+  getPersonById(id: number): Observable<QueryOutput<Person>> {
+    return query('person', id, (_id) =>
+      this.http.get<Person>(`api/people/${_id}`)
+    );
   }
 
   getPeopleForChoreography(choreographyId: number): Person[] {

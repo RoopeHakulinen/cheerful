@@ -1,9 +1,49 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ChoreographiesService } from './choreographies.service';
 import { Choreography } from './choreography.entity';
+import { IsJSON, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { transformChoreographyDtoToMatchDatabase } from '../transformChoreography';
 
-export interface CreateChoreographyDto {
+export class ChoreographyPersonDto {
+  @IsString()
+  color: string;
+
+  @IsNumber()
+  personId: number;
+}
+
+export class CarpetDto {
+  @IsNumber()
+  width: number;
+
+  @IsNumber()
+  height: number;
+
+  @IsNumber()
+  horizontalSegments: number;
+
+  @IsNumber()
+  verticalSegments: number;
+
+  @IsString()
+  color: string;
+}
+
+export class ChoreographyDto {
+  @IsString()
   name: string;
+
+  @ValidateNested()
+  carpet: CarpetDto;
+
+  @IsJSON()
+  frames: string;
+
+  @IsString()
+  team: string;
+
+  @ValidateNested()
+  people: ChoreographyPersonDto[];
 }
 
 @Controller('choreographies')
@@ -21,7 +61,9 @@ export class ChoreographiesController {
   }
 
   @Post()
-  create(@Body() createChoreographyDto: CreateChoreographyDto): Promise<Choreography> {
-    return this.choreographiesService.create(createChoreographyDto);
+  create(@Body() choreographyDto: ChoreographyDto): Promise<Choreography> {
+    return this.choreographiesService.create(
+      transformChoreographyDtoToMatchDatabase(choreographyDto),
+    );
   }
 }

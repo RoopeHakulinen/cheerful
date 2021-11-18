@@ -19,7 +19,9 @@
     "BLACK": "Musta",
     "RED": "Punainen",
     "GREEN": "Vihreä",
-    "ORANGE": "Oranssi"
+    "ORANGE": "Oranssi",
+    "LOADING": "Ladataan",
+    "ERROR": "Virhe"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
