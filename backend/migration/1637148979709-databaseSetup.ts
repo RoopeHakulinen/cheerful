@@ -107,7 +107,7 @@ export class databaseSetup1637148979709 implements MigrationInterface {
     );
     await queryRunner.createTable(
       new Table({
-        name: 'choreography_person',
+        name: 'choreography_people',
         columns: [
           {
             name: 'color',
