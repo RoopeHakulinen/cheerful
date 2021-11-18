@@ -20,9 +20,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seeds:generate": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:create -c seeds -n ",
-    "seeds:run": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run -c seeds",
+    "seeds:run": "npm run build && ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run -c seeds",
     "migrations:generate": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:create -n ",
-    "migrations:run": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run"
+    "migrations:run": "npm run build && ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
