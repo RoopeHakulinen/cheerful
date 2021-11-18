@@ -7,7 +7,7 @@
       <ng-container [ngSwitch]="choreographies.status">
         <div *ngSwitchCase="'loading'">{{'COMMON.LOADING' | translate}} ... ({{ choreographies.retries }})</div>
         <div *ngSwitchCase="'error'">
-          {{'COMMON.SOMETHING_WRONG' | translate}} ... ({{ choreographies.retries }})
+          {{'COMMON.ERROR' | translate}} ... ({{ choreographies.retries }})
         </div>
         <div *ngSwitchDefault>
           <div *ngFor="let choreography of choreographies.data"
