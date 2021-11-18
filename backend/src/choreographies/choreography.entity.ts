@@ -20,7 +20,7 @@ export class Choreography {
   team: string;
 
   @Column({ type: 'json' })
-  frames: any;
+  frames: string;
 
   @OneToOne((type) => Carpet, (carpet) => carpet.choreography, {
     cascade: true,
