@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { Choreography } from './choreography.entity';
-import { CreateChoreographyDto } from './choreographies.controller';
 import { Carpet } from '../carpet/carpet.entity';
 
 @Injectable()
@@ -26,25 +25,8 @@ export class ChoreographiesService {
     await this.choreographyRepository.delete(id);
   }
 
-  create(createChoreographyDto: CreateChoreographyDto): Promise<Choreography> {
-    const choreography = this.choreographyRepository.create(
-      createChoreographyDto,
-    );
-    return this.choreographyRepository.save(choreography);
-  }
-
-  createSpecial(): Promise<Choreography> {
-    const choreography = this.choreographyRepository.create({
-      name: 'foobar',
-      carpet: {
-        width: 5,
-        height: 5,
-        color: 'red',
-        horizontalSegments: 5,
-        verticalSegments: 5,
-      },
-      team: 'PP-70',
-    });
-    return this.choreographyRepository.save(choreography);
+  create(choreography: DeepPartial<Choreography>): Promise<Choreography> {
+    const newChoreography = this.choreographyRepository.create(choreography);
+    return this.choreographyRepository.save(newChoreography);
   }
 }
