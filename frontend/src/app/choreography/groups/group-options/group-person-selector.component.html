@@ -2,7 +2,7 @@
   <mat-label>{{spot}}</mat-label>
   <mat-select (selectionChange)="changeGroupMember.emit($event.value)" [value]="value">
     <mat-option *ngFor="let person of people"
-                [value]="person.personId">{{(person.personId | person).name}}
+                [value]="person.personId">{{(person.personId | person | async)?.name}}
     </mat-option>
   </mat-select>
 </mat-form-field>
