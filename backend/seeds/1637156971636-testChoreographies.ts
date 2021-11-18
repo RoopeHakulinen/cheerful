@@ -10,13 +10,34 @@ export class testChoreographies1637156971636 implements MigrationInterface {
         {
           name: 'SM-karsinnat',
           team: 'Pyrintö-A',
-          frames: {
-            name: 'Alkutila',
-            type: 'content',
-            duration: 2,
-            grid: '',
-            notes: '',
-          },
+          frames: [
+            {
+              name: 'Alkutila',
+              type: 'content',
+              duration: 2,
+              grid: Array(12 * 12)
+                .fill(null)
+                .map(() => ({
+                  content: null,
+                  shape: 'rounded',
+                  position: 'center',
+                })),
+              notes: '',
+            },
+            {
+              name: 'Lopputila',
+              type: 'content',
+              duration: 2,
+              grid: Array(12 * 12)
+                .fill(null)
+                .map(() => ({
+                  content: null,
+                  shape: 'rounded',
+                  position: 'center',
+                })),
+              notes: '',
+            },
+          ],
         },
         {
           name: 'EM-karsinnat',
