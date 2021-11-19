@@ -3,7 +3,7 @@ import { ChoreographyPerson } from '../choreography';
 import { Person } from '../people';
 import { PeopleService } from '../people.service';
 import { FormControl } from '@angular/forms';
-import { map, Observable, startWith, switchMap } from 'rxjs';
+import { filter, map, Observable, startWith, switchMap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../toast.service';
 
@@ -31,17 +31,16 @@ export class PeopleComponent implements OnInit {
   ) {}
 
   get availablePeopleToAdd(): Observable<Person[]> {
-    return this.peopleService
-      .getPeople()
-      .pipe(
-        map((queryOutput) =>
-          queryOutput.data!.filter((person) =>
-            this.people.some(
-              (choreographyPerson) => person.id === choreographyPerson.person.id
-            )
+    return this.peopleService.getPeople().pipe(
+      filter((queryOutput) => queryOutput.status === 'success'),
+      map((queryOutput) =>
+        queryOutput.data!.filter((person) =>
+          this.people.some(
+            (choreographyPerson) => person.id === choreographyPerson.person.id
           )
         )
-      );
+      )
+    );
   }
 
   ngOnInit(): void {
