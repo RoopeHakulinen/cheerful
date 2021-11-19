@@ -1,8 +1,9 @@
 import { Carpet } from './carpet';
 import { Frame } from './frame';
+import { Person } from './people';
 
 export interface ChoreographyPerson {
-  personId: number;
+  person: Person;
   color: string | null;
 }
 

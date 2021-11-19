@@ -155,8 +155,8 @@
                     [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate"
                     [value]="activeChoreographyItem.content?.personId ?? ''">
                     <mat-option
-                      *ngFor="let person of choreography.people"
-                      [value]="person.personId">{{(person.personId | person | async)?.name}}
+                      *ngFor="let choreographyPerson of choreography.people"
+                      [value]="choreographyPerson.person.id">{{choreographyPerson.person.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>

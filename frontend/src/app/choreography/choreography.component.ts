@@ -128,7 +128,9 @@ export class ChoreographyComponent {
   }
 
   get allAvailablePeople(): Person[] {
-    return this.peopleService.getPeopleForChoreography(this.choreography.id);
+    return this.choreography.people.map(
+      (choreographyPerson) => choreographyPerson.person
+    );
   }
 
   isPerson(content: Content): content is PersonContent {
@@ -293,33 +295,35 @@ export class ChoreographyComponent {
     }
   }
 
-  removePerson(personId: number): void {
+  removePerson(person: Person): void {
     const index = this.choreography.people
-      .map((person) => person.personId)
-      .indexOf(personId);
+      .map((choreographyPerson) => choreographyPerson.person)
+      .indexOf(person);
     if (index === -1) {
       throw new Error(
-        `The person with id ${personId} to be deleted is not present in the people list of the choreography.`
+        `The person ${person.name} to be deleted is not present in the people list of the choreography.`
       );
     }
     this.choreography.people.splice(index, 1);
     this.choreography.frames.forEach((frame) =>
       frame.grid.forEach((item) => {
-        if (isPerson(item.content) && item.content.personId === personId) {
+        if (isPerson(item.content) && item.content.personId === person.id) {
           this.clearItem(item);
         } else if (isGroup(item.content)) {
-          removePersonFromGroup(item.content, personId);
+          removePersonFromGroup(item.content, person.id);
         }
       })
     );
-    const personName = this.peopleService.getPersonById(personId).subscribe();
     this.toastService.createToastRaw(
-      `${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${personName}`
+      `${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${person.name}`
     );
   }
 
-  addPerson(personId: number): void {
-    this.choreography.people.push({ personId: personId, color: null });
+  addPerson(person: Person): void {
+    this.choreography.people.push({
+      person: person,
+      color: null,
+    });
   }
 
   changeGroupColor(color: string): void {

@@ -15,7 +15,7 @@
                           (optionSelected)="addPerson($event.option.value); input.blur()">
           <mat-option *ngFor="let option of filteredOptions | async"
                       [value]="option">
-            {{option}}
+            {{option.name}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -24,16 +24,16 @@
       <div *ngIf="people.length; else noPeople">
         <p translate="PEOPLE.HINT"></p>
         <div class="people-list">
-          <div *ngFor="let person of people" class="person">
+          <div *ngFor="let choreographyPerson of people" class="person">
             <div class="people-managing-container">
               <div class="container">
-                <button (click)="remove.emit(person.personId)" color="warn" mat-icon-button>
+                <button (click)="remove.emit(choreographyPerson.person)" color="warn" mat-icon-button>
                   <mat-icon>remove</mat-icon>
                 </button>
-                {{(person.personId | person | async)?.name}}
+                {{choreographyPerson.person.name}}
               </div>
               <div>
-                <input [(ngModel)]="person.color" class="color-picker" type="color">
+                <input [(ngModel)]="choreographyPerson.color" class="color-picker" type="color">
               </div>
             </div>
           </div>
