@@ -37,7 +37,6 @@ import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreogra
 import { LoadChoreographyDialogComponent } from '../frame-manager/load-choreography-dialog/load-choreography-dialog.component';
 import { filter } from 'rxjs';
 
-
 export interface FrameForShowing extends Frame {
   originalFrameIndex: number;
   isActualFrame: boolean;
@@ -72,11 +71,16 @@ export class ChoreographyComponent {
     return localStorage.getItem('choreography') === null;
   }
 
-  constructor(public choreographyService: ChoreographyService, private route: ActivatedRoute,
-              private peopleService: PeopleService, private toastService: ToastService,
-              private translate: TranslateService, private dialog: MatDialog) {
+  constructor(
+    public choreographyService: ChoreographyService,
+    private route: ActivatedRoute,
+    private peopleService: PeopleService,
+    private toastService: ToastService,
+    private translate: TranslateService,
+    private dialog: MatDialog,
+  ) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    this.choreographyService.getChoreographiesById(id).subscribe(choreography => this.choreography = choreography);
+    this.choreographyService.getChoreographiesById(id).subscribe((choreography) => (this.choreography = choreography));
   }
 
   addContentFrame(name: string): void {
@@ -85,7 +89,6 @@ export class ChoreographyComponent {
       notes: '',
       type: 'content',
       name,
-
     };
     this.choreography.frames = [...this.choreography.frames, newContentFrame];
     this.activeFrameIndex++;
@@ -119,7 +122,7 @@ export class ChoreographyComponent {
     return isPerson(content);
   }
 
-  swapItems({ first, second }: { first: number, second: number }): void {
+  swapItems({ first, second }: { first: number; second: number }): void {
     const frame = this.choreography.frames[this.activeFrameIndex];
     this.disableAnimationsForNextTick();
     const temp = createDeepCopy(frame.grid[first]);
@@ -130,7 +133,8 @@ export class ChoreographyComponent {
   play(): void {
     this.activeChoreographyItem = null;
     this.playFrameIntervalId = window.setInterval(() => {
-      this.actualActiveFrameIndex = (this.actualActiveFrameIndex + 1) % this.choreography.frames.reduce((acc, frame) => acc + frame.duration, 0);
+      this.actualActiveFrameIndex =
+        (this.actualActiveFrameIndex + 1) % this.choreography.frames.reduce((acc, frame) => acc + frame.duration, 0);
       if (this.activeFrame.type === 'content' && this.activeFrame.duration === 1) {
         this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
         this.waitForDurationBeforeChangingFrames = null;
@@ -143,7 +147,10 @@ export class ChoreographyComponent {
             this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
             if (this.activeFrame.duration === 1) {
               // setTimeout is needed in order to set the starting transition item first and then start the transition to the next one
-              setTimeout(() => this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length, 0);
+              setTimeout(
+                () => (this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length),
+                0,
+              );
               this.waitForDurationBeforeChangingFrames = null;
             } else {
               this.waitForDurationBeforeChangingFrames = 2;
@@ -209,35 +216,35 @@ export class ChoreographyComponent {
     console.log(JSON.stringify(this.choreography.frames));
   }
 
-  private disableAnimationsForNextTick(): void {
-    const wereAnimationsOnInitially = this.areAnimationsOn;
-    this.areAnimationsOn = false;
-    setTimeout(() => this.areAnimationsOn = wereAnimationsOnInitially, 0);
+  changeCarpetHeight(newHeight: number): void {
+    this.choreography.carpet = {
+      ...this.choreography.carpet,
+      height: newHeight,
+    };
   }
 
-  changeCarpetHeight(newHeight: number): void {
-    this.choreography.carpet = { ...this.choreography.carpet, height: newHeight };
+  changeCarpetVerticalSegments(newVerticalSegments: number): void {
+    this.choreography.carpet = {
+      ...this.choreography.carpet,
+      verticalSegments: newVerticalSegments,
+    };
   }
 
   changeCarpetWidth(newWidth: number): void {
     this.choreography.carpet = { ...this.choreography.carpet, width: newWidth };
   }
 
-  changeCarpetVerticalSegments(newVerticalSegments: number): void {
-    this.choreography.carpet = { ...this.choreography.carpet, verticalSegments: newVerticalSegments };
-  }
-
   changeCarpetHorizontalSegments(newHorizontalSegments: number): void {
-    this.choreography.carpet = { ...this.choreography.carpet, horizontalSegments: newHorizontalSegments };
-  }
-
-  removePersonFromCarpet(index: number): void {
-    const frame = this.choreography.frames[this.activeFrameIndex];
-    this.clearItem(frame.grid[index]);
+    this.choreography.carpet = {
+      ...this.choreography.carpet,
+      horizontalSegments: newHorizontalSegments,
+    };
   }
 
   removeExistingPersonFromCarpet(personId: number): void {
-    const tile = this.choreography.frames[this.activeFrameIndex].grid.find(item => getPeopleForContent(item.content).includes(personId));
+    const tile = this.choreography.frames[this.activeFrameIndex].grid.find((item) =>
+      getPeopleForContent(item.content).includes(personId),
+    );
     if (typeof tile === 'undefined') {
       return;
     } else if (isPerson(tile.content)) {
@@ -247,35 +254,68 @@ export class ChoreographyComponent {
     }
   }
 
+  removePersonFromCarpet(index: number): void {
+    const frame = this.choreography.frames[this.activeFrameIndex];
+    this.clearItem(frame.grid[index]);
+  }
+
+  removePerson(personId: number): void {
+    const index = this.choreography.people.map((person) => person.personId).indexOf(personId);
+    if (index === -1) {
+      throw new Error(
+        `The person with id ${personId} to be deleted is not present in the people list of the choreography.`,
+      );
+    }
+    this.choreography.people.splice(index, 1);
+    this.choreography.frames.forEach((frame) =>
+      frame.grid.forEach((item) => {
+        if (isPerson(item.content) && item.content.personId === personId) {
+          this.clearItem(item);
+        } else if (isGroup(item.content)) {
+          removePersonFromGroup(item.content, personId);
+        }
+      }),
+    );
+    this.toastService.createToastRaw(
+      `${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`,
+    );
+  }
+
   addPerson(personId: number): void {
     this.choreography.people.push({ personId: personId, color: null });
   }
 
-  removePerson(personId: number): void {
-    const index = this.choreography.people.map(person => person.personId).indexOf(personId);
-    if (index === -1) {
-      throw new Error(`The person with id ${personId} to be deleted is not present in the people list of the choreography.`);
+  switchGroupType(groupType: GroupType): void {
+    const previousGroup = this.activeChoreographyItem!.content as any;
+    this.activeChoreographyItem!.content = createEmptyGroup(groupType);
+    this.activeChoreographyItem!.content.color = previousGroup!.color;
+    this.activeChoreographyItem!.content.flyerId = previousGroup!.flyerId;
+    this.activeChoreographyItem!.content.backspotId = previousGroup!.backspotId;
+
+    function setFromPreviousGroup(property: string, next: any, previous: any): void {
+      if (next.hasOwnProperty(property) && previous.hasOwnProperty(property)) {
+        next[property] = previous[property];
+      }
     }
-    this.choreography.people.splice(index, 1);
-    this.choreography.frames
-      .forEach(frame => frame.grid
-        .forEach(item => {
-          if (isPerson(item.content) && item.content.personId === personId) {
-            this.clearItem(item);
-          } else if (isGroup(item.content)) {
-            removePersonFromGroup(item.content, personId);
-          }
-        }),
-      );
-    this.toastService.createToastRaw(`${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`);
+
+    setFromPreviousGroup('mainbaseId', this.activeChoreographyItem!.content, previousGroup);
+    setFromPreviousGroup('sidebaseId', this.activeChoreographyItem!.content, previousGroup);
+    setFromPreviousGroup('frontspotId', this.activeChoreographyItem!.content, previousGroup);
   }
 
   clearItem(item: ChoreographyItem): void {
     clearItem(item);
   }
 
-  switchGroupType(groupType: GroupType): void {
-    this.activeChoreographyItem!.content = createEmptyGroup(groupType);
+  saveChoreography(): void {
+    const dialogRef = this.dialog.open(SaveChoreographyDialogComponent, {});
+    dialogRef
+      .afterClosed()
+      .pipe(filter((result) => !!result))
+      .subscribe(() => {
+        localStorage.setItem('choreography', JSON.stringify(this.choreography));
+        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED');
+      });
   }
 
   toggleBetweenGroupAndSingleMode(): void {
@@ -313,29 +353,32 @@ export class ChoreographyComponent {
     this.activeChoreographyItem.content.color = color;
   }
 
-  saveChoreography(): void {
-    const dialogRef = this.dialog.open(SaveChoreographyDialogComponent, {});
-    dialogRef.afterClosed().pipe(filter(result => !!result)).subscribe(() => {
-      localStorage.setItem('choreography', JSON.stringify(this.choreography));
-      this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED');
-    });
-  }
-
   loadChoreography(): void {
     const dialogRef = this.dialog.open(LoadChoreographyDialogComponent, {});
-    dialogRef.afterClosed().pipe(filter(result => !!result)).subscribe(() => {
-      const loadedChoreography = localStorage.getItem('choreography');
-      if (loadedChoreography === null) {
-        this.toastService.createToast('FRAME_MANAGER.NO_CHOREOGRAPHIES_IN_STORAGE');
-        return;
-      }
-      this.choreography = JSON.parse(loadedChoreography);
-      this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_LOADED');
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(filter((result) => !!result))
+      .subscribe(() => {
+        const loadedChoreography = localStorage.getItem('choreography');
+        if (loadedChoreography === null) {
+          this.toastService.createToast('FRAME_MANAGER.NO_CHOREOGRAPHIES_IN_STORAGE');
+          return;
+        }
+        this.choreography = JSON.parse(loadedChoreography);
+        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_LOADED');
+      });
   }
 
   copyFrameFromPreviousFrame(): void {
-    this.choreography.frames[this.activeFrameIndex].grid = createDeepCopy(this.choreography.frames[this.activeFrameIndex - 1]).grid;
+    this.choreography.frames[this.activeFrameIndex].grid = createDeepCopy(
+      this.choreography.frames[this.activeFrameIndex - 1],
+    ).grid;
+  }
+
+  private disableAnimationsForNextTick(): void {
+    const wereAnimationsOnInitially = this.areAnimationsOn;
+    this.areAnimationsOn = false;
+    setTimeout(() => (this.areAnimationsOn = wereAnimationsOnInitially), 0);
   }
 
   changeActiveFrame(selectedFrameIndex: number[]): void {

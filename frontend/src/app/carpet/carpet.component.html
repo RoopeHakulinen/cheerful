@@ -19,8 +19,8 @@
         cdkDropList
         #tile
         class="tile">
-        <div (cdkDragStarted)="dragStarted(index)" [class]="item.content?.type" cdkDrag
-             class="drag-container {{item.position}}">
+        <div (cdkDragStarted)="dragStarted(index)" cdkDrag
+             class="drag-container {{item.position}} {{item.content?.type}}">
           <div *cdkDragPreview></div>
           <div
             *ngIf="isPerson(item.content)"
@@ -32,7 +32,7 @@
             *ngIf="(isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.flyerId !== null"
             [style.background]="item.content.color ?? (item.content.flyerId !== null ? (item.content.flyerId | choreographyPerson:choreography)?.color : 'transparent')"
-            class="text-container {{item.shape}} grid-bottom flyer">
+            class="text-container {{item.shape}} flyer {{isFiveGroup(item.content) ? 'center' : 'grid-bottom'}}">
             {{(item.content.flyerId | person).name}}
           </div>
           <div
@@ -55,7 +55,7 @@
           </div>
           <div *ngIf="isFiveGroup(item.content) && item.content.frontspotId !== null"
                [style.background]="item.content.color ?? (item.content.frontspotId !== null ? (item.content.frontspotId | choreographyPerson:choreography)?.color : 'transparent')"
-               class="text-container {{item.shape}} center">
+               class="text-container {{item.shape}} grid-bottom">
             {{(item.content.frontspotId | person).name}}
           </div>
         </div>

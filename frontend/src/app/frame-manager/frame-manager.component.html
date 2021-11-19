@@ -6,7 +6,6 @@
     <mat-icon (click)="pauseFrames.emit()">pause</mat-icon>
   </button>
 </div>
-{{expandedFrames.join(',')}}
 <div>
   <div
     *ngFor="let frames of framesToShow; index as index"
