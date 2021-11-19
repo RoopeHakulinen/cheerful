@@ -25,7 +25,27 @@ const people: Person[] = [
   { name: '21', id: 21 },
   { name: '22', id: 22 },
   { name: '23', id: 23 },
-  { name: '24', id: 24 }
+  { name: '24', id: 24 },
+  { name: 'Alissa', id: 25 },
+  { name: 'Siina', id: 26 },
+  { name: 'Vilma', id: 27 },
+  { name: 'Hilla', id: 28 },
+  { name: 'Helmi', id: 29 },
+  { name: 'Ranuissa', id: 30 },
+  { name: 'Adaina', id: 31 },
+  { name: 'Matti', id: 32 },
+  { name: 'Ava', id: 33 },
+  { name: 'Seela', id: 34 },
+  { name: 'Elli', id: 35 },
+  { name: 'Mire', id: 36 },
+  { name: 'Erika', id: 37 },
+  { name: 'Venla', id: 38 },
+  { name: 'Elle', id: 39 },
+  { name: 'Ria', id: 40 },
+  { name: 'Lexi', id: 41 },
+  { name: 'Milla', id: 41 },
+  { name: 'Mire', id: 42 },
+  { name: 'Elli', id: 43 },
 ];
 
 @Injectable({
@@ -33,7 +53,7 @@ const people: Person[] = [
 })
 export class PeopleService {
   getPersonById(id: number): Person {
-    return people.find(person => person.id === id)!;
+    return people.find((person) => person.id === id)!;
   }
 
   getPeopleForChoreography(choreographyId: number): Person[] {

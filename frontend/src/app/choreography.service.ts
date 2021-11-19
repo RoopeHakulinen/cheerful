@@ -5,19 +5,20 @@ import { ChoreographyItem } from './choreography-item';
 
 @Injectable()
 export class ChoreographyService {
-
   choreographies: Choreography[] = [
     {
       id: 1,
       name: 'SM-karsinnat',
       team: 'Flames',
-      frames: [{
-        name: 'Alkutila',
-        type: 'content',
-        duration: 1,
-        grid: this.generateGrid(),
-        notes: ''
-      }],
+      frames: [
+        {
+          name: 'Alkutila',
+          type: 'content',
+          duration: 2,
+          grid: this.generateGrid(),
+          notes: '',
+        },
+      ],
       carpet: {
         color: '#5151b8',
         height: 12,
@@ -26,18 +27,19 @@ export class ChoreographyService {
         verticalSegments: 6,
       },
       people: [],
-    }
+    },
   ];
 
-  constructor() {
-  }
+  constructor() {}
 
   getChoreographies(): Observable<Choreography[]> {
     return timer(1000).pipe(mapTo(this.choreographies));
   }
 
   getChoreographiesById(id: number): Observable<Choreography> {
-    return timer(0).pipe(mapTo(this.choreographies.find(choreography => choreography.id === id)!));
+    return timer(0).pipe(
+      mapTo(this.choreographies.find((choreography) => choreography.id === id)!)
+    );
   }
 
   private generateGrid(): ChoreographyItem[] {
@@ -46,10 +48,7 @@ export class ChoreographyService {
       .map(() => ({
         content: null,
         shape: 'rounded',
-        position: 'center'
+        position: 'center',
       }));
-
   }
 }
-
-

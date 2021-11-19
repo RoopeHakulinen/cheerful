@@ -6,12 +6,18 @@
     <mat-icon (click)="pauseFrames.emit()">pause</mat-icon>
   </button>
 </div>
+{{expandedFrames.join(',')}}
 <div>
   <div
     *ngFor="let frames of framesToShow; index as index"
     [class.active]="isEightActive(frames)"
     class="cycle clickable frame-box">
-    <mat-expansion-panel hideToggle>
+    <mat-expansion-panel
+      (closed)="filterExpandedFrames(index)"
+      (opened)="!expandedFrames.includes(index) && expandedFrames.push(index)"
+      [expanded]="expandedFrames.includes(index)"
+      class="expansion-panel"
+      hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
           <span [style.font-weight]="isEightActive(frames) ? 'bold' : 'normal'"

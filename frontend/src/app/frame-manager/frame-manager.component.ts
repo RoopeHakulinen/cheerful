@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -13,7 +20,6 @@ import { Frame } from '../frame';
   styleUrls: ['./frame-manager.component.scss'],
 })
 export class FrameManagerComponent implements OnChanges {
-
   @Input()
   frames!: Frame[];
   @Input()
@@ -72,7 +78,7 @@ export class FrameManagerComponent implements OnChanges {
   @Output()
   changeFrameToPreviousFrame = new EventEmitter<void>();
   @Output()
-  changeFramePosition = new EventEmitter<('up' | 'down')>();
+  changeFramePosition = new EventEmitter<'up' | 'down'>();
 
   horizontalLineOptions: number[] = [];
   verticalLineOptions: number[] = [];
@@ -80,6 +86,7 @@ export class FrameManagerComponent implements OnChanges {
   carpetWidthOptions: number[] = [];
 
   framesToShow!: FrameForShowing[][];
+  expandedFrames: number[] = [];
 
   get frameIntervalAsTempo(): string {
     if (this.frameInterval === 2500) {
@@ -98,36 +105,28 @@ export class FrameManagerComponent implements OnChanges {
   }
 
   constructor(private dialog: MatDialog, private toastService: ToastService) {
-    this.carpetHeightOptions = Array(16).fill(0).map((x, i) => i);
-    this.carpetWidthOptions = Array(16).fill(0).map((x, i) => i);
+    this.carpetHeightOptions = Array(16)
+      .fill(0)
+      .map((x, i) => i);
+    this.carpetWidthOptions = Array(16)
+      .fill(0)
+      .map((x, i) => i);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.carpetHorizontalSegments || changes.carpetHeight) {
-      this.horizontalLineOptions = Array(this.carpetHeight).fill(0).map((x, i) => i);
+      this.horizontalLineOptions = Array(this.carpetHeight)
+        .fill(0)
+        .map((x, i) => i);
     }
     if (changes.carpetVerticalSegments || changes.carpetWidth) {
-      this.verticalLineOptions = Array(this.carpetWidth).fill(0).map((x, i) => i);
+      this.verticalLineOptions = Array(this.carpetWidth)
+        .fill(0)
+        .map((x, i) => i);
     }
     if (changes.frames) {
       this.framesToShow = this.buildFramesToShow();
     }
-  }
-
-  private buildFramesToShow(): FrameForShowing[][] {
-    const result = [];
-    let index = 0;
-    const artificialFrames = this.frames.map(frame => {
-      const originalIndex = index;
-      index++;
-      return Array.from(Array(frame.duration)).map((_, durationIndex) => {
-        return { ...frame, originalFrameIndex: originalIndex, isActualFrame: durationIndex === 0 };
-      });
-    }).flat();
-    for (let i = 0; i < artificialFrames.length; i += this.tempo) {
-      result.push(artificialFrames.slice(i, i + this.tempo));
-    }
-    return result;
   }
 
   frameIndexToShow(frameIndex: number): number {
@@ -136,23 +135,36 @@ export class FrameManagerComponent implements OnChanges {
     }
     return this.frames
       .slice(0, frameIndex)
-      .map(frame => frame.duration)
+      .map((frame) => frame.duration)
       .reduce((previousValue, currentValue) => previousValue + currentValue);
   }
 
   removeClicked(index: number): void {
-    if (this.activeFrameIndex === 0 && this.framesToShow[this.activeFrameIndex].length === 1) {
+    if (
+      this.activeFrameIndex === 0 &&
+      this.framesToShow[this.activeFrameIndex].length === 1
+    ) {
       this.toastService.createToast('FRAME_MANAGER.ONE_FRAME_LEFT');
       return;
     }
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {});
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.remove.emit(index);
         this.toastService.createToast('FRAME_MANAGER.FRAME_REMOVED');
       }
     });
+  }
+
+  emitCarpetWidthChange(newWidth: number): void {
+    this.changeCarpetWidth.emit(newWidth);
+    if (
+      newWidth < this.carpetVerticalSegments ||
+      newWidth % this.carpetVerticalSegments !== 0
+    ) {
+      this.changeVerticalSegments.emit(newWidth);
+    }
   }
 
   emitFrameDurationChange(newTempo: number): void {
@@ -163,35 +175,64 @@ export class FrameManagerComponent implements OnChanges {
     this.switchFramePosition.emit([event.previousIndex, event.currentIndex]);
   }
 
-  emitCarpetWidthChange(newWidth: number): void {
-    this.changeCarpetWidth.emit(newWidth);
-    if (newWidth < this.carpetVerticalSegments || newWidth % this.carpetVerticalSegments !== 0) {
-      this.changeVerticalSegments.emit(newWidth);
+  emitCarpetHeightChange(newHeight: number): void {
+    this.changeCarpetHeight.emit(newHeight);
+    if (
+      newHeight < this.carpetHorizontalSegments ||
+      newHeight % this.carpetHorizontalSegments !== 0
+    ) {
+      this.changeHorizontalSegments.emit(newHeight);
     }
   }
 
-  emitCarpetHeightChange(newHeight: number): void {
-    this.changeCarpetHeight.emit(newHeight);
-    if (newHeight < this.carpetHorizontalSegments || newHeight % this.carpetHorizontalSegments !== 0) {
-      this.changeHorizontalSegments.emit(newHeight);
-    }
+  isEightActive(frames: FrameForShowing[]): boolean {
+    return frames.some(
+      (frame) => frame.originalFrameIndex === this.activeFrameIndex
+    );
   }
 
   copyFrameFromPreviousFrame(): void {
     this.changeFrameToPreviousFrame.emit();
   }
 
-  isEightActive(frames: FrameForShowing[]): boolean {
-    return frames.some(frame => frame.originalFrameIndex === this.activeFrameIndex);
-  }
-
   addContentClicked(): void {
-    const dialogRef = this.dialog.open(ChoreographyContentNameDialogComponent, {});
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      ChoreographyContentNameDialogComponent,
+      {}
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.addContentFrame.emit(result);
         this.toastService.createToast('FRAME_MANAGER.FRAME_ADDED');
       }
     });
+  }
+
+  filterExpandedFrames(index: number): void {
+    this.expandedFrames = this.expandedFrames.filter(
+      (frameIndex) => frameIndex !== index
+    );
+  }
+
+  private buildFramesToShow(): FrameForShowing[][] {
+    const result = [];
+    let index = 0;
+    const artificialFrames = this.frames
+      .map((frame) => {
+        const originalIndex = index;
+        index++;
+        return Array.from(Array(frame.duration)).map((_, durationIndex) => {
+          return {
+            ...frame,
+            originalFrameIndex: originalIndex,
+            isActualFrame: durationIndex === 0,
+          };
+        });
+      })
+      .flat();
+    for (let i = 0; i < artificialFrames.length; i += this.tempo) {
+      result.push(artificialFrames.slice(i, i + this.tempo));
+    }
+    return result;
   }
 }
