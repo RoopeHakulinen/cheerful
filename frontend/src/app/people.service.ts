@@ -43,7 +43,7 @@ export class PeopleService {
     );
   }
 
-  getPeopleForChoreography(choreographyId: number): Person[] {
-    return people;
+  getPeople(): Observable<QueryOutput<Person[]>> {
+    return query('people', () => this.http.get<Person[]>(`/api/people/`));
   }
 }
