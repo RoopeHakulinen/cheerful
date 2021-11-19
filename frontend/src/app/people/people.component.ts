@@ -3,53 +3,66 @@ import { ChoreographyPerson } from '../choreography';
 import { Person } from '../people';
 import { PeopleService } from '../people.service';
 import { FormControl } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
+import { map, Observable, startWith, switchMap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-people',
   templateUrl: './people.component.html',
-  styleUrls: ['./people.component.scss']
+  styleUrls: ['./people.component.scss'],
 })
 export class PeopleComponent implements OnInit {
-
   @Input()
   people: ChoreographyPerson[] = [];
 
   @Output()
-  add = new EventEmitter<number>();
+  add = new EventEmitter<Person>();
   @Output()
-  remove = new EventEmitter<number>();
+  remove = new EventEmitter<Person>();
 
   filterNamesControl = new FormControl();
-  filteredOptions!: Observable<string[]>;
+  filteredOptions!: Observable<Person[]>;
 
-  ngOnInit(): void {
-    this.filteredOptions = this.filterNamesControl.valueChanges
+  constructor(
+    private peopleService: PeopleService,
+    private toastService: ToastService,
+    private translate: TranslateService
+  ) {}
+
+  get availablePeopleToAdd(): Observable<Person[]> {
+    return this.peopleService
+      .getPeople()
       .pipe(
-        startWith(''),
-        map(value => this.filterNames(value))
+        map((queryOutput) =>
+          queryOutput.data!.filter((person) =>
+            this.people.some(
+              (choreographyPerson) => person.id === choreographyPerson.person.id
+            )
+          )
+        )
       );
   }
 
-  constructor(private peopleService: PeopleService, private toastService: ToastService, private translate: TranslateService) {
+  ngOnInit(): void {
+    this.filteredOptions = this.filterNamesControl.valueChanges.pipe(
+      startWith(''),
+      switchMap((value) => this.filterNames(value))
+    );
   }
 
-  get availablePeopleToAdd(): Person[] {
-    return this.peopleService.getPeopleForChoreography(1)
-      .filter(person => !this.people.find(choreographyPerson => choreographyPerson.personId === person.id));
-  }
-
-  filterNames(value: string): string[] {
+  filterNames(value: string): Observable<Person[]> {
     const filterValue = value.toLowerCase();
-    return this.availablePeopleToAdd.map(person => person.name)
-      .filter(option => option.toLowerCase().includes(filterValue));
+    return this.availablePeopleToAdd.pipe(
+      map((people) => people.filter((person) => person.name.includes(value)))
+    );
   }
 
-  addPerson(name: string): void {
-    this.add.emit(this.availablePeopleToAdd.find(person => person.name === name)!.id);
+  addPerson(person: Person): void {
+    this.add.emit(person);
     this.filterNamesControl.setValue('');
-    this.toastService.createToastRaw(`${this.translate.instant('PEOPLE.PERSON_ADDED')}: ${name}`);
+    this.toastService.createToastRaw(
+      `${this.translate.instant('PEOPLE.PERSON_ADDED')}: ${name}`
+    );
   }
 }
