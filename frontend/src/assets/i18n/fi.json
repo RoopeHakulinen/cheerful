@@ -19,7 +19,10 @@
     "BLACK": "Musta",
     "RED": "Punainen",
     "GREEN": "Vihreä",
-    "ORANGE": "Oranssi"
+    "ORANGE": "Oranssi",
+    "DEEPPINK": "Vaaleanpunainen",
+    "SADDLEBROWN": "Ruskea",
+    "DARKVIOLET": "Violetti"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
