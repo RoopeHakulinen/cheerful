@@ -36,6 +36,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreography-dialog/save-choreography-dialog.component';
 import { LoadChoreographyDialogComponent } from '../frame-manager/load-choreography-dialog/load-choreography-dialog.component';
 import { filter, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export interface FrameForShowing extends Frame {
   originalFrameIndex: number;
@@ -77,7 +78,8 @@ export class ChoreographyComponent {
     private peopleService: PeopleService,
     private toastService: ToastService,
     private translate: TranslateService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private http: HttpClient
   ) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.choreographyService
@@ -254,7 +256,7 @@ export class ChoreographyComponent {
   }
 
   logGridToConsole(): void {
-    console.log(JSON.stringify(this.choreography.frames));
+    console.log(JSON.stringify(this.choreography));
   }
 
   changeCarpetHeight(newHeight: number): void {
@@ -497,5 +499,23 @@ export class ChoreographyComponent {
       return;
     }
     this.activeChoreographyItem = item;
+  }
+
+  saveToDatabase(): void {
+    const dialogRef = this.dialog.open(SaveChoreographyDialogComponent, {});
+    dialogRef
+      .afterClosed()
+      .pipe(filter((result) => !!result))
+      .subscribe(() => {
+        console.log('hello');
+        this.http
+          .post<Choreography>(`/api/choreographies`, {
+            ...this.choreography,
+            id: 4, // Koreografia -tyypissä on id, mutta olisi parempi että tietokanta loisi sen. Id 4 on testausta varten.
+            frames: JSON.stringify(this.choreography.frames),
+          })
+          .subscribe((response) => console.log(response));
+        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED');
+      });
   }
 }
