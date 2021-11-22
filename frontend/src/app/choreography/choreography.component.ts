@@ -256,7 +256,7 @@ export class ChoreographyComponent {
   }
 
   logGridToConsole(): void {
-    console.log(JSON.stringify(this.choreography));
+    console.log(JSON.stringify(this.choreography.frames));
   }
 
   changeCarpetHeight(newHeight: number): void {
