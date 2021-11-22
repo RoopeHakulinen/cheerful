@@ -109,5 +109,8 @@
   "CONFIRM_DIALOG": {
     "TITLE": "Oletko varma?",
     "WARNING": "Oletko varma? Tätä operaatiota ei voi peruuttaa."
+  },
+  "ACROBATICS": {
+    "TITLE": "Akrobatiat"
   }
 }
