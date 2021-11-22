@@ -157,17 +157,21 @@
             justify-content: center;
             align-items: center;
             cursor: move;
-            font-size: 1.3vh;
+            font-size: 1.1vh;
           }
 
           &.five {
 
             .grid-right {
-              padding-top: 10px;
+              padding-bottom: 1vh;
             }
 
             .grid-left {
-              padding-top: 10px;
+              padding-bottom: 1vh;
+            }
+
+            .center {
+              padding-top: 1vh;
             }
           }
 
