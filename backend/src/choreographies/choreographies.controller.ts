@@ -3,6 +3,7 @@ import { ChoreographiesService } from './choreographies.service';
 import { Choreography } from './choreography.entity';
 import { IsJSON, IsNumber, IsString, ValidateNested } from 'class-validator';
 import { transformChoreographyDtoToMatchDatabase } from '../transformChoreography';
+import { Type } from 'class-transformer';
 
 export class ChoreographyPersonDto {
   @IsString()
@@ -34,6 +35,7 @@ export class ChoreographyDto {
   name: string;
 
   @ValidateNested()
+  @Type(() => CarpetDto)
   carpet: CarpetDto;
 
   @IsJSON()
@@ -43,6 +45,7 @@ export class ChoreographyDto {
   team: string;
 
   @ValidateNested()
+  @Type(() => ChoreographyPersonDto)
   people: ChoreographyPersonDto[];
 }
 
