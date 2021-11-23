@@ -35,8 +35,7 @@ import { Frame } from '../frame';
 import { MatDialog } from '@angular/material/dialog';
 import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreography-dialog/save-choreography-dialog.component';
 import { LoadChoreographyDialogComponent } from '../frame-manager/load-choreography-dialog/load-choreography-dialog.component';
-import { filter, map, switchMap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { filter, map } from 'rxjs';
 
 export interface FrameForShowing extends Frame {
   originalFrameIndex: number;
@@ -63,6 +62,7 @@ export class ChoreographyComponent {
   positionOptions: Position[] = ['left', 'center', 'right'];
   actualActiveFrameIndex = 0;
   waitForDurationBeforeChangingFrames: number | null = null;
+  originalChoreography!: Choreography;
 
   get activeFrame(): Frame {
     return this.choreography.frames[this.activeFrameIndex];
@@ -78,8 +78,7 @@ export class ChoreographyComponent {
     private peopleService: PeopleService,
     private toastService: ToastService,
     private translate: TranslateService,
-    private dialog: MatDialog,
-    private http: HttpClient
+    private dialog: MatDialog
   ) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.choreographyService
@@ -88,7 +87,10 @@ export class ChoreographyComponent {
         filter((queryOutput) => queryOutput.status === 'success'),
         map((queryOutput) => queryOutput.data!)
       )
-      .subscribe((choreography) => (this.choreography = choreography));
+      .subscribe((choreography) => {
+        this.choreography = choreography;
+        this.originalChoreography = createDeepCopy(choreography);
+      });
   }
 
   addContentFrame(name: string): void {
@@ -256,7 +258,7 @@ export class ChoreographyComponent {
   }
 
   logGridToConsole(): void {
-    console.log(JSON.stringify(this.choreography.frames));
+    console.log(JSON.stringify(this.choreography.name));
   }
 
   changeCarpetHeight(newHeight: number): void {
@@ -502,23 +504,17 @@ export class ChoreographyComponent {
   }
 
   saveToDatabase(): void {
-    const dialogRef = this.dialog.open(SaveChoreographyDialogComponent, {});
-    dialogRef
-      .afterClosed()
-      .pipe(
-        filter((result) => result !== true),
-        switchMap(() => {
-          return this.http.post<Partial<Choreography>>(`/api/choreographies`, {
-            name: this.choreography.name,
-            frames: this.choreography.frames,
-            carpet: this.choreography.carpet,
-            people: this.choreography.people,
-            team: this.choreography.team,
-          });
-        })
-      )
-      .subscribe(() =>
-        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED')
-      );
+    this.choreographyService.updateChoreography(this.choreography);
+  }
+
+  changeChoreographyName(name: string): void {
+    this.choreography.name = name;
+  }
+
+  hasChoreographyChanged(): boolean {
+    return (
+      JSON.stringify(this.choreography) ===
+      JSON.stringify(this.originalChoreography)
+    );
   }
 }
