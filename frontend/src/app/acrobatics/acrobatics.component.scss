@@ -1,0 +1,14 @@
+.acrobatics {
+  display: flex;
+  flex-wrap: wrap;
+
+  .single-acrobatic {
+    text-align: center;
+    margin: 5%;
+    height: 150px;
+    width: 150px;
+    border: 2px solid black;
+    border-radius: 20%;
+    background: azure;
+  }
+}
