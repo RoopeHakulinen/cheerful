@@ -112,7 +112,14 @@
   },
   "ACROBATICS": {
     "TITLE": "Akrobatiat",
-    "DIFFICULTY": "Vaikeusaste"
+    "DIFFICULTY": "Vaikeusaste",
+    "JUMP": "Hyppy",
+    "STAND": "Seisominen",
+    "WALK": "Kävely",
+    "RUN": "Juoksu",
+    "WAVE": "Heilutus",
+    "THROW": "Heitto",
+    "LIFT": "Nosto"
   },
   "SIDE_MENU": {
     "CHOREOGRAPHIES": {
