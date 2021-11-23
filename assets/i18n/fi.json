@@ -109,5 +109,32 @@
   "CONFIRM_DIALOG": {
     "TITLE": "Oletko varma?",
     "WARNING": "Oletko varma? Tätä operaatiota ei voi peruuttaa."
+  },
+  "ACROBATICS": {
+    "TITLE": "Akrobatiat",
+    "DIFFICULTY": "Vaikeusaste",
+    "JUMP": "Hyppy",
+    "STAND": "Seisominen",
+    "WALK": "Kävely",
+    "RUN": "Juoksu",
+    "WAVE": "Heilutus",
+    "THROW": "Heitto",
+    "LIFT": "Nosto"
+  },
+  "SIDE_MENU": {
+    "CHOREOGRAPHIES": {
+      "TITLE": "Koreografiat",
+      "SUBHEADER": "Hallitse koreografioita"
+    },
+    "EXERCISES": {
+      "TITLE": "Harjoitteet",
+      "SUBHEADER": "Kokoelma harjoitteita"
+    },
+    "ACROBATICS": {
+      "TITLE": "Akrobatiat",
+      "SUBHEADER": "Kokoelma akrobatioita"
+    },
+    "MY_PROFILE": "Oma profiili",
+    "ABOUT": "Lisätietoja"
   }
 }
