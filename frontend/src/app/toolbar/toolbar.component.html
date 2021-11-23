@@ -2,10 +2,35 @@
   <a *ngIf="backUrl" [routerLink]="backUrl" class="clickable">
     <mat-icon>keyboard_arrow_left</mat-icon>
   </a>
-
   <a (click)="menuService.toggle()" *ngIf="!backUrl" class="clickable">
     <mat-icon>menu</mat-icon>
   </a>
-
-  <span class="title">{{title}}</span>
+  <div class="title-bar">
+    <input
+      #ctrl="ngModel"
+      *ngIf="isEditingOn"
+      [(ngModel)]="choreographyTitle"
+      class="input-text"
+      id="input"
+      matInput>
+    <span
+      *ngIf="!isEditingOn"
+      class="title-text"
+      matInput>{{choreographyTitle}}</span>
+    <div class="icon-container">
+      <mat-icon
+        (click)="editName()"
+        [matTooltip]="(isEditingOn ? 'COMMON.SAVE' : 'COMMON.EDIT') | translate"
+        [style.color]="isEditingOn ? 'lawngreen' : 'whitesmoke'"
+        class="clickable">{{isEditingOn ? 'done' : 'edit'}}
+      </mat-icon>
+      <mat-icon
+        (click)="undoEditing()"
+        *ngIf="isEditingOn"
+        [matTooltip]="'COMMON.CANCEL' | translate"
+        class="clickable cancel-button">
+        close
+      </mat-icon>
+    </div>
+  </div>
 </mat-toolbar>
