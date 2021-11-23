@@ -507,15 +507,17 @@ export class ChoreographyComponent {
       .afterClosed()
       .pipe(filter((result) => !!result))
       .subscribe(() => {
-        console.log('hello');
         this.http
-          .post<Choreography>(`/api/choreographies`, {
-            ...this.choreography,
-            id: 4, // Koreografia -tyypissä on id, mutta olisi parempi että tietokanta loisi sen. Id 4 on testausta varten.
-            frames: JSON.stringify(this.choreography.frames),
+          .post<Partial<Choreography>>(`/api/choreographies`, {
+            name: this.choreography.name,
+            frames: this.choreography.frames,
+            carpet: this.choreography.carpet,
+            people: this.choreography.people,
+            team: this.choreography.team,
           })
-          .subscribe((response) => console.log(response));
-        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED');
+          .subscribe(() =>
+            this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED')
+          );
       });
   }
 }
