@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-single-acrobatic',
-  templateUrl: './single-acrobatic.component.html',
-  styleUrls: ['./single-acrobatic.component.scss'],
+  selector: 'app-show-acrobatic',
+  templateUrl: './show-acrobatic.component.html',
+  styleUrls: ['./show-acrobatic.component.scss'],
 })
-export class SingleAcrobaticComponent {
+export class ShowAcrobaticComponent {
   @Input()
   id!: number;
 

@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { MenuService } from '../../menu.service';
 
 @Component({
@@ -14,5 +13,5 @@ export class ToolbarComponent {
   @Input()
   backUrl?: string;
 
-  constructor(public menuService: MenuService, private router: Router) {}
+  constructor(public menuService: MenuService) {}
 }

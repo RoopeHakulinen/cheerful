@@ -13,7 +13,7 @@ export interface Acrobatic {
   styleUrls: ['./acrobatics.component.scss'],
 })
 export class AcrobaticsComponent {
-  listOfAcrobatics: Acrobatic[] = [
+  availableAcrobatics: Acrobatic[] = [
     { id: 1, name: 'Jump', icon: 'settings_accessibility', difficulty: 2 },
     { id: 2, name: 'Stand', icon: 'accessibility', difficulty: 1 },
     { id: 3, name: 'Walk', icon: 'directions_walk', difficulty: 1 },

@@ -6,7 +6,6 @@ import { ChoreographyComponent } from './choreography/choreography.component';
 import { ExerciseComponent } from './exercise/exercise.component';
 import { ExercisesComponent } from './exercises/exercises.component';
 import { ProfileComponent } from './profile/profile.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -40,7 +39,7 @@ const routes: Routes = [
   { path: 'acrobatics', loadChildren: () => import('./acrobatics/acrobatics.module').then((m) => m.AcrobaticsModule) },
   {
     path: '**',
-    component: PageNotFoundComponent,
+    redirectTo: 'choreographies',
   },
 ];
 
