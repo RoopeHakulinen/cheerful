@@ -35,7 +35,7 @@ import { Frame } from '../frame';
 import { MatDialog } from '@angular/material/dialog';
 import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreography-dialog/save-choreography-dialog.component';
 import { LoadChoreographyDialogComponent } from '../frame-manager/load-choreography-dialog/load-choreography-dialog.component';
-import { filter, map } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 export interface FrameForShowing extends Frame {
@@ -505,19 +505,20 @@ export class ChoreographyComponent {
     const dialogRef = this.dialog.open(SaveChoreographyDialogComponent, {});
     dialogRef
       .afterClosed()
-      .pipe(filter((result) => !!result))
-      .subscribe(() => {
-        this.http
-          .post<Partial<Choreography>>(`/api/choreographies`, {
+      .pipe(
+        filter((result) => result !== true),
+        switchMap(() => {
+          return this.http.post<Partial<Choreography>>(`/api/choreographies`, {
             name: this.choreography.name,
             frames: this.choreography.frames,
             carpet: this.choreography.carpet,
             people: this.choreography.people,
             team: this.choreography.team,
-          })
-          .subscribe(() =>
-            this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED')
-          );
-      });
+          });
+        })
+      )
+      .subscribe(() =>
+        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED')
+      );
   }
 }
