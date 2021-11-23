@@ -7,11 +7,11 @@ export class testChoreographyPeople1637313494276 implements MigrationInterface {
       .insert()
       .into('choreography_people')
       .values([
-        { color: 'red', personId: 1, choreographyId: 1 },
-        { color: 'blue', personId: 2, choreographyId: 1 },
-        { color: 'orange', personId: 3, choreographyId: 1 },
-        { color: 'black', personId: 4, choreographyId: 1 },
-        { color: 'white', personId: 5, choreographyId: 1 },
+        { color: '#FF0000', personId: 1, choreographyId: 1 },
+        { color: '#0000FF', personId: 2, choreographyId: 1 },
+        { color: '#FFA500', personId: 3, choreographyId: 1 },
+        { color: '#000000', personId: 4, choreographyId: 1 },
+        { color: '#FFFFFF', personId: 5, choreographyId: 1 },
       ])
       .execute();
   }

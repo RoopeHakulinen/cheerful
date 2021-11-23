@@ -64,6 +64,11 @@
           <mat-icon>file_upload</mat-icon>
         </button>
       </div>
+      <button (click)="saveToDatabase()" [matTooltip]="'FRAME_MANAGER.SAVE_FILE_TO_DATABASE' | translate"
+              class="single-button"
+              mat-raised-button>
+        <mat-icon>save_as</mat-icon>
+      </button>
       <app-eight-counter
         [activeFrame]="actualActiveFrameIndex"
         [duration]="frameInterval"
