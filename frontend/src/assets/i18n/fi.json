@@ -21,7 +21,8 @@
     "GREEN": "Vihreä",
     "ORANGE": "Oranssi",
     "LOADING": "Ladataan",
-    "ERROR": "Virhe"
+    "ERROR": "Virhe",
+    "EDIT": "Muokkaa"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
