@@ -1,7 +1,8 @@
 <div *ngIf="choreography">
-  <app-toolbar (changeChoreographyName)="changeChoreographyName($event)"
+  <app-toolbar (changeTitle)="changeChoreographyName($event)"
                (click)="logGridToConsole()"
                [title]="choreography.name"
+               [isTitleEditable]="true"
                backUrl="/choreographies"></app-toolbar>
   <div fxLayout="column" fxLayout.gt-sm="row">
     <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="3">
