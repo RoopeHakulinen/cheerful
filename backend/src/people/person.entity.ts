@@ -1,5 +1,13 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ChoreographyPerson } from './choreographyPerson.entity';
+import { Choreography } from '../choreographies/choreography.entity';
 
 @Entity()
 export class Person {
@@ -15,4 +23,10 @@ export class Person {
     { cascade: true },
   )
   choreographyPeople: ChoreographyPerson[];
+
+  @ManyToMany((type) => Choreography, (choreography) => choreography.people, {
+    eager: true,
+  })
+  @JoinTable({ name: 'choreography_people' })
+  choreographies: Choreography[];
 }

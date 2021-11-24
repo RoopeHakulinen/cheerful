@@ -18,7 +18,9 @@ export class ChoreographiesService {
   }
 
   findOne(id: number): Promise<Choreography> {
-    return this.choreographyRepository.findOne(id);
+    return this.choreographyRepository.findOne(id, {
+      relations: ['choreographyPeople'],
+    });
   }
 
   async remove(id: number): Promise<void> {

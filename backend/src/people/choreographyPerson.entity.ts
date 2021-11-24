@@ -25,9 +25,11 @@ export class ChoreographyPerson {
   @Column({ select: false })
   personId: number;
 
-  @ManyToOne((type) => Choreography, (choreography) => choreography.people, {
-    orphanedRowAction: 'delete',
-  })
+  @ManyToOne(
+    (type) => Choreography,
+    (choreography) => choreography.choreographyPeople,
+    { orphanedRowAction: 'delete' },
+  )
   @JoinColumn({ name: 'choreographyId' })
   choreography: Choreography;
 

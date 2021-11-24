@@ -1,12 +1,14 @@
 import {
   Column,
   Entity,
+  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ChoreographyPerson } from '../people/choreographyPerson.entity';
 import { Carpet } from '../carpet/carpet.entity';
+import { Person } from '../people/person.entity';
 
 @Entity()
 export class Choreography {
@@ -33,8 +35,10 @@ export class Choreography {
     (choreographyPerson) => choreographyPerson.choreography,
     {
       cascade: true,
-      eager: true,
     },
   )
-  people: ChoreographyPerson[];
+  choreographyPeople: ChoreographyPerson[];
+
+  @ManyToMany((type) => Person, (person) => person.choreographies)
+  people: Person[];
 }
