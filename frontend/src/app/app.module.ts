@@ -18,7 +18,6 @@ import { MenuService } from './menu.service';
 import { PeopleComponent } from './people/people.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -55,6 +54,7 @@ import { ChoreographyContentNameDialogComponent } from './frame-manager/choreogr
 import { SaveChoreographyDialogComponent } from './frame-manager/save-choreography-dialog/save-choreography-dialog.component';
 import { LoadChoreographyDialogComponent } from './frame-manager/load-choreography-dialog/load-choreography-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SharedComponentsModule } from './shared-components/shared-components.module';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -74,7 +74,6 @@ export function HttpLoaderFactory(http: HttpClient): any {
     ChoreographyContentNameDialogComponent,
     ChoreographiesComponent,
     AboutComponent,
-    ToolbarComponent,
     SideMenuComponent,
     EightCounterComponent,
     TwoGroupComponent,
@@ -124,10 +123,18 @@ export function HttpLoaderFactory(http: HttpClient): any {
     }),
     HttpClientModule,
     MatTooltipModule,
+    SharedComponentsModule,
   ],
-  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService],
+  providers: [
+    MenuService,
+    IosInstallService,
+    ChoreographyService,
+    PeopleService,
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmDialogComponent, ChoreographyContentNameDialogComponent],
+  entryComponents: [
+    ConfirmDialogComponent,
+    ChoreographyContentNameDialogComponent,
+  ],
 })
-export class AppModule {
-}
+export class AppModule {}

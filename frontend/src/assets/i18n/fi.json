@@ -22,7 +22,10 @@
     "ORANGE": "Oranssi",
     "LOADING": "Ladataan",
     "ERROR": "Virhe",
-    "EDIT": "Muokkaa"
+    "EDIT": "Muokkaa",
+    "DEEPPINK": "Vaaleanpunainen",
+    "SADDLEBROWN": "Ruskea",
+    "DARKVIOLET": "Violetti"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
@@ -49,7 +52,7 @@
   },
   "FRAME_MANAGER": {
     "CYCLE": "Kasi",
-    "FRAME": "Tahti",
+    "FRAME": "Kasi",
     "OPTIONS": "Asetukset",
     "ANIMATIONS": "Animaatiot",
     "LOOPING": "Jatkuva toisto",
@@ -82,7 +85,6 @@
     "LOAD_FROM_STORAGE_TOOLTIP": "Lataa koreografia muistista",
     "SAVE_TO_FILE_TOOLTIP": "Tallenna tiedostoksi",
     "LOAD_FROM_FILE_TOOLTIP": "Lataa koreografia tiedostosta",
-    "SAVE_FILE_TO_DATABASE": "Tallenna koreografia tietokantaan",
     "SAVE_CHOREOGRAPHY_DIALOG": {
       "TITLE": "Koreografian tallennus",
       "TEXT": "Oletko varma? Tämä operaatio poistaa aiemmin tallennetun koreografian."
@@ -110,5 +112,39 @@
   "CONFIRM_DIALOG": {
     "TITLE": "Oletko varma?",
     "WARNING": "Oletko varma? Tätä operaatiota ei voi peruuttaa."
+  },
+  "ACROBATICS": {
+    "TITLE": "Akrobatiat",
+    "DIFFICULTY": "Vaikeusaste",
+    "JUMP": "Hyppy",
+    "STAND": "Seisominen",
+    "WALK": "Kävely",
+    "RUN": "Juoksu",
+    "WAVE": "Heilutus",
+    "THROW": "Heitto",
+    "LIFT": "Nosto"
+  },
+  "SIDE_MENU": {
+    "CHOREOGRAPHIES": {
+      "TITLE": "Koreografiat",
+      "SUBHEADER": "Hallitse koreografioita"
+    },
+    "EXERCISES": {
+      "TITLE": "Harjoitteet",
+      "SUBHEADER": "Kokoelma harjoitteita"
+    },
+    "ACROBATICS": {
+      "TITLE": "Akrobatiat",
+      "SUBHEADER": "Kokoelma akrobatioita"
+    },
+    "PEOPLE_MANAGER": {
+      "TITLE": "Henkilöt",
+      "SUBHEADER": "Henkilöiden hallinta"
+    },
+    "MY_PROFILE": "Oma profiili",
+    "ABOUT": "Lisätietoja"
+  },
+  "PEOPLE_MANAGER": {
+    "TITLE": "Henkilöt"
   }
 }

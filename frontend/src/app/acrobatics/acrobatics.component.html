@@ -1,0 +1,9 @@
+<app-toolbar [title]="'ACROBATICS.TITLE' | translate" backUrl="/choreographies"></app-toolbar>
+<div class="acrobatics">
+  <div *ngFor="let acrobatic of availableAcrobatics" class="single-acrobatic">
+    <app-show-acrobatic [difficulty]="acrobatic.difficulty"
+                        [icon]="acrobatic.icon"
+                        [id]="acrobatic.id"
+                        [name]="acrobatic.name"></app-show-acrobatic>
+  </div>
+</div>

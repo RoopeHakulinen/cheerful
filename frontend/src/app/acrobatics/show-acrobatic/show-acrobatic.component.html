@@ -1,0 +1,6 @@
+<div [routerLink]="['/acrobatics', id]" class="acrobatics-container clickable">
+  <div class="title">{{'ACROBATICS.' + name | uppercase | translate}}</div>
+  <mat-icon class="icon">{{icon}}</mat-icon>
+  <div class="difficulty" translate="ACROBATICS.DIFFICULTY"></div>
+  <div class="difficulty-number">{{difficulty}}</div>
+</div>

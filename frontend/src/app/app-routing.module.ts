@@ -1,46 +1,61 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {AboutComponent} from './about/about.component';
-import {ChoreographiesComponent} from './choreographies/choreographies.component';
-import {ChoreographyComponent} from './choreography/choreography.component';
-import {ExerciseComponent} from './exercise/exercise.component';
-import {ExercisesComponent} from './exercises/exercises.component';
-import {ProfileComponent} from './profile/profile.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AboutComponent } from './about/about.component';
+import { ChoreographiesComponent } from './choreographies/choreographies.component';
+import { ChoreographyComponent } from './choreography/choreography.component';
+import { ExerciseComponent } from './exercise/exercise.component';
+import { ExercisesComponent } from './exercises/exercises.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ChoreographiesComponent
+    component: ChoreographiesComponent,
   },
   {
     path: 'choreographies',
-    component: ChoreographiesComponent
+    component: ChoreographiesComponent,
   },
   {
     path: 'choreographies/:id',
-    component: ChoreographyComponent
+    component: ChoreographyComponent,
   },
   {
     path: 'exercises',
-    component: ExercisesComponent
+    component: ExercisesComponent,
   },
   {
     path: 'exercises/:id',
-    component: ExerciseComponent
+    component: ExerciseComponent,
   },
   {
     path: 'my-profile',
-    component: ProfileComponent
+    component: ProfileComponent,
   },
   {
     path: 'about',
-    component: AboutComponent
-  }
+    component: AboutComponent,
+  },
+  {
+    path: 'acrobatics',
+    loadChildren: () =>
+      import('./acrobatics/acrobatics.module').then((m) => m.AcrobaticsModule),
+  },
+  {
+    path: 'people-manager',
+    loadChildren: () =>
+      import('./people-manager/people-manager.module').then(
+        (m) => m.PeopleManagerModule
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: 'choreographies',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
