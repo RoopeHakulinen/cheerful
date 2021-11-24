@@ -1,9 +1,12 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PeopleService } from './people.service';
 import { Person } from './person.entity';
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class PersonDto {
+  @IsNumber()
+  id: number;
+
   @IsString()
   name: string;
 }

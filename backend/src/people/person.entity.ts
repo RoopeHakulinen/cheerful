@@ -12,6 +12,7 @@ export class Person {
   @OneToMany(
     (type) => ChoreographyPerson,
     (choreographyPerson) => choreographyPerson.person,
+    { cascade: true },
   )
   choreographyPeople: ChoreographyPerson[];
 }
