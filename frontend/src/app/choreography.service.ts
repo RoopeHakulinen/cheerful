@@ -41,7 +41,7 @@ export class ChoreographyService {
         filter((result) => result === true),
         switchMap(() => {
           return this.http.put<Choreography>(
-            `/api/choreographies`,
+            `/api/choreographies/${choreography.id}`,
             choreography
           );
         })
