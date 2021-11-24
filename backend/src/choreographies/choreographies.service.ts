@@ -19,7 +19,7 @@ export class ChoreographiesService {
 
   findOne(id: number): Promise<Choreography> {
     return this.choreographyRepository.findOne(id, {
-      relations: ['choreographyPeople'],
+      relations: ['people'],
     });
   }
 

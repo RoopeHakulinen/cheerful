@@ -12,7 +12,9 @@ export class PeopleService {
   ) {}
 
   findAll(): Promise<Person[]> {
-    return this.peopleRepository.find();
+    return this.peopleRepository.find({
+      relations: ['choreographies'],
+    });
   }
 
   findOne(id: number): Promise<Person> {

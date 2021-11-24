@@ -24,9 +24,10 @@ export class Person {
   )
   choreographyPeople: ChoreographyPerson[];
 
-  @ManyToMany((type) => Choreography, (choreography) => choreography.people, {
-    eager: true,
-  })
+  @ManyToMany(
+    (type) => Choreography,
+    (choreography) => choreography.peopleInChoreography,
+  )
   @JoinTable({ name: 'choreography_people' })
   choreographies: Choreography[];
 }

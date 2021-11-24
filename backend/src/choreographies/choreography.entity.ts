@@ -37,8 +37,8 @@ export class Choreography {
       cascade: true,
     },
   )
-  choreographyPeople: ChoreographyPerson[];
+  people: ChoreographyPerson[];
 
   @ManyToMany((type) => Person, (person) => person.choreographies)
-  people: Person[];
+  peopleInChoreography: Person[];
 }
