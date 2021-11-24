@@ -3,6 +3,7 @@ import { Person } from './people';
 import { query, QueryOutput } from 'rx-query';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { PersonWithChoreographies } from './people-manager/people-manager.component';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,9 @@ export class PeopleService {
     );
   }
 
-  getPeople(): Observable<QueryOutput<Person[]>> {
-    return query('people', () => this.http.get<Person[]>(`/api/people`));
+  getPeople(): Observable<QueryOutput<PersonWithChoreographies[]>> {
+    return query('people', () =>
+      this.http.get<PersonWithChoreographies[]>(`/api/people`)
+    );
   }
 }

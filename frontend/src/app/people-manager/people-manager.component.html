@@ -1,7 +1,8 @@
-<app-toolbar [title]="'PEOPLE_MANAGER.TITLE' | translate" backUrl="/choreographies"></app-toolbar>
+<app-toolbar [isTitleEditable]="false"
+             [title]="'PEOPLE_MANAGER.TITLE' | translate"
+             backUrl="/choreographies"></app-toolbar>
 <div class="people-container">
   <div>
-    {{people$ | async | json}}
   </div>
   <mat-list>
     <h3 mat-subheader translate="PEOPLE_MANAGER.TITLE"></h3>
@@ -12,14 +13,18 @@
           {{'COMMON.ERROR' | translate}} ... ({{ people.retries }})
         </div>
         <div *ngSwitchDefault>
-          <div *ngFor="let person of people.data"
-               class="clickable">
-            <mat-list-item>
-              <mat-icon mat-list-icon>person</mat-icon>
-              <h4 mat-line>{{person.name}}</h4>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
+          <mat-form-field appearance="standard">
+            <mat-label>Suodata</mat-label>
+            <input #input (keyup)="applyFilter($event)" matInput placeholder="Esim. Matti">
+          </mat-form-field>
+          <table [dataSource]="data$" class="mat-elevation-z8" mat-table>
+            <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+              <th *matHeaderCellDef mat-header-cell> {{column}} </th>
+              <td *matCellDef="let element" mat-cell> {{element[column]}} </td>
+            </ng-container>
+            <tr *matHeaderRowDef="columnsToDisplay" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: columnsToDisplay;" mat-row></tr>
+          </table>
         </div>
       </ng-container>
     </ng-container>
