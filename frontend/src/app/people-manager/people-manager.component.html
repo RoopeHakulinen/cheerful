@@ -1,0 +1,27 @@
+<app-toolbar [title]="'PEOPLE_MANAGER.TITLE' | translate" backUrl="/choreographies"></app-toolbar>
+<div class="people-container">
+  <div>
+    {{people$ | async | json}}
+  </div>
+  <mat-list>
+    <h3 mat-subheader translate="PEOPLE_MANAGER.TITLE"></h3>
+    <ng-container *ngIf="people$ | async as people">
+      <ng-container [ngSwitch]="people.status">
+        <div *ngSwitchCase="'loading'">{{'COMMON.LOADING' | translate}} ... ({{ people.retries }})</div>
+        <div *ngSwitchCase="'error'">
+          {{'COMMON.ERROR' | translate}} ... ({{ people.retries }})
+        </div>
+        <div *ngSwitchDefault>
+          <div *ngFor="let person of people.data"
+               class="clickable">
+            <mat-list-item>
+              <mat-icon mat-list-icon>person</mat-icon>
+              <h4 mat-line>{{person.name}}</h4>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </mat-list>
+</div>
