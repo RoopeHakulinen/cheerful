@@ -1,4 +1,33 @@
-.title {
-  flex: 1 1 auto;
+.title-bar {
+  display: flex;
+  width: 100%;
   text-align: center;
+  align-items: center;
+
+  .title-text {
+    flex-basis: 50%;
+    text-align: right;
+    margin-top: -0.0625em;
+  }
+
+  .input-text {
+    flex-basis: 50%;
+    text-align: right;
+  }
+
+  .icon-container {
+    transform: scale(0.9);
+    margin-left: 1%;
+    margin-top: 5px;
+    text-align: left;
+
+    .cancel-button {
+      color: red;
+      margin-left: 5px;
+    }
+  }
+}
+
+.mat-input-element {
+  width: auto;
 }

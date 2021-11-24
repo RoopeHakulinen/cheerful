@@ -1,5 +1,8 @@
 <div *ngIf="choreography">
-  <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/choreographies"></app-toolbar>
+  <app-toolbar (changeChoreographyName)="changeChoreographyName($event)"
+               (click)="logGridToConsole()"
+               [title]="choreography.name"
+               backUrl="/choreographies"></app-toolbar>
   <div fxLayout="column" fxLayout.gt-sm="row">
     <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="3">
       <app-frame-manager
@@ -63,12 +66,13 @@
                 mat-raised-button>
           <mat-icon>file_upload</mat-icon>
         </button>
+        <button (click)="saveToDatabase()" [disabled]="hasChoreographyChanged()"
+                [matTooltip]="'FRAME_MANAGER.SAVE_FILE_TO_DATABASE' | translate"
+                class="single-button"
+                mat-raised-button>
+          <mat-icon>save_as</mat-icon>
+        </button>
       </div>
-      <button (click)="saveToDatabase()" [matTooltip]="'FRAME_MANAGER.SAVE_FILE_TO_DATABASE' | translate"
-              class="single-button"
-              mat-raised-button>
-        <mat-icon>save_as</mat-icon>
-      </button>
       <app-eight-counter
         [activeFrame]="actualActiveFrameIndex"
         [duration]="frameInterval"

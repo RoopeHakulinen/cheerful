@@ -1,9 +1,18 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Choreography } from '../choreographies/choreography.entity';
 import { Person } from './person.entity';
 
 @Entity('choreography_people')
 export class ChoreographyPerson {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column()
   color: string | null;
 
@@ -13,13 +22,15 @@ export class ChoreographyPerson {
   @JoinColumn({ name: 'personId' })
   person: Person;
 
-  @PrimaryColumn()
+  @Column({ select: false })
   personId: number;
 
-  @ManyToOne((type) => Choreography, (choreography) => choreography.people, {})
+  @ManyToOne((type) => Choreography, (choreography) => choreography.people, {
+    orphanedRowAction: 'delete',
+  })
   @JoinColumn({ name: 'choreographyId' })
   choreography: Choreography;
 
-  @PrimaryColumn()
+  @Column()
   choreographyId: number;
 }

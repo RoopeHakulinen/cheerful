@@ -80,6 +80,8 @@ export class databaseSetup1637148979709 implements MigrationInterface {
             columnNames: ['choreographyId'],
             referencedTableName: 'choreography',
             referencedColumnNames: ['id'],
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         ],
       }),
@@ -110,6 +112,13 @@ export class databaseSetup1637148979709 implements MigrationInterface {
         name: 'choreography_people',
         columns: [
           {
+            name: 'id',
+            type: 'int',
+            isPrimary: true,
+            isGenerated: true,
+            isNullable: false,
+          },
+          {
             name: 'color',
             type: 'varchar',
             isNullable: false,
@@ -130,11 +139,15 @@ export class databaseSetup1637148979709 implements MigrationInterface {
             columnNames: ['personId'],
             referencedTableName: 'person',
             referencedColumnNames: ['id'],
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
           {
             columnNames: ['choreographyId'],
             referencedTableName: 'choreography',
             referencedColumnNames: ['id'],
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         ],
       }),

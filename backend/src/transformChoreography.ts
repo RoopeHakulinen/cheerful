@@ -1,10 +1,13 @@
-export function transformChoreographyDtoToMatchDatabase(choreographyDto) {
+export function transformFramesToString(choreographyDto) {
   return {
     ...choreographyDto,
     frames: JSON.stringify(choreographyDto.frames),
-    people: choreographyDto.people.map((choreographyPerson) => ({
-      ...choreographyPerson,
-      person: { id: choreographyPerson.personId },
-    })),
+  };
+}
+
+export function transformFramesToObject(choreographyDto) {
+  return {
+    ...choreographyDto,
+    frames: JSON.parse(choreographyDto.frames),
   };
 }

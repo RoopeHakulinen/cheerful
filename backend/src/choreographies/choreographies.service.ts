@@ -29,4 +29,8 @@ export class ChoreographiesService {
     const newChoreography = this.choreographyRepository.create(choreography);
     return this.choreographyRepository.save(newChoreography);
   }
+
+  update(choreography: Choreography): Promise<Choreography> {
+    return this.choreographyRepository.save(choreography);
+  }
 }
