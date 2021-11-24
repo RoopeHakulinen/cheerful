@@ -1,4 +1,5 @@
-<app-toolbar [title]="'CHOREOGRAPHIES.TITLE' | translate"></app-toolbar>
+<app-toolbar [isTitleEditable]="false"
+             [title]="'CHOREOGRAPHIES.TITLE' | translate"></app-toolbar>
 
 <div class="choreographies-sidebar">
   <mat-list>
@@ -12,7 +13,7 @@
         <div *ngSwitchDefault>
           <div *ngFor="let choreography of choreographies.data"
                [routerLink]="['/choreographies', choreography.id]"
-               class="clickable">
+               class="clickable choreography-item">
             <mat-list-item>
               <mat-icon mat-list-icon>border_outer</mat-icon>
               <h4 mat-line>{{choreography.name}}</h4>
