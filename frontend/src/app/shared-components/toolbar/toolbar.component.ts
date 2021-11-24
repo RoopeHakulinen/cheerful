@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { MenuService } from '../menu.service';
+import { MenuService } from '../../menu.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -20,8 +20,11 @@ export class ToolbarComponent implements OnChanges {
   @Input()
   backUrl?: string;
 
+  @Input()
+  isTitleEditable?: boolean;
+
   @Output()
-  changeChoreographyName = new EventEmitter<string>();
+  changeTitle = new EventEmitter<string>();
 
   isEditingOn: boolean = false;
   choreographyTitle!: string;
@@ -37,7 +40,7 @@ export class ToolbarComponent implements OnChanges {
   editName(): void {
     this.isEditingOn = !this.isEditingOn;
     if (!this.isEditingOn) {
-      this.changeChoreographyName.emit(this.choreographyTitle);
+      this.changeTitle.emit(this.choreographyTitle);
     } else {
       setTimeout(() => {
         document.getElementById('input')!.focus();

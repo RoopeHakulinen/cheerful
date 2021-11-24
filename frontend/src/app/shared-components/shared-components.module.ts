@@ -5,6 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [ToolbarComponent],
@@ -15,6 +18,9 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     RouterModule,
     TranslateModule,
+    MatTooltipModule,
+    FormsModule,
+    MatInputModule,
   ],
 })
 export class SharedComponentsModule {}

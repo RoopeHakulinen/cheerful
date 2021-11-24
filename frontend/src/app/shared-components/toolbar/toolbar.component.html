@@ -17,7 +17,7 @@
       *ngIf="!isEditingOn"
       class="title-text"
       matInput>{{choreographyTitle}}</span>
-    <div class="icon-container">
+    <div *ngIf="isTitleEditable" class="icon-container">
       <mat-icon
         (click)="editName()"
         [matTooltip]="(isEditingOn ? 'COMMON.SAVE' : 'COMMON.EDIT') | translate"
