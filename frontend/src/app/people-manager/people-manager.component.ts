@@ -33,7 +33,9 @@ export class PeopleManagerComponent {
           return {
             id: person.id,
             name: person.name,
-            choreographies: person.choreographies.map((chor) => chor.name),
+            choreographies: person.choreographies.map(
+              (choreography) => choreography.name
+            ),
           };
         });
       });
