@@ -62,7 +62,7 @@ export class ChoreographiesController {
     return this.choreographiesService.findAll();
   }
 
-  @Get(':id')
+  @Get('/:id')
   getOne(@Param('id') id: string): Promise<Choreography> {
     return this.choreographiesService.findOne(parseInt(id, 10));
   }
@@ -72,7 +72,7 @@ export class ChoreographiesController {
     return this.choreographiesService.create(choreographyDto);
   }
 
-  @Put(':id')
+  @Put('/:id')
   update(@Body() choreographyDto: any): Promise<Choreography> {
     return this.choreographiesService.update(choreographyDto);
   }

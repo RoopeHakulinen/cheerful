@@ -146,6 +146,7 @@
     "ABOUT": "Lisätietoja"
   },
   "PEOPLE_MANAGER": {
-    "TITLE": "Henkilöt"
+    "TITLE": "Henkilöt",
+    "FILTER": "Suodata"
   }
 }

@@ -14,7 +14,7 @@
         </div>
         <div *ngSwitchDefault>
           <mat-form-field appearance="standard">
-            <mat-label>Suodata</mat-label>
+            <mat-label>{{'PEOPLE_MANAGER.FILTER' | translate}}</mat-label>
             <input #input (keyup)="applyFilter($event)" matInput placeholder="Esim. Matti">
           </mat-form-field>
           <table [dataSource]="data$" class="mat-elevation-z8" mat-table>
