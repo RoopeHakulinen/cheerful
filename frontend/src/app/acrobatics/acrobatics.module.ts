@@ -6,9 +6,10 @@ import { ShowAcrobaticComponent } from './show-acrobatic/show-acrobatic.componen
 import { MatIconModule } from '@angular/material/icon';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
 import { SingleAcrobaticPageComponent } from './single-acrobatic-page/single-acrobatic-page.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [AcrobaticsComponent, ShowAcrobaticComponent, SingleAcrobaticPageComponent],
-  imports: [CommonModule, AcrobaticsRoutingModule, MatIconModule, SharedComponentsModule],
+  imports: [CommonModule, AcrobaticsRoutingModule, MatIconModule, FlexLayoutModule, SharedComponentsModule],
 })
 export class AcrobaticsModule {}
