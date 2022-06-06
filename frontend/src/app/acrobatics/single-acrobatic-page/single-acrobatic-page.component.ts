@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Acrobatic, acrobatics } from '../acrobatics.component';
 
 @Component({
   selector: 'app-single-acrobatic-page',
@@ -7,9 +8,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./single-acrobatic-page.component.scss'],
 })
 export class SingleAcrobaticPageComponent {
-  id: number;
+  acrobatic: Acrobatic;
 
   constructor(private route: ActivatedRoute) {
-    this.id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+    this.acrobatic = acrobatics.find(acrobatic => acrobatic.id === id)!;
   }
 }
