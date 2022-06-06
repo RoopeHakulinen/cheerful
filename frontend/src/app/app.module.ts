@@ -94,7 +94,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     AcrobaticsComponent,
     SingleAcrobaticPageComponent,
     ShowAcrobaticComponent,
-    ExercisesListingComponent
+    ExercisesListingComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

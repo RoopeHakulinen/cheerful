@@ -9,10 +9,5 @@
   <p>{{acrobatic.description}}</p>
   <hr>
   <h1 translate="COMMON.EXERCISES"></h1>
-  <div class="acrobatic-exercises" fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="15px">
-    <div *ngFor="let exercise of acrobatic.exercises" class="single-exercise" >
-      <h2>{{exercise.name}}</h2>
-      <p>{{exercise.description}}</p>
-    </div>
-  </div>
+  <app-exercises-listing [exercises]="acrobatic.exercises"></app-exercises-listing>
 </div>

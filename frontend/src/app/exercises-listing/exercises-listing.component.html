@@ -1,1 +1,8 @@
-<p>exercises-listing works!</p>
+<div class="exercises-page">
+    <div class="acrobatic-exercises" fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="15px">
+        <div *ngFor="let exercise of exercises" class="single-exercise" >
+            <h2>{{exercise.name}}</h2>
+            <p>{{exercise.description}}</p>
+        </div>
+    </div>
+</div>
