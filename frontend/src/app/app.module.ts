@@ -56,6 +56,9 @@ import { LoadChoreographyDialogComponent } from './frame-manager/load-choreograp
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
+import { SingleAcrobaticPageComponent } from './acrobatics/single-acrobatic-page/single-acrobatic-page.component';
+import { AcrobaticsComponent } from './acrobatics/acrobatics.component';
+import { ShowAcrobaticComponent } from './acrobatics/show-acrobatic/show-acrobatic.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -87,6 +90,9 @@ export function HttpLoaderFactory(http: HttpClient): any {
     SaveChoreographyDialogComponent,
     LoadChoreographyDialogComponent,
     PageNotFoundComponent,
+    AcrobaticsComponent,
+    SingleAcrobaticPageComponent,
+    ShowAcrobaticComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

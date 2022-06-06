@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
+import { AcrobaticsComponent } from './acrobatics/acrobatics.component';
+import { SingleAcrobaticPageComponent } from './acrobatics/single-acrobatic-page/single-acrobatic-page.component';
 import { ChoreographiesComponent } from './choreographies/choreographies.component';
 import { ChoreographyComponent } from './choreography/choreography.component';
 import { ExerciseComponent } from './exercise/exercise.component';
@@ -36,7 +38,14 @@ const routes: Routes = [
     path: 'about',
     component: AboutComponent,
   },
-  { path: 'acrobatics', loadChildren: () => import('./acrobatics/acrobatics.module').then((m) => m.AcrobaticsModule) },
+  { 
+    path: 'acrobatics', 
+    component: AcrobaticsComponent,
+  },
+  { 
+    path: 'acrobatics/:id', 
+    component: SingleAcrobaticPageComponent ,
+  },
   {
     path: '**',
     redirectTo: 'choreographies',
