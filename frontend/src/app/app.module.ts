@@ -59,6 +59,7 @@ import { SharedComponentsModule } from './shared-components/shared-components.mo
 import { SingleAcrobaticPageComponent } from './acrobatics/single-acrobatic-page/single-acrobatic-page.component';
 import { AcrobaticsComponent } from './acrobatics/acrobatics.component';
 import { ShowAcrobaticComponent } from './acrobatics/show-acrobatic/show-acrobatic.component';
+import { ExercisesListingComponent } from './exercises-listing/exercises-listing.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -92,7 +93,8 @@ export function HttpLoaderFactory(http: HttpClient): any {
     PageNotFoundComponent,
     AcrobaticsComponent,
     SingleAcrobaticPageComponent,
-    ShowAcrobaticComponent
+    ShowAcrobaticComponent,
+    ExercisesListingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
