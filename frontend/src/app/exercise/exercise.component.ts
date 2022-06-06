@@ -7,9 +7,7 @@ import { Exercise } from '../exercises/exercises.component';
   styleUrls: ['./exercise.component.scss']
 })
 export class ExerciseComponent {
+  
   exercise!: Exercise;
-
-  constructor() {
-  }
 
 }

@@ -6,14 +6,9 @@ import { Exercise } from '../exercises/exercises.component';
   templateUrl: './exercises-listing.component.html',
   styleUrls: ['./exercises-listing.component.scss']
 })
-export class ExercisesListingComponent implements OnInit {
+export class ExercisesListingComponent {
 
   @Input()
   exercises!: Exercise[];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

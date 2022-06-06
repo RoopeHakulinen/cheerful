@@ -9,7 +9,7 @@ export interface Exercise {
 export const exercises: Exercise[] = [
   { id: 1, name: 'Ponnista', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.' },
   { id: 2, name: 'Laskeudu', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.' }
-]
+];
 
 @Component({
   selector: 'app-exercises',

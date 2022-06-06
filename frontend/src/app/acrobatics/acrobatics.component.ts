@@ -18,7 +18,7 @@ export const acrobatics: Acrobatic[] = [
   { id: 5, name: 'WAVE', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'emoji_people', difficulty: 1, exercises: [] },
   { id: 6, name: 'THROW', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'sports_handball', difficulty: 3, exercises: [] },
   { id: 7, name: 'LIFT', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'sports_kabaddi', difficulty: 4, exercises: [] },
-]
+];
 
 @Component({
   selector: 'app-acrobatics',
