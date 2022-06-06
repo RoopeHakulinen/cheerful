@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Exercise } from '../exercise';
+import { Exercise } from '../exercises/exercises.component';
 
 @Component({
   selector: 'app-exercise',
