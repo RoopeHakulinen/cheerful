@@ -15,15 +15,15 @@ export class AcrobaticsPage {
         await expect(this.page.locator('mat-toolbar .title:has-text("Akrobatiat")').first()).toBeVisible();
     }
 
-    async selectAcrobatic(i: string): Promise<void> {
-        await this.page.click(`app-show-acrobatic .title:has-text("${i}")`);
+    async selectAcrobatic(acrobatic: string): Promise<void> {
+        await this.page.click(`app-show-acrobatic .title:has-text("${acrobatic}")`);
     }
 
-    async checkAcrobaticPageIsVisible(i: string): Promise<void> {
-        await expect(this.page.locator(`app-single-acrobatic-page .single-acrobatic-page h1:has-text("${i}")`).first()).toBeVisible();
+    async checkAcrobaticPageIsVisible(acrobatic: string): Promise<void> {
+        await expect(this.page.locator(`app-single-acrobatic-page .single-acrobatic-page h1:has-text("${acrobatic}")`).first()).toBeVisible();
     }
 
-    async selectExercise(i: string): Promise<void> {
-        await this.page.click(`app-exercises-listing .single-exercise:has-text("${i}")`);
+    async selectExercise(exercise: string): Promise<void> {
+        await this.page.click(`app-exercises-listing .single-exercise:has-text("${exercise}")`);
     }
 }

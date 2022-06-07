@@ -15,11 +15,11 @@ export class ExercisesPage {
         await expect(this.page.locator('mat-toolbar .title:has-text("Exercises")').first()).toBeVisible();
     }
 
-    async selectExercise(i: string): Promise<void> {
-        await this.page.click(`app-exercises-listing .single-exercise:has-text("${i}")`);
+    async selectExercise(exercise: string): Promise<void> {
+        await this.page.click(`app-exercises-listing .single-exercise:has-text("${exercise}")`);
     }
 
-    async checkExercisePageIsVisible(i: string): Promise<void> {
-        await expect(this.page.locator(`mat-toolbar .title:has-text("${i}")`).first()).toBeVisible();
+    async checkExercisePageIsVisible(exercise: string): Promise<void> {
+        await expect(this.page.locator(`mat-toolbar .title:has-text("${exercise}")`).first()).toBeVisible();
     }
 }
