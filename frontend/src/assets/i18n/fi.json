@@ -23,7 +23,9 @@
     "DEEPPINK": "Vaaleanpunainen",
     "SADDLEBROWN": "Ruskea",
     "DARKVIOLET": "Violetti",
-    "EXERCISES": "Harjoitteet"
+    "EXERCISES": "Harjoitteet",
+    "FILTERING": "Suodatus",
+    "SEARCH": "Hae"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
@@ -121,6 +123,11 @@
     "WAVE": "Heilutus",
     "THROW": "Heitto",
     "LIFT": "Nosto"
+  },
+  "EXERCISES": {
+    "TITLE": "Harjoitukset",
+    "DIFFICULTY": "Vaikeusaste",
+    "EXERCISES_DIFFICULTY": "Harjoituksen vaikeusaste"
   },
   "SIDE_MENU": {
     "CHOREOGRAPHIES": {
