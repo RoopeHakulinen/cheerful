@@ -31,7 +31,7 @@
             <div *ngFor="let exercise of filteredExercises" class="single-exercise clickable" [routerLink]="['/exercises', exercise.id]">
                 <h2>{{exercise.name}}</h2>
                 <strong>{{'EXERCISES.DIFFICULTY' | translate}} - {{exercise.difficulty}}</strong>
-                <p>{{exercise.description.length > 300 ? exercise.description.substr(0,300) + '...' : exercise.description}}</p>
+                <p>{{exercise.description | ellipsis:300}}</p> 
             </div>
         </div>
         <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="3"></div>

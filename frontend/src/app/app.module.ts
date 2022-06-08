@@ -60,6 +60,7 @@ import { SingleAcrobaticPageComponent } from './acrobatics/single-acrobatic-page
 import { AcrobaticsComponent } from './acrobatics/acrobatics.component';
 import { ShowAcrobaticComponent } from './acrobatics/show-acrobatic/show-acrobatic.component';
 import { ExercisesListingComponent } from './exercises-listing/exercises-listing.component';
+import { EllipsisPipe } from './ellipsis.pipe';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -95,6 +96,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     SingleAcrobaticPageComponent,
     ShowAcrobaticComponent,
     ExercisesListingComponent,
+    EllipsisPipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
