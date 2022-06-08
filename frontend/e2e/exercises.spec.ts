@@ -17,4 +17,20 @@ test.describe('Exercises', function () {
     await page.click('mat-toolbar .mat-icon:has-text("menu")');
     await page.click('mat-list .mat-icon:has-text("fitness_center")');
   });
+
+  test('Filtering the exercises', async ({ page }) => {
+    const exercisesPage = new ExercisesPage(page);
+
+    const query = 'Ponnista';
+    const minDifficulty = 8;
+    const maxDifficulty = 9;
+
+    await exercisesPage.goto();
+    await exercisesPage.checkPageTitle();
+    await exercisesPage.openFilterBar();
+    await exercisesPage.updateQuery(query);
+    await exercisesPage.checkExerciseIsVisible(query);
+    await exercisesPage.updateDifficultyRangeCheck(minDifficulty, maxDifficulty);
+    await exercisesPage.checkExerciseIsNotVisible(query);
+  });
 });
