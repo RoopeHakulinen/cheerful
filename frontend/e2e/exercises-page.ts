@@ -28,7 +28,7 @@ export class ExercisesPage {
     }
 
     async updateQuery(query: string): Promise<void> {
-        await this.page.fill('.example-form-field .query-input', query);
+        await this.page.fill('.query-input-field input.query-input', query);
     }
 
     async checkExerciseIsVisible(query: string): Promise<void> {
@@ -36,8 +36,8 @@ export class ExercisesPage {
     }
 
     async updateDifficultyRangeCheck(minDifficulty: number, maxDifficulty: number): Promise<void> {
-        await this.page.fill('.minDifficulty-input', minDifficulty.toString());
-        await this.page.fill('.maxDifficulty-input', maxDifficulty.toString());
+        await this.page.fill('.min-difficulty-input-field input.min-difficulty-input', minDifficulty.toString());
+        await this.page.fill('.max-difficulty-input-field input.max-difficulty-input', maxDifficulty.toString());
     }
 
     async checkExerciseIsNotVisible(query: string): Promise<void> {

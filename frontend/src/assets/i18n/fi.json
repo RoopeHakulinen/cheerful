@@ -25,7 +25,9 @@
     "DARKVIOLET": "Violetti",
     "EXERCISES": "Harjoitteet",
     "FILTERING": "Suodatus",
-    "SEARCH": "Hae"
+    "SEARCH": "Hae",
+    "MIN": "Minimi",
+    "MAX": "Maksimi"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
