@@ -22,15 +22,15 @@ test.describe('Exercises', function () {
     const exercisesPage = new ExercisesPage(page);
 
     const query = 'Ponnista';
-    const notvalidQuery = 'Ponnista2';
+    const notValidQuery = 'Ponnista2';
 
     await exercisesPage.goto();
     await exercisesPage.checkPageTitle();
     await exercisesPage.openFilterBar();
 
     await exercisesPage.checkExerciseIsVisible(query);
-    await exercisesPage.updateQuery(notvalidQuery);
-    await exercisesPage.checkExerciseIsNotVisible(notvalidQuery);
+    await exercisesPage.updateQuery(notValidQuery);
+    await exercisesPage.checkExerciseIsNotVisible(notValidQuery);
   });
 
   test('Filtering the exercises by difficulty', async ({ page }) => {
