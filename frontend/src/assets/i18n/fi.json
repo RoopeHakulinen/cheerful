@@ -129,7 +129,9 @@
   "EXERCISES": {
     "TITLE": "Harjoitukset",
     "DIFFICULTY": "Vaikeusaste",
-    "EXERCISES_DIFFICULTY": "Harjoituksen vaikeusaste"
+    "EXERCISES_DIFFICULTY": "Harjoituksen vaikeusaste",
+    "FILTER_BY_TAGS": "Rajaa tägeillä",
+    "TAGS": "Tägit"
   },
   "SIDE_MENU": {
     "CHOREOGRAPHIES": {
