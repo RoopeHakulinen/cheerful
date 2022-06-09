@@ -52,4 +52,20 @@ export class ExercisesPage {
     async checkTagIsVisible(tag: string): Promise<void> {
         await expect(this.page.locator(`app-exercises-listing mat-chip-list mat-chip:has-text("${tag}")`).first()).toBeVisible();
     }
+
+    async checkNextPageButtonIsUsable(): Promise<void> {
+        await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-next').first()).not.toBeDisabled;
+    }
+
+    async clickNextPageButton(): Promise<void> {
+        await this.page.click('.mat-paginator-range-actions button.mat-paginator-navigation-next');
+    }
+
+    async checkPreviousPageButtonIsNotUsable(): Promise<void> {
+        await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-previous').first()).toBeDisabled;
+    }
+
+    async checkNextPageButtonIsNotUsable(): Promise<void> {
+        await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-next').first()).toBeDisabled;
+    }
 }

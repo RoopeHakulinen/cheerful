@@ -8,6 +8,9 @@ export interface Tag {
 export const tags: Tag[] = [
   { id: 1, name: 'Voimaharjoittelu' },
   { id: 2, name: 'Akrobatia' },
+  { id: 3, name: 'Nopeus' },
+  { id: 4, name: 'Kestävyys' },
+  { id: 5, name: 'Henkinen' },
 ];
 
 @Component({

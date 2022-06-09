@@ -70,7 +70,7 @@ test.describe('Exercises', function () {
     const query = 'Ponnista';
     const tag = 'Akrobatia';
     const minDifficulty = 1;
-    const maxDifficulty = 2;
+    const maxDifficulty = 5;
 
     await exercisesPage.goto();
     await exercisesPage.checkPageTitle();
@@ -85,5 +85,30 @@ test.describe('Exercises', function () {
     await exercisesPage.selectTagFilter(tag);
     await exercisesPage.checkExerciseIsVisible(query);
     await exercisesPage.checkTagIsVisible(tag);
+  });
+
+  test('Change exercise page', async ({ page }) => {
+    const exercisesPage = new ExercisesPage(page);
+
+    const query = 'Ponnista';
+    const minDifficulty = 3;
+    const maxDifficulty = 3;
+
+    await exercisesPage.goto();
+    await exercisesPage.checkPageTitle();
+    await exercisesPage.openFilterBar();
+
+    await exercisesPage.checkExerciseIsVisible(query);
+
+    await exercisesPage.checkNextPageButtonIsUsable();
+    await exercisesPage.clickNextPageButton();
+
+    await exercisesPage.checkExerciseIsNotVisible(query);
+
+    await exercisesPage.updateDifficultyRangeCheck(minDifficulty, maxDifficulty);
+
+    await exercisesPage.checkExerciseIsVisible(query);
+    await exercisesPage.checkPreviousPageButtonIsNotUsable();
+    await exercisesPage.checkNextPageButtonIsNotUsable();
   });
 });

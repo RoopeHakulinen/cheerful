@@ -62,8 +62,9 @@ import { ShowAcrobaticComponent } from './acrobatics/show-acrobatic/show-acrobat
 import { ExercisesListingComponent } from './exercises-listing/exercises-listing.component';
 import { EllipsisPipe } from './ellipsis.pipe';
 import { TagsComponent } from './tags/tags.component';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { TagsInputComponent } from './tags-input/tags-input.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -142,6 +143,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     HttpClientModule,
     MatTooltipModule,
     SharedComponentsModule,
+    MatPaginatorModule,
   ],
   providers: [MenuService, IosInstallService, ChoreographyService, PeopleService],
   bootstrap: [AppComponent],
