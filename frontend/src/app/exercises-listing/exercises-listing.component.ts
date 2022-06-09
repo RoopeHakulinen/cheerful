@@ -54,7 +54,7 @@ export class ExercisesListingComponent implements OnInit {
     this.filteredExercises = this.exercises.filter(exercise => {
       const isWithinDifficultyRange = exercise.difficulty >= this.minDifficulty && exercise.difficulty <= this.maxDifficulty;
       const doesMatchQuery = exercise.name.toLowerCase().includes(this.query.toLowerCase());
-      const hasTags = this.tags.length === 0 || this.tags.every(tag => exercise.tags.some(exerciseTag => tag.id === exerciseTag.id));
+      const hasTags = this.tags.every(tag => exercise.tags.some(exerciseTag => tag.id === exerciseTag.id));
       return isWithinDifficultyRange && doesMatchQuery && hasTags;
     });
   }
