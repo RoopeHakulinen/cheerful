@@ -54,7 +54,7 @@ export class ExercisesPage {
     }
 
     async checkNextPageButtonIsUsable(): Promise<void> {
-        await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-next').first()).not.toBeDisabled;
+        await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-next').first()).not.toBeDisabled();
     }
 
     async clickNextPageButton(): Promise<void> {
@@ -62,10 +62,10 @@ export class ExercisesPage {
     }
 
     async checkPreviousPageButtonIsNotUsable(): Promise<void> {
-        await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-previous').first()).toBeDisabled;
+        await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-previous').first()).toBeDisabled();
     }
 
     async checkNextPageButtonIsNotUsable(): Promise<void> {
-        await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-next').first()).toBeDisabled;
+        await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-next').first()).toBeDisabled();
     }
 }
