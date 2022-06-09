@@ -15,8 +15,7 @@ export const tags: Tag[] = [
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.scss']
 })
-
-export class TagsComponent{
+export class TagsComponent {
   @Input()
   tags!: Tag[];
 }
