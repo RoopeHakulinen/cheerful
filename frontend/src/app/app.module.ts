@@ -61,6 +61,9 @@ import { AcrobaticsComponent } from './acrobatics/acrobatics.component';
 import { ShowAcrobaticComponent } from './acrobatics/show-acrobatic/show-acrobatic.component';
 import { ExercisesListingComponent } from './exercises-listing/exercises-listing.component';
 import { EllipsisPipe } from './ellipsis.pipe';
+import { TagsComponent } from './tags/tags.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { TagsInputComponent } from './tags-input/tags-input.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -97,6 +100,8 @@ export function HttpLoaderFactory(http: HttpClient): any {
     ShowAcrobaticComponent,
     ExercisesListingComponent,
     EllipsisPipe,
+    TagsComponent,
+    TagsInputComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -118,6 +123,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     MatDialogModule,
     MatSnackBarModule,
     MatListModule,
+    MatChipsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000',

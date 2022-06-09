@@ -43,4 +43,13 @@ export class ExercisesPage {
     async checkExerciseIsNotVisible(query: string): Promise<void> {
         await expect(this.page.locator(`app-exercises-listing .single-exercise:has-text("${query}")`).first()).not.toBeVisible();
     }
+
+    async selectTagFilter(tag: string): Promise<void> {
+        await this.page.fill('mat-chip-list input', tag);
+        await this.page.click('mat-option .mat-option-text:has-text("' + tag + '")');
+    }
+
+    async checkTagIsVisible(tag: string): Promise<void> {
+        await expect(this.page.locator(`app-exercises-listing mat-chip-list mat-chip:has-text("${tag}")`).first()).toBeVisible();
+    }
 }
