@@ -1,3 +1,5 @@
+<mat-paginator [pageIndex]="currentPage" [length]="filteredExercises.length" [pageSizeOptions]="[this.pageSize]" (page)="changePage($event)" class="paginator">
+</mat-paginator>
 <div class="exercises-page">
     <div fxLayout="column" fxLayout.gt-sm="row">
         <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="4">
@@ -30,7 +32,7 @@
             </mat-accordion>
         </div>
         <div class="exercises-list" fxLayout="row wrap" fxLayoutAlign="center" fxFlex="grow" fxFlexOrder.lt-md="4">
-            <div *ngFor="let exercise of filteredExercises" class="single-exercise clickable" [routerLink]="['/exercises', exercise.id]">
+            <div *ngFor="let exercise of shownExercises" class="single-exercise clickable" [routerLink]="['/exercises', exercise.id]">
                 <h2>{{exercise.name}}</h2>
                 <strong>{{'EXERCISES.DIFFICULTY' | translate}} - {{exercise.difficulty}}</strong>
                 <p>{{exercise.description | ellipsis:300}}</p> 

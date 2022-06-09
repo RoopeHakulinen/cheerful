@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Exercise } from '../exercises/exercises.component';
 import { Tag } from '../tags/tags.component';
 
@@ -7,18 +8,20 @@ import { Tag } from '../tags/tags.component';
   templateUrl: './exercises-listing.component.html',
   styleUrls: ['./exercises-listing.component.scss']
 })
-
 export class ExercisesListingComponent implements OnInit {
 
   @Input()
   exercises!: Exercise[];
 
   filteredExercises: Exercise[] = [];
+  shownExercises: Exercise[] = [];
   tags: Tag[] = [];
 
   minDifficulty = 1;
   maxDifficulty = 10;
   query = '';
+  currentPage = 0;
+  pageSize = 20;
 
   ngOnInit(): void {
     this.filterExercises();
@@ -51,11 +54,22 @@ export class ExercisesListingComponent implements OnInit {
   }
 
   filterExercises(): void {
+    this.currentPage = 0;
     this.filteredExercises = this.exercises.filter(exercise => {
       const isWithinDifficultyRange = exercise.difficulty >= this.minDifficulty && exercise.difficulty <= this.maxDifficulty;
       const doesMatchQuery = exercise.name.toLowerCase().includes(this.query.toLowerCase());
       const hasTags = this.tags.every(tag => exercise.tags.some(exerciseTag => tag.id === exerciseTag.id));
       return isWithinDifficultyRange && doesMatchQuery && hasTags;
     });
+    this.calculateShownExercises();
+  }
+
+  changePage(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
+    this.calculateShownExercises();
+  }
+
+  calculateShownExercises(): void {
+    this.shownExercises = this.filteredExercises.slice(this.currentPage * this.pageSize, this.currentPage * this.pageSize + this.pageSize);
   }
 }
