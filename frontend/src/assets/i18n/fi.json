@@ -137,6 +137,15 @@
     "NAME": "Nimi",
     "DESCRIPTION": "Kuvaus"
   },
+  "PAGINATION": {
+    "FIRST_PAGE": "Ensimmäinen sivu",
+    "ITEMS_PER_PAGE": "Kohteita per sivu",
+    "LAST_PAGE": "Viimeinen sivu",
+    "NEXT_PAGE": "Seuraava sivu",
+    "PREVIOUS_PAGE": "Edellinen sivu",
+    "PAGE_1_OF_1": "Sivu 1 / 1",
+    "PAGE_N_OF_M": "Sivu {{page}} / {{numberOfPages}}"
+  },
   "SIDE_MENU": {
     "CHOREOGRAPHIES": {
       "TITLE": "Koreografiat",

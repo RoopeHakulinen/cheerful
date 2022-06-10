@@ -1,30 +1,27 @@
-<app-toolbar [title]="'EXERCISES.CREATE' | translate" backUrl="/exercises"></app-toolbar>
 <div class="modify-exercise">
     <div fxLayout="column" fxFlexAlign="center">
         <div class="exercise-form-field">
             <mat-form-field class="exercise-name-input-field" appearance="fill">
                 <mat-label>{{'EXERCISES.NAME' | translate}}</mat-label>
-                <input class="exercise-name-input" matInput type="text" [(ngModel)]="exerciseName">
+                <input class="exercise-name-input" matInput type="text" [(ngModel)]="exercise.name">
             </mat-form-field>
 
             <mat-form-field class="exercise-description-input-field" appearance="fill">
                 <mat-label>{{'EXERCISES.DESCRIPTION' | translate}}</mat-label>
-                <textarea class="exercise-description-input" matInput [(ngModel)]="exerciseDescription"></textarea>
+                <textarea class="exercise-description-input" matInput [(ngModel)]="exercise.description"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
+            <mat-form-field class="exercise-difficulty-input-field" appearance="fill">
                 <mat-label>{{'EXERCISES.DIFFICULTY' | translate}}</mat-label>
-                <mat-select [(ngModel)]="exerciseDifficulty">
+                <mat-select [(ngModel)]="exercise.difficulty">
                     <mat-option *ngFor="let difficulty of difficultyRange" [value]="difficulty">
                         {{difficulty}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-
-            <app-tags-input [allowAdding]="true" (selectionChange)="updateTags($event)"></app-tags-input>
-
+            <app-tags-input [allowAdding]="true" [selectedTags]="exercise.tags" (selectionChange)="updateTags($event)"></app-tags-input>
             <div class="submit-exercise-form">
-                <button mat-raised-button color="primary" (click)="createExercise()">{{'EXERCISES.CREATE' | translate}}</button>
+                <button mat-raised-button color="primary" (click)="buttonClick.emit(exercise)">{{buttonKey | translate}}</button>
             </div>
         </div>
     </div>

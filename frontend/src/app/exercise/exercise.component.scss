@@ -1,4 +1,30 @@
-.exercise {
+.exercise-description {
     text-align: center;
-    padding: 20px;
+    align-items: center;
+    margin-top: 5px;
+    padding-inline: 30px;
+    width: fit-content;
+    max-width: 650px;
+}
+
+.edit-exercise-button {
+    margin-top: 5px;
+    margin-inline: 10px;
+}
+
+.exercise-tags-list {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.exercise-difficulty {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.exercise {
+    width: 100%;
+    align-items: center;
 }

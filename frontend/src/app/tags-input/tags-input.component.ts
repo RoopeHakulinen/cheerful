@@ -16,11 +16,13 @@ export class TagsInputComponent {
   @Input()
   allowAdding!: boolean;
 
+  @Input()
+  selectedTags: Tag[] = [];
+
   @Output()
   selectionChange = new EventEmitter<Tag[]>();
 
   tags = tags;
-  selectedTags: Tag[] = [];
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl('');

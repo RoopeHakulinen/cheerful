@@ -12,7 +12,7 @@ export class ExercisesPage {
     }
 
     async checkPageTitle(): Promise<void> {
-        await expect(this.page.locator('mat-toolbar .title:has-text("Exercises")').first()).toBeVisible();
+        await expect(this.page.locator('mat-toolbar .title:has-text("Harjoitukset")').first()).toBeVisible();
     }
 
     async selectExercise(exercise: string): Promise<void> {
@@ -67,5 +67,44 @@ export class ExercisesPage {
 
     async checkNextPageButtonIsNotUsable(): Promise<void> {
         await expect(this.page.locator('.mat-paginator-range-actions button.mat-paginator-navigation-next').first()).toBeDisabled();
+    }
+
+    async clickCreateNewExerciseButton(): Promise<void> {
+        await this.page.click('.create-new-exercise-button button');
+    }
+
+    async fillExerciseCreatingForm(exercise: string, description: string, tag: string, difficulty: number): Promise<void> {
+        await this.page.fill('mat-form-field.exercise-name-input-field input', exercise);
+
+        await this.page.fill('mat-form-field.exercise-description-input-field textarea', description);
+
+        await this.page.click('mat-form-field.exercise-difficulty-input-field .mat-select-arrow-wrapper');
+        await this.page.click('mat-option .mat-option-text:has-text("' + difficulty + '")');
+
+        await this.page.fill('mat-chip-list input', tag);
+        await (await this.page.$('mat-chip-list input'))!.press('Enter');
+    }
+
+    async clickCreateExerciseButton(): Promise<void> {
+        await this.page.click('.submit-exercise-form button');
+    }
+
+    async checkExerciseIsCorrectlyMade(exercise: string, description: string, tag: string, difficulty: number): Promise<void> {
+        await expect(this.page.locator(`mat-toolbar .title:has-text("${exercise}")`).first()).toBeVisible();
+        await expect(this.page.locator(`.exercise .exercise-difficulty:has-text("${difficulty}")`).first()).toBeVisible();
+        await expect(this.page.locator(`.exercise .exercise-description:has-text("${description}")`).first()).toBeVisible();
+        await expect(this.page.locator(`.exercise .exercise-tags-list mat-chip:has-text("${tag}")`).first()).toBeVisible();
+    }
+
+    async clickEditExerciseButton(): Promise<void> {
+        await this.page.click('.edit-exercise-button button');
+    }
+
+    async fillExerciseEditingForm(changedExerciseName: string): Promise<void> {
+        await this.page.fill('mat-form-field.exercise-name-input-field input', changedExerciseName);
+    }
+
+    async clickSaveExerciseButton(): Promise<void> {
+        await this.page.click('.submit-exercise-form button');
     }
 }

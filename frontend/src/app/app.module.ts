@@ -59,13 +59,15 @@ import { SharedComponentsModule } from './shared-components/shared-components.mo
 import { SingleAcrobaticPageComponent } from './acrobatics/single-acrobatic-page/single-acrobatic-page.component';
 import { AcrobaticsComponent } from './acrobatics/acrobatics.component';
 import { ShowAcrobaticComponent } from './acrobatics/show-acrobatic/show-acrobatic.component';
-import { ExercisesListingComponent } from './exercises-listing/exercises-listing.component';
+import { ExercisesListingComponent, MyCustomPaginatorIntl } from './exercises-listing/exercises-listing.component';
 import { EllipsisPipe } from './ellipsis.pipe';
 import { TagsComponent } from './tags/tags.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { TagsInputComponent } from './tags-input/tags-input.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { ModifyExerciseComponent } from './modify-exercise/modify-exercise.component';
+import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
+import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -105,6 +107,8 @@ export function HttpLoaderFactory(http: HttpClient): any {
     TagsComponent,
     TagsInputComponent,
     ModifyExerciseComponent,
+    CreateExerciseComponent,
+    EditExerciseComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -147,7 +151,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     SharedComponentsModule,
     MatPaginatorModule,
   ],
-  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService],
+  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService, {provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent, ChoreographyContentNameDialogComponent],
 })
