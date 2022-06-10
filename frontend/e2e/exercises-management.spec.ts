@@ -20,8 +20,6 @@ test.describe('Exercises management', function () {
 
     await exercisesPage.checkExercisePageIsVisible(name);
     await exercisesPage.checkExerciseIsCorrectlyMade(name, description, tag, difficulty);
-
-    
   });
 
   test('Edit an exercise', async ({ page }) => {

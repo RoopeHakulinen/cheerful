@@ -21,5 +21,4 @@ export class EditExerciseComponent implements OnInit {
   editExercise(exercise: Exercise): void {
     this.router.navigate(['/exercises/' + this.exercise.id]);
   }
-
 }

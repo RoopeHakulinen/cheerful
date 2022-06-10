@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise, exercises } from '../exercises/exercises.component';
 
@@ -7,7 +7,7 @@ import { Exercise, exercises } from '../exercises/exercises.component';
   templateUrl: './create-exercise.component.html',
   styleUrls: ['./create-exercise.component.scss']
 })
-export class CreateExerciseComponent implements OnInit {
+export class CreateExerciseComponent {
 
   exercise: Exercise = {
     id: Math.floor(Math.random() * 1000),
@@ -19,12 +19,8 @@ export class CreateExerciseComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-  }
-
   createExercise(exercise: Exercise): void {
     exercises.push(exercise);
     this.router.navigate(['/exercises/' + this.exercise.id]);
   }
-
 }
