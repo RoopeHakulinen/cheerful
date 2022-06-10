@@ -131,7 +131,11 @@
     "DIFFICULTY": "Vaikeusaste",
     "EXERCISES_DIFFICULTY": "Harjoituksen vaikeusaste",
     "FILTER_BY_TAGS": "Rajaa tägeillä",
-    "TAGS": "Tägit"
+    "TAGS": "Tägit",
+    "CREATE": "Luo harjoitus",
+    "EDIT": "Muokkaa harjoitusta",
+    "NAME": "Nimi",
+    "DESCRIPTION": "Kuvaus"
   },
   "SIDE_MENU": {
     "CHOREOGRAPHIES": {
