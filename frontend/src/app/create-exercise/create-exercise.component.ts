@@ -15,7 +15,7 @@ export class CreateExerciseComponent {
     description: '',
     difficulty: 1,
     tags: []
-  }
+  };
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
