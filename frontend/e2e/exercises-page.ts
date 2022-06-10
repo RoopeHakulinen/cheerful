@@ -12,7 +12,7 @@ export class ExercisesPage {
     }
 
     async checkPageTitle(): Promise<void> {
-        await expect(this.page.locator('mat-toolbar .title:has-text("Exercises")').first()).toBeVisible();
+        await expect(this.page.locator('mat-toolbar .title:has-text("Harjoitukset")').first()).toBeVisible();
     }
 
     async selectExercise(exercise: string): Promise<void> {
