@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { exercises, Exercise } from '../exercises/exercises.component';
 import { Tag, tags } from '../tags/tags.component';
 
@@ -9,25 +9,22 @@ import { Tag, tags } from '../tags/tags.component';
 })
 export class ModifyExerciseComponent {
 
+  @Input()
+  exercise!: Exercise;
+
+  @Input()
+  buttonKey!: string;
+
+  @Output()
+  buttonClick = new EventEmitter<Exercise>();
+
   tags = tags;
   exercises: Exercise[] = exercises;
   exerciseTags: Tag[] = [];
 
   difficultyRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  exerciseName = '';
-  exerciseDifficulty = 1;
-  exerciseDescription = '';
 
   updateTags(tags: Tag[]): void {
     this.exerciseTags = tags;
-  }
-
-  createExercise(): void {
-    this.exercises.push({ 
-      id: Math.floor(Math.random() * 1000), 
-      name: this.exerciseName, 
-      description: this.exerciseDescription, 
-      difficulty: this.exerciseDifficulty, 
-      tags: this.exerciseTags });
   }
 }

@@ -66,6 +66,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { TagsInputComponent } from './tags-input/tags-input.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ModifyExerciseComponent } from './modify-exercise/modify-exercise.component';
+import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
+import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -105,6 +107,8 @@ export function HttpLoaderFactory(http: HttpClient): any {
     TagsComponent,
     TagsInputComponent,
     ModifyExerciseComponent,
+    CreateExerciseComponent,
+    EditExerciseComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

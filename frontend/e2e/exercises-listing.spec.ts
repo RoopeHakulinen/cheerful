@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { ExercisesPage } from './exercises-page';
 
-test.describe('Exercises', function () {
-  test('Open single exercise', async ({ page }) => {
+test.describe('Exercises listing', function () {
+  test('Open a single exercise', async ({ page }) => {
     const exercisesPage = new ExercisesPage(page);
     const exercise = 'Ponnista';
 
@@ -87,7 +87,7 @@ test.describe('Exercises', function () {
     await exercisesPage.checkTagIsVisible(tag);
   });
 
-  test('Change exercise page', async ({ page }) => {
+  test('Change the paging page', async ({ page }) => {
     const exercisesPage = new ExercisesPage(page);
 
     const query = 'Ponnista';

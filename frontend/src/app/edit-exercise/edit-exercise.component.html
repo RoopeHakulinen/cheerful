@@ -1,0 +1,2 @@
+<app-toolbar [title]="'EXERCISES.EDIT' | translate" backUrl="/exercises/{{exercise.id}}"></app-toolbar>
+<app-modify-exercise [exercise]="exercise" [buttonKey]="'EXERCISES.EDIT'" (buttonClick)="editExercise($event)"></app-modify-exercise>

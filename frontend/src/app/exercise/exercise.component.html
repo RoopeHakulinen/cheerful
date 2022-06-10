@@ -1,4 +1,19 @@
 <app-toolbar [title]="exercise.name" backUrl="/exercises"></app-toolbar>
-<div class="exercise">
-  <p>{{exercise.description}}</p>
+<div class="exercise-page" fxLayout="row">
+  <div class="edit-exercise-button" fxFlex="1">
+    <button mat-raised-button color="primary" routerLink="/exercises/{{exercise.id}}/edit">{{'EXERCISES.EDIT' | translate}}</button>
+  </div>
+  <div class="exercise" fxLayout="column" fxFlexAlign="center" fxFlex="grow">
+    <div class="exercise-difficulty">
+      <strong>{{'EXERCISES.DIFFICULTY' | translate}} - {{exercise.difficulty}}</strong>
+    </div>
+    <div class="exercise-tags-list">
+      
+      <app-tags [tags]="exercise.tags"></app-tags>
+    </div>
+    <div class="exercise-description">
+      <p>{{exercise.description}}</p>
+    </div>
+  </div>
+  <div fxFlex="1"></div>
 </div>

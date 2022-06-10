@@ -5,9 +5,10 @@ import { AcrobaticsComponent } from './acrobatics/acrobatics.component';
 import { SingleAcrobaticPageComponent } from './acrobatics/single-acrobatic-page/single-acrobatic-page.component';
 import { ChoreographiesComponent } from './choreographies/choreographies.component';
 import { ChoreographyComponent } from './choreography/choreography.component';
+import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
+import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { ExerciseComponent } from './exercise/exercise.component';
 import { ExercisesComponent } from './exercises/exercises.component';
-import { ModifyExerciseComponent } from './modify-exercise/modify-exercise.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
@@ -29,11 +30,15 @@ const routes: Routes = [
   },
   {
     path: 'exercises/new',
-    component: ModifyExerciseComponent,
+    component: CreateExerciseComponent,
   },
   {
     path: 'exercises/:id',
     component: ExerciseComponent,
+  },
+  {
+    path: 'exercises/:id/edit',
+    component: EditExerciseComponent,
   },
   {
     path: 'my-profile',
