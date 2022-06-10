@@ -9,6 +9,7 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { ExerciseComponent } from './exercise/exercise.component';
 import { ExercisesComponent } from './exercises/exercises.component';
+import { ModifyExerciseComponent } from './modify-exercise/modify-exercise.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [

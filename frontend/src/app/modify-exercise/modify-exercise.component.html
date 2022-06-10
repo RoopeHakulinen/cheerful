@@ -1,3 +1,4 @@
+<app-toolbar [title]="'EXERCISES.CREATE' | translate" backUrl="/exercises"></app-toolbar>
 <div class="modify-exercise">
     <div fxLayout="column" fxFlexAlign="center">
         <div class="exercise-form-field">
@@ -19,9 +20,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-
             <app-tags-input [allowAdding]="true" [selectedTags]="exercise.tags" (selectionChange)="updateTags($event)"></app-tags-input>
-
             <div class="submit-exercise-form">
                 <button mat-raised-button color="primary" (click)="buttonClick.emit(exercise)">{{buttonKey | translate}}</button>
             </div>

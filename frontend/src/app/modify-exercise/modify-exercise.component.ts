@@ -9,6 +9,7 @@ import { Tag, tags } from '../tags/tags.component';
 })
 export class ModifyExerciseComponent {
 
+
   @Input()
   exercise!: Exercise;
 
