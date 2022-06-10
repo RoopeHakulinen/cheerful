@@ -1,0 +1,31 @@
+<app-toolbar [title]="'EXERCISES.CREATE' | translate" backUrl="/exercises"></app-toolbar>
+<div class="modify-exercise">
+    <div fxLayout="column" fxFlexAlign="center">
+        <div class="exercise-form-field">
+            <mat-form-field class="exercise-name-input-field" appearance="fill">
+                <mat-label>{{'EXERCISES.NAME' | translate}}</mat-label>
+                <input class="exercise-name-input" matInput type="text" [(ngModel)]="exerciseName">
+            </mat-form-field>
+
+            <mat-form-field class="exercise-description-input-field" appearance="fill">
+                <mat-label>{{'EXERCISES.DESCRIPTION' | translate}}</mat-label>
+                <textarea class="exercise-description-input" matInput [(ngModel)]="exerciseDescription"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>{{'EXERCISES.DIFFICULTY' | translate}}</mat-label>
+                <mat-select [(ngModel)]="exerciseDifficulty">
+                    <mat-option *ngFor="let difficulty of difficultyRange" [value]="difficulty">
+                        {{difficulty}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <app-tags-input [allowAdding]="true" (selectionChange)="updateTags($event)"></app-tags-input>
+
+            <div class="submit-exercise-form">
+                <button mat-raised-button color="primary" (click)="createExercise()">{{'EXERCISES.CREATE' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

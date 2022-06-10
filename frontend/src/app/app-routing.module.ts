@@ -7,6 +7,7 @@ import { ChoreographiesComponent } from './choreographies/choreographies.compone
 import { ChoreographyComponent } from './choreography/choreography.component';
 import { ExerciseComponent } from './exercise/exercise.component';
 import { ExercisesComponent } from './exercises/exercises.component';
+import { ModifyExerciseComponent } from './modify-exercise/modify-exercise.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'exercises',
     component: ExercisesComponent,
+  },
+  {
+    path: 'exercises/new',
+    component: ModifyExerciseComponent,
   },
   {
     path: 'exercises/:id',

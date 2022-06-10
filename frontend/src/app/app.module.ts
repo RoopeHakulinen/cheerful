@@ -65,6 +65,7 @@ import { TagsComponent } from './tags/tags.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { TagsInputComponent } from './tags-input/tags-input.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ModifyExerciseComponent } from './modify-exercise/modify-exercise.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -103,6 +104,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     EllipsisPipe,
     TagsComponent,
     TagsInputComponent,
+    ModifyExerciseComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
