@@ -1,0 +1,8 @@
+<mat-form-field class="sort-select" appearance="fill">
+    <mat-label>{{'SORT.TITLE' | translate}}</mat-label>
+    <mat-select [(ngModel)]="sortMethod" (selectionChange)="selectMethod(this.sortMethod)">
+      <mat-option *ngFor="let sortMethod of options" [value]="sortMethod.value">
+        {{'SORT.'+sortMethod.name | translate}}
+      </mat-option>
+    </mat-select>
+</mat-form-field>

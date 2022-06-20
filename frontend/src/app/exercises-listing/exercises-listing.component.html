@@ -3,6 +3,7 @@
 <div class="exercises-page">
     <div fxLayout="column" fxLayout.gt-sm="row">
         <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="4">
+            <app-sort-input (sortWith)="sortMethod($event)" [options]="sortOptions"></app-sort-input>
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>

@@ -146,6 +146,13 @@
     "PAGE_1_OF_1": "Sivu 1 / 1",
     "PAGE_N_OF_M": "Sivu {{page}} / {{numberOfPages}}"
   },
+  "SORT": {
+    "TITLE": "Järjestys",
+    "NAME": "Aakkosjärjestys",
+    "EMAN": "Käänteinen aakkosjärjestys",
+    "DIFFICULTY": "Vaikeusaste (pienestä suureen)",
+    "YTLUCIFFID": "Vaikeusaste (suuresta pieneeen)"
+  },
   "SIDE_MENU": {
     "CHOREOGRAPHIES": {
       "TITLE": "Koreografiat",
