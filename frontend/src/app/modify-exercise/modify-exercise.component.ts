@@ -25,12 +25,12 @@ export class ModifyExerciseComponent {
 
   difficultyRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  isValid(exercise: Exercise): boolean {
-    return exercise.name.length > 0;
+  isValid(): boolean {
+    return this.exercise.name.length > 0;
   }
 
   onSubmit(): void {
-    if(!this.isValid(this.exercise)) {
+    if(!this.isValid()) {
       return;
     }
     this.buttonClick.emit(this.exercise);
