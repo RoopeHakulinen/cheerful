@@ -15,10 +15,11 @@ export class SortInputComponent {
   @Input()
   options: SortOption[] = [];
 
+  @Input()
+  sortOption!: string;
+
   @Output()
   sortWith = new EventEmitter<string>();
-
-  sortOption: string = 'name';
 
   selectMethod(method: string): void {
     this.sortWith.emit(method);
