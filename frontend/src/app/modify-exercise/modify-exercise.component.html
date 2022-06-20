@@ -21,7 +21,7 @@
             </mat-form-field>
             <app-tags-input [allowAdding]="true" [selectedTags]="exercise.tags" (selectionChange)="updateTags($event)"></app-tags-input>
             <div class="submit-exercise-form">
-                <button mat-raised-button color="primary" (click)="buttonClick.emit(exercise)">{{buttonKey | translate}}</button>
+                <button mat-raised-button color="primary" [disabled]="!isValid()" (click)="onSubmit()">{{buttonKey | translate}}</button>
             </div>
         </div>
     </div>
