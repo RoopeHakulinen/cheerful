@@ -19,10 +19,15 @@ export class CreateExerciseComponent {
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
+  isValid(exercise: Exercise): boolean {
+    return exercise.name.length > 0;
+  }
+
   createExercise(exercise: Exercise): void {
-    if(exercise.name !== ""){
-      exercises.push(exercise);
-      this.router.navigate(['/exercises/' + this.exercise.id]);
+    if(!this.isValid(exercise)) {
+      return;
     }
+    exercises.push(exercise);
+    this.router.navigate(['/exercises/' + this.exercise.id]);
   }
 }
