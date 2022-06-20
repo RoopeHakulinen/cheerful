@@ -15,7 +15,7 @@ export class SortInputComponent {
   @Input()
   options: SortOption[] = [];
 
-  sortMethod: string = 'name';
+  sortOption: string = 'name';
 
   @Output()
   sortWith = new EventEmitter<string>();
