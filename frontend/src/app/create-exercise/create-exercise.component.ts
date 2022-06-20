@@ -20,7 +20,9 @@ export class CreateExerciseComponent {
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   createExercise(exercise: Exercise): void {
-    exercises.push(exercise);
-    this.router.navigate(['/exercises/' + this.exercise.id]);
+    if(exercise.name !== ""){
+      exercises.push(exercise);
+      this.router.navigate(['/exercises/' + this.exercise.id]);
+    }
   }
 }
