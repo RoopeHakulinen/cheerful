@@ -3,6 +3,7 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { Exercise } from '../exercises/exercises.component';
+import { SortOption } from '../sort-input/sort-input.component';
 import { Tag } from '../tags/tags.component';
 
 @Injectable()
@@ -49,6 +50,7 @@ export class ExercisesListingComponent implements OnInit {
   @Input()
   exercises!: Exercise[];
 
+  sortedExercises: Exercise[] = [];
   filteredExercises: Exercise[] = [];
   shownExercises: Exercise[] = [];
   tags: Tag[] = [];
@@ -58,9 +60,18 @@ export class ExercisesListingComponent implements OnInit {
   query = '';
   currentPage = 0;
   pageSize = 20;
+  currentSortBy = 'name';
+  
+  sortOptions: SortOption[] = [
+    { name: 'NAME', value: 'name' },
+    { name: 'DIFFICULTY', value: 'difficulty' },
+    { name: 'EMAN', value: 'eman' },
+    { name: 'YTLUCIFFID', value: 'ytluciffid' }
+  ];
 
   ngOnInit(): void {
     this.filterExercises();
+    this.sortExercises(this.currentSortBy);
   }
 
   updateMinDifficulty(min: number): void {
@@ -97,7 +108,7 @@ export class ExercisesListingComponent implements OnInit {
       const hasTags = this.tags.every(tag => exercise.tags.some(exerciseTag => tag.id === exerciseTag.id));
       return isWithinDifficultyRange && doesMatchQuery && hasTags;
     });
-    this.calculateShownExercises();
+    this.sortExercises(this.currentSortBy);
   }
 
   changePage(event: PageEvent): void {
@@ -106,6 +117,25 @@ export class ExercisesListingComponent implements OnInit {
   }
 
   calculateShownExercises(): void {
-    this.shownExercises = this.filteredExercises.slice(this.currentPage * this.pageSize, this.currentPage * this.pageSize + this.pageSize);
+    this.shownExercises = this.sortedExercises.slice(this.currentPage * this.pageSize, this.currentPage * this.pageSize + this.pageSize);
+  }
+
+  sortExercises(sortBy: string): void {
+    if (sortBy === 'name') {
+      this.sortedExercises = this.filteredExercises.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === 'difficulty') {
+      this.sortedExercises = this.filteredExercises.sort((a, b) => a.difficulty - b.difficulty);
+    } else if (sortBy === 'eman') {
+      this.sortedExercises = this.filteredExercises.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (sortBy === 'ytluciffid') {
+      this.sortedExercises = this.filteredExercises.sort((a, b) => b.difficulty - a.difficulty);
+    }
+
+    this.calculateShownExercises();
+  }
+
+  sortMethod(sortBy: string): void {
+    this.currentSortBy = sortBy;
+    this.filterExercises();
   }
 }

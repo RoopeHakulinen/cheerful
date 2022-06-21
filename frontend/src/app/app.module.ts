@@ -68,6 +68,7 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { ModifyExerciseComponent } from './modify-exercise/modify-exercise.component';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
+import { SortInputComponent } from './sort-input/sort-input.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -109,6 +110,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     ModifyExerciseComponent,
     CreateExerciseComponent,
     EditExerciseComponent,
+    SortInputComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
