@@ -1,7 +1,7 @@
 <app-toolbar [title]="'ACROBATICS.TITLE' | translate"></app-toolbar>
 <div class="acrobatics-page">
   <div class="paginator-container">
-    <mat-paginator [pageIndex]="currentPage" [length]="filteredAcrobatics.length" [pageSizeOptions]="[this.pageSize]" (page)="changePage($event)" class="paginator">
+    <mat-paginator [pageIndex]="currentPage" [length]="filteredAcrobatics.length" [pageSizeOptions]="[pageSize]" (page)="changePage($event)" class="paginator">
     </mat-paginator>
   </div>
 
