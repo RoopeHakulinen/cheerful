@@ -107,4 +107,16 @@ export class ExercisesPage {
     async clickSaveExerciseButton(): Promise<void> {
         await this.page.click('.submit-exercise-form button');
     }
+
+    async checkExerciseIsVisibleByPosition(position: number, name: string): Promise<void> {
+        await expect(this.page.locator(`app-exercises-listing .exercises-list .single-exercise:nth-child(${position}) h2:has-text("${name}")`).first()).toBeVisible();
+    }
+
+    async clickSorter(): Promise<void> {
+        await this.page.click('app-sort-input .mat-form-field .mat-select-arrow');
+    }
+
+    async selectSorter(method: string): Promise<void> {
+        await this.page.click('.mat-select-panel mat-option .mat-option-text:has-text("' + method + '")');
+    }
 }

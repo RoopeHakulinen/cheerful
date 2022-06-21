@@ -59,7 +59,7 @@ import { SharedComponentsModule } from './shared-components/shared-components.mo
 import { SingleAcrobaticPageComponent } from './acrobatics/single-acrobatic-page/single-acrobatic-page.component';
 import { AcrobaticsComponent } from './acrobatics/acrobatics.component';
 import { ShowAcrobaticComponent } from './acrobatics/show-acrobatic/show-acrobatic.component';
-import { ExercisesListingComponent, MyCustomPaginatorIntl } from './exercises-listing/exercises-listing.component';
+import { ExercisesListingComponent } from './exercises-listing/exercises-listing.component';
 import { EllipsisPipe } from './ellipsis.pipe';
 import { TagsComponent } from './tags/tags.component';
 import { MatChipsModule } from '@angular/material/chips';
@@ -69,6 +69,7 @@ import { ModifyExerciseComponent } from './modify-exercise/modify-exercise.compo
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { SortInputComponent } from './sort-input/sort-input.component';
+import { CustomPaginatorIntl } from './paginator-intl';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -153,7 +154,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     SharedComponentsModule,
     MatPaginatorModule,
   ],
-  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService, {provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
+  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService, {provide: MatPaginatorIntl, useClass: CustomPaginatorIntl}],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent, ChoreographyContentNameDialogComponent],
 })
