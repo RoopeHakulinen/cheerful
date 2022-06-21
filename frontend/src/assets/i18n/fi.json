@@ -118,6 +118,7 @@
   "ACROBATICS": {
     "TITLE": "Akrobatiat",
     "DIFFICULTY": "Vaikeusaste",
+    "ACROBATICS_DIFFICULTY": "Akrobatian vaikeusaste",
     "JUMP": "Hyppy",
     "STAND": "Seisominen",
     "WALK": "Kävely",
@@ -151,7 +152,7 @@
     "NAME": "Aakkosjärjestys",
     "EMAN": "Käänteinen aakkosjärjestys",
     "DIFFICULTY": "Vaikeusaste (pienestä suureen)",
-    "YTLUCIFFID": "Vaikeusaste (suuresta pieneeen)"
+    "YTLUCIFFID": "Vaikeusaste (suuresta pieneen)"
   },
   "SIDE_MENU": {
     "CHOREOGRAPHIES": {

@@ -1,9 +1,47 @@
-<app-toolbar [title]="'ACROBATICS.TITLE' | translate" backUrl="/choreographies"></app-toolbar>
-<div class="acrobatics">
-  <div *ngFor="let acrobatic of availableAcrobatics" class="single-acrobatic">
-    <app-show-acrobatic [difficulty]="acrobatic.difficulty"
-                        [icon]="acrobatic.icon"
-                        [id]="acrobatic.id"
-                        [name]="acrobatic.name"></app-show-acrobatic>
+<app-toolbar [title]="'ACROBATICS.TITLE' | translate"></app-toolbar>
+<div class="acrobatics-page">
+  <div class="paginator-container">
+    <mat-paginator [pageIndex]="currentPage" [length]="filteredAcrobatics.length" [pageSizeOptions]="[this.pageSize]" (page)="changePage($event)" class="paginator">
+    </mat-paginator>
+  </div>
+
+  <div fxLayout="column" fxLayout.gt-sm="row">
+    <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="4">
+        <app-sort-input (sortWith)="sortMethod($event)" [options]="sortOptions" [sortOption]="currentSortBy"></app-sort-input>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>{{'COMMON.FILTERING' | translate}}</b>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <hr>
+                <p>{{'ACROBATICS.ACROBATICS_DIFFICULTY' | translate}}</p>
+                <mat-form-field class="min-difficulty-input-field" appearance="fill">
+                    <mat-label>{{'COMMON.MIN' | translate}}</mat-label>
+                    <input matInput class="min-difficulty-input" type="number" min="1" max="10" [ngModel]="minDifficulty" (ngModelChange)="updateMinDifficulty($event)">
+                </mat-form-field>
+                <mat-form-field class="max-difficulty-input-field" appearance="fill">
+                    <mat-label>{{'COMMON.MAX' | translate}}</mat-label>
+                    <input matInput class="max-difficulty-input" type="number" min="1" max="10" [ngModel]="maxDifficulty" (ngModelChange)="updateMaxDifficulty($event)">
+                </mat-form-field>
+                <hr>
+                <p>{{'COMMON.SEARCH' | translate}}</p>
+                <mat-form-field class="query-input-field" appearance="fill">
+                    <mat-label></mat-label>
+                    <input class="query-input" matInput type="text" [ngModel]="query" (ngModelChange)="updateQuery($event)">
+                </mat-form-field>
+            </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    <div class="acrobatics" fxLayout="row wrap" fxLayoutAlign="center" fxFlex="grow" fxFlexOrder.lt-md="4">
+      <div *ngFor="let acrobatic of shownAcrobatics" class="single-acrobatic">
+        <app-show-acrobatic [difficulty]="acrobatic.difficulty"
+                            [icon]="acrobatic.icon"
+                            [id]="acrobatic.id"
+                            [name]="acrobatic.name"></app-show-acrobatic>
+      </div>
+    </div>
+    <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="3"></div>
   </div>
 </div>

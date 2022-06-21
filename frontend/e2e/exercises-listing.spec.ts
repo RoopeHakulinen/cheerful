@@ -111,4 +111,23 @@ test.describe('Exercises listing', function () {
     await exercisesPage.checkPreviousPageButtonIsNotUsable();
     await exercisesPage.checkNextPageButtonIsNotUsable();
   });
+
+  test('Sort the exercises', async ({ page }) => {
+    const exercisesPage = new ExercisesPage(page);
+
+    const exerciseName = 'Hölkkä';
+    const exerciseName2 = 'Seiso';
+    const sortMethod = 'Vaikeusaste (pienestä suureen)';
+
+    await exercisesPage.goto();
+    await exercisesPage.checkPageTitle();
+
+    await exercisesPage.checkExerciseIsVisibleByPosition(1, exerciseName);
+    
+    await exercisesPage.clickSorter(); 
+    await exercisesPage.selectSorter(sortMethod);
+
+    await exercisesPage.checkExerciseIsVisibleByPosition(1, exerciseName2);
+
+  });
 });
