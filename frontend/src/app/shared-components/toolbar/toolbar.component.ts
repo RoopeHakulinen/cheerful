@@ -17,7 +17,7 @@ export class ToolbarComponent {
   constructor(public menuService: MenuService, public authService: AuthService) {}
 
   signInWithGoogle(): void {
-    this.authService.signInWithGoogle()
+    this.authService.signInWithGoogle();
   }
 
   signInWithFB(): void {

@@ -14,7 +14,7 @@ export class AuthService {
     }
 
     signInWithGoogle(): void {
-        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
     }
 
     signInWithFB(): void {
