@@ -72,6 +72,7 @@ import { SortInputComponent } from './sort-input/sort-input.component';
 import { CustomPaginatorIntl } from './paginator-intl';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { AuthService } from './auth.service';
+import { HomeComponent } from './home/home.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -114,6 +115,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     CreateExerciseComponent,
     EditExerciseComponent,
     SortInputComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -166,18 +168,15 @@ export function HttpLoaderFactory(http: HttpClient): any {
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider(
             '643585029299-4p9vpkh0tiscrfs1tpvhf8ok0q1v1t60.apps.googleusercontent.com', 
-            {scope: 'email', plugin_name: 'Cheerful'}
+            { scope: 'email', plugin_name: 'Cheerful' }
           )
         },
         {
           id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider(
-            '1570466090015512'
-          )
+          provider: new FacebookLoginProvider('1570466090015512')
         }
       ],
       onError: (err) => {
-        console.log("err");
         console.error(err);
       }
     } as SocialAuthServiceConfig,

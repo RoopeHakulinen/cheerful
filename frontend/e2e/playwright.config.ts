@@ -6,7 +6,7 @@ const config: PlaywrightTestConfig = {
   use: {
     trace: 'retain-on-failure',
   },
-  retries: 2,
+  retries: 1,
 };
 
 if (BASE_URL) {

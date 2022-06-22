@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
 import { MenuService } from '../menu.service';
 
 @Component({
@@ -8,7 +9,5 @@ import { MenuService } from '../menu.service';
 })
 export class SideMenuComponent {
 
-  constructor(public menuService: MenuService) {
-  }
-
+  constructor(public menuService: MenuService, public authService: AuthService) {}
 }

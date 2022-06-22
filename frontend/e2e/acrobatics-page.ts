@@ -8,7 +8,7 @@ export class AcrobaticsPage {
     }
 
     async goto(): Promise<void> {
-        await this.page.goto('/acrobatics');
+        await this.page.goto('/app/acrobatics');
     }
 
     async checkPageTitle(): Promise<void> {
