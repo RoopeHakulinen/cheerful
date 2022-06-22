@@ -33,7 +33,7 @@
             </mat-accordion>
         </div>
         <div class="exercises-list" fxLayout="row wrap" fxLayoutAlign="center" fxFlex="grow" fxFlexOrder.lt-md="4">
-            <div *ngFor="let exercise of shownExercises" class="single-exercise clickable" [routerLink]="['/exercises', exercise.id]">
+            <div *ngFor="let exercise of shownExercises" class="single-exercise clickable" [routerLink]="['/app/exercises', exercise.id]">
                 <h2>{{exercise.name}}</h2>
                 <strong>{{'EXERCISES.DIFFICULTY' | translate}} - {{exercise.difficulty}}</strong>
                 <p>{{exercise.description | ellipsis:300}}</p> 

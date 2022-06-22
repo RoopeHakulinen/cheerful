@@ -13,7 +13,7 @@ test.describe('Exercises listing', function () {
   });
 
   test('Navigate from sidebar', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/app');
     await page.click('mat-toolbar .mat-icon:has-text("menu")');
     await page.click('mat-list .mat-icon:has-text("fitness_center")');
   });

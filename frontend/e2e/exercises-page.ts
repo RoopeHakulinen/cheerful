@@ -8,7 +8,7 @@ export class ExercisesPage {
     }
 
     async goto(): Promise<void> {
-        await this.page.goto('/exercises');
+        await this.page.goto('/app/exercises');
     }
 
     async checkPageTitle(): Promise<void> {

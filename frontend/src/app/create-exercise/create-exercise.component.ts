@@ -21,6 +21,6 @@ export class CreateExerciseComponent {
 
   createExercise(exercise: Exercise): void {
     exercises.push(exercise);
-    this.router.navigate(['/exercises/' + this.exercise.id]);
+    this.router.navigate(['/app/exercises/' + this.exercise.id]);
   }
 }

@@ -28,7 +28,7 @@ test.describe('Exercises management', function () {
     const name = 'Ponnista';
     const changedExercisename = 'Ponnista changed';
 
-    await page.goto('/exercises/1');
+    await page.goto('/app/exercises/1');
     await exercisesPage.checkExercisePageIsVisible(name);
 
     await exercisesPage.clickEditExerciseButton();
