@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Exercise, exercises } from '../exercises/exercises.component';
 import { SortOption } from '../sort-input/sort-input.component';
@@ -27,7 +27,7 @@ export const acrobatics: Acrobatic[] = [
   templateUrl: './acrobatics.component.html',
   styleUrls: ['./acrobatics.component.scss'],
 })
-export class AcrobaticsComponent {
+export class AcrobaticsComponent implements OnInit {
   availableAcrobatics = acrobatics;
   sortedAcrobatics: Acrobatic[] = [];
   filteredAcrobatics: Acrobatic[] = [];
