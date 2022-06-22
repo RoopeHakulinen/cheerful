@@ -1,4 +1,4 @@
-<mat-paginator [pageIndex]="currentPage" [length]="filteredExercises.length" [pageSizeOptions]="[this.pageSize]" (page)="changePage($event)" class="paginator">
+<mat-paginator [pageIndex]="currentPage" [length]="filteredExercises.length" [pageSizeOptions]="[pageSize]" (page)="changePage($event)" class="paginator">
 </mat-paginator>
 <div class="exercises-page">
     <div fxLayout="column" fxLayout.gt-sm="row">

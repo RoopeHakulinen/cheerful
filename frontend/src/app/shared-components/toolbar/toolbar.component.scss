@@ -1,4 +1,11 @@
-.title {
-  flex: 1 1 auto;
-  text-align: center;
+mat-toolbar {
+  justify-content: space-between;
+}
+
+.left, .right {
+  flex-basis: 200px;
+}
+
+.right {
+  text-align: right;
 }

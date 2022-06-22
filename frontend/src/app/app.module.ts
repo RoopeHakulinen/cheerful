@@ -70,6 +70,8 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { SortInputComponent } from './sort-input/sort-input.component';
 import { CustomPaginatorIntl } from './paginator-intl';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { AuthService } from './auth.service';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -153,8 +155,33 @@ export function HttpLoaderFactory(http: HttpClient): any {
     MatTooltipModule,
     SharedComponentsModule,
     MatPaginatorModule,
+    SocialLoginModule,
   ],
-  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService, {provide: MatPaginatorIntl, useClass: CustomPaginatorIntl}],
+  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService, {provide: MatPaginatorIntl, useClass: CustomPaginatorIntl}, AuthService, {
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            '643585029299-4p9vpkh0tiscrfs1tpvhf8ok0q1v1t60.apps.googleusercontent.com', 
+            {scope: 'email', plugin_name: 'Cheerful'}
+          )
+        },
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider(
+            '1570466090015512'
+          )
+        }
+      ],
+      onError: (err) => {
+        console.log("err");
+        console.error(err);
+      }
+    } as SocialAuthServiceConfig,
+  }],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent, ChoreographyContentNameDialogComponent],
 })
