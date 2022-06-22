@@ -1,0 +1,41 @@
+.home-page {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.google-button, .fb-button {
+    padding: 2px;
+    width: 250px;
+    margin-bottom: 10px;
+    &:hover {
+        background-color: #148aff;
+        box-shadow: 1px 1px 4px #0a0a0a;
+    }
+}
+
+.google-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 2px;
+}
+
+.cheerful-icon {
+    width: 100px;
+    height: 100px;
+}
+
+.home-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 10px;
+    border: black 1px solid;
+    border-radius: 5px;
+    box-shadow: 2px 3px 6px #0a0a0a;
+}

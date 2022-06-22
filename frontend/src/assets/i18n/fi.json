@@ -27,7 +27,9 @@
     "FILTERING": "Suodatus",
     "SEARCH": "Hae",
     "MIN": "Minimi",
-    "MAX": "Maksimi"
+    "MAX": "Maksimi",
+    "LOGIN_WITH_GOOGLE": "Kirjaudu sisään Googlella",
+    "LOGIN_WITH_FB": "Kirjaudu sisään <b>Facebookilla</b>"
   },
   "CARPET": {
     "AUDIENCE": "Yleisö"
@@ -167,6 +169,7 @@
       "TITLE": "Akrobatiat",
       "SUBHEADER": "Kokoelma akrobatioita"
     },
+    "LOGOUT": "Kirjaudu ulos",
     "MY_PROFILE": "Oma profiili",
     "ABOUT": "Lisätietoja"
   }

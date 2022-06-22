@@ -15,20 +15,4 @@ export class ToolbarComponent {
   backUrl?: string;
 
   constructor(public menuService: MenuService, public authService: AuthService) {}
-
-  signInWithGoogle(): void {
-    this.authService.signInWithGoogle();
-  }
-
-  signInWithFB(): void {
-    this.authService.signInWithFB();
-  }
-
-  refreshToken(): void {
-    this.authService.refreshToken();
-  }
-
-  signOut(): void {
-    this.authService.signOut();
-  }
 }
