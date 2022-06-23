@@ -97,7 +97,7 @@ export class ExercisesPage {
     }
 
     async clickEditExerciseButton(): Promise<void> {
-        await this.page.click('.edit-exercise-button button');
+        await this.page.click('.edit-exercise-button button:has-text("Muokkaa harjoitusta")');
     }
 
     async fillExerciseEditingForm(changedExerciseName: string): Promise<void> {
@@ -118,5 +118,13 @@ export class ExercisesPage {
 
     async selectSorter(method: string): Promise<void> {
         await this.page.click('.mat-select-panel mat-option .mat-option-text:has-text("' + method + '")');
+    }
+
+    async clickCopyExerciseButton(): Promise<void> {
+        await this.page.click('.edit-exercise-button button:has-text("Luo kopio")');
+    }
+
+    async checkPageTitleIs(pageTitle: string): Promise<void> {
+        await expect(this.page.locator('mat-toolbar .title:has-text("' + pageTitle + '")').first()).toBeVisible();
     }
 }
