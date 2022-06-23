@@ -1,6 +1,7 @@
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { map, Observable, take } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -33,5 +34,9 @@ export class AuthService {
 
     signOut(): void {
         this.authService.signOut();
+    }
+
+    isSignedIn(): Observable<boolean> {
+        return this.authService.authState.pipe(map(user => user !== null), take(1));
     }
 }
