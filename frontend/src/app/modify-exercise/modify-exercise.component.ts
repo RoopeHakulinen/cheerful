@@ -30,7 +30,7 @@ export class ModifyExerciseComponent {
   }
 
   onSubmit(): void {
-    if(!this.isValid()) {
+    if (!this.isValid()) {
       return;
     }
     this.buttonClick.emit(this.exercise);

@@ -1,13 +1,15 @@
 .selected-chip-color {
     background-color: #3f51b5;
     color: #fff;
+
     &:hover {
         background-color: #314098;
         color: #fff;
     }
-    
+
     .mat-chip-remove {
         color: #fff;
+
         &:hover {
             color: rgb(206, 206, 206);
         }

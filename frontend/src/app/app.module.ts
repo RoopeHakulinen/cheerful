@@ -73,6 +73,8 @@ import { CustomPaginatorIntl } from './paginator-intl';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { AuthService } from './auth.service';
 import { HomeComponent } from './home/home.component';
+import { LoggedInGuard } from './logged-in.guard';
+import { NotLoggedInGuard } from './not-logged-in.guard';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -159,16 +161,16 @@ export function HttpLoaderFactory(http: HttpClient): any {
     MatPaginatorModule,
     SocialLoginModule,
   ],
-  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService, {provide: MatPaginatorIntl, useClass: CustomPaginatorIntl}, AuthService, {
+  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService, {provide: MatPaginatorIntl, useClass: CustomPaginatorIntl}, AuthService, LoggedInGuard, NotLoggedInGuard, {
     provide: 'SocialAuthServiceConfig',
     useValue: {
-      autoLogin: false,
+      autoLogin: true,
       providers: [
         {
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider(
             '643585029299-4p9vpkh0tiscrfs1tpvhf8ok0q1v1t60.apps.googleusercontent.com', 
-            { scopes: 'email' }
+            { scope: 'email', plugin_name: 'Cheerful' }
           )
         },
         {

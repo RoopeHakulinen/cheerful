@@ -3,16 +3,13 @@
     <a *ngIf="backUrl" [routerLink]="backUrl" class="clickable">
       <mat-icon>keyboard_arrow_left</mat-icon>
     </a>
-
     <a (click)="menuService.toggle()" *ngIf="!backUrl" class="clickable">
       <mat-icon>menu</mat-icon>
     </a>
   </div>
-
   <div class="middle" fxFlex="grow">
     <span class="title">{{title}}</span>
   </div>
-
   <div class="right" fxFlex="100px">
     <div *ngIf="authService.user !== null">{{authService.user.name}}</div>
   </div>

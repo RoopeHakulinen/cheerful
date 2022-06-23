@@ -10,16 +10,19 @@ import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { ExerciseComponent } from './exercise/exercise.component';
 import { ExercisesComponent } from './exercises/exercises.component';
 import { HomeComponent } from './home/home.component';
-import { ModifyExerciseComponent } from './modify-exercise/modify-exercise.component';
+import { LoggedInGuard } from './logged-in.guard';
+import { NotLoggedInGuard } from './not-logged-in.guard';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivate: [NotLoggedInGuard],
   },
   {
     path: 'app',
+    canActivate: [LoggedInGuard],
     children: [
       {
         path: '',

@@ -11,7 +11,7 @@ export class EditExerciseComponent implements OnInit {
 
   exercise!: Exercise;
 
-  constructor(private route: ActivatedRoute, private router: Router ) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params.id;

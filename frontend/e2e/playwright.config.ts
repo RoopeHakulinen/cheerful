@@ -15,10 +15,10 @@ if (BASE_URL) {
 } else {
   console.log('BASE_URL not defined, using local development server.');
   config.webServer = {
-    command: 'npm start',
-    port: 4200,
+    command: 'npm start -- --configuration e2e',
+    port: 4201,
     timeout: 120 * 1000,
-    reuseExistingServer: true,
+    reuseExistingServer: false,
   };
 }
 
