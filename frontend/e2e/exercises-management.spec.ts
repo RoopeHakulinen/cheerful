@@ -6,7 +6,6 @@ test.describe('Exercises management', function () {
     const exercisesPage = new ExercisesPage(page);
 
     const name = 'Test exercise';
-    const changedExercisename = 'Test exercise changed';
     const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac nisi ut mauris maximus maximus. Phasellus pretium augue est, vitae tempor quam tempus sit amet.';
     const tag = 'Akrobatiaa';
     const difficulty = 3;
@@ -38,4 +37,24 @@ test.describe('Exercises management', function () {
 
     await exercisesPage.checkExercisePageIsVisible(changedExercisename);
   });
+
+  test('Copy an exercise', async ({ page }) => {
+    const exercisesPage = new ExercisesPage(page);
+
+    const name = 'Hyppy';
+    const createPage = 'Luo harjoitus';
+
+    await exercisesPage.goto();
+    await exercisesPage.checkPageTitle();
+    await exercisesPage.checkExerciseIsVisible(name);
+
+    await exercisesPage.selectExercise(name);
+    await exercisesPage.checkExercisePageIsVisible(name);
+
+    await exercisesPage.clickCopyExerciseButton();
+    await exercisesPage.checkPageTitleIs(createPage);
+    await exercisesPage.clickSaveExerciseButton();
+
+    await exercisesPage.checkExercisePageIsVisible(name);
+  })
 });
