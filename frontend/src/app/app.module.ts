@@ -168,7 +168,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider(
             '643585029299-4p9vpkh0tiscrfs1tpvhf8ok0q1v1t60.apps.googleusercontent.com', 
-            { scope: 'email', plugin_name: 'Cheerful' }
+            { scopes: 'email' }
           )
         },
         {
