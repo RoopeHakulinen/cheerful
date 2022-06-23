@@ -1,8 +1,8 @@
 <div class="home-page">
     <h1>Cheerful</h1>
     <div class="home-card" flexLayout="column">
-        <img src="../../assets/icons/cheerful-icon.png" class="cheerful-icon">
-        <button mat-raised-button color="primary" class="google-button" (click)="authService.signInWithGoogle()"><img src="../../assets/icons/google-icon.png" class="google-icon">{{'COMMON.LOGIN_WITH_GOOGLE' | translate}}</button>
+        <img src="assets/icons/cheerful-icon.png" class="cheerful-icon">
+        <button mat-raised-button color="primary" class="google-button" (click)="authService.signInWithGoogle()"><img src="assets/icons/google-icon.png" class="google-icon">{{'COMMON.LOGIN_WITH_GOOGLE' | translate}}</button>
         <button mat-raised-button color="primary" class="fb-button" (click)="authService.signInWithFacebook()" [innerHTML]="'COMMON.LOGIN_WITH_FB' | translate"></button>
     </div>
 </div>
