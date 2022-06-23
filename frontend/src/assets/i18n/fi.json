@@ -138,7 +138,8 @@
     "CREATE": "Luo harjoitus",
     "EDIT": "Muokkaa harjoitusta",
     "NAME": "Nimi",
-    "DESCRIPTION": "Kuvaus"
+    "DESCRIPTION": "Kuvaus",
+    "CREATE_NEW_COPY": "Luo kopio"
   },
   "PAGINATION": {
     "FIRST_PAGE": "Ensimmäinen sivu",

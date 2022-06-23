@@ -2,7 +2,7 @@
 <mat-list>
   <h3 mat-subheader translate="CHOREOGRAPHIES.MY_CHOREOGRAPHIES"></h3>
   <mat-list-item *ngFor="let choreography of choreographies$ | async"
-                 [routerLink]="['/choreographies', choreography.id]"
+                 [routerLink]="['/app/choreographies', choreography.id]"
                  class="clickable">
     <mat-icon mat-list-icon>border_outer</mat-icon>
     <h4 mat-line>{{choreography.name}}</h4>

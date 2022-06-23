@@ -1,7 +1,8 @@
-<app-toolbar [title]="exercise.name" backUrl="/exercises"></app-toolbar>
+<app-toolbar [title]="exercise.name" backUrl="/app/exercises"></app-toolbar>
 <div class="exercise-page" fxLayout="row">
   <div class="edit-exercise-button" fxFlex="1">
     <button mat-raised-button color="primary" routerLink="/app/exercises/{{exercise.id}}/edit">{{'EXERCISES.EDIT' | translate}}</button>
+    <button mat-raised-button color="primary" (click)="copyAndCreateNewExercise()" >{{'EXERCISES.CREATE_NEW_COPY' | translate}}</button>
   </div>
   <div class="exercise" fxLayout="column" fxFlexAlign="center" fxFlex="grow">
     <div class="exercise-difficulty">
