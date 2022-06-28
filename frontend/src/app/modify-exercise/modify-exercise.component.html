@@ -3,7 +3,7 @@
         <div class="exercise-form-field">
             <mat-form-field class="exercise-name-input-field" appearance="fill">
                 <mat-label>{{'EXERCISES.NAME' | translate}}</mat-label>
-                <input class="exercise-name-input" matInput type="text" [(ngModel)]="exercise.name">
+                <input class="exercise-name-input" matInput type="text" [(ngModel)]="exercise.name" maxlength="20">
             </mat-form-field>
 
             <mat-form-field class="exercise-description-input-field" appearance="fill">

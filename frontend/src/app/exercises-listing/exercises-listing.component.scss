@@ -12,6 +12,9 @@
     margin-bottom: 15px;
     margin-inline: 8px;
     padding: 5px;
+    p {
+        word-wrap: break-word;
+    }
 }
 
 .single-exercise:hover {

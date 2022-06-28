@@ -1,7 +1,7 @@
-<app-toolbar [title]="'ACROBATICS.TITLE' | translate" backUrl="/app/acrobatics"></app-toolbar>
+<app-toolbar [title]="'ACROBATICS.ACROBATIC' | translate" backUrl="/app/acrobatics"></app-toolbar>
 <div class="single-acrobatic-page">
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <h1>{{'ACROBATICS.' + acrobatic.name | translate}}</h1>
+    <h1>{{acrobatic.name}}</h1>
     <mat-icon class="icon">{{acrobatic.icon}}</mat-icon>
   </div>
   <p><strong>{{'ACROBATICS.DIFFICULTY' | translate}} - {{acrobatic.difficulty}}</strong></p>

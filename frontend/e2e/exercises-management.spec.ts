@@ -41,7 +41,7 @@ test.describe('Exercises management', function () {
   test('Copy an exercise', async ({ page }) => {
     const exercisesPage = new ExercisesPage(page);
 
-    const name = 'Hyppy';
+    const name = 'Hyppää';
     const createPage = 'Luo harjoitus';
 
     await exercisesPage.goto();

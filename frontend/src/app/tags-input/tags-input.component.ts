@@ -44,6 +44,13 @@ export class TagsInputComponent {
     }
 
     const value = (event.value || '').trim();
+
+    const valueCheck = value === '' || value.length < 3 || value.length > 20;
+
+    if (valueCheck) {
+      return;
+    }
+
     const tag = { id: Math.floor(Math.random() * 1000), name: value };
 
     this.selectedTags.push(tag);
