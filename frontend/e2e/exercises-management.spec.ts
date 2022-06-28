@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { ExercisesPage } from './exercises-page';
 
 test.describe('Exercises management', function () {
-  test.only('Add an exercise', async ({ page }) => {
+  test('Add an exercise', async ({ page }) => {
     const exercisesPage = new ExercisesPage(page);
 
     const name = 'Test exercise';

@@ -12,20 +12,20 @@ export class AuthService {
         this.authService.authState.subscribe((user) => {
             console.log(user);
             this.user = user;
-            if (user !== null) {
-                this.router.navigate(['/app']);
-            } else {
+            if (user === null) {
                 this.router.navigate(['/']);
             }
         });
     }
 
     signInWithGoogle(): void {
-        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
+        .then(() => this.router.navigate(['/app']));
     }
 
     signInWithFacebook(): void {
-        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
+        .then(() => this.router.navigate(['/app']));
     }
 
     refreshToken(): void {
