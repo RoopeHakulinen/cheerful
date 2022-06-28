@@ -45,9 +45,9 @@ export class TagsInputComponent {
 
     const value = (event.value || '').trim();
 
-    const valueCheck = value === '' || value.length < 3 || value.length > 20;
+    const isValueValid = value === '' || value.length < 3 || value.length > 20;
 
-    if (valueCheck) {
+    if (isValueValid) {
       return;
     }
 
