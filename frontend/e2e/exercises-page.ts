@@ -12,7 +12,7 @@ export class ExercisesPage {
     }
 
     async checkPageTitle(): Promise<void> {
-        await expect(this.page.locator('mat-toolbar .title:has-text("Harjoitukset")').first()).toBeVisible();
+        await expect(this.page.locator('mat-toolbar .title:has-text("Harjoitteet")').first()).toBeVisible();
     }
 
     async selectExercise(exercise: string): Promise<void> {
@@ -97,7 +97,7 @@ export class ExercisesPage {
     }
 
     async clickEditExerciseButton(): Promise<void> {
-        await this.page.click('.edit-exercise-button button:has-text("Muokkaa harjoitusta")');
+        await this.page.click('.edit-exercise-button button:has-text("Muokkaa harjoitetta")');
     }
 
     async fillExerciseEditingForm(changedExerciseName: string): Promise<void> {

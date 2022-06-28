@@ -75,6 +75,7 @@ import { AuthService } from './auth.service';
 import { HomeComponent } from './home/home.component';
 import { LoggedInGuard } from './logged-in.guard';
 import { NotLoggedInGuard } from './not-logged-in.guard';
+import { ExercisesPlanningComponent } from './exercises-planning/exercises-planning.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -118,6 +119,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     EditExerciseComponent,
     SortInputComponent,
     HomeComponent,
+    ExercisesPlanningComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -8,6 +8,7 @@ import { ChoreographyComponent } from './choreography/choreography.component';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { ExerciseComponent } from './exercise/exercise.component';
+import { ExercisesPlanningComponent } from './exercises-planning/exercises-planning.component';
 import { ExercisesComponent } from './exercises/exercises.component';
 import { HomeComponent } from './home/home.component';
 import { LoggedInGuard } from './logged-in.guard';
@@ -44,6 +45,10 @@ const routes: Routes = [
       {
         path: 'exercises/new',
         component: CreateExerciseComponent,
+      },
+      {
+        path: 'exercises/planning',
+        component: ExercisesPlanningComponent,
       },
       {
         path: 'exercises/:id',

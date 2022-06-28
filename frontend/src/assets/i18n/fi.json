@@ -124,16 +124,17 @@
     "ACROBATIC": "Akrobatia"
   },
   "EXERCISES": {
-    "TITLE": "Harjoitukset",
+    "TITLE": "Harjoitteet",
     "DIFFICULTY": "Vaikeusaste",
-    "EXERCISES_DIFFICULTY": "Harjoituksen vaikeusaste",
+    "EXERCISES_DIFFICULTY": "Harjoitteen vaikeusaste",
     "FILTER_BY_TAGS": "Rajaa tägeillä",
     "TAGS": "Tägit",
-    "CREATE": "Luo harjoitus",
-    "EDIT": "Muokkaa harjoitusta",
+    "CREATE": "Luo harjoite",
+    "EDIT": "Muokkaa harjoitetta",
     "NAME": "Nimi",
     "DESCRIPTION": "Kuvaus",
-    "CREATE_NEW_COPY": "Luo kopio"
+    "CREATE_NEW_COPY": "Luo kopio",
+    "PLANNING": "Suunnittele harjoitus"
   },
   "PAGINATION": {
     "FIRST_PAGE": "Ensimmäinen sivu",
