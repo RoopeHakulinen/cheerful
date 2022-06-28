@@ -115,7 +115,7 @@ test.describe('Exercises listing', function () {
   test('Sort the exercises', async ({ page }) => {
     const exercisesPage = new ExercisesPage(page);
 
-    const exerciseName = 'Hölkkä';
+    const exerciseName = 'Hölkkää';
     const exerciseName2 = 'Seiso';
     const sortMethod = 'Vaikeusaste (pienestä suureen)';
 

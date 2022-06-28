@@ -6,7 +6,7 @@ test.describe('Exercises management', function () {
     const exercisesPage = new ExercisesPage(page);
 
     const name = 'Test exercise';
-    const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac nisi ut mauris maximus maximus. Phasellus pretium augue est, vitae tempor quam tempus sit amet.';
+    const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac nisi ut mauris maximus maximus. Phasellus pretium augue est, vitae tempor quam tempus sit amet...';
     const tag = 'Akrobatiaa';
     const difficulty = 3;
 
@@ -41,7 +41,7 @@ test.describe('Exercises management', function () {
   test('Copy an exercise', async ({ page }) => {
     const exercisesPage = new ExercisesPage(page);
 
-    const name = 'Hyppy';
+    const name = 'Hyppää';
     const createPage = 'Luo harjoitus';
 
     await exercisesPage.goto();
