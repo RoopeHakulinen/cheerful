@@ -42,7 +42,7 @@ test.describe('Exercises management', function () {
     const exercisesPage = new ExercisesPage(page);
 
     const name = 'Hyppää';
-    const createPage = 'Luo harjoitus';
+    const createPage = 'Luo harjoite';
 
     await exercisesPage.goto();
     await exercisesPage.checkPageTitle();
