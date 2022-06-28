@@ -4,6 +4,16 @@
     height: 100%;
 }
 
+.selected-exercises {
+    border: black solid 1px;
+    min-width: 300px;
+    min-height: 300px;
+}
+
+.exercises-drag-drop-list {
+    width: fit-content;
+}
+
 .single-exercise {
     border: solid 1px black;
     width: 300px;

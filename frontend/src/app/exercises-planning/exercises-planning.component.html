@@ -1,4 +1,21 @@
 <app-toolbar [title]="'EXERCISES.TITLE' | translate" backUrl="/app/exercises/"></app-toolbar>
 <div class="exercises-planning">
-    <h1>moi</h1>
+    <div>
+        <app-exercises-listing></app-exercises-listing>
+        <div
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="selectedExercises"
+            cdkDropListConnectedTo="list-1"
+            class="example-list selected-exercises"
+            id="list-2"
+            (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let exercise of selectedExercises" class="single-exercise clickable"
+                [routerLink]="['/app/exercises', exercise.id]" cdkDrag>
+                <h2>{{exercise.name}}</h2>
+                <strong>{{'EXERCISES.DIFFICULTY' | translate}} - {{exercise.difficulty}}</strong>
+                <p>{{exercise.description | ellipsis:300}}</p>
+                <app-tags [tags]="exercise.tags"></app-tags>
+        </div>
+    </div>
 </div>

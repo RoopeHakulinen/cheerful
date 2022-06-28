@@ -38,14 +38,23 @@
             </mat-accordion>
         </div>
         <div class="exercises-list" fxLayout="row wrap" fxLayoutAlign="center" fxFlex="grow" fxFlexOrder.lt-md="4">
-            <div *ngFor="let exercise of shownExercises" class="single-exercise clickable"
-                [routerLink]="['/app/exercises', exercise.id]">
-                <h2>{{exercise.name}}</h2>
-                <strong>{{'EXERCISES.DIFFICULTY' | translate}} - {{exercise.difficulty}}</strong>
-                <p>{{exercise.description | ellipsis:300}}</p>
-                <app-tags [tags]="exercise.tags"></app-tags>
+            <div cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData]="exercises"
+            cdkDropListConnectedTo="list-2"
+            class="exercises-drag-drop-list"
+            id="list-1"
+            (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let exercise of shownExercises" class="single-exercise clickable"
+                    [routerLink]="['/app/exercises', exercise.id]" cdkDrag>
+                    <h2>{{exercise.name}}</h2>
+                    <strong>{{'EXERCISES.DIFFICULTY' | translate}} - {{exercise.difficulty}}</strong>
+                    <p>{{exercise.description | ellipsis:300}}</p>
+                    <app-tags [tags]="exercise.tags"></app-tags>
+                </div>
             </div>
         </div>
-        <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="3"></div>
+        <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="3">
+        </div>
     </div>
 </div>
