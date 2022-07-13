@@ -1,23 +1,12 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
-import { ChoreographiesModule } from './choreographies/choreographies.module';
+import { PrismaService } from './prisma.service';
+import { ChoreographiesService } from './choreographies/choreographies.service';
+import { ChoreographiesController } from './choreographies/choreographies.controller';
 
 @Module({
-  imports: [
-    ChoreographiesModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'mysecretpassword',
-      database: 'cheerful',
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
-  ],
-  controllers: [AppController],
-  providers: [],
+  imports: [],
+  controllers: [AppController, ChoreographiesController],
+  providers: [PrismaService, ChoreographiesService],
 })
 export class AppModule {}

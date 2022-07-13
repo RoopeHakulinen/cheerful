@@ -80,7 +80,9 @@ export class ChoreographyComponent {
     private dialog: MatDialog,
   ) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    this.choreographyService.getChoreographiesById(id).subscribe((choreography) => (this.choreography = choreography));
+    this.choreographyService.getChoreographyById(id).subscribe((choreography) => {
+      return (this.choreography = choreography);
+    });
   }
 
   addContentFrame(name: string): void {
@@ -260,13 +262,13 @@ export class ChoreographyComponent {
   }
 
   removePerson(personId: number): void {
-    const index = this.choreography.people.map((person) => person.personId).indexOf(personId);
+    const index = this.choreography.choreographyPerson.map((person) => person.personId).indexOf(personId);
     if (index === -1) {
       throw new Error(
         `The person with id ${personId} to be deleted is not present in the people list of the choreography.`,
       );
     }
-    this.choreography.people.splice(index, 1);
+    this.choreography.choreographyPerson.splice(index, 1);
     this.choreography.frames.forEach((frame) =>
       frame.grid.forEach((item) => {
         if (isPerson(item.content) && item.content.personId === personId) {
@@ -282,7 +284,7 @@ export class ChoreographyComponent {
   }
 
   addPerson(personId: number): void {
-    this.choreography.people.push({ personId: personId, color: null });
+    this.choreography.choreographyPerson.push({ personId: personId, color: null });
   }
 
   switchGroupType(groupType: GroupType): void {
@@ -313,8 +315,9 @@ export class ChoreographyComponent {
       .afterClosed()
       .pipe(filter((result) => !!result))
       .subscribe(() => {
-        localStorage.setItem('choreography', JSON.stringify(this.choreography));
-        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED');
+        this.choreographyService
+          .saveChoreography(this.choreography)
+          .subscribe((choreography) => this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED'));
       });
   }
 

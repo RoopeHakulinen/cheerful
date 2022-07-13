@@ -1,10 +1,18 @@
 <app-toolbar [title]="'CHOREOGRAPHIES.TITLE' | translate"></app-toolbar>
 <mat-list>
   <h3 mat-subheader translate="CHOREOGRAPHIES.MY_CHOREOGRAPHIES"></h3>
-  <mat-list-item *ngFor="let choreography of choreographies$ | async"
-    [routerLink]="['/app/choreographies', choreography.id]" class="clickable">
+  <div *ngFor="let choreography of choreographies$ | async" class="list-item">
     <mat-icon mat-list-icon>border_outer</mat-icon>
-    <h4 mat-line>{{choreography.name}}</h4>
-    <p mat-line>{{choreography.team}} </p>
-  </mat-list-item>
+    <span [routerLink]="['/app/choreographies', choreography.id]" class="choreography-info clickable">
+      <p>({{ choreography.id }})</p>
+      <p>{{ choreography.name }}</p>
+    </span>
+    <span (click)="deleteChoreography(choreography.id)" class="clickable"><mat-icon>remove</mat-icon></span>
+  </div>
+  <div (click)="createNewChoreography()" class="clickable list-item">
+    <mat-icon mat-list-icon>border_outer</mat-icon>
+    <span class="choreography-info">
+      <p>{{ 'CHOREOGRAPHIES.ADD_CHOREOGRAPHY' | translate }}</p>
+    </span>
+  </div>
 </mat-list>

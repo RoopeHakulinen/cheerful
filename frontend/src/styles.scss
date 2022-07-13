@@ -4,6 +4,7 @@
 html {
   font-size: 16px;
   overflow-x: hidden;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .padding {
@@ -12,6 +13,10 @@ html {
 
 .clickable {
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
 }
 
 .mat-drawer-content {

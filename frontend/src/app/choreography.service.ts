@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { mapTo, Observable, timer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Choreography } from './choreography';
 import { ChoreographyItem } from './choreography-item';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ChoreographyService {
@@ -9,7 +10,7 @@ export class ChoreographyService {
     {
       id: 1,
       name: 'SM-karsinnat',
-      team: 'Flames',
+      teamId: 1,
       frames: [
         {
           name: 'Alkutila',
@@ -26,23 +27,56 @@ export class ChoreographyService {
         horizontalSegments: 12,
         verticalSegments: 6,
       },
-      people: [],
+      choreographyPerson: [{ color: 'red', personId: 1 }],
     },
   ];
 
-  constructor() {}
+  private emptyChoreography: Choreography = {
+    id: 1,
+    name: 'Uusi koreografia',
+    teamId: 1,
+    frames: [
+      {
+        name: 'Alkutila',
+        type: 'content',
+        duration: 2,
+        grid: this.generateGrid(),
+        notes: '',
+      },
+    ],
+    carpet: {
+      color: '#5151b8',
+      height: 12,
+      width: 12,
+      horizontalSegments: 12,
+      verticalSegments: 6,
+    },
+    choreographyPerson: [],
+  };
+
+  constructor(private http: HttpClient) {}
 
   getChoreographies(): Observable<Choreography[]> {
-    return timer(1000).pipe(mapTo(this.choreographies));
+    return this.http.get<Choreography[]>('/api/choreographies');
   }
 
-  getChoreographiesById(id: number): Observable<Choreography> {
-    return timer(0).pipe(
-      mapTo(this.choreographies.find((choreography) => choreography.id === id)!)
-    );
+  saveChoreography(choreography: Choreography): Observable<Choreography> {
+    return this.http.post<Choreography>(`/api/choreographies`, choreography);
   }
 
-  private generateGrid(): ChoreographyItem[] {
+  createChoreography(): Observable<Choreography> {
+    return this.saveChoreography(this.emptyChoreography);
+  }
+
+  getChoreographyById(id: number): Observable<Choreography> {
+    return this.http.get<Choreography>(`/api/choreographies/${id}`);
+  }
+
+  deleteChoreographyById(id: number): Observable<Choreography> {
+    return this.http.delete<Choreography>(`/api/choreographies/${id}`);
+  }
+
+  generateGrid(): ChoreographyItem[] {
     return Array(12 * 12)
       .fill(null)
       .map(() => ({

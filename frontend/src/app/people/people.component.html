@@ -1,21 +1,16 @@
 <mat-accordion>
   <mat-expansion-panel class="mat-elevation-z0">
     <mat-expansion-panel-header>
-      <mat-panel-title>{{'PEOPLE.PEOPLE' | translate}} ({{people.length}})</mat-panel-title>
+      <mat-panel-title>{{ 'PEOPLE.PEOPLE' | translate }} ({{ people.length }})</mat-panel-title>
       <mat-panel-description translate="PEOPLE.DESCRIPTION"></mat-panel-description>
     </mat-expansion-panel-header>
     <div class="add">
       <mat-form-field>
         <mat-label translate="COMMON.NAME"></mat-label>
-        <input #input
-               [formControl]="filterNamesControl"
-               [matAutocomplete]="auto" matInput
-               type="text">
-        <mat-autocomplete #auto="matAutocomplete"
-                          (optionSelected)="addPerson($event.option.value); input.blur()">
-          <mat-option *ngFor="let option of filteredOptions | async"
-                      [value]="option">
-            {{option}}
+        <input #input [formControl]="filterNamesControl" [matAutocomplete]="auto" matInput type="text"/>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addPerson($event.option.value); input.blur()">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -30,10 +25,10 @@
                 <button (click)="remove.emit(person.personId)" color="warn" mat-icon-button>
                   <mat-icon>remove</mat-icon>
                 </button>
-                {{(person.personId | person).name}}
+                {{ (person.personId | person).name }}
               </div>
               <div>
-                <input [(ngModel)]="person.color" class="color-picker" type="color">
+                <input [(ngModel)]="person.color" class="color-picker" type="color"/>
               </div>
             </div>
           </div>

@@ -1,30 +1,54 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Choreography } from './choreography.entity';
-import { CreateChoreographyDto } from './choreographies.controller';
+import { Choreography, ChoreographyDto } from './choreographyDtos';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class ChoreographiesService {
-  constructor(
-    @InjectRepository(Choreography)
-    private choreographyRepository: Repository<Choreography>,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
-  findAll(): Promise<Choreography[]> {
-    return this.choreographyRepository.find();
+  async findAll(teamId: number): Promise<Choreography[]> {
+    return await this.prisma.choreography.findMany({
+      where: { team: { id: teamId } },
+    });
   }
 
-  findOne(id: number): Promise<Choreography> {
-    return this.choreographyRepository.findOne(id);
+  async findOne(id: number): Promise<Choreography> {
+    return await this.prisma.choreography.findUnique({
+      where: { id: id },
+      include: {
+        carpet: true,
+        choreographyPerson: true,
+      },
+    });
   }
 
-  async remove(id: number): Promise<void> {
-    await this.choreographyRepository.delete(id);
+  async deleteOne(id: number): Promise<Choreography> {
+    return await this.prisma.choreography.delete({
+      where: { id: id },
+    });
   }
 
-  create(createChoreographyDto: CreateChoreographyDto): Promise<Choreography> {
-    const choreography = this.choreographyRepository.create(createChoreographyDto);
-    return this.choreographyRepository.save(choreography);
+  async create(choreography: ChoreographyDto): Promise<Choreography> {
+    return await this.prisma.choreography.create({
+      data: {
+        name: choreography.name,
+        team: {
+          connect: { id: choreography.teamId },
+        },
+        frames: choreography.frames,
+        carpet: {
+          create: {
+            width: choreography.carpet.width,
+            height: choreography.carpet.height,
+            color: choreography.carpet.color,
+            horizontalSegments: choreography.carpet.horizontalSegments,
+            verticalSegments: choreography.carpet.verticalSegments,
+          },
+        },
+        choreographyPerson: {
+          create: choreography.people,
+        },
+      },
+    });
   }
 }
