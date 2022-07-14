@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -70,12 +70,24 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { SortInputComponent } from './sort-input/sort-input.component';
 import { CustomPaginatorIntl } from './paginator-intl';
-import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  SocialAuthServiceConfig,
+  SocialLoginModule,
+} from '@abacritt/angularx-social-login';
 import { AuthService } from './auth.service';
 import { HomeComponent } from './home/home.component';
 import { LoggedInGuard } from './logged-in.guard';
 import { NotLoggedInGuard } from './not-logged-in.guard';
 import { ExercisesPlanningComponent } from './exercises-planning/exercises-planning.component';
+import { ChoreographyServiceMock } from './choreography.service.mock';
+
+let choreographyServiceProvider: Provider = ChoreographyService;
+
+if (environment.e2e) {
+  choreographyServiceProvider = { provide: ChoreographyService, useClass: ChoreographyServiceMock };
+}
 
 export function HttpLoaderFactory(http: HttpClient): any {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -163,28 +175,38 @@ export function HttpLoaderFactory(http: HttpClient): any {
     MatPaginatorModule,
     SocialLoginModule,
   ],
-  providers: [MenuService, IosInstallService, ChoreographyService, PeopleService, {provide: MatPaginatorIntl, useClass: CustomPaginatorIntl}, AuthService, LoggedInGuard, NotLoggedInGuard, {
-    provide: 'SocialAuthServiceConfig',
-    useValue: {
-      autoLogin: true,
-      providers: [
-        {
-          id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider(
-            '643585029299-4p9vpkh0tiscrfs1tpvhf8ok0q1v1t60.apps.googleusercontent.com', 
-            { scope: 'email', plugin_name: 'Cheerful' }
-          )
+  providers: [
+    choreographyServiceProvider,
+    MenuService,
+    IosInstallService,
+    PeopleService,
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
+    AuthService,
+    LoggedInGuard,
+    NotLoggedInGuard,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: true,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '643585029299-4p9vpkh0tiscrfs1tpvhf8ok0q1v1t60.apps.googleusercontent.com',
+              { scope: 'email', plugin_name: 'Cheerful' },
+            ),
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('1570466090015512'),
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
         },
-        {
-          id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider('1570466090015512')
-        }
-      ],
-      onError: (err) => {
-        console.error(err);
-      }
-    } as SocialAuthServiceConfig,
-  }],
+      } as SocialAuthServiceConfig,
+    },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent, ChoreographyContentNameDialogComponent],
 })
