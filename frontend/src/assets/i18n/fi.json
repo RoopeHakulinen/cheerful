@@ -4,6 +4,8 @@
     "INSTALL_PROMPT": "Kosketa ikonia ↑ ja lisää aloitusnäyttöön",
     "UPDATE_SUCCESSFUL": "Asennus onnistui.",
     "UPDATE_NOT_SUCCESSFUL": "Asennus epäonnistui. Virhe: ",
+    "HELLO": "Hei",
+    "WELCOME_TEXT": "Tervetuloa käyttämään Cheerfulia!",
     "CLOSE": "Sulje",
     "COLOR": "Väri",
     "ADD": "Lisää",

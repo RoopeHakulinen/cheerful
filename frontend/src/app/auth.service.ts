@@ -4,22 +4,29 @@ import {
   SocialAuthService,
   SocialUser,
 } from '@abacritt/angularx-social-login';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable, take } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subscription, take } from 'rxjs';
+import { UserService } from './user.service';
 
 @Injectable()
-export class AuthService {
-  user: SocialUser | null = null;
+export class AuthService implements OnDestroy {
+  user = new BehaviorSubject<Partial<SocialUser>>({});
+  userSubscription: Subscription | null = null;
 
-  constructor(private authService: SocialAuthService, private router: Router) {
+  constructor(private authService: SocialAuthService, private router: Router, private userService: UserService) {
     this.authService.authState.subscribe((user) => {
       console.log(user);
-      this.user = user;
       if (user === null) {
         this.router.navigate(['/']);
+      } else {
+        this.userSubscription = this.userService.getOrCreate(user).subscribe((user) => this.user.next(user));
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription?.unsubscribe();
   }
 
   signInWithGoogle(): void {

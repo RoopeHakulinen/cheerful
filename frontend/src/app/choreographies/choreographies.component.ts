@@ -4,6 +4,8 @@ import { Choreography } from '../choreography';
 import { Observable } from 'rxjs';
 import { ToastService } from '../toast.service';
 import { QueryOutput, refreshQuery } from 'rx-query';
+import { SocialUser } from '@abacritt/angularx-social-login';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-choreographies',
@@ -12,8 +14,13 @@ import { QueryOutput, refreshQuery } from 'rx-query';
 })
 export class ChoreographiesComponent {
   choreographies$: Observable<QueryOutput<Choreography[]>>;
+  user$: Observable<Partial<SocialUser>> = this.authService.user;
 
-  constructor(public choreographyService: ChoreographyService, private toastService: ToastService) {
+  constructor(
+    public choreographyService: ChoreographyService,
+    private authService: AuthService,
+    private toastService: ToastService,
+  ) {
     this.choreographies$ = this.choreographyService.getChoreographies();
   }
 

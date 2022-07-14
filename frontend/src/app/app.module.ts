@@ -83,6 +83,7 @@ import { NotLoggedInGuard } from './not-logged-in.guard';
 import { ExercisesPlanningComponent } from './exercises-planning/exercises-planning.component';
 import { ChoreographyServiceMock } from './choreography.service.mock';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UserService } from './user.service';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
 
@@ -180,6 +181,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
   providers: [
     choreographyServiceProvider,
     MenuService,
+    UserService,
     IosInstallService,
     PeopleService,
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
