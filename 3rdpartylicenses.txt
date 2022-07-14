@@ -103,6 +103,9 @@ MIT
 @ngx-translate/http-loader
 MIT
 
+rx-query
+MIT
+
 rxjs
 Apache-2.0
                                Apache License
