@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Choreography } from './choreography';
 import { ChoreographyItem } from './choreography-item';
 import { HttpClient } from '@angular/common/http';
+import { query, QueryOutput } from 'rx-query';
 
 @Injectable()
 export class ChoreographyService {
@@ -31,8 +32,8 @@ export class ChoreographyService {
 
   constructor(private http: HttpClient) {}
 
-  getChoreographies(): Observable<Choreography[]> {
-    return this.http.get<Choreography[]>('/api/choreographies');
+  getChoreographies(): Observable<QueryOutput<Choreography[]>> {
+    return query('choreographies', () => this.http.get<Choreography[]>('/api/choreographies'));
   }
 
   saveChoreography(choreography: Choreography): Observable<Choreography> {
@@ -43,12 +44,16 @@ export class ChoreographyService {
     return this.saveChoreography(this.emptyChoreography);
   }
 
-  getChoreographyById(id: number): Observable<Choreography> {
-    return this.http.get<Choreography>(`/api/choreographies/${id}`);
+  updateChoreography(choreography: Choreography): Observable<Choreography> {
+    return this.http.put<Choreography>(`/api/choreographies`, choreography);
   }
 
   deleteChoreographyById(id: number): Observable<Choreography> {
     return this.http.delete<Choreography>(`/api/choreographies/${id}`);
+  }
+
+  getChoreographyById(id: number): Observable<Choreography> {
+    return this.http.get<Choreography>(`/api/choreographies/${id}`);
   }
 
   generateGrid(): ChoreographyItem[] {

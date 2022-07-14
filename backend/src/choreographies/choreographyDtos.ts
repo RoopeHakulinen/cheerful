@@ -32,6 +32,9 @@ export class CarpetDto {
 }
 
 export class ChoreographyDto {
+  @IsNumber()
+  id: number;
+
   @IsString()
   name: string;
 

@@ -1,18 +1,30 @@
 <app-toolbar [title]="'CHOREOGRAPHIES.TITLE' | translate"></app-toolbar>
 <mat-list>
   <h3 mat-subheader translate="CHOREOGRAPHIES.MY_CHOREOGRAPHIES"></h3>
-  <div *ngFor="let choreography of choreographies$ | async" class="list-item">
-    <mat-icon mat-list-icon>border_outer</mat-icon>
-    <span [routerLink]="['/app/choreographies', choreography.id]" class="choreography-info clickable">
-      <p>({{ choreography.id }})</p>
-      <p>{{ choreography.name }}</p>
-    </span>
-    <span (click)="deleteChoreography(choreography.id)" class="clickable"><mat-icon>remove</mat-icon></span>
-  </div>
-  <div (click)="createNewChoreography()" class="clickable list-item">
+  <ng-container *ngIf="choreographies$ | async as choreographies">
+    <ng-container [ngSwitch]="choreographies.status">
+      <div *ngSwitchCase="'loading'" class="loading">
+        <mat-progress-spinner diameter="30" mode="indeterminate"></mat-progress-spinner>
+      </div>
+      <div *ngSwitchCase="'error'">{{ 'COMMON.ERROR' | translate }}</div>
+      <ng-container *ngSwitchDefault>
+        <div *ngFor="let choreography of choreographies.data" class="list-item">
+          <mat-icon mat-list-icon>border_outer</mat-icon>
+          <span [routerLink]="['/app/choreographies', choreography.id]" class="choreography-info clickable">
+            <p>{{ choreography.name }}</p>
+          </span>
+          <span (click)="deleteChoreography(choreography.id)" class="clickable"><mat-icon>remove</mat-icon></span>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <div (click)="createNewChoreography()" class="clickable list-item italic">
     <mat-icon mat-list-icon>border_outer</mat-icon>
     <span class="choreography-info">
       <p>{{ 'CHOREOGRAPHIES.ADD_CHOREOGRAPHY' | translate }}</p>
+    </span>
+    <span class="clickable">
+      <mat-icon>add</mat-icon>
     </span>
   </div>
 </mat-list>
