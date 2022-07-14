@@ -51,4 +51,29 @@ export class ChoreographiesService {
       },
     });
   }
+
+  async update(choreography: ChoreographyDto): Promise<Choreography> {
+    return await this.prisma.choreography.update({
+      where: { id: choreography.id },
+      data: {
+        name: choreography.name,
+        team: {
+          connect: { id: choreography.teamId },
+        },
+        frames: choreography.frames,
+        carpet: {
+          update: {
+            width: choreography.carpet.width,
+            height: choreography.carpet.height,
+            color: choreography.carpet.color,
+            horizontalSegments: choreography.carpet.horizontalSegments,
+            verticalSegments: choreography.carpet.verticalSegments,
+          },
+        },
+        choreographyPerson: {
+          create: choreography.people,
+        },
+      },
+    });
+  }
 }

@@ -316,7 +316,7 @@ export class ChoreographyComponent {
       .pipe(filter((result) => !!result))
       .subscribe(() => {
         this.choreographyService
-          .saveChoreography(this.choreography)
+          .updateChoreography(this.choreography)
           .subscribe((choreography) => this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED'));
       });
   }

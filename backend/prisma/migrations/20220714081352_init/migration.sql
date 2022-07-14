@@ -37,8 +37,8 @@ CREATE TABLE "ChoreographyPerson"
 -- CreateTable
 CREATE TABLE "Person"
 (
-    "id"   SERIAL NOT NULL,
-    "name" VARCHAR(255),
+    "id"   SERIAL       NOT NULL,
+    "name" VARCHAR(255) NOT NULL,
 
     CONSTRAINT "Person_pkey" PRIMARY KEY ("id")
 );
@@ -46,10 +46,10 @@ CREATE TABLE "Person"
 -- CreateTable
 CREATE TABLE "User"
 (
-    "id"        SERIAL NOT NULL,
+    "id"        SERIAL       NOT NULL,
     "firstName" VARCHAR(255),
     "lastName"  VARCHAR(255),
-    "email"     VARCHAR(255),
+    "email"     VARCHAR(255) NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -57,8 +57,8 @@ CREATE TABLE "User"
 -- CreateTable
 CREATE TABLE "Team"
 (
-    "id"   SERIAL NOT NULL,
-    "name" VARCHAR(255),
+    "id"   SERIAL       NOT NULL,
+    "name" VARCHAR(255) NOT NULL,
 
     CONSTRAINT "Team_pkey" PRIMARY KEY ("id")
 );
@@ -102,7 +102,7 @@ CREATE INDEX "_TeamToUser_B_index" ON "_TeamToUser" ("B");
 
 -- AddForeignKey
 ALTER TABLE "Carpet"
-    ADD CONSTRAINT "Carpet_choreographyId_fkey" FOREIGN KEY ("choreographyId") REFERENCES "Choreography" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+    ADD CONSTRAINT "Carpet_choreographyId_fkey" FOREIGN KEY ("choreographyId") REFERENCES "Choreography" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Choreography"
@@ -110,11 +110,11 @@ ALTER TABLE "Choreography"
 
 -- AddForeignKey
 ALTER TABLE "ChoreographyPerson"
-    ADD CONSTRAINT "ChoreographyPerson_choreographyId_fkey" FOREIGN KEY ("choreographyId") REFERENCES "Choreography" ("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+    ADD CONSTRAINT "ChoreographyPerson_choreographyId_fkey" FOREIGN KEY ("choreographyId") REFERENCES "Choreography" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ChoreographyPerson"
-    ADD CONSTRAINT "ChoreographyPerson_personId_fkey" FOREIGN KEY ("personId") REFERENCES "Person" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ADD CONSTRAINT "ChoreographyPerson_personId_fkey" FOREIGN KEY ("personId") REFERENCES "Person" ("id") ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UsersOnTeams"

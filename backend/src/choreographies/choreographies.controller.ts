@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ChoreographiesService } from './choreographies.service';
 import { Choreography, ChoreographyDto } from './choreographyDtos';
 
@@ -24,5 +24,10 @@ export class ChoreographiesController {
   @Delete(':id')
   delete(@Param('id') id: string): Promise<Choreography> {
     return this.choreographiesService.deleteOne(parseInt(id, 10));
+  }
+
+  @Put()
+  update(@Body() choreography: ChoreographyDto): Promise<Choreography> {
+    return this.choreographiesService.update(choreography);
   }
 }
