@@ -6,12 +6,12 @@ import {
 } from '@abacritt/angularx-social-login';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map, Observable, Subscription, take } from 'rxjs';
+import { map, Observable, Subject, Subscription, take } from 'rxjs';
 import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService implements OnDestroy {
-  user = new BehaviorSubject<Partial<SocialUser>>({});
+  user = new Subject<Partial<SocialUser>>();
   userSubscription: Subscription | null = null;
 
   constructor(private authService: SocialAuthService, private router: Router, private userService: UserService) {
