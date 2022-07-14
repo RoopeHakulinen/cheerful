@@ -1,10 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ChoreographiesService } from './choreographies.service';
-import { Choreography } from './choreography.entity';
-
-export interface CreateChoreographyDto {
-  name: string;
-}
+import { Choreography, ChoreographyDto } from './choreographyDtos';
 
 @Controller('choreographies')
 export class ChoreographiesController {
@@ -12,7 +8,7 @@ export class ChoreographiesController {
 
   @Get()
   getAll(): Promise<Choreography[]> {
-    return this.choreographiesService.findAll();
+    return this.choreographiesService.findAll(1);
   }
 
   @Get(':id')
@@ -21,7 +17,12 @@ export class ChoreographiesController {
   }
 
   @Post()
-  create(@Body() createChoreographyDto: CreateChoreographyDto): Promise<Choreography> {
-    return this.choreographiesService.create(createChoreographyDto);
+  create(@Body() choreography: ChoreographyDto): Promise<Choreography> {
+    return this.choreographiesService.create(choreography);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string): Promise<Choreography> {
+    return this.choreographiesService.deleteOne(parseInt(id, 10));
   }
 }

@@ -1,0 +1,12 @@
+.list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 10px;
+  column-gap: 10px;
+
+  .choreography-info {
+    display: flex;
+    column-gap: 10px;
+  }
+}

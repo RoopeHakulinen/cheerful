@@ -36,7 +36,8 @@
   },
   "CHOREOGRAPHIES": {
     "TITLE": "Koreografiat",
-    "MY_CHOREOGRAPHIES": "Minun koreografiat"
+    "MY_CHOREOGRAPHIES": "Minun koreografiat",
+    "ADD_CHOREOGRAPHY": "Lisää koreografia"
   },
   "CHOREOGRAPHY": {
     "CHANGE_PERSON": "Vaihda henkilöä",
@@ -83,6 +84,8 @@
     "ADD_CONTENT": "Lisää kuvio",
     "ADD_TRANSITION": "Lisää siirtymä",
     "CHOREOGRAPHY_SAVED": "Koreografia tallennettu.",
+    "CHOREOGRAPHY_CREATED": "Koreografia luotu.",
+    "CHOREOGRAPHY_DELETED": "Koreografia poistettu.",
     "CHOREOGRAPHY_LOADED": "Koreografia ladattu.",
     "NO_CHOREOGRAPHIES_IN_STORAGE": "Ei koreografioita muistissa.",
     "SAVE_TO_STORAGE_TOOLTIP": "Tallenna koreografia muistiin",

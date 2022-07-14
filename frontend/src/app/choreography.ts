@@ -9,10 +9,10 @@ export interface ChoreographyPerson {
 export interface Choreography {
   id: number;
   name: string;
-  team: string;
+  teamId: number;
   frames: Frame[];
   carpet: Carpet;
-  people: ChoreographyPerson[];
+  choreographyPerson: ChoreographyPerson[];
 }
 
 export function createDeepCopy(choreography: any): any {
