@@ -95,6 +95,7 @@
     "LOAD_FROM_STORAGE_TOOLTIP": "Lataa koreografia muistista",
     "SAVE_TO_FILE_TOOLTIP": "Tallenna tiedostoksi",
     "LOAD_FROM_FILE_TOOLTIP": "Lataa koreografia tiedostosta",
+    "UPDATE_NAME_TOOLTIP": "Päivitä koreografian nimi",
     "SAVE_CHOREOGRAPHY_DIALOG": {
       "TITLE": "Koreografian tallennus",
       "TEXT": "Oletko varma? Tämä operaatio poistaa aiemmin tallennetun koreografian."
