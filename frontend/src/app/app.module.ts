@@ -84,6 +84,7 @@ import { ExercisesPlanningComponent } from './exercises-planning/exercises-plann
 import { ChoreographyServiceMock } from './choreography.service.mock';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UserService } from './user.service';
+import { EditNameDialogComponent } from './edit-name-dialog/edit-name-dialog.component';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
 
@@ -134,6 +135,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     SortInputComponent,
     HomeComponent,
     ExercisesPlanningComponent,
+    EditNameDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
