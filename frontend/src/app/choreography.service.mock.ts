@@ -31,11 +31,15 @@ export class ChoreographyServiceMock {
   ];
 
   getChoreographies(): Observable<Choreography[]> {
-    return timer(0).pipe(map(() => this.choreographies));
+    return timer(0).pipe(map(() => ({status: 'success', data: this.choreographies} as any)));
   }
 
   getChoreographyById(id: number): Observable<Choreography> {
     return timer(0).pipe(map(() => this.choreographies[0]));
+  }
+
+  updateChoreography(choreography: Choreography): Observable<Choreography> {
+    return timer(0).pipe(map(() => choreography));
   }
 
   generateGrid(): ChoreographyItem[] {

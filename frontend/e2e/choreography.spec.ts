@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { ChoreographiesPage } from './choreography-page';
 
 test.describe('Frame manager', function () {
   test.beforeEach(async ({ page }) => {
@@ -13,7 +14,32 @@ test.describe('Frame manager', function () {
 
 });
 
-test.describe('Carpet', function () {
+test.describe('Choreography', function () {
+  test('Open a single choreography', async ({ page }) => {
+    const choreographiesPage = new ChoreographiesPage(page);
+    const choreography = 'SM-karsinnat';
 
+    await choreographiesPage.goto();
+    await choreographiesPage.checkPageTitle();
+    
+    await choreographiesPage.selectChoreography(choreography);
+    await choreographiesPage.checkPageTitleIs(choreography);
+  });
+
+  test('Change choreography name', async ({ page }) => {
+    const choreographiesPage = new ChoreographiesPage(page);
+    const choreography = 'SM-karsinnat';
+    const newName = 'SM-karsinnat-2';
+
+    await choreographiesPage.goto();
+    await choreographiesPage.checkPageTitle();
+
+    await choreographiesPage.selectChoreography(choreography);
+    await choreographiesPage.checkPageTitleIs(choreography);
+
+    await choreographiesPage.clickNameChangeButton();
+    await choreographiesPage.editName(newName);
+
+    await choreographiesPage.checkPageTitleIs(newName);
+  });
 });
-
