@@ -36,6 +36,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreography-dialog/save-choreography-dialog.component';
 import { LoadChoreographyDialogComponent } from '../frame-manager/load-choreography-dialog/load-choreography-dialog.component';
 import { filter } from 'rxjs';
+import { EditNameDialogComponent } from '../edit-name-dialog/edit-name-dialog.component';
 
 export interface FrameForShowing extends Frame {
   originalFrameIndex: number;
@@ -466,5 +467,22 @@ export class ChoreographyComponent {
       return;
     }
     this.activeChoreographyItem = item;
+  }
+
+  openEditName(): void {
+    const dialogRef = this.dialog.open(EditNameDialogComponent, {
+      width: 'fit-content',
+      data: {name: this.choreography.name},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === null) {
+        return;
+      }
+      this.choreography.name = result;
+      this.choreographyService
+          .updateChoreography(this.choreography)
+          .subscribe(() => this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED'));
+    });
   }
 }

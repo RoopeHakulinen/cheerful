@@ -63,6 +63,13 @@
           mat-raised-button>
           <mat-icon>file_upload</mat-icon>
         </button>
+        <button
+          (click)="openEditName()"
+          [matTooltip]="'FRAME_MANAGER.UPDATE_NAME_TOOLTIP' | translate"
+          class="single-button"
+          mat-raised-button>
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
       <app-eight-counter
         [activeFrame]="actualActiveFrameIndex"

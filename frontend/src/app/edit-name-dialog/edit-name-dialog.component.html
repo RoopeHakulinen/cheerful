@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>{{'COMMON.NAME' | translate}}</mat-label>
+        <input matInput [(ngModel)]="data.name">
+    </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="null">{{'COMMON.CANCEL' | translate}}</button>
+    <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>{{'COMMON.SAVE' | translate}}</button>
+</div>
