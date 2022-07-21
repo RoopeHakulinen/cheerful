@@ -19,14 +19,13 @@ model Carpet {
 }
 
 model Choreography {
-  id                    Int                     @id @default(autoincrement())
-  name                  String                  @db.VarChar(255)
-  frames                Json                    @db.Json
-  carpet                Carpet?
-  choreographyPerson    ChoreographyPerson[]
-  team                  Team                    @relation(fields: [teamId], references: [id])
-  ChoreographiesOnTeams ChoreographiesOnTeams[]
-  teamId                Int
+  id                 Int                  @id @default(autoincrement())
+  name               String               @db.VarChar(255)
+  frames             Json                 @db.Json
+  carpet             Carpet?
+  choreographyPerson ChoreographyPerson[]
+  team               Team                 @relation(fields: [teamId], references: [id])
+  teamId             Int
 }
 
 model ChoreographyPerson {
@@ -45,37 +44,30 @@ model Person {
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  firstName    String?        @db.VarChar(255)
-  lastName     String?        @db.VarChar(255)
-  email        String         @unique @db.VarChar(255)
-  teams        Team[]
-  UsersOnTeams UsersOnTeams[]
+  id        Int     @id @default(autoincrement())
+  firstName String? @db.VarChar(255)
+  lastName  String? @db.VarChar(255)
+  email     String  @unique @db.VarChar(255)
+  teams     Team[]
 }
 
 model Team {
-  id                    Int                     @id @default(autoincrement())
-  name                  String                  @db.VarChar(255)
-  choreographies        Choreography[]
-  ChoreographiesOnTeams ChoreographiesOnTeams[]
-  users                 User[]
-  UsersOnTeams          UsersOnTeams[]
+  id             Int            @id @default(autoincrement())
+  name           String         @db.VarChar(255)
+  choreographies Choreography[]
+  users          User[]
 }
 
-model UsersOnTeams {
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-  team   Team @relation(fields: [teamId], references: [id])
-  teamId Int
-
-  @@id([userId, teamId])
+model Exercise {
+  id          Int    @id @default(autoincrement())
+  name        String @db.VarChar(255)
+  description String @db.VarChar(255)
+  difficulty  Int
+  tags        Tag[]
 }
 
-model ChoreographiesOnTeams {
-  choreography   Choreography @relation(fields: [choreographyId], references: [id])
-  choreographyId Int
-  team           Team         @relation(fields: [teamId], references: [id])
-  teamId         Int
-
-  @@id([choreographyId, teamId])
+model Tag {
+  id        Int        @id @default(autoincrement())
+  name      String     @db.VarChar(255)
+  exercises Exercise[]
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Exercise } from '../exercises/exercises.component';
 import { SortOption } from '../sort-input/sort-input.component';
@@ -9,10 +9,10 @@ import { Tag } from '../tags/tags.component';
   templateUrl: './exercises-listing.component.html',
   styleUrls: ['./exercises-listing.component.scss']
 })
-export class ExercisesListingComponent implements OnInit {
+export class ExercisesListingComponent implements OnInit, OnChanges {
 
   @Input()
-  exercises!: Exercise[];
+  exercises!: Readonly<Exercise[]>;
 
   sortedExercises: Exercise[] = [];
   filteredExercises: Exercise[] = [];
@@ -25,7 +25,7 @@ export class ExercisesListingComponent implements OnInit {
   currentPage = 0;
   pageSize = 20;
   currentSortBy = 'name';
-  
+
   sortOptions: SortOption[] = [
     { name: 'NAME', value: 'name' },
     { name: 'DIFFICULTY', value: 'difficulty' },
@@ -35,7 +35,12 @@ export class ExercisesListingComponent implements OnInit {
 
   ngOnInit(): void {
     this.filterExercises();
-    this.sortExercises(this.currentSortBy);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.exercises) {
+      this.filterExercises();
+    }
   }
 
   updateMinDifficulty(min: number): void {

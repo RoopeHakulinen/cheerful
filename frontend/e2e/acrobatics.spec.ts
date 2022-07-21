@@ -10,7 +10,7 @@ test.describe('Acrobatics', function () {
     await acrobaticsPage.goto();
   });
 
-  test('Open single exercise', async ({ page }) => {
+  test.skip('Open single exercise', async ({ page }) => {
 
     const acrobatic = 'Hyppy';
     const exercise = 'Ponnista';

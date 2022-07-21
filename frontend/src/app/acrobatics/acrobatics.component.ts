@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Exercise, exercises } from '../exercises/exercises.component';
+import { Exercise } from '../exercises/exercises.component';
 import { SortOption } from '../sort-input/sort-input.component';
 
 export interface Acrobatic {
@@ -13,9 +13,9 @@ export interface Acrobatic {
 }
 
 export const acrobatics: Acrobatic[] = [
-  { id: 1, name: 'Hyppy', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'settings_accessibility', difficulty: 2, exercises: [exercises[0], exercises[1]] },
-  { id: 2, name: 'Seisominen', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'accessibility', difficulty: 1, exercises: [exercises[2]] },
-  { id: 3, name: 'Kävely', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'directions_walk', difficulty: 1, exercises: [exercises[3]] },
+  { id: 1, name: 'Hyppy', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'settings_accessibility', difficulty: 2, exercises: [] },
+  { id: 2, name: 'Seisominen', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'accessibility', difficulty: 1, exercises: [] },
+  { id: 3, name: 'Kävely', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'directions_walk', difficulty: 1, exercises: [] },
   { id: 4, name: 'Juoksu', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'directions_run', difficulty: 2, exercises: [] },
   { id: 5, name: 'Heilutus', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'emoji_people', difficulty: 1, exercises: [] },
   { id: 6, name: 'Heitto', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', icon: 'sports_handball', difficulty: 3, exercises: [] },
@@ -39,7 +39,7 @@ export class AcrobaticsComponent implements OnInit {
   currentPage = 0;
   pageSize = 20;
   currentSortBy = 'name';
-  
+
   sortOptions: SortOption[] = [
     { name: 'NAME', value: 'name' },
     { name: 'DIFFICULTY', value: 'difficulty' },

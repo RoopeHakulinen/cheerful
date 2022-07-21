@@ -1,8 +1,18 @@
 <app-toolbar [title]="'EXERCISES.TITLE' | translate"></app-toolbar>
 <div class="create-new-exercise-button">
-    <button mat-raised-button color="primary" routerLink="/app/exercises/new">{{'EXERCISES.CREATE' | translate}}</button>
-    <button mat-raised-button color="primary" routerLink="/app/exercises/planning">{{'EXERCISES.PLANNING' | translate}}</button>
+    <button mat-raised-button color="primary" routerLink="/app/exercises/new">{{'EXERCISES.CREATE' |
+        translate}}</button>
+    <button mat-raised-button color="primary" routerLink="/app/exercises/planning">{{'EXERCISES.PLANNING' |
+        translate}}</button>
 </div>
-<div class="exercises-container">
-    <app-exercises-listing [exercises]="availableExercises"></app-exercises-listing>
+<div class="exercises-container" *ngIf="exercises$ | async as exercises">
+    <ng-container [ngSwitch]="exercises.status">
+        <div *ngSwitchCase="'loading'" class="loading">
+            <mat-progress-spinner diameter="30" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <div *ngSwitchCase="'error'">{{ 'COMMON.ERROR' | translate }}</div>
+        <ng-container *ngSwitchDefault>
+            <app-exercises-listing [exercises]="exercises.data!"></app-exercises-listing>
+        </ng-container>
+    </ng-container>
 </div>

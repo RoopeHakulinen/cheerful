@@ -1,19 +1,21 @@
-<app-toolbar [title]="exercise.name" backUrl="/app/exercises"></app-toolbar>
-<div class="exercise-page" fxLayout="column">
-  <div class="edit-exercise-button" fxFlex="1">
-    <button mat-raised-button color="primary" routerLink="/app/exercises/{{exercise.id}}/edit">{{'EXERCISES.EDIT' | translate}}</button>
-    <button mat-raised-button color="primary" (click)="copyAndCreateNewExercise()" >{{'EXERCISES.CREATE_NEW_COPY' | translate}}</button>
+<ng-container *ngIf="exercise$ | async as exercise">
+  <app-toolbar [title]="exercise.name" backUrl="/app/exercises"></app-toolbar>
+  <div class="exercise-page" fxLayout="column">
+    <div class="edit-exercise-button" fxFlex="1">
+      <button mat-raised-button color="primary" routerLink="/app/exercises/{{exercise.id}}/edit">{{'EXERCISES.EDIT' | translate}}</button>
+      <button mat-raised-button color="primary" (click)="copyAndCreateNewExercise(exercise)" >{{'EXERCISES.CREATE_NEW_COPY' | translate}}</button>
+    </div>
+    <div class="exercise" fxLayout="column" fxFlexAlign="center" fxFlex="grow">
+      <div class="exercise-difficulty">
+        <strong>{{'EXERCISES.DIFFICULTY' | translate}} - {{exercise.difficulty}}</strong>
+      </div>
+      <div class="exercise-tags-list">
+        <app-tags [tags]="exercise.tags"></app-tags>
+      </div>
+      <div class="exercise-description">
+        <p>{{exercise.description}}</p>
+      </div>
+    </div>
+    <div fxFlex="1" fxFlexOrder.lt-md="3"></div>
   </div>
-  <div class="exercise" fxLayout="column" fxFlexAlign="center" fxFlex="grow">
-    <div class="exercise-difficulty">
-      <strong>{{'EXERCISES.DIFFICULTY' | translate}} - {{exercise.difficulty}}</strong>
-    </div>
-    <div class="exercise-tags-list">
-      <app-tags [tags]="exercise.tags"></app-tags>
-    </div>
-    <div class="exercise-description">
-      <p>{{exercise.description}}</p>
-    </div>
-  </div>
-  <div fxFlex="1" fxFlexOrder.lt-md="3"></div>
-</div>
+</ng-container>
