@@ -1,20 +1,20 @@
 .main-content {
-    display: flex;
-    flex-direction: row;
-  
-    .side-list {
-      width: 400px;
-  
-      .list-item {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin-left: 10px;
-        column-gap: 10px;
-      }
-  
-      .loading {
-        padding-left: 60px;
-      }
+  display: flex;
+  flex-direction: row;
+
+  .side-list {
+    width: 400px;
+
+    .list-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 10px;
+      column-gap: 10px;
+    }
+
+    .loading {
+      padding-left: 60px;
     }
   }
+}
