@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Choreography } from './choreography';
 import { ChoreographyItem } from './choreography-item';
 import { HttpClient } from '@angular/common/http';
-import { query, QueryOutput } from 'rx-query';
+import { refreshQuery, QueryOutput, query } from 'rx-query';
 
 @Injectable()
 export class ChoreographyService {
@@ -36,20 +36,16 @@ export class ChoreographyService {
     return query('choreographies', () => this.http.get<Choreography[]>('/api/choreographies'));
   }
 
-  saveChoreography(choreography: Choreography): Observable<Choreography> {
-    return this.http.post<Choreography>(`/api/choreographies`, choreography);
-  }
-
   createChoreography(): Observable<Choreography> {
-    return this.saveChoreography(this.emptyChoreography);
+    return this.http.post<Choreography>(`/api/choreographies`, this.emptyChoreography).pipe(tap(() => this.refreshChoreographies()));
   }
 
   updateChoreography(choreography: Choreography): Observable<Choreography> {
-    return this.http.put<Choreography>(`/api/choreographies`, choreography);
+    return this.http.put<Choreography>(`/api/choreographies`, choreography).pipe(tap(() => this.refreshChoreographies()));
   }
 
   deleteChoreographyById(id: number): Observable<Choreography> {
-    return this.http.delete<Choreography>(`/api/choreographies/${id}`);
+    return this.http.delete<Choreography>(`/api/choreographies/${id}`).pipe(tap(() => this.refreshChoreographies()));
   }
 
   getChoreographyById(id: number): Observable<Choreography> {
@@ -64,5 +60,9 @@ export class ChoreographyService {
         shape: 'rounded',
         position: 'center',
       }));
+  }
+
+  refreshChoreographies() {
+    refreshQuery('choreographies');
   }
 }

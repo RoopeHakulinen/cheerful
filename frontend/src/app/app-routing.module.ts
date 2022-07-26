@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { LoggedInGuard } from './logged-in.guard';
 import { NotLoggedInGuard } from './not-logged-in.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { TeamsComponent } from './teams/teams.component';
 
 const routes: Routes = [
   {
@@ -73,6 +74,10 @@ const routes: Routes = [
       {
         path: 'acrobatics/:id',
         component: SingleAcrobaticPageComponent,
+      },
+      {
+        path: 'teams',
+        component: TeamsComponent,
       },
       {
         path: '**',

@@ -19,6 +19,11 @@
     <mat-icon mat-list-icon>account_circle</mat-icon>
     <h4 mat-line translate="SIDE_MENU.MY_PROFILE"></h4>
   </mat-list-item>
+  <mat-list-item (click)="menuService.close()" class="clickable" routerLink="/app/teams">
+    <mat-icon mat-list-icon>groups</mat-icon>
+    <h4 mat-line translate="SIDE_MENU.TEAMS.TITLE"></h4>
+    <p mat-line translate="SIDE_MENU.TEAMS.SUBHEADER"></p>
+  </mat-list-item>
   <mat-list-item (click)="menuService.close()" class="clickable" routerLink="/app/about">
     <mat-icon mat-list-icon>info</mat-icon>
     <h4 mat-line translate="SIDE_MENU.ABOUT"></h4>

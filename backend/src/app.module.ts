@@ -7,10 +7,12 @@ import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { ExercisesController } from './exercises/exercises.controller';
 import { ExercisesService } from './exercises/exercises.service';
+import { TeamsController } from './teams/teams.controller';
+import { TeamsService } from './teams/teams.service';
 
 @Module({
   imports: [],
-  controllers: [AppController, ChoreographiesController, UsersController, ExercisesController],
-  providers: [PrismaService, ChoreographiesService, UsersService, ExercisesService],
+  controllers: [AppController, ChoreographiesController, UsersController, ExercisesController, TeamsController],
+  providers: [PrismaService, ChoreographiesService, UsersService, ExercisesService, TeamsService],
 })
 export class AppModule {}

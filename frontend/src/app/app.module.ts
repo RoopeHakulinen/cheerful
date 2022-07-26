@@ -87,13 +87,18 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UserService } from './user.service';
 import { EditNameDialogComponent } from './edit-name-dialog/edit-name-dialog.component';
 import { ExerciseService } from './exercise.service';
+import { TeamsComponent } from './teams/teams.component';
+import { TeamService } from './team.service';
+import { TeamServiceMock } from './team.service.mock';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
 let exerciseServiceProvider: Provider = ExerciseService;
+let teamServiceProvider: Provider = TeamService;
 
 if (environment.e2e) {
   choreographyServiceProvider = { provide: ChoreographyService, useClass: ChoreographyServiceMock };
   exerciseServiceProvider = { provide: ExerciseService, useClass: ExerciseServiceMock };
+  teamServiceProvider = { provide: TeamService, useClass: TeamServiceMock };
 }
 
 export function HttpLoaderFactory(http: HttpClient): any {
@@ -140,6 +145,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     HomeComponent,
     ExercisesPlanningComponent,
     EditNameDialogComponent,
+    TeamsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -187,6 +193,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
   providers: [
     choreographyServiceProvider,
     exerciseServiceProvider,
+    teamServiceProvider,
     MenuService,
     UserService,
     IosInstallService,

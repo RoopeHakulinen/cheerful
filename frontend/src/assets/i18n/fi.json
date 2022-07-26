@@ -17,6 +17,7 @@
     "EXPORT_JSON": "Tallenna (.json)",
     "IMPORT_JSON": "Lataa (.json)",
     "CREATE": "Luo",
+    "CREATE_NEW": "Luo uusi",
     "DURATION": "Kesto",
     "BLACK": "Musta",
     "RED": "Punainen",
@@ -143,6 +144,12 @@
     "CREATE_NEW_COPY": "Luo kopio",
     "PLANNING": "Suunnittele harjoitus"
   },
+  "TEAMS": {
+    "TITLE": "Joukkueet",
+    "CREATE": "Luo joukkue",
+    "EDIT": "Muokkaa joukkuetta",
+    "NAME": "Nimi"
+  },
   "PAGINATION": {
     "FIRST_PAGE": "Ensimmäinen sivu",
     "ITEMS_PER_PAGE": "Kohteita per sivu",
@@ -171,6 +178,10 @@
     "ACROBATICS": {
       "TITLE": "Akrobatiat",
       "SUBHEADER": "Kokoelma akrobatioita"
+    },
+    "TEAMS": {
+      "TITLE": "Joukkueet",
+      "SUBHEADER": "Hallitse joukkueita"
     },
     "LOGOUT": "Kirjaudu ulos",
     "MY_PROFILE": "Oma profiili",

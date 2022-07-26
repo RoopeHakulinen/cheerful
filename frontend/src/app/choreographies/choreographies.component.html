@@ -9,25 +9,19 @@
         </div>
         <div *ngSwitchCase="'error'">{{ 'COMMON.ERROR' | translate }}</div>
         <ng-container *ngSwitchDefault>
-          <div *ngFor="let choreography of choreographies.data" class="list-item">
+          <div *ngFor="let choreography of choreographies.data" class="list-item clickable">
             <mat-icon mat-list-icon>border_outer</mat-icon>
-            <span [routerLink]="['/app/choreographies', choreography.id]" class="choreography-info clickable">
+            <span [routerLink]="['/app/choreographies', choreography.id]" class="choreography-info">
               <p>{{ choreography.name }}</p>
             </span>
-            <span (click)="deleteChoreography(choreography.id)" class="clickable"><mat-icon>remove</mat-icon></span>
+            <span (click)="deleteChoreography(choreography.id)"><mat-icon>remove</mat-icon></span>
           </div>
         </ng-container>
       </ng-container>
     </ng-container>
-    <div (click)="createNewChoreography()" class="clickable list-item italic">
-      <mat-icon mat-list-icon>border_outer</mat-icon>
-      <span class="choreography-info">
-        <p>{{ 'CHOREOGRAPHIES.ADD_CHOREOGRAPHY' | translate }}</p>
-      </span>
-      <span class="clickable">
-        <mat-icon>add</mat-icon>
-      </span>
-    </div>
+    <button mat-raised-button color="primary" (click)="createNewChoreography()">
+      {{ 'COMMON.CREATE_NEW' | translate }}
+    </button>
   </mat-list>
   <div *ngIf="user$ | async as user">
     <h2>{{ 'COMMON.HELLO' | translate }} {{ user.firstName }}!</h2>
