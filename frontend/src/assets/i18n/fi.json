@@ -148,7 +148,8 @@
     "TITLE": "Joukkueet",
     "CREATE": "Luo joukkue",
     "EDIT": "Muokkaa joukkuetta",
-    "NAME": "Nimi"
+    "NAME": "Nimi",
+    "TEAM_N_DELETED": "Joukkue {{name}} poistettu"
   },
   "PAGINATION": {
     "FIRST_PAGE": "Ensimmäinen sivu",

@@ -32,7 +32,7 @@ export class TeamService {
     return this.http.get<Team>(`/api/teams/${id}`);
   }
 
-  refreshTeams(): void {
+  private refreshTeams(): void {
     refreshQuery('teams');
   }
 }

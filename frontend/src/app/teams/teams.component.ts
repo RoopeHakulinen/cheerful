@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { QueryOutput } from 'rx-query';
 import { Observable } from 'rxjs';
 import { Team } from '../team';
@@ -17,6 +19,8 @@ export class TeamsComponent {
   constructor(
     private router: Router,
     public teamService: TeamService,
+    private translate: TranslateService,
+    private snackBar: MatSnackBar,
   ) {
     this.teams$ = this.teamService.getTeams();
   }
@@ -26,7 +30,10 @@ export class TeamsComponent {
   }
 
   public deleteTeam(id: number): void {
-    this.teamService.deleteTeamById(id).subscribe();
+    this.teamService.deleteTeamById(id)
+      .subscribe(team => this.snackBar.open(
+        this.translate.instant(`TEAMS.TEAM_N_DELETED`,{name: team.name})
+      ));
   }
 
 }

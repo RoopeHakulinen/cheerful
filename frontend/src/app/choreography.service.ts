@@ -62,7 +62,7 @@ export class ChoreographyService {
       }));
   }
 
-  refreshChoreographies() {
+  private refreshChoreographies(): void {
     refreshQuery('choreographies');
   }
 }
