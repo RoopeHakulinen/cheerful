@@ -7,7 +7,7 @@ import { ExerciseDto, ExerciseToBeCreatedDto } from './exerciseDtos';
 export class ExercisesService {
   constructor(private prisma: PrismaService) { }
 
-  async findAll(teamId: number): Promise<Exercise[]> {
+  async findAll(): Promise<Exercise[]> {
     return await this.prisma.exercise.findMany({ include: { tags: true } });
   }
 

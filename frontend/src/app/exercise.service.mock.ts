@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, timer } from 'rxjs';
+import { map, Observable, of, timer } from 'rxjs';
 import { Exercise, ExerciseToBeCreated } from './exercises/exercises.component';
 import { tags } from './tags/tags.component';
 
@@ -30,19 +30,20 @@ export class ExerciseServiceMock {
   ];
 
   getExercises(): Observable<Exercise[]> {
-    return timer(0).pipe(map(() => ({ status: 'success', data: this.exercises } as any)));
+    return of({ status: 'success', data: this.exercises } as any);
   }
 
   getExerciseById(id: number): Observable<Exercise> {
-    return timer(0).pipe(map(() => this.exercises.find(exercise => exercise.id === id)!));
+    return of(this.exercises.find(exercise => exercise.id === id)!);
   }
 
   updateExercise(exercise: Exercise): Observable<Exercise> {
-    return timer(0).pipe(map(() => exercise));
+    return of(exercise);
   }
 
   createExercise(exercise: ExerciseToBeCreated): Observable<Exercise> {
-    this.exercises.push({ id: 22, ...exercise });
-    return timer(0).pipe(map(() => ({ id: 22, ...exercise })));
+    const newExercise = { id: 22, ...exercise };
+    this.exercises.push(newExercise);
+    return of(newExercise);
   }
 }

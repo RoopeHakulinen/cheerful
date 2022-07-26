@@ -20,8 +20,7 @@ export type ExerciseToBeCreated = Omit<Exercise, 'id'>;
   styleUrls: ['./exercises.component.scss']
 })
 export class ExercisesComponent {
-  //availableExercises = exercises;
-
+  
   exercises$: Observable<QueryOutput<Exercise[]>>;
 
   constructor(public exerciseService: ExerciseService) {
