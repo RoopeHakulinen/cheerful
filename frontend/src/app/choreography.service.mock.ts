@@ -35,7 +35,7 @@ export class ChoreographyServiceMock {
   }
 
   getChoreographyById(id: number): Observable<Choreography> {
-    return of(this.choreographies[0]);
+    return of(this.choreographies.find(choreography => choreography.id === id)!);
   }
 
   updateChoreography(choreography: Choreography): Observable<Choreography> {

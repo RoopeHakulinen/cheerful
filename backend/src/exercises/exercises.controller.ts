@@ -10,7 +10,7 @@ export class ExercisesController {
 
   @Get()
   getAll(): Promise<Exercise[]> {
-    return this.exercisesService.findAll(1);
+    return this.exercisesService.findAll();
   }
 
   @Get(':id')

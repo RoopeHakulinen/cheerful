@@ -1,0 +1,25 @@
+<app-toolbar [title]="'TEAMS.TITLE' | translate"></app-toolbar>
+<div class="main-content">
+    <mat-list class="side-list">
+      <ng-container *ngIf="teams$ | async as teams">
+        <ng-container [ngSwitch]="teams.status">
+          <div *ngSwitchCase="'loading'" class="loading">
+            <mat-progress-spinner diameter="30" mode="indeterminate"></mat-progress-spinner>
+          </div>
+          <div *ngSwitchCase="'error'">{{ 'COMMON.ERROR' | translate }}</div>
+          <ng-container *ngSwitchDefault>
+            <div *ngFor="let team of teams.data" class="list-item clickable">
+              <mat-icon mat-list-icon>border_outer</mat-icon>
+              <span [routerLink]="['/app/teams', team.id]" class="team-info">
+                <p>{{ team.name }}</p>
+              </span>
+              <span (click)="deleteTeam(team.id)"><mat-icon>remove</mat-icon></span>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <button mat-raised-button color="primary" (click)="createNewTeam()">
+        {{ 'COMMON.CREATE_NEW' | translate }}
+      </button>
+    </mat-list>
+</div>

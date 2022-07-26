@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of, timer } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Exercise, ExerciseToBeCreated } from './exercises/exercises.component';
 import { tags } from './tags/tags.component';
 

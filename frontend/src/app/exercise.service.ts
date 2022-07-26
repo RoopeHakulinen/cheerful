@@ -29,7 +29,7 @@ export class ExerciseService {
     return this.http.get<Exercise>(`/api/exercises/${id}`);
   }
 
-  refreshExercises(): void {
+  private refreshExercises(): void {
     refreshQuery('exercises');
   }
 }

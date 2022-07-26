@@ -3,7 +3,7 @@ import { ChoreographyService } from '../choreography.service';
 import { Choreography } from '../choreography';
 import { Observable } from 'rxjs';
 import { ToastService } from '../toast.service';
-import { QueryOutput, refreshQuery } from 'rx-query';
+import { QueryOutput } from 'rx-query';
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { AuthService } from '../auth.service';
 
@@ -26,14 +26,12 @@ export class ChoreographiesComponent {
 
   createNewChoreography(): void {
     this.choreographyService.createChoreography().subscribe((choreography) => {
-      refreshQuery('choreographies');
       return this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_CREATED');
     });
   }
 
   deleteChoreography(id: number): void {
     this.choreographyService.deleteChoreographyById(id).subscribe((choreography) => {
-      refreshQuery('choreographies');
       return this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_DELETED');
     });
   }
