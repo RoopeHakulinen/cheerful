@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, timer } from 'rxjs';
+import { map, Observable, of, timer } from 'rxjs';
 import { Choreography } from './choreography';
 import { ChoreographyItem } from './choreography-item';
 
@@ -31,15 +31,15 @@ export class ChoreographyServiceMock {
   ];
 
   getChoreographies(): Observable<Choreography[]> {
-    return timer(0).pipe(map(() => ({status: 'success', data: this.choreographies} as any)));
+    return of({status: 'success', data: this.choreographies} as any);
   }
 
   getChoreographyById(id: number): Observable<Choreography> {
-    return timer(0).pipe(map(() => this.choreographies[0]));
+    return of(this.choreographies[0]);
   }
 
   updateChoreography(choreography: Choreography): Observable<Choreography> {
-    return timer(0).pipe(map(() => choreography));
+    return of(choreography);
   }
 
   generateGrid(): ChoreographyItem[] {

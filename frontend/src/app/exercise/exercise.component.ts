@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Exercise, exercises } from '../exercises/exercises.component';
+import { Observable } from 'rxjs';
+import { ExerciseService } from '../exercise.service';
+import { Exercise } from '../exercises/exercises.component';
 
 @Component({
   selector: 'app-exercise',
@@ -9,17 +11,17 @@ import { Exercise, exercises } from '../exercises/exercises.component';
 })
 export class ExerciseComponent {
 
-  exercise!: Exercise;
+  exercise$!: Observable<Exercise>;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private exerciseService: ExerciseService) {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    this.exercise = exercises.find(exercise => exercise.id === id)!;
+    this.exercise$ = this.exerciseService.getExerciseById(id);
   }
 
-  copyAndCreateNewExercise(): void {
+  copyAndCreateNewExercise(exercise: Exercise): void {
     this.router.navigate(
       ['/app/exercises/new'],
-      { queryParams: { name: this.exercise.name, description: this.exercise.description, difficulty: this.exercise.difficulty, tags: this.exercise.tags.map(tag => tag.id) } }
+      { queryParams: { name: exercise.name, description: exercise.description, difficulty: exercise.difficulty, tags: exercise.tags.map(tag => tag.id) } }
     );
   }
 }

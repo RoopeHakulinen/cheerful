@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Exercise, exercises } from '../exercises/exercises.component';
+import { ExerciseService } from '../exercise.service';
+import { ExerciseToBeCreated } from '../exercises/exercises.component';
 import { tags } from '../tags/tags.component';
 
 @Component({
@@ -10,15 +11,14 @@ import { tags } from '../tags/tags.component';
 })
 export class CreateExerciseComponent implements OnInit {
 
-  exercise: Exercise = {
-    id: Math.floor(Math.random() * 1000),
+  exercise: ExerciseToBeCreated = {
     name: '',
     description: '',
     difficulty: 1,
     tags: []
   };
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute, private exerciseService: ExerciseService) { }
 
   ngOnInit(): void {
     if (!this.route.snapshot.queryParamMap.get('name')) {
@@ -35,8 +35,8 @@ export class CreateExerciseComponent implements OnInit {
       });
   }
 
-  createExercise(exercise: Exercise): void {
-    exercises.push(exercise);
-    this.router.navigate(['/app/exercises/' + this.exercise.id]);
+  createExercise(exercise: ExerciseToBeCreated): void {
+    this.exerciseService.createExercise(exercise)
+      .subscribe((exercise) => this.router.navigate([`/app/exercises/${exercise.id}`]));
   }
 }

@@ -82,14 +82,18 @@ import { LoggedInGuard } from './logged-in.guard';
 import { NotLoggedInGuard } from './not-logged-in.guard';
 import { ExercisesPlanningComponent } from './exercises-planning/exercises-planning.component';
 import { ChoreographyServiceMock } from './choreography.service.mock';
+import { ExerciseServiceMock } from './exercise.service.mock';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UserService } from './user.service';
 import { EditNameDialogComponent } from './edit-name-dialog/edit-name-dialog.component';
+import { ExerciseService } from './exercise.service';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
+let exerciseServiceProvider: Provider = ExerciseService;
 
 if (environment.e2e) {
   choreographyServiceProvider = { provide: ChoreographyService, useClass: ChoreographyServiceMock };
+  exerciseServiceProvider = { provide: ExerciseService, useClass: ExerciseServiceMock };
 }
 
 export function HttpLoaderFactory(http: HttpClient): any {
@@ -182,6 +186,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
   ],
   providers: [
     choreographyServiceProvider,
+    exerciseServiceProvider,
     MenuService,
     UserService,
     IosInstallService,

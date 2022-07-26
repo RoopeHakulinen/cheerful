@@ -1,2 +1,4 @@
-<app-toolbar [title]="'EXERCISES.EDIT' | translate" backUrl="/app/exercises/{{exercise.id}}"></app-toolbar>
-<app-modify-exercise [exercise]="exercise" [buttonKey]="'EXERCISES.EDIT'" (buttonClick)="editExercise($event)"></app-modify-exercise>
+<ng-container *ngIf="exercise$ | async as exercise">
+    <app-toolbar [title]="'EXERCISES.EDIT' | translate" backUrl="/app/exercises/{{exercise.id}}"></app-toolbar>
+    <app-modify-exercise [exercise]="exercise" [buttonKey]="'EXERCISES.EDIT'" (buttonClick)="editExercise($event)"></app-modify-exercise>
+</ng-container>

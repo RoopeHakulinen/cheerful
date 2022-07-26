@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { exercises, Exercise } from '../exercises/exercises.component';
+import { Exercise, ExerciseToBeCreated } from '../exercises/exercises.component';
 import { Tag, tags } from '../tags/tags.component';
 
 @Component({
@@ -8,19 +8,16 @@ import { Tag, tags } from '../tags/tags.component';
   styleUrls: ['./modify-exercise.component.scss']
 })
 export class ModifyExerciseComponent {
-
-
   @Input()
-  exercise!: Exercise;
+  exercise!: Exercise | ExerciseToBeCreated;
 
   @Input()
   buttonKey!: string;
 
   @Output()
-  buttonClick = new EventEmitter<Exercise>();
+  buttonClick = new EventEmitter<Exercise | ExerciseToBeCreated>();
 
   tags = tags;
-  exercises: Exercise[] = exercises;
   exerciseTags: Tag[] = [];
 
   difficultyRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
