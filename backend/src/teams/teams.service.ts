@@ -15,6 +15,7 @@ export class TeamsService {
   async findOne(id: number): Promise<Team> {
     return await this.prisma.team.findUnique({
       where: { id: id },
+      include: { users: true, choreographies: true },
     });
   }
 

@@ -1,0 +1,52 @@
+<ng-container *ngIf="team$ | async as team">
+    <app-toolbar [title]="team.name" backUrl="/app/teams"></app-toolbar>
+    <div class="save-button">
+        <button mat-raised-button color="primary" (click)="saveTeam(team)">
+            {{ 'COMMON.SAVE' | translate }}
+        </button>
+    </div>
+    <div class="main-content" fxLayout="row">
+        <mat-list class="side-list">
+            <h3 mat-subheader>{{'TEAMS.TEAM_MEMBERS' | translate}}</h3>
+            <div *ngFor="let person of team.people" class="list-item clickable">
+                <mat-icon mat-list-icon>person</mat-icon>
+                <span>
+                    <p>{{ person.name }}</p>
+                </span>
+                <span (click)="deleteFromTeam()"><mat-icon>remove</mat-icon></span>
+            </div>
+            <div *ngFor="let person of newUsers" class="list-item clickable">
+                <mat-icon mat-list-icon>person</mat-icon>
+                <span>
+                    <p>{{ person.name }}</p>
+                </span>
+                <span (click)="deleteFromTeam()"><mat-icon>remove</mat-icon></span>
+            </div>
+            <form class="example-form">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Number</mat-label>
+                  <input type="text"
+                         placeholder=""
+                         aria-label="Number"
+                         matInput
+                         [formControl]="myControl"
+                         [matAutocomplete]="auto">
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+            </form>
+        </mat-list>
+        <mat-list class="side-list">
+            <h3 mat-subheader>{{'TEAMS.TEAM_CHOREOGRAPHIES' | translate}}</h3>
+            <div *ngFor="let choreography of team.choreographies" class="list-item clickable">
+                <mat-icon mat-list-icon>border_outer</mat-icon>
+                <span>
+                    <p>{{ choreography.name }}</p>
+                </span>
+            </div>
+        </mat-list>
+    </div>
+</ng-container>

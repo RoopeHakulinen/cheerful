@@ -149,7 +149,9 @@
     "CREATE": "Luo joukkue",
     "EDIT": "Muokkaa joukkuetta",
     "NAME": "Nimi",
-    "TEAM_N_DELETED": "Joukkue {{name}} poistettu"
+    "TEAM_N_DELETED": "Joukkue {{name}} poistettu",
+    "TEAM_MEMBERS": "Joukkueen jäsenet",
+    "TEAM_CHOREOGRAPHIES": "Joukkueen koreografiat"
   },
   "PAGINATION": {
     "FIRST_PAGE": "Ensimmäinen sivu",

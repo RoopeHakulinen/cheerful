@@ -8,6 +8,7 @@ import { query, QueryOutput, refreshQuery } from 'rx-query';
 export class TeamService {
   private emptyTeam: TeamToBeCreated = {
     name: 'Uusi tiimi',
+    people: [],
   };
 
   constructor(private http: HttpClient) {}

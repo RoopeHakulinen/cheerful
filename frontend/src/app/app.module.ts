@@ -90,6 +90,7 @@ import { ExerciseService } from './exercise.service';
 import { TeamsComponent } from './teams/teams.component';
 import { TeamService } from './team.service';
 import { TeamServiceMock } from './team.service.mock';
+import { TeamComponent } from './team/team.component';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
 let exerciseServiceProvider: Provider = ExerciseService;
@@ -146,6 +147,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     ExercisesPlanningComponent,
     EditNameDialogComponent,
     TeamsComponent,
+    TeamComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

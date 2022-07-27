@@ -6,6 +6,10 @@ export class TeamDto {
 
   @IsString()
   name: string;
+
+  choreographies: any[];
+
+  users: any[];
 }
 
-export type TeamToBeCreatedDto = Omit<TeamDto, 'id'>;
+export type TeamToBeCreatedDto = Omit<TeamDto, 'id' | 'choreographies' | 'users'>;
