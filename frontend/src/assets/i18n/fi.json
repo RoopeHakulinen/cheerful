@@ -154,9 +154,9 @@
     "EDIT": "Muokkaa joukkuetta",
     "NAME": "Nimi",
     "TEAM_N_DELETED": "Joukkue {{name}} poistettu",
-    "TEAM_MEMBERS": "Joukkueen jäsenet",
-    "TEAM_CHOREOGRAPHIES": "Joukkueen koreografiat",
-    "TEAM_COACHES": "Joukkueen valmentajat"
+    "MEMBERS": "Joukkueen jäsenet",
+    "CHOREOGRAPHIES": "Joukkueen koreografiat",
+    "COACHES": "Joukkueen valmentajat"
   },
   "PAGINATION": {
     "FIRST_PAGE": "Ensimmäinen sivu",
