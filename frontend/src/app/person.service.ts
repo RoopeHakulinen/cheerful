@@ -3,14 +3,16 @@ import { Observable, tap } from 'rxjs';
 import { Person, PersonToBeCreated } from './person';
 import { HttpClient } from '@angular/common/http';
 import { query, QueryOutput, refreshQuery } from 'rx-query';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class PersonService {
-  private emptyPerson: PersonToBeCreated = {
-    name: 'Uusi person',
-  };
+  
+  constructor(private http: HttpClient, private translate: TranslateService) {}
 
-  constructor(private http: HttpClient) {}
+  private emptyPerson: PersonToBeCreated = {
+    name: this.translate.instant('COMMON.NEW_PERSON'),
+  };
 
   getPeople(): Observable<QueryOutput<Person[]>> {
     return query('people', () => this.http.get<Person[]>('/api/people'));
