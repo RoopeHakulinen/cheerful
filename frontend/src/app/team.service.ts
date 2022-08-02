@@ -8,6 +8,7 @@ import { query, QueryOutput, refreshQuery } from 'rx-query';
 export class TeamService {
   private emptyTeam: TeamToBeCreated = {
     name: 'Uusi tiimi',
+    users: [],
     people: [],
   };
 
@@ -22,15 +23,18 @@ export class TeamService {
   }
 
   updateTeam(team: Team): Observable<Team> {
-    return this.http.put<Team>(`/api/teams`, team).pipe(tap(() => this.refreshTeams()));
+    return this.http.put<Team>(`/api/teams`, team).pipe(tap(() => {
+      this.refreshTeams();
+      refreshQuery('teams', team.id);
+    }));
   }
 
   deleteTeamById(id: number): Observable<Team> {
     return this.http.delete<Team>(`/api/teams/${id}`).pipe(tap(() => this.refreshTeams()));
   }
 
-  getTeamById(id: number): Observable<Team> {
-    return this.http.get<Team>(`/api/teams/${id}`);
+  getTeamById(id: number): Observable<QueryOutput<Team>> {
+    return query('teams', id, (id) => this.http.get<Team>(`/api/teams/${id}`));
   }
 
   private refreshTeams(): void {

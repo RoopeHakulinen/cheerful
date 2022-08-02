@@ -27,7 +27,7 @@ import {
 } from '../choreography-group';
 import { ChoreographyService } from '../choreography.service';
 import { ActivatedRoute } from '@angular/router';
-import { Person } from '../people';
+import { Person } from '../person';
 import { PeopleService } from '../people.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../toast.service';

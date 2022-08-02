@@ -76,6 +76,12 @@ CREATE TABLE "Tag" (
 );
 
 -- CreateTable
+CREATE TABLE "_PersonToTeam" (
+    "A" INTEGER NOT NULL,
+    "B" INTEGER NOT NULL
+);
+
+-- CreateTable
 CREATE TABLE "_TeamToUser" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL
@@ -92,6 +98,12 @@ CREATE UNIQUE INDEX "Carpet_choreographyId_key" ON "Carpet"("choreographyId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_PersonToTeam_AB_unique" ON "_PersonToTeam"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_PersonToTeam_B_index" ON "_PersonToTeam"("B");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_TeamToUser_AB_unique" ON "_TeamToUser"("A", "B");
@@ -116,6 +128,12 @@ ALTER TABLE "ChoreographyPerson" ADD CONSTRAINT "ChoreographyPerson_choreography
 
 -- AddForeignKey
 ALTER TABLE "ChoreographyPerson" ADD CONSTRAINT "ChoreographyPerson_personId_fkey" FOREIGN KEY ("personId") REFERENCES "Person"("id") ON DELETE NO ACTION ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_PersonToTeam" ADD CONSTRAINT "_PersonToTeam_A_fkey" FOREIGN KEY ("A") REFERENCES "Person"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_PersonToTeam" ADD CONSTRAINT "_PersonToTeam_B_fkey" FOREIGN KEY ("B") REFERENCES "Team"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_TeamToUser" ADD CONSTRAINT "_TeamToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Team"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -1,6 +1,10 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class UserDto {
+
+  @IsNumber()
+  id: number;
+
   @IsString()
   firstName: string;
 
@@ -10,3 +14,5 @@ export class UserDto {
   @IsString()
   email: string;
 }
+
+export type UserToBeCreatedDto = Omit<UserDto, 'id'>;

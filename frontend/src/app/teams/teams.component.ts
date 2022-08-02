@@ -26,14 +26,14 @@ export class TeamsComponent {
   }
 
   public createNewTeam(): void {
-    this.teamService.createTeam().subscribe(team => this.router.navigate(['/teams', team.id]));
+    this.teamService.createTeam().subscribe(team => this.router.navigate(['/app/teams', team.id]));
   }
 
-  public deleteTeam(id: number): void {
+  public deleteTeam(id: number, name: string): void {
     this.teamService.deleteTeamById(id)
       .subscribe(team => this.snackBar.open(
-        this.translate.instant(`TEAMS.TEAM_N_DELETED`,{name: team.name})
-      ));
+        this.translate.instant(`TEAMS.TEAM_N_DELETED`, {name: name}), "x", { duration: 3000 }
+  ));
   }
 
 }

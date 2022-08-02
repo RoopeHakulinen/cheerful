@@ -91,6 +91,8 @@ import { TeamsComponent } from './teams/teams.component';
 import { TeamService } from './team.service';
 import { TeamServiceMock } from './team.service.mock';
 import { TeamComponent } from './team/team.component';
+import { PersonService } from './person.service';
+import { PersonDialogComponent } from './person-dialog/person-dialog.component';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
 let exerciseServiceProvider: Provider = ExerciseService;
@@ -148,6 +150,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     EditNameDialogComponent,
     TeamsComponent,
     TeamComponent,
+    PersonDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -196,6 +199,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     choreographyServiceProvider,
     exerciseServiceProvider,
     teamServiceProvider,
+    PersonService,
     MenuService,
     UserService,
     IosInstallService,

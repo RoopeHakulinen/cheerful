@@ -4,7 +4,7 @@
 
 ### Database
 
-`docker-compose up -d`
+`docker compose up -d`
 
 Database related info found in the `.env` file in the backend folder.
 

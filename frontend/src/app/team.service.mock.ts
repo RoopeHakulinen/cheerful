@@ -9,6 +9,7 @@ export class TeamServiceMock {
       id: 1,
       name: 'testi tiimi',
       choreographies: [],
+      users: [],
       people: [],
     },
   ];

@@ -1,52 +1,96 @@
 <ng-container *ngIf="team$ | async as team">
-    <app-toolbar [title]="team.name" backUrl="/app/teams"></app-toolbar>
-    <div class="save-button">
-        <button mat-raised-button color="primary" (click)="saveTeam(team)">
-            {{ 'COMMON.SAVE' | translate }}
-        </button>
-    </div>
-    <div class="main-content" fxLayout="row">
-        <mat-list class="side-list">
-            <h3 mat-subheader>{{'TEAMS.TEAM_MEMBERS' | translate}}</h3>
-            <div *ngFor="let person of team.people" class="list-item clickable">
-                <mat-icon mat-list-icon>person</mat-icon>
-                <span>
-                    <p>{{ person.name }}</p>
-                </span>
-                <span (click)="deleteFromTeam()"><mat-icon>remove</mat-icon></span>
+    <ng-container [ngSwitch]="team.status">
+        <div *ngSwitchCase="'loading'" class="loading">
+          <mat-progress-spinner diameter="30" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <div *ngSwitchCase="'error'">{{ 'COMMON.ERROR' | translate }}</div>
+        <ng-container *ngSwitchDefault>
+            <app-toolbar [title]="team.data!.name" backUrl="/app/teams"></app-toolbar>
+            <div class="save-button">
+                <button mat-raised-button color="primary" (click)="saveTeam(team.data!)">
+                    {{ 'COMMON.SAVE' | translate }}
+                </button>
             </div>
-            <div *ngFor="let person of newUsers" class="list-item clickable">
-                <mat-icon mat-list-icon>person</mat-icon>
-                <span>
-                    <p>{{ person.name }}</p>
-                </span>
-                <span (click)="deleteFromTeam()"><mat-icon>remove</mat-icon></span>
+            <div class="main-content" fxLayout="row">
+                <mat-list class="side-list">
+                    <h3 mat-subheader>{{'TEAMS.TEAM_COACHES' | translate}}</h3>
+                    <div *ngFor="let user of team.data!.users" class="list-item clickable">
+                        <mat-icon mat-list-icon>badge</mat-icon>
+                        <span>
+                            <p>{{ user.firstName }} {{ user.lastName }}</p>
+                        </span>
+                        <span (click)="deleteUser(user)"><mat-icon>remove</mat-icon></span>
+                    </div>
+                    <div *ngFor="let user of newUsers" class="list-item clickable">
+                        <mat-icon mat-list-icon>badge</mat-icon>
+                        <span class="not-saved">
+                            <p>{{ user.firstName }} {{ user.lastName }}</p>
+                        </span>
+                        <span (click)="deleteNewUser(user)"><mat-icon>remove</mat-icon></span>
+                    </div>
+                    <form>
+                        <mat-form-field appearance="fill">
+                          <mat-label>{{'COMMON.NAME' | translate}}</mat-label>
+                          <input type="text"
+                                 placeholder=""
+                                 matInput
+                                 [formControl]="userControl"
+                                 [matAutocomplete]="userAuto">
+                          <mat-autocomplete autoActiveFirstOption #userAuto="matAutocomplete" (optionSelected)="addUser($event.option.value)">
+                            <mat-option *ngFor="let user of filteredUserOptions | async" [value]="user">
+                              {{user.firstName}} {{user.lastName}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                    </form>
+                </mat-list>
+        
+                <mat-list class="side-list">
+                    <h3 mat-subheader>{{'TEAMS.TEAM_MEMBERS' | translate}}</h3>
+                    <div *ngFor="let person of team.data!.people" class="list-item clickable">
+                        <mat-icon mat-list-icon>person</mat-icon>
+                        <span>
+                            <p>{{ person.name }}</p>
+                        </span>
+                        <span (click)="deletePerson(person)"><mat-icon>remove</mat-icon></span>
+                    </div>
+                    <div *ngFor="let person of newPeople" class="list-item clickable">
+                        <mat-icon mat-list-icon>person</mat-icon>
+                        <span class="not-saved">
+                            <p>{{ person.hasOwnProperty('name') ? person['name'] : person }}</p>
+                        </span>
+                        <span (click)="deleteNewPerson(person)"><mat-icon>remove</mat-icon></span>
+                    </div>
+                    <form>
+                        <mat-form-field appearance="fill">
+                          <mat-label>{{'COMMON.NAME' | translate}}</mat-label>
+                          <input type="text"
+                                 placeholder=""
+                                 matInput
+                                 [formControl]="personControl"
+                                 [matAutocomplete]="personAuto">
+                          <mat-autocomplete autoActiveFirstOption #personAuto="matAutocomplete" (optionSelected)="addPerson($event.option.value)">
+                            <mat-option *ngFor="let person of filteredPersonOptions | async" [value]="person">
+                              {{person.name}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                    </form>
+                    <button mat-raised-button color="primary" (click)="openPersonDialog()">
+                        {{ 'COMMON.ADD_NEW' | translate }}
+                    </button>
+                </mat-list>
+        
+                <mat-list class="side-list">
+                    <h3 mat-subheader>{{'TEAMS.TEAM_CHOREOGRAPHIES' | translate}}</h3>
+                    <div *ngFor="let choreography of team.data!.choreographies" class="list-item clickable" [routerLink]="['/app/choreographies', choreography.id]">
+                        <mat-icon mat-list-icon>border_outer</mat-icon>
+                        <span>
+                            <p>{{ choreography.name }}</p>
+                        </span>
+                    </div>
+                </mat-list>
             </div>
-            <form class="example-form">
-                <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Number</mat-label>
-                  <input type="text"
-                         placeholder=""
-                         aria-label="Number"
-                         matInput
-                         [formControl]="myControl"
-                         [matAutocomplete]="auto">
-                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                      {{option}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-            </form>
-        </mat-list>
-        <mat-list class="side-list">
-            <h3 mat-subheader>{{'TEAMS.TEAM_CHOREOGRAPHIES' | translate}}</h3>
-            <div *ngFor="let choreography of team.choreographies" class="list-item clickable">
-                <mat-icon mat-list-icon>border_outer</mat-icon>
-                <span>
-                    <p>{{ choreography.name }}</p>
-                </span>
-            </div>
-        </mat-list>
-    </div>
+        </ng-container>
+    </ng-container>
 </ng-container>

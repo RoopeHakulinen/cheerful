@@ -9,8 +9,11 @@
     "CLOSE": "Sulje",
     "COLOR": "Väri",
     "ADD": "Lisää",
+    "ADD_NEW": "Lisää uusi",
     "REMOVE": "Poista",
     "NAME": "Nimi",
+    "FIRST_NAME": "Etunimi",
+    "LAST_NAME": "Sukunimi",
     "CANCEL": "Peruuta",
     "LOAD": "Lataa muistista",
     "SAVE": "Tallenna",
@@ -151,7 +154,8 @@
     "NAME": "Nimi",
     "TEAM_N_DELETED": "Joukkue {{name}} poistettu",
     "TEAM_MEMBERS": "Joukkueen jäsenet",
-    "TEAM_CHOREOGRAPHIES": "Joukkueen koreografiat"
+    "TEAM_CHOREOGRAPHIES": "Joukkueen koreografiat",
+    "TEAM_COACHES": "Joukkueen valmentajat"
   },
   "PAGINATION": {
     "FIRST_PAGE": "Ensimmäinen sivu",

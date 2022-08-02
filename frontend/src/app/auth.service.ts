@@ -2,16 +2,16 @@ import {
   FacebookLoginProvider,
   GoogleLoginProvider,
   SocialAuthService,
-  SocialUser,
 } from '@abacritt/angularx-social-login';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, Subject, Subscription, take } from 'rxjs';
+import { User } from './user';
 import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService implements OnDestroy {
-  user = new Subject<Partial<SocialUser>>();
+  user = new Subject<Partial<User>>();
   userSubscription: Subscription | null = null;
 
   constructor(private authService: SocialAuthService, private router: Router, private userService: UserService) {

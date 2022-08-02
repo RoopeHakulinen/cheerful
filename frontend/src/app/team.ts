@@ -1,11 +1,13 @@
 import { Choreography } from "./choreography";
-import { Person } from "./people";
+import { Person, PersonToBeCreated } from "./person";
+import { User } from "./user";
 
 export interface Team {
     id: number;
     name: string;
     choreographies: Choreography[];
-    people: Person[];
+    users: User[]; 
+    people: PersonToBeCreated[];
 }
 
 export type TeamToBeCreated = Omit<Team, 'id' | 'choreographies'>;
