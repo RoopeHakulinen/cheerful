@@ -26,7 +26,7 @@ import {
   ThreeGroup,
   TwoGroup,
 } from '../choreography-group';
-import { Person } from '../people';
+import { Person } from '../person';
 import { Choreography } from '../choreography';
 
 interface PositionCoordinates {

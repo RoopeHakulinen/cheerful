@@ -25,7 +25,7 @@ export class TeamsController {
 
   @Delete(':id')
   delete(@Param('id') id: string): Promise<Team> {
-    return this.teamsService.deleteOne(parseInt(id, 10));
+    return this.teamsService.delete(parseInt(id, 10));
   }
 
   @Put()

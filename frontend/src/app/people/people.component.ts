@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChoreographyPerson } from '../choreography';
-import { Person } from '../people';
+import { Person } from '../person';
 import { PeopleService } from '../people.service';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';

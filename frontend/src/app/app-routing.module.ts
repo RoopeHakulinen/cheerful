@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { LoggedInGuard } from './logged-in.guard';
 import { NotLoggedInGuard } from './not-logged-in.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { TeamComponent } from './team/team.component';
 import { TeamsComponent } from './teams/teams.component';
 
 const routes: Routes = [
@@ -78,6 +79,10 @@ const routes: Routes = [
       {
         path: 'teams',
         component: TeamsComponent,
+      },
+      {
+        path: 'teams/:id',
+        component: TeamComponent,
       },
       {
         path: '**',

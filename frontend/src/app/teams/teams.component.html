@@ -13,7 +13,7 @@
               <span [routerLink]="['/app/teams', team.id]" class="team-info">
                 <p>{{ team.name }}</p>
               </span>
-              <span (click)="deleteTeam(team.id)"><mat-icon>remove</mat-icon></span>
+              <span (click)="deleteTeam(team.id, team.name)"><mat-icon>remove</mat-icon></span>
             </div>
           </ng-container>
         </ng-container>

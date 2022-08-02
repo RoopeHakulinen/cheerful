@@ -1,0 +1,34 @@
+.main-content {
+    display: flex;
+    flex-direction: row;
+
+    .side-list {
+        width: 400px;
+
+        .list-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-left: 10px;
+            column-gap: 10px;
+
+            .not-saved {
+                color: green;
+            }
+        }
+
+        .loading {
+            padding-left: 60px;
+        }
+    }
+}
+
+.save-button {
+    margin-top: 5px;
+    margin-inline: 10px;
+
+    button {
+        margin-bottom: 5px;
+        margin-inline: 5px;
+    }
+}
