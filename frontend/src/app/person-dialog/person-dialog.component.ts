@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-export interface EditNameDialogData {
+export interface PersonDialogData {
   firstName: string;
   lastName: string;
 }
@@ -14,6 +14,6 @@ export interface EditNameDialogData {
 export class PersonDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<PersonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: EditNameDialogData,
+    @Inject(MAT_DIALOG_DATA) public data: PersonDialogData,
   ) {}
 }
