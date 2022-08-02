@@ -1,3 +1,4 @@
+import { Choreography, Person, User } from '@prisma/client';
 import { IsNumber, IsString } from 'class-validator';
 
 export class TeamDto {
@@ -7,12 +8,11 @@ export class TeamDto {
   @IsString()
   name: string;
 
-  // TODO
-  choreographies: any[];
+  choreographies: Choreography[];
 
-  users: any[];
+  users: User[];
 
-  people: any[];
+  people: Person[];
 }
 
 export type TeamToBeCreatedDto = Omit<TeamDto, 'id' | 'choreographies' | 'users' | 'people'>;
