@@ -11,14 +11,14 @@
             align-items: center;
             margin-left: 10px;
             column-gap: 10px;
-            
+
             .not-saved {
                 color: green;
             }
         }
 
         .loading {
-        padding-left: 60px;
+            padding-left: 60px;
         }
     }
 }
@@ -26,6 +26,7 @@
 .save-button {
     margin-top: 5px;
     margin-inline: 10px;
+
     button {
         margin-bottom: 5px;
         margin-inline: 5px;

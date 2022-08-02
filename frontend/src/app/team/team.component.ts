@@ -35,9 +35,9 @@ export class TeamComponent implements OnInit {
   filteredPersonOptions!: Observable<Person[]>;
 
   constructor(
-    private route: ActivatedRoute, 
-    private router: Router, 
-    private teamService: TeamService, 
+    private route: ActivatedRoute,
+    private router: Router,
+    private teamService: TeamService,
     private userService: UserService,
     private dialog: MatDialog,
     private personService: PersonService
@@ -77,9 +77,9 @@ export class TeamComponent implements OnInit {
     }
     const filterValue = value.toLowerCase();
     return this.users
-    // TODO Filter out the current team members.
-    .filter(user => this.newUsers.every(newUser => newUser.id !== user.id))
-    .filter(user => `${user.firstName} ${user.lastName}`.toLowerCase().includes(filterValue));
+      // TODO Filter out the current team members.
+      .filter(user => this.newUsers.every(newUser => newUser.id !== user.id))
+      .filter(user => `${user.firstName} ${user.lastName}`.toLowerCase().includes(filterValue));
   }
 
   private personFilter(value: string): Person[] {
@@ -88,8 +88,8 @@ export class TeamComponent implements OnInit {
     }
     const filterValue = value.toLowerCase();
     return this.people
-    .filter(person => this.newPeople.every(newPerson => newPerson.name !== person.name))
-    .filter(person => person.name.toLowerCase().includes(filterValue));
+      .filter(person => this.newPeople.every(newPerson => newPerson.name !== person.name))
+      .filter(person => person.name.toLowerCase().includes(filterValue));
   }
 
   addPerson(person: Person): void {
@@ -135,7 +135,7 @@ export class TeamComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result === null) {
+      if (result === null) {
         return;
       }
       // TODO
