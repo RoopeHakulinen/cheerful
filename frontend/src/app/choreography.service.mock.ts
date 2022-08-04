@@ -87,10 +87,9 @@ export class ChoreographyServiceMock {
     return of(newChoreography);
   }
 
-  deleteChoreographyById(id: number): Observable<Choreography> {
-    const foundChoreography = this.choreographies.find(existingChoreography => existingChoreography.id === id)!;
+  deleteChoreographyById(id: number): Observable<void> {
     this.choreographies = this.choreographies.filter(choreography => choreography.id !== id);
     this.choreographiesSubject.next({status: 'success', data: this.choreographies} as any);
-    return of(foundChoreography);
+    return of(void 0);
   }
 }

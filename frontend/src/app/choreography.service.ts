@@ -44,8 +44,8 @@ export class ChoreographyService {
     return this.http.put<Choreography>(`/api/choreographies`, choreography).pipe(tap(() => this.refreshChoreographies()));
   }
 
-  deleteChoreographyById(id: number): Observable<Choreography> {
-    return this.http.delete<Choreography>(`/api/choreographies/${id}`).pipe(tap(() => this.refreshChoreographies()));
+  deleteChoreographyById(id: number): Observable<void> {
+    return this.http.delete<void>(`/api/choreographies/${id}`).pipe(tap(() => this.refreshChoreographies()));
   }
 
   getChoreographyById(id: number): Observable<Choreography> {
