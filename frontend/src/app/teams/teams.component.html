@@ -8,12 +8,14 @@
           </div>
           <div *ngSwitchCase="'error'">{{ 'COMMON.ERROR' | translate }}</div>
           <ng-container *ngSwitchDefault>
-            <div *ngFor="let team of teams.data" class="list-item clickable">
-              <mat-icon mat-list-icon>border_outer</mat-icon>
-              <span [routerLink]="['/app/teams', team.id]" class="team-info">
-                <p>{{ team.name }}</p>
-              </span>
-              <span (click)="deleteTeam(team.id, team.name)"><mat-icon>remove</mat-icon></span>
+            <div class="teams">
+              <div *ngFor="let team of teams.data" class="list-item clickable">
+                <mat-icon mat-list-icon>border_outer</mat-icon>
+                <span [routerLink]="['/app/teams', team.id]" class="team-info">
+                  <p>{{ team.name }}</p>
+                </span>
+                <span (click)="deleteTeam(team.id, team.name)"><mat-icon>remove</mat-icon></span>
+              </div>
             </div>
           </ng-container>
         </ng-container>

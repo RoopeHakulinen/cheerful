@@ -12,21 +12,25 @@
                 </button>
             </div>
             <div class="main-content" fxLayout="row">
-                <mat-list class="side-list">
+                <mat-list class="side-list" id="coaches">
                     <h3 mat-subheader>{{'TEAMS.COACHES' | translate}}</h3>
-                    <div *ngFor="let user of team.data!.users" class="list-item clickable">
-                        <mat-icon mat-list-icon>badge</mat-icon>
-                        <span>
-                            <p>{{ user.firstName }} {{ user.lastName }}</p>
-                        </span>
-                        <span (click)="deleteUser(user)"><mat-icon>remove</mat-icon></span>
+                    <div class="users">
+                        <div *ngFor="let user of team.data!.users" class="user list-item clickable">
+                            <mat-icon mat-list-icon>badge</mat-icon>
+                            <span>
+                                <p>{{ user.firstName }} {{ user.lastName }}</p>
+                            </span>
+                            <span (click)="deleteUser(user)"><mat-icon>remove</mat-icon></span>
+                        </div>
                     </div>
-                    <div *ngFor="let user of newUsers" class="list-item clickable">
-                        <mat-icon mat-list-icon>badge</mat-icon>
-                        <span class="not-saved">
-                            <p>{{ user.firstName }} {{ user.lastName }}</p>
-                        </span>
-                        <span (click)="deleteNewUser(user)"><mat-icon>remove</mat-icon></span>
+                    <div class="new-users">
+                        <div *ngFor="let user of newUsers" class="new-user list-item clickable">
+                            <mat-icon mat-list-icon>badge</mat-icon>
+                            <span class="not-saved">
+                                <p>{{ user.firstName }} {{ user.lastName }}</p>
+                            </span>
+                            <span (click)="deleteNewUser(user)"><mat-icon>remove</mat-icon></span>
+                        </div>
                     </div>
                     <form>
                         <mat-form-field appearance="fill">
@@ -45,21 +49,25 @@
                     </form>
                 </mat-list>
         
-                <mat-list class="side-list">
+                <mat-list class="side-list" id="people">
                     <h3 mat-subheader>{{'TEAMS.MEMBERS' | translate}}</h3>
-                    <div *ngFor="let person of team.data!.people" class="list-item clickable">
-                        <mat-icon mat-list-icon>person</mat-icon>
-                        <span>
-                            <p>{{ person.name }}</p>
-                        </span>
-                        <span (click)="deletePerson(person)"><mat-icon>remove</mat-icon></span>
+                    <div class="people">
+                        <div *ngFor="let person of team.data!.people" class="person list-item clickable">
+                            <mat-icon mat-list-icon>person</mat-icon>
+                            <span>
+                                <p>{{ person.name }}</p>
+                            </span>
+                            <span (click)="deletePerson(person)"><mat-icon>remove</mat-icon></span>
+                        </div>
                     </div>
-                    <div *ngFor="let person of newPeople" class="list-item clickable">
-                        <mat-icon mat-list-icon>person</mat-icon>
-                        <span class="not-saved">
-                            <p>{{ person.hasOwnProperty('name') ? person['name'] : person }}</p>
-                        </span>
-                        <span (click)="deleteNewPerson(person)"><mat-icon>remove</mat-icon></span>
+                    <div class="new-people">
+                        <div *ngFor="let person of newPeople" class="new-person list-item clickable" [id]="person.id">
+                            <mat-icon mat-list-icon>person</mat-icon>
+                            <span class="not-saved">
+                                <p>{{ person.hasOwnProperty('name') ? person['name'] : person }}</p>
+                            </span>
+                            <span (click)="deleteNewPerson(person)"><mat-icon>remove</mat-icon></span>
+                        </div>
                     </div>
                     <form>
                         <mat-form-field appearance="fill">
@@ -81,7 +89,7 @@
                     </button>
                 </mat-list>
         
-                <mat-list class="side-list">
+                <mat-list class="side-list" id="choreographies">
                     <h3 mat-subheader>{{'TEAMS.CHOREOGRAPHIES' | translate}}</h3>
                     <div *ngFor="let choreography of team.data!.choreographies" class="list-item clickable" [routerLink]="['/app/choreographies', choreography.id]">
                         <mat-icon mat-list-icon>border_outer</mat-icon>

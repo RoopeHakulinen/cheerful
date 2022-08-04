@@ -16,4 +16,8 @@ export class PersonDialogComponent {
     public dialogRef: MatDialogRef<PersonDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PersonDialogData,
   ) {}
+
+  isValid(data: PersonDialogData): boolean {
+    return data.firstName.length === 0 || data.lastName.length === 0;
+  }
 }
