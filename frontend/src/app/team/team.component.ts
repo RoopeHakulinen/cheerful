@@ -138,7 +138,7 @@ export class TeamComponent implements OnInit {
       if (result === null) {
         return;
       }
-      // TODO: Math.random ID and you can make person without name if you remove disabled through elements.
+      // TODO: Math.random ID.
       this.newPeople.push({ id: Math.floor(Math.random() * 1000), name: `${result.firstName} ${result.lastName}` });
     });
   }

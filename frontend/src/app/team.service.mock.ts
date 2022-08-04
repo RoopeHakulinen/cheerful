@@ -46,11 +46,11 @@ export class TeamServiceMock {
     return of(newTeam);
   }
 
-  deleteTeamById(id: number): Observable<Team> {
+  deleteTeamById(id: number): Observable<void> {
     const foundTeam = this.teams.find(existingTeam => existingTeam.id === id)!;
     this.teams = this.teams.filter(team => team.id !== id);
     this.teamsSubject.next({status: 'success', data: this.teams} as any);
-    return of(foundTeam);
+    return of(void 0);
   }
 }
 

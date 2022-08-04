@@ -18,6 +18,6 @@ export class PersonDialogComponent {
   ) {}
 
   isValid(data: PersonDialogData): boolean {
-    return data.firstName.length === 0 || data.lastName.length === 0;
+    return data.firstName.length > 0 && data.lastName.length > 0;
   }
 }
