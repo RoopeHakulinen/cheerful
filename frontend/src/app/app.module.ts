@@ -93,15 +93,21 @@ import { TeamServiceMock } from './team.service.mock';
 import { TeamComponent } from './team/team.component';
 import { PersonService } from './person.service';
 import { PersonDialogComponent } from './person-dialog/person-dialog.component';
+import { PersonServiceMock } from './person.service.mock';
+import { UserServiceMock } from './user.service.mock';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
 let exerciseServiceProvider: Provider = ExerciseService;
 let teamServiceProvider: Provider = TeamService;
+let personServiceProvider: Provider = PersonService;
+let userServiceProvider: Provider = UserService;
 
 if (environment.e2e) {
   choreographyServiceProvider = { provide: ChoreographyService, useClass: ChoreographyServiceMock };
   exerciseServiceProvider = { provide: ExerciseService, useClass: ExerciseServiceMock };
   teamServiceProvider = { provide: TeamService, useClass: TeamServiceMock };
+  personServiceProvider = { provide: PersonService, useClass: PersonServiceMock };
+  userServiceProvider = { provide: UserService, useClass: UserServiceMock };
 }
 
 export function HttpLoaderFactory(http: HttpClient): any {
@@ -199,9 +205,9 @@ export function HttpLoaderFactory(http: HttpClient): any {
     choreographyServiceProvider,
     exerciseServiceProvider,
     teamServiceProvider,
-    PersonService,
+    personServiceProvider,
+    userServiceProvider,
     MenuService,
-    UserService,
     IosInstallService,
     PeopleService,
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },

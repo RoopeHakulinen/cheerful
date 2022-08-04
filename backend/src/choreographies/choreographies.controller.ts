@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ChoreographiesService } from './choreographies.service';
-import { Choreography, ChoreographyDto } from './choreographyDtos';
+import { Choreography, ChoreographyDto, ChoreographyToBeCreatedDto } from './choreographyDtos';
 
 @Controller('choreographies')
 export class ChoreographiesController {
@@ -17,7 +17,7 @@ export class ChoreographiesController {
   }
 
   @Post()
-  create(@Body() choreography: ChoreographyDto): Promise<Choreography> {
+  create(@Body() choreography: ChoreographyToBeCreatedDto): Promise<Choreography> {
     return this.choreographiesService.create(choreography);
   }
 

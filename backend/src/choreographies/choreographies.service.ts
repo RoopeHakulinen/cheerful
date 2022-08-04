@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Choreography, ChoreographyDto } from './choreographyDtos';
+import { Choreography, ChoreographyDto, ChoreographyToBeCreatedDto } from './choreographyDtos';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class ChoreographiesService {
     });
   }
 
-  async create(choreography: ChoreographyDto): Promise<Choreography> {
+  async create(choreography: ChoreographyToBeCreatedDto): Promise<Choreography> {
     return await this.prisma.choreography.create({
       data: {
         name: choreography.name,

@@ -131,14 +131,14 @@ export class TeamComponent implements OnInit {
   openPersonDialog(): void {
     const dialogRef = this.dialog.open(PersonDialogComponent, {
       width: 'fit-content',
-      data: {},
+      data: {firstName: '', lastName: ''},
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === null) {
         return;
       }
-      // TODO
+      // TODO: Math.random ID.
       this.newPeople.push({ id: Math.floor(Math.random() * 1000), name: `${result.firstName} ${result.lastName}` });
     });
   }

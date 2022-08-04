@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { MenuService } from '../menu.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-side-menu',
@@ -8,6 +10,12 @@ import { MenuService } from '../menu.service';
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent {
+  user$: Observable<Partial<User>> = this.authService.user;
 
-  constructor(public menuService: MenuService, public authService: AuthService) {}
+  constructor(
+    public menuService: MenuService, 
+    public authService: AuthService
+    ) {
+
+    }
 }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of, timer } from 'rxjs';
-import { Choreography } from './choreography';
+import { QueryOutput } from 'rx-query';
+import { BehaviorSubject, map, Observable, of, timer } from 'rxjs';
+import { Choreography, createChoreography } from './choreography';
 import { ChoreographyItem } from './choreography-item';
+import { updateAllAttributes } from './utils';
 
 @Injectable()
 export class ChoreographyServiceMock {
@@ -30,8 +32,10 @@ export class ChoreographyServiceMock {
     },
   ];
 
-  getChoreographies(): Observable<Choreography[]> {
-    return of({status: 'success', data: this.choreographies} as any);
+  choreographiesSubject = new BehaviorSubject<QueryOutput<Choreography[]>>({status: 'success', data: this.choreographies} as any);
+
+  getChoreographies(): Observable<QueryOutput<Choreography[]>> {
+    return this.choreographiesSubject.asObservable();
   }
 
   getChoreographyById(id: number): Observable<Choreography> {
@@ -39,7 +43,10 @@ export class ChoreographyServiceMock {
   }
 
   updateChoreography(choreography: Choreography): Observable<Choreography> {
-    return of(choreography);
+    const foundChoreography = this.choreographies.find(existingChoreography => existingChoreography.id === choreography.id)!;
+    updateAllAttributes(choreography, foundChoreography);
+    this.choreographiesSubject.next({status: 'success', data: this.choreographies} as any);
+    return of(foundChoreography);
   }
 
   generateGrid(): ChoreographyItem[] {
@@ -50,5 +57,22 @@ export class ChoreographyServiceMock {
         shape: 'rounded',
         position: 'center',
       }));
+  }
+
+  createChoreography(): Observable<Choreography> {
+    const newChoreography = {
+      ...createChoreography(),
+      id: Math.floor(Math.random() * 1000) + 1
+    };
+    
+    this.choreographies.push(newChoreography);
+    this.choreographiesSubject.next({status: 'success', data: this.choreographies} as any);
+    return of(newChoreography);
+  }
+
+  deleteChoreographyById(id: number): Observable<void> {
+    this.choreographies = this.choreographies.filter(choreography => choreography.id !== id);
+    this.choreographiesSubject.next({status: 'success', data: this.choreographies} as any);
+    return of(void 0);
   }
 }

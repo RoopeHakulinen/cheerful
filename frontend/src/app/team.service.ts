@@ -29,8 +29,8 @@ export class TeamService {
     }));
   }
 
-  deleteTeamById(id: number): Observable<Team> {
-    return this.http.delete<Team>(`/api/teams/${id}`).pipe(tap(() => this.refreshTeams()));
+  deleteTeamById(id: number): Observable<void> {
+    return this.http.delete<void>(`/api/teams/${id}`).pipe(tap(() => this.refreshTeams()));
   }
 
   getTeamById(id: number): Observable<QueryOutput<Team>> {

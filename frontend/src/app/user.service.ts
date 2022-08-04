@@ -11,7 +11,7 @@ import { User } from './user';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-    getOrCreate(user: SocialUser): Observable<Partial<User>> {
+  getOrCreate(user: SocialUser): Observable<Partial<User>> {
     return this.http.post<Partial<User>>(`/api/users`, user);
   }
 
