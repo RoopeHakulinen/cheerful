@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Choreography, createChoreography } from './choreography';
-import { ChoreographyItem } from './choreography-item';
 import { HttpClient } from '@angular/common/http';
 import { refreshQuery, QueryOutput, query } from 'rx-query';
 

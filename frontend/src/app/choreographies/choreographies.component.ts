@@ -6,6 +6,8 @@ import { ToastService } from '../toast.service';
 import { QueryOutput } from 'rx-query';
 import { AuthService } from '../auth.service';
 import { User } from '../user';
+import { TeamService } from '../team.service';
+import { Team } from '../team';
 
 @Component({
   selector: 'app-choreographies',
@@ -13,15 +15,16 @@ import { User } from '../user';
   styleUrls: ['./choreographies.component.scss'],
 })
 export class ChoreographiesComponent {
-  choreographies$: Observable<QueryOutput<Choreography[]>>;
   user$: Observable<Partial<User>> = this.authService.user;
+  myTeams$: Observable<QueryOutput<Team[]>>;
 
   constructor(
     public choreographyService: ChoreographyService,
     private authService: AuthService,
     private toastService: ToastService,
+    private teamService: TeamService,
   ) {
-    this.choreographies$ = this.choreographyService.getChoreographies();
+    this.myTeams$ = this.teamService.getMyTeams();
   }
 
   createNewChoreography(): void {

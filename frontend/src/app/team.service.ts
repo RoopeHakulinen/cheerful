@@ -18,6 +18,10 @@ export class TeamService {
     return query('teams', () => this.http.get<Team[]>('/api/teams'));
   }
 
+  getMyTeams(): Observable<QueryOutput<Team[]>> {
+    return query('my-teams', () => this.http.get<Team[]>('/api/teams/my'));
+  }
+
   createTeam(): Observable<Team> {
     return this.http.post<Team>(`/api/teams`, this.emptyTeam).pipe(tap(() => this.refreshTeams()));
   }

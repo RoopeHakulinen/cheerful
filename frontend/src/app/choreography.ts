@@ -35,7 +35,7 @@ function generateGrid(): ChoreographyItem[] {
 export function createChoreography(): ChoreographyToBeCreated {
   return {
   name: 'Uusi koreografia',
-  teamId: 1,
+  teamId: 16,
   frames: [
     {
       name: 'Alkutila',
