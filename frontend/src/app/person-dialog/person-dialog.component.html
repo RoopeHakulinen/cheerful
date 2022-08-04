@@ -10,5 +10,5 @@
 </div>
     <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="null">{{'COMMON.CANCEL' | translate}}</button>
-    <button mat-button [disabled]="isValid(data)"[mat-dialog-close]="data" cdkFocusInitial>{{'COMMON.ADD' | translate}}</button>
+    <button mat-button [disabled]="!isValid(data)"[mat-dialog-close]="data" cdkFocusInitial>{{'COMMON.ADD' | translate}}</button>
 </div>

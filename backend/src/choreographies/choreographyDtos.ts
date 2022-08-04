@@ -51,3 +51,5 @@ export class ChoreographyDto {
   @Type(() => ChoreographyPersonDto)
   people: ChoreographyPersonDto[];
 }
+
+export type ChoreographyToBeCreatedDto = Omit<ChoreographyDto, 'id'>;

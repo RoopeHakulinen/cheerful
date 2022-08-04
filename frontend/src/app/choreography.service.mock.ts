@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { QueryOutput } from 'rx-query';
 import { BehaviorSubject, map, Observable, of, timer } from 'rxjs';
-import { Choreography } from './choreography';
+import { Choreography, createChoreography } from './choreography';
 import { ChoreographyItem } from './choreography-item';
 import { updateAllAttributes } from './utils';
 
@@ -60,28 +60,11 @@ export class ChoreographyServiceMock {
   }
 
   createChoreography(): Observable<Choreography> {
-    const newChoreography: Choreography = {
-      id: Math.floor(Math.random() * 1000) + 1,
-      name: 'Uusi koreografia',
-      teamId: 1,
-      frames: [
-        {
-          name: 'Alkutila',
-          type: 'content',
-          duration: 2,
-          grid: this.generateGrid(),
-          notes: '',
-        },
-      ],
-      carpet: {
-        color: '#5151b8',
-        height: 12,
-        width: 12,
-        horizontalSegments: 12,
-        verticalSegments: 6,
-      },
-      choreographyPerson: [{ color: 'red', personId: 1 }],
+    const newChoreography = {
+      ...createChoreography(),
+      id: Math.floor(Math.random() * 1000) + 1
     };
+    
     this.choreographies.push(newChoreography);
     this.choreographiesSubject.next({status: 'success', data: this.choreographies} as any);
     return of(newChoreography);

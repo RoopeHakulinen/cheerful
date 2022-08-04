@@ -57,7 +57,7 @@ export class TeamsPage {
     }
 
     async removeLastNewPerson(): Promise<void> {
-        await this.page.click(`app-team mat-list#people .new-people .new-person:last-of-type mat-icon:has-text("remove")`);
+        await this.page.click(`app-team mat-list#people .new-people .new-person:last-child mat-icon:has-text("remove")`);
     }
 
     async checkNewPersonIsNotVisible(personName: string): Promise<void> {
@@ -85,6 +85,6 @@ export class TeamsPage {
     }
 
     async removeTeam(): Promise<void> {
-        await this.page.click(`app-teams mat-list .teams .list-item:last-of-type mat-icon:has-text("remove")`);
+        await this.page.click(`app-teams mat-list .teams .list-item:last-child mat-icon:has-text("remove")`);
     }
 }
