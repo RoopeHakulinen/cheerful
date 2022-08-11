@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.2
+
 jobs:
   ci:
     docker:
@@ -30,33 +33,14 @@ jobs:
           name: Build
           command: npm run build
           working_directory: ~/project/frontend
-  deploy:
-    docker:
-      - image: circleci/node:16-browsers
-        environment:
-          CHROME_BIN: "/usr/bin/google-chrome"
-    steps:
-      - checkout
-      - run:
-          name: Install node_modules with npm
-          command: npm install
-          working_directory: ~/project/frontend
-      - run:
-          name: Authenticate to Git
-          command: |
-            git config user.email "makinenvi@gmail.com"
-            git config user.name "vilimakinen"
-          working_directory: ~/project/frontend
-      - run:
-          name: Deploy to roopehakulinen.github.io/cheerful
-          command: npm run deploy
-          working_directory: ~/project/frontend
 
 workflows:
   ci:
     jobs:
       - ci
-      - deploy:
+      - aws-ecr/build-and-push-image:
+          repo: "cheerful"
+          tag: "latest"
           requires:
             - ci
           filters:
