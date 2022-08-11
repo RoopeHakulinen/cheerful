@@ -21,7 +21,7 @@ COPY --chown=node:node ./backend /home/node/backend
 
 WORKDIR /home/node/backend
 
-RUN npm ci \
+RUN npm ci --force \
     && npm run build \
     && npm prune --production
 
