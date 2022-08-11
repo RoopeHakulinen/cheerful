@@ -10,10 +10,23 @@ import { ExercisesService } from './exercises/exercises.service';
 import { TeamsController } from './teams/teams.controller';
 import { TeamsService } from './teams/teams.service';
 import { PeopleController } from './people/people.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
-  imports: [],
-  controllers: [AppController, ChoreographiesController, UsersController, ExercisesController, TeamsController, PeopleController],
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
+  ],
+  controllers: [
+    AppController,
+    ChoreographiesController,
+    UsersController,
+    ExercisesController,
+    TeamsController,
+    PeopleController,
+  ],
   providers: [PrismaService, ChoreographiesService, UsersService, ExercisesService, TeamsService],
 })
 export class AppModule {}
