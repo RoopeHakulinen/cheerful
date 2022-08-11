@@ -8,7 +8,7 @@ COPY --chown=node:node ./frontend /home/node/frontend
 
 WORKDIR /home/node/frontend
 
-RUN npm ci && npm run build
+RUN npm ci --force && npm run build
 
 
 FROM node:16-alpine as backend
