@@ -6,6 +6,11 @@ data "aws_ecr_repository" "app" {
   name = "cheerful"
 }
 
+resource "aws_cloudwatch_log_group" "app" {
+  name              = "app-logs-${var.environment}"
+  retention_in_days = 7
+}
+
 resource "aws_ecs_task_definition" "cheerful" {
   family                   = "cheerful-${var.environment}"
   network_mode             = "awsvpc"
@@ -29,6 +34,14 @@ resource "aws_ecs_task_definition" "cheerful" {
         "hostPort": 80
       }
     ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${aws_cloudwatch_log_group.app.name}",
+        "awslogs-region": "eu-west-1",
+        "awslogs-stream-prefix": "container"
+      }
+    },
     "environment": [
       {
         "name": "DATABASE_URL",
