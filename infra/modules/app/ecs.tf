@@ -1,0 +1,137 @@
+resource "aws_ecs_cluster" "cluster" {
+  name = "application-${var.environment}"
+}
+
+data "aws_ecr_repository" "app" {
+  name = "cheerful"
+}
+
+resource "aws_ecs_task_definition" "cheerful" {
+  family                   = "cheerful-${var.environment}"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  task_role_arn            = aws_iam_role.task.arn
+  execution_role_arn       = aws_iam_role.execution.arn
+  cpu                      = 1024
+  memory                   = 2048
+
+  container_definitions = <<DEFINITION
+[
+  {
+    "image": "${data.aws_ecr_repository.app.repository_url}:latest",
+    "cpu": 1024,
+    "memory": 2048,
+    "name": "cheerful-app-${var.environment}",
+    "networkMode": "awsvpc",
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 80
+      }
+    ],
+    "environment": [
+      {
+        "name": "DATABASE_URL",
+        "value": "postgresql://${aws_db_instance.app.username}:${aws_db_instance.app.password}@${aws_db_instance.app.address}:${aws_db_instance.app.port}/${aws_db_instance.app.db_name}?schema=public"
+      }
+    ]
+  }
+]
+DEFINITION
+}
+
+resource "aws_iam_role" "task" {
+  name               = "task-role-${var.environment}"
+  assume_role_policy = data.aws_iam_policy_document.task_assume.json
+}
+
+resource "aws_iam_role" "execution" {
+  name               = "task-execution-role-${var.environment}"
+  assume_role_policy = data.aws_iam_policy_document.task_assume.json
+}
+
+data "aws_iam_policy_document" "task_execution_permissions" {
+  statement {
+    effect = "Allow"
+
+    resources = [
+      "*",
+    ]
+
+    actions = [
+      "ecr:GetAuthorizationToken",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
+  }
+}
+
+resource "aws_iam_role_policy" "task_execution" {
+  name   = "task-execution-${var.environment}"
+  role   = aws_iam_role.execution.id
+  policy = data.aws_iam_policy_document.task_execution_permissions.json
+}
+
+data "aws_iam_policy_document" "task_assume" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ecs-tasks.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role_policy" "ecs_exec_inline_policy" {
+  name   = "ecs-exec-permissions-${var.environment}"
+  role   = aws_iam_role.task.id
+  policy = data.aws_iam_policy_document.task_ecs_exec_policy.json
+}
+
+data "aws_iam_policy_document" "task_ecs_exec_policy" {
+  statement {
+    effect = "Allow"
+
+    resources = ["*"]
+
+    actions = [
+      "ssmmessages:CreateControlChannel",
+      "ssmmessages:CreateDataChannel",
+      "ssmmessages:OpenControlChannel",
+      "ssmmessages:OpenDataChannel"
+    ]
+  }
+}
+
+resource "aws_ecs_service" "service" {
+  name = "cheerful-${var.environment}"
+
+  cluster         = aws_ecs_cluster.cluster.id
+  task_definition = aws_ecs_task_definition.cheerful.arn
+
+  desired_count  = 1
+  propagate_tags = "TASK_DEFINITION"
+  launch_type    = "FARGATE"
+
+  force_new_deployment  = true
+  wait_for_steady_state = true
+
+  network_configuration {
+    subnets          = [aws_subnet.primary.id, aws_subnet.secondary.id]
+    security_groups  = [aws_security_group.cheerful_task.id]
+    assign_public_ip = true
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.cheerful.id
+    container_name   = "cheerful-app-${var.environment}"
+    container_port   = 80
+  }
+
+  depends_on = [aws_lb_listener.cheerful]
+}

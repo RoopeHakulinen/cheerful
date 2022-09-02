@@ -37,4 +37,4 @@ COPY --from=backend /home/node/backend/node_modules/ /home/node/node_modules/
 COPY --from=backend /home/node/backend/dist/ /home/node/dist/
 COPY --from=frontend /home/node/frontend/dist/frontend /home/node/dist/backend/public
 
-CMD ["node", "dist/backend/src/main.js"]
+CMD ["node", "dist/src/main.js"]
