@@ -35,6 +35,6 @@ WORKDIR /home/node
 COPY --from=backend /home/node/backend/package*.json /home/node/
 COPY --from=backend /home/node/backend/node_modules/ /home/node/node_modules/
 COPY --from=backend /home/node/backend/dist/ /home/node/dist/
-COPY --from=frontend /home/node/frontend/dist/frontend /home/node/dist/backend/public
+COPY --from=frontend /home/node/frontend/dist/frontend /home/node/dist/public
 
 CMD ["node", "dist/src/main.js"]
