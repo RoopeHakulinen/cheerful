@@ -30,8 +30,8 @@ resource "aws_ecs_task_definition" "cheerful" {
     "networkMode": "awsvpc",
     "portMappings": [
       {
-        "containerPort": 80,
-        "hostPort": 80
+        "containerPort": 3000,
+        "hostPort": 3000
       }
     ],
     "logConfiguration": {
@@ -143,7 +143,7 @@ resource "aws_ecs_service" "service" {
   load_balancer {
     target_group_arn = aws_lb_target_group.cheerful.id
     container_name   = "cheerful-app-${var.environment}"
-    container_port   = 80
+    container_port   = 3000
   }
 
   depends_on = [aws_lb_listener.cheerful]

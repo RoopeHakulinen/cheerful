@@ -7,11 +7,15 @@ resource "aws_lb" "load_balancer" {
 }
 
 resource "aws_lb_target_group" "cheerful" {
-  name        = "cheerful-target-group-${var.environment}"
-  port        = 80
+  name        = "app-target-group-${var.environment}"
+  port        = 3000
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
   target_type = "ip"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_lb_listener" "cheerful" {

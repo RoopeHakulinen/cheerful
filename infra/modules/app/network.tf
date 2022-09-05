@@ -14,6 +14,25 @@ resource "aws_subnet" "secondary" {
   cidr_block        = "10.0.3.0/24"
 }
 
+resource "aws_db_subnet_group" "app" {
+  name       = "app-${var.environment}"
+  subnet_ids = [aws_subnet.primary.id, aws_subnet.secondary.id]
+}
+
+resource "aws_security_group" "database" {
+  vpc_id      = aws_vpc.main.id
+  name_prefix = "app-db-${var.environment}"
+
+  revoke_rules_on_delete = true
+
+  ingress {
+    protocol    = "TCP"
+    from_port   = 5432
+    to_port     = 5432
+    cidr_blocks = ["10.0.0.0/16"]
+  }
+}
+
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -61,8 +80,8 @@ resource "aws_security_group" "cheerful_task" {
 
   ingress {
     protocol        = "tcp"
-    from_port       = 80
-    to_port         = 80
+    from_port       = 3000
+    to_port         = 3000
     security_groups = [aws_security_group.lb.id]
   }
 
