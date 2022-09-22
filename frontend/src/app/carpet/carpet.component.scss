@@ -1,8 +1,7 @@
 .container {
   display: grid;
   grid-template-areas:
-    "carpet"
-    "audience";
+    "carpet";
   width: 100%;
   max-width: 75vh;
   margin: auto;
@@ -12,8 +11,7 @@
     margin-top: 25px;
     grid-area: carpet;
     position: relative;
-    border: 20px darkred;
-    border-style: inset inset outset outset;
+    border-width: 8px;
 
     .lines {
       position: absolute;
@@ -22,7 +20,7 @@
 
       &.vertical {
         .line {
-          border-right: 1px solid white;
+          border-right: 1px solid lightgray;
 
           &:last-child {
             border-right: none;
@@ -34,7 +32,7 @@
         flex-direction: column;
 
         .line {
-          border-bottom: 1px dotted black;
+          border-bottom: 1px solid lightgray;
 
           &:last-child {
             border-bottom: none;
@@ -190,22 +188,5 @@
 
   .gu-mirror {
     text-align: center;
-  }
-
-  .audience {
-    grid-area: audience;
-    color: white;
-    background: black;
-    text-align: center;
-    width: 100%;
-  }
-}
-
-@media (max-width: 800px) {
-  .container {
-    .carpet-container {
-      border: 2vh darkred;
-      border-style: inset inset outset outset;
-    }
   }
 }
