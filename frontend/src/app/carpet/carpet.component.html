@@ -3,6 +3,9 @@
     <div class="lines vertical">
       <div *ngFor="let _ of verticalSegments" class="line"></div>
     </div>
+    <div class="lines horizontal">
+      <div *ngFor="let _ of horizontalSegments" class="line"></div>
+    </div>
     <div
       [style.background-color]="carpet.color"
       cdkDropListGroup
