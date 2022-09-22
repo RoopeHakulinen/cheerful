@@ -1,6 +1,6 @@
 import { Carpet } from './carpet';
 import { ChoreographyItem } from './choreography-item';
-import { Frame } from './frame';
+import { Frame, FrameType } from './frame';
 
 export interface ChoreographyPerson {
   personId: number;
@@ -18,40 +18,52 @@ export interface Choreography {
 
 export type ChoreographyToBeCreated = Omit<Choreography, 'id'>;
 
-export function createDeepCopy(choreography: any): any {
-  return JSON.parse(JSON.stringify(choreography));
+function generateGrid(height: number, width: number): ChoreographyItem[] {
+  return Array(height * width)
+    .fill(null)
+    .map(() => ({
+      content: null,
+      shape: 'rounded',
+      position: 'center',
+    }));
 }
 
-function generateGrid(): ChoreographyItem[] {
-    return Array(12 * 12)
-      .fill(null)
-      .map(() => ({
-        content: null,
-        shape: 'rounded',
-        position: 'center',
-      }));
-}
-
-export function createChoreography(): ChoreographyToBeCreated {
+export function createEmptyFrame(
+  name: string,
+  duration: number,
+  type: FrameType,
+  height: number,
+  width: number,
+): Frame {
   return {
-  name: 'Uusi koreografia',
-  teamId: 1,
-  frames: [
-    {
-      name: 'Alkutila',
-      type: 'content',
-      duration: 2,
-      grid: generateGrid(),
-      notes: '',
-    },
-  ],
-  carpet: {
-    color: '#5151b8',
-    height: 12,
-    width: 12,
-    horizontalSegments: 12,
-    verticalSegments: 6,
-  },
-  choreographyPerson: [],
+    name,
+    type,
+    duration,
+    grid: generateGrid(height, width),
+    notes: '',
   };
-};
+}
+
+export function createChoreography(height: number, width: number): ChoreographyToBeCreated {
+  return {
+    name: 'Uusi koreografia',
+    teamId: 1,
+    frames: [
+      {
+        name: 'Alkutila',
+        type: 'content',
+        duration: 2,
+        grid: generateGrid(height, width),
+        notes: '',
+      },
+    ],
+    carpet: {
+      color: 'rgb(46, 46, 46)',
+      height: height,
+      width: width,
+      verticalSegments: height,
+      horizontalSegments: width,
+    },
+    choreographyPerson: [],
+  };
+}

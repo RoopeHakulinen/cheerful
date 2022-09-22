@@ -16,7 +16,6 @@
     "FIRST_NAME": "Etunimi",
     "LAST_NAME": "Sukunimi",
     "CANCEL": "Peruuta",
-    "LOAD": "Lataa muistista",
     "SAVE": "Tallenna",
     "EXPORT_JSON": "Tallenna (.json)",
     "IMPORT_JSON": "Lataa (.json)",
@@ -57,8 +56,7 @@
       "FIVE": "Viisi"
     },
     "NOTES": "Muistiinpanot",
-    "NOTES_HINT": "Kirjoita muistiinpanot tähän.",
-    "CHOREOGRAPHY.FRAME_COPY_ERROR": "Ei ole edellistä tahtia, mistä kopioida."
+    "NOTES_HINT": "Kirjoita muistiinpanot tähän."
   },
   "FRAME_MANAGER": {
     "CYCLE": "Kasi",
@@ -94,20 +92,13 @@
     "CHOREOGRAPHY_LOADED": "Koreografia ladattu.",
     "NO_CHOREOGRAPHIES_IN_STORAGE": "Ei koreografioita muistissa.",
     "SAVE_TO_STORAGE_TOOLTIP": "Tallenna koreografia muistiin",
-    "LOAD_FROM_STORAGE_TOOLTIP": "Lataa koreografia muistista",
-    "SAVE_TO_FILE_TOOLTIP": "Tallenna tiedostoksi",
-    "LOAD_FROM_FILE_TOOLTIP": "Lataa koreografia tiedostosta",
     "UPDATE_NAME_TOOLTIP": "Päivitä koreografian nimi",
     "SAVE_CHOREOGRAPHY_DIALOG": {
       "TITLE": "Koreografian tallennus",
-      "TEXT": "Oletko varma? Tämä operaatio poistaa aiemmin tallennetun koreografian."
-    },
-    "LOAD_CHOREOGRAPHY_DIALOG": {
-      "TITLE": "Koreografian lataaminen muistista",
-      "TEXT": "Oletko varma? Kaikki tekemäsi muutokset katoavat."
+      "TEXT": "Oletko varma?"
     },
     "DELETE_FRAME": "Poista tahti",
-    "COPY_FROM_PREVIOUS": "Kopioi kuvio edellisestä kuviosta",
+    "COPY_FROM_PREVIOUS": "Käytä edellistä pohjana",
     "MOVE_FRAME_UP": "Siirrä valittu kuvio tai siirtymä yksi askel ylöspäin koreografiassa.",
     "MOVE_FRAME_DOWN": "Siirrä valittu kuvio tai siirtymä yksi askel alaspäin koreografiassa."
   },

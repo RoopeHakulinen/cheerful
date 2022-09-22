@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Choreography, createChoreography } from './choreography';
-import { ChoreographyItem } from './choreography-item';
 import { HttpClient } from '@angular/common/http';
-import { refreshQuery, QueryOutput, query } from 'rx-query';
+import { query, QueryOutput, refreshQuery } from 'rx-query';
 
 @Injectable()
 export class ChoreographyService {
@@ -14,11 +13,15 @@ export class ChoreographyService {
   }
 
   createChoreography(): Observable<Choreography> {
-    return this.http.post<Choreography>(`/api/choreographies`, createChoreography()).pipe(tap(() => this.refreshChoreographies()));
+    return this.http
+      .post<Choreography>(`/api/choreographies`, createChoreography(24, 24))
+      .pipe(tap(() => this.refreshChoreographies()));
   }
 
   updateChoreography(choreography: Choreography): Observable<Choreography> {
-    return this.http.put<Choreography>(`/api/choreographies`, choreography).pipe(tap(() => this.refreshChoreographies()));
+    return this.http
+      .put<Choreography>(`/api/choreographies`, choreography)
+      .pipe(tap(() => this.refreshChoreographies()));
   }
 
   deleteChoreographyById(id: number): Observable<void> {

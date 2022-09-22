@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
-
 @Component({
   selector: 'app-choreography-content-name-dialog',
   templateUrl: './choreography-content-name-dialog.component.html',
@@ -9,9 +8,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ChoreographyContentNameDialogComponent {
   name = '';
+  copyPrevious = true;
 
-  constructor(public dialogRef: MatDialogRef<ChoreographyContentNameDialogComponent>) {
-
-  }
-
+  constructor(public dialogRef: MatDialogRef<ChoreographyContentNameDialogComponent>) {}
 }

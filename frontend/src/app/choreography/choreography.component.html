@@ -1,5 +1,20 @@
 <div *ngIf="choreography">
-  <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/app/choreographies"></app-toolbar>
+  <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/app/choreographies">
+    <button
+      (click)="openEditName()"
+      [matTooltip]="'FRAME_MANAGER.UPDATE_NAME_TOOLTIP' | translate"
+      mat-icon-button
+      middle>
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button
+      (click)="saveChoreography()"
+      [matTooltip]="'FRAME_MANAGER.SAVE_TO_STORAGE_TOOLTIP' | translate"
+      mat-icon-button
+      right>
+      <mat-icon>save</mat-icon>
+    </button>
+  </app-toolbar>
   <div fxLayout="column" fxLayout.gt-sm="row">
     <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="3">
       <app-frame-manager
@@ -18,7 +33,6 @@
         (toggleAnimations)="toggleAnimations()"
         (toggleLooping)="toggleLooping()"
         (toggleVoiceSynthesis)="toggleVoiceSynthesis()"
-        (changeFrameToPreviousFrame)="copyFrameFromPreviousFrame()"
         (changeFramePosition)="moveFrameUpOrDown($event)"
         [activeFrameIndex]="activeFrameIndex"
         [frames]="choreography.frames"
@@ -34,43 +48,6 @@
         [isVoiceSynthesisOn]="isVoiceSynthesisOn"></app-frame-manager>
       <app-people (add)="addPerson($event)" (remove)="removePerson($event)"
                   [people]="choreography.choreographyPerson"></app-people>
-      <div class="save-div">
-        <button
-          (click)="saveChoreography()"
-          [matTooltip]="'FRAME_MANAGER.SAVE_TO_STORAGE_TOOLTIP' | translate"
-          mat-raised-button>
-          <mat-icon>save</mat-icon>
-        </button>
-        <button
-          (click)="loadChoreography()"
-          [disabled]="localStorageEmpty"
-          [matTooltip]="'FRAME_MANAGER.LOAD_FROM_STORAGE_TOOLTIP' | translate"
-          mat-raised-button>
-          <mat-icon>restore</mat-icon>
-        </button>
-        <button
-          (click)="exportAsJson()"
-          [matTooltip]="'FRAME_MANAGER.SAVE_TO_FILE_TOOLTIP' | translate"
-          class="single-button"
-          mat-raised-button>
-          <mat-icon>file_download</mat-icon>
-        </button>
-        <input #fileUpload (change)="onFileSelected($event)" class="file-input" type="file"/>
-        <button
-          (click)="fileUpload.click()"
-          [matTooltip]="'FRAME_MANAGER.LOAD_FROM_FILE_TOOLTIP' | translate"
-          class="upload-file single-button"
-          mat-raised-button>
-          <mat-icon>file_upload</mat-icon>
-        </button>
-        <button
-          (click)="openEditName()"
-          [matTooltip]="'FRAME_MANAGER.UPDATE_NAME_TOOLTIP' | translate"
-          class="single-button"
-          mat-raised-button>
-          <mat-icon>edit</mat-icon>
-        </button>
-      </div>
       <app-eight-counter
         [activeFrame]="actualActiveFrameIndex"
         [duration]="frameInterval"

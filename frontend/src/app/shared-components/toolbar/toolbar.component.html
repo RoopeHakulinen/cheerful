@@ -9,6 +9,9 @@
   </div>
   <div class="middle" fxFlex="grow">
     <span class="title">{{ title }}</span>
+    <ng-content select="[middle]"></ng-content>
   </div>
-  <div class="right" fxFlex="100px"></div>
+  <div class="right" fxFlex="100px">
+    <ng-content select="[right]"></ng-content>
+  </div>
 </mat-toolbar>

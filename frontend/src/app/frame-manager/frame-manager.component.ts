@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -13,6 +6,8 @@ import { ToastService } from '../toast.service';
 import { FrameForShowing } from '../choreography/choreography.component';
 import { ChoreographyContentNameDialogComponent } from './choreography-content-name-dialog/choreography-content-name-dialog.component';
 import { Frame } from '../frame';
+
+export type NewContentFrameEvent = { name: string; copyPrevious: boolean };
 
 @Component({
   selector: 'app-frame-manager',
@@ -46,7 +41,7 @@ export class FrameManagerComponent implements OnChanges {
   carpetVerticalSegments!: number;
 
   @Output()
-  addContentFrame = new EventEmitter<string>();
+  addContentFrame = new EventEmitter<NewContentFrameEvent>();
   @Output()
   addTransitionFrame = new EventEmitter<void>();
   @Output()
@@ -140,10 +135,7 @@ export class FrameManagerComponent implements OnChanges {
   }
 
   removeClicked(index: number): void {
-    if (
-      this.activeFrameIndex === 0 &&
-      this.framesToShow[this.activeFrameIndex].length === 1
-    ) {
+    if (this.activeFrameIndex === 0 && this.framesToShow[this.activeFrameIndex].length === 1) {
       this.toastService.createToast('FRAME_MANAGER.ONE_FRAME_LEFT');
       return;
     }
@@ -159,10 +151,7 @@ export class FrameManagerComponent implements OnChanges {
 
   emitCarpetWidthChange(newWidth: number): void {
     this.changeCarpetWidth.emit(newWidth);
-    if (
-      newWidth < this.carpetVerticalSegments ||
-      newWidth % this.carpetVerticalSegments !== 0
-    ) {
+    if (newWidth < this.carpetVerticalSegments || newWidth % this.carpetVerticalSegments !== 0) {
       this.changeVerticalSegments.emit(newWidth);
     }
   }
@@ -177,29 +166,17 @@ export class FrameManagerComponent implements OnChanges {
 
   emitCarpetHeightChange(newHeight: number): void {
     this.changeCarpetHeight.emit(newHeight);
-    if (
-      newHeight < this.carpetHorizontalSegments ||
-      newHeight % this.carpetHorizontalSegments !== 0
-    ) {
+    if (newHeight < this.carpetHorizontalSegments || newHeight % this.carpetHorizontalSegments !== 0) {
       this.changeHorizontalSegments.emit(newHeight);
     }
   }
 
   isEightActive(frames: FrameForShowing[]): boolean {
-    return frames.some(
-      (frame) => frame.originalFrameIndex === this.activeFrameIndex
-    );
-  }
-
-  copyFrameFromPreviousFrame(): void {
-    this.changeFrameToPreviousFrame.emit();
+    return frames.some((frame) => frame.originalFrameIndex === this.activeFrameIndex);
   }
 
   addContentClicked(): void {
-    const dialogRef = this.dialog.open(
-      ChoreographyContentNameDialogComponent,
-      {}
-    );
+    const dialogRef = this.dialog.open(ChoreographyContentNameDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.addContentFrame.emit(result);
@@ -209,9 +186,7 @@ export class FrameManagerComponent implements OnChanges {
   }
 
   filterExpandedFrames(index: number): void {
-    this.expandedFrames = this.expandedFrames.filter(
-      (frameIndex) => frameIndex !== index
-    );
+    this.expandedFrames = this.expandedFrames.filter((frameIndex) => frameIndex !== index);
   }
 
   private buildFramesToShow(): FrameForShowing[][] {

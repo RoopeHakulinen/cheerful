@@ -52,7 +52,6 @@ import { ChoreographyPersonPipe } from './choreography-person-pipe.pipe';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ChoreographyContentNameDialogComponent } from './frame-manager/choreography-content-name-dialog/choreography-content-name-dialog.component';
 import { SaveChoreographyDialogComponent } from './frame-manager/save-choreography-dialog/save-choreography-dialog.component';
-import { LoadChoreographyDialogComponent } from './frame-manager/load-choreography-dialog/load-choreography-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
@@ -95,6 +94,7 @@ import { PersonService } from './person.service';
 import { PersonDialogComponent } from './person-dialog/person-dialog.component';
 import { PersonServiceMock } from './person.service.mock';
 import { UserServiceMock } from './user.service.mock';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
 let exerciseServiceProvider: Provider = ExerciseService;
@@ -138,7 +138,6 @@ export function HttpLoaderFactory(http: HttpClient): any {
     PersonPipe,
     ChoreographyPersonPipe,
     SaveChoreographyDialogComponent,
-    LoadChoreographyDialogComponent,
     PageNotFoundComponent,
     AcrobaticsComponent,
     SingleAcrobaticPageComponent,
@@ -200,6 +199,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     MatPaginatorModule,
     SocialLoginModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
   ],
   providers: [
     choreographyServiceProvider,

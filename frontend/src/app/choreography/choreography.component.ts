@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Choreography, createDeepCopy } from '../choreography';
+import { Choreography, createEmptyFrame } from '../choreography';
 import {
   ChoreographyItem,
   clearItem,
@@ -34,9 +34,10 @@ import { ToastService } from '../toast.service';
 import { Frame } from '../frame';
 import { MatDialog } from '@angular/material/dialog';
 import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreography-dialog/save-choreography-dialog.component';
-import { LoadChoreographyDialogComponent } from '../frame-manager/load-choreography-dialog/load-choreography-dialog.component';
 import { filter } from 'rxjs';
 import { EditNameDialogComponent } from '../edit-name-dialog/edit-name-dialog.component';
+import { NewContentFrameEvent } from '../frame-manager/frame-manager.component';
+import { createDeepCopy } from '../utils';
 
 export interface FrameForShowing extends Frame {
   originalFrameIndex: number;
@@ -68,10 +69,6 @@ export class ChoreographyComponent {
     return this.choreography.frames[this.activeFrameIndex];
   }
 
-  get localStorageEmpty(): any {
-    return localStorage.getItem('choreography') === null;
-  }
-
   constructor(
     public choreographyService: ChoreographyService,
     private route: ActivatedRoute,
@@ -86,19 +83,23 @@ export class ChoreographyComponent {
     });
   }
 
-  addContentFrame(name: string): void {
-    const newContentFrame = {
-      ...createDeepCopy(this.choreography.frames[this.choreography.frames.length - 1]),
-      notes: '',
-      type: 'content',
-      name,
-    };
-    this.choreography.frames = [...this.choreography.frames, newContentFrame];
+  addContentFrame(event: NewContentFrameEvent): void {
+    const frame = createEmptyFrame(
+      event.name,
+      1,
+      'content',
+      this.choreography.carpet.height,
+      this.choreography.carpet.width,
+    );
+    if (event.copyPrevious) {
+      frame.grid = createDeepCopy(this.choreography.frames[this.activeFrameIndex]).grid;
+    }
+    this.choreography.frames = [...this.choreography.frames, frame];
     this.activeFrameIndex++;
   }
 
   addTransitionFrame(): void {
-    const newTransitionFrame = {
+    const newTransitionFrame: Frame = {
       ...createDeepCopy(this.choreography.frames[this.choreography.frames.length - 1]),
       notes: '',
       type: 'transition',
@@ -318,7 +319,7 @@ export class ChoreographyComponent {
       .subscribe(() => {
         this.choreographyService
           .updateChoreography(this.choreography)
-          .subscribe((choreography) => this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED'));
+          .subscribe(() => this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED'));
       });
   }
 
@@ -357,28 +358,6 @@ export class ChoreographyComponent {
     this.activeChoreographyItem.content.color = color;
   }
 
-  loadChoreography(): void {
-    const dialogRef = this.dialog.open(LoadChoreographyDialogComponent, {});
-    dialogRef
-      .afterClosed()
-      .pipe(filter((result) => !!result))
-      .subscribe(() => {
-        const loadedChoreography = localStorage.getItem('choreography');
-        if (loadedChoreography === null) {
-          this.toastService.createToast('FRAME_MANAGER.NO_CHOREOGRAPHIES_IN_STORAGE');
-          return;
-        }
-        this.choreography = JSON.parse(loadedChoreography);
-        this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_LOADED');
-      });
-  }
-
-  copyFrameFromPreviousFrame(): void {
-    this.choreography.frames[this.activeFrameIndex].grid = createDeepCopy(
-      this.choreography.frames[this.activeFrameIndex - 1],
-    ).grid;
-  }
-
   private disableAnimationsForNextTick(): void {
     const wereAnimationsOnInitially = this.areAnimationsOn;
     this.areAnimationsOn = false;
@@ -388,41 +367,6 @@ export class ChoreographyComponent {
   changeActiveFrame(selectedFrameIndex: number[]): void {
     this.activeFrameIndex = selectedFrameIndex[0];
     this.actualActiveFrameIndex = selectedFrameIndex[1];
-  }
-
-  exportAsJson(): void {
-    const data = JSON.stringify(this.choreography);
-    const fileName = `choreography-${this.choreography.name}.json`;
-    const file = new Blob([data]);
-    const a = document.createElement('a');
-    const url = URL.createObjectURL(file);
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function () {
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }, 0);
-  }
-
-  onFileSelected(file: any): void {
-    if (file.target === null) {
-      return;
-    }
-    const jsonFile = file.target.files[0];
-    if (file.target.files.length !== 1) {
-      throw new Error('Cannot use multiple files');
-    }
-    const reader = new FileReader();
-    reader.readAsText(jsonFile);
-    reader.onload = (_: any) => {
-      if (typeof reader.result === 'string') {
-        this.choreography = JSON.parse(reader.result);
-      } else {
-        throw new Error('Invalid file!');
-      }
-    };
   }
 
   moveFrameUpOrDown(direction: 'up' | 'down'): void {
@@ -472,17 +416,14 @@ export class ChoreographyComponent {
   openEditName(): void {
     const dialogRef = this.dialog.open(EditNameDialogComponent, {
       width: 'fit-content',
-      data: {name: this.choreography.name},
+      data: { name: this.choreography.name },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result === null) {
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === null) {
         return;
       }
       this.choreography.name = result;
-      this.choreographyService
-          .updateChoreography(this.choreography)
-          .subscribe(() => this.toastService.createToast('FRAME_MANAGER.CHOREOGRAPHY_SAVED'));
     });
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { QueryOutput } from 'rx-query';
-import { BehaviorSubject, map, Observable, of, timer } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Choreography, createChoreography } from './choreography';
 import { ChoreographyItem } from './choreography-item';
 import { updateAllAttributes } from './utils';
@@ -22,9 +22,9 @@ export class ChoreographyServiceMock {
         },
       ],
       carpet: {
-        color: '#5151b8',
-        height: 12,
-        width: 12,
+        color: 'rgb(46, 46, 46)',
+        height: 24,
+        width: 24,
         horizontalSegments: 12,
         verticalSegments: 6,
       },
@@ -32,20 +32,25 @@ export class ChoreographyServiceMock {
     },
   ];
 
-  choreographiesSubject = new BehaviorSubject<QueryOutput<Choreography[]>>({status: 'success', data: this.choreographies} as any);
+  choreographiesSubject = new BehaviorSubject<QueryOutput<Choreography[]>>({
+    status: 'success',
+    data: this.choreographies,
+  } as any);
 
   getChoreographies(): Observable<QueryOutput<Choreography[]>> {
     return this.choreographiesSubject.asObservable();
   }
 
   getChoreographyById(id: number): Observable<Choreography> {
-    return of(this.choreographies.find(choreography => choreography.id === id)!);
+    return of(this.choreographies.find((choreography) => choreography.id === id)!);
   }
 
   updateChoreography(choreography: Choreography): Observable<Choreography> {
-    const foundChoreography = this.choreographies.find(existingChoreography => existingChoreography.id === choreography.id)!;
+    const foundChoreography = this.choreographies.find(
+      (existingChoreography) => existingChoreography.id === choreography.id,
+    )!;
     updateAllAttributes(choreography, foundChoreography);
-    this.choreographiesSubject.next({status: 'success', data: this.choreographies} as any);
+    this.choreographiesSubject.next({ status: 'success', data: this.choreographies } as any);
     return of(foundChoreography);
   }
 
@@ -61,18 +66,18 @@ export class ChoreographyServiceMock {
 
   createChoreography(): Observable<Choreography> {
     const newChoreography = {
-      ...createChoreography(),
-      id: Math.floor(Math.random() * 1000) + 1
+      ...createChoreography(24, 24),
+      id: Math.floor(Math.random() * 1000) + 1,
     };
-    
+
     this.choreographies.push(newChoreography);
-    this.choreographiesSubject.next({status: 'success', data: this.choreographies} as any);
+    this.choreographiesSubject.next({ status: 'success', data: this.choreographies } as any);
     return of(newChoreography);
   }
 
   deleteChoreographyById(id: number): Observable<void> {
-    this.choreographies = this.choreographies.filter(choreography => choreography.id !== id);
-    this.choreographiesSubject.next({status: 'success', data: this.choreographies} as any);
+    this.choreographies = this.choreographies.filter((choreography) => choreography.id !== id);
+    this.choreographiesSubject.next({ status: 'success', data: this.choreographies } as any);
     return of(void 0);
   }
 }
