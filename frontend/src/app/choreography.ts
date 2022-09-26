@@ -23,8 +23,6 @@ function generateGrid(height: number, width: number): ChoreographyItem[] {
     .fill(null)
     .map(() => ({
       content: null,
-      shape: 'rounded',
-      position: 'center',
     }));
 }
 

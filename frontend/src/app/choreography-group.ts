@@ -128,7 +128,7 @@ export function getPeopleFromGroup(content: ChoreographyGroup): number[] {
   } else if (isFiveGroup(content)) {
     result = [content.flyerId, content.backspotId, content.mainbaseId, content.sidebaseId, content.frontspotId];
   }
-  return result.filter(personId => personId !== null) as number[];
+  return result.filter((personId) => personId !== null) as number[];
 }
 
 export function removePersonFromGroup(content: TwoGroup | ThreeGroup | FourGroup | FiveGroup, personId: number): void {
