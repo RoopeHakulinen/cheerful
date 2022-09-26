@@ -11,6 +11,11 @@ resource "aws_cloudwatch_log_group" "app" {
   retention_in_days = 7
 }
 
+resource "random_password" "jwt_signing_key" {
+  length  = 32
+  special = false
+}
+
 resource "aws_ecs_task_definition" "cheerful" {
   family                   = "cheerful-${var.environment}"
   network_mode             = "awsvpc"
@@ -46,11 +51,51 @@ resource "aws_ecs_task_definition" "cheerful" {
       {
         "name": "DATABASE_URL",
         "value": "postgresql://${aws_db_instance.app.username}:${aws_db_instance.app.password}@${aws_db_instance.app.address}:${aws_db_instance.app.port}/${aws_db_instance.app.db_name}?schema=public"
+      },
+      {
+        "name": "JWT_SIGNING_KEY",
+        "value": "${random_password.jwt_signing_key.result}"
+      },
+      {
+        "name": "CLIENT_ID",
+        "value": ""
+      },
+      {
+        "name": "CLIENT_SECRET",
+        "value": ""
       }
+    ],
+    "secrets": [
+      {
+        "name": "CLIENT_ID",
+        "valueFrom": "${aws_secretsmanager_secret.client_id.arn}"
+      },
+      {
+        "name": "CLIENT_SECRET",
+        "valueFrom": "${aws_secretsmanager_secret.client_secret.arn}"
+      },
     ]
   }
 ]
 DEFINITION
+}
+
+resource "aws_secretsmanager_secret" "client_id" {
+  name = "${var.environment}-app-secrets"
+}
+
+resource "aws_secretsmanager_secret_version" "client_id" {
+  secret_id     = aws_secretsmanager_secret.client_id.id
+  secret_string = var.client_id
+}
+
+resource "aws_secretsmanager_secret" "client_secret" {
+  name = "${var.environment}-app-secrets"
+}
+
+resource "aws_secretsmanager_secret_version" "client_secret" {
+  secret_id     = aws_secretsmanager_secret.client_secret.id
+  secret_string = var.client_secret
 }
 
 resource "aws_iam_role" "task" {

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res } from '@nestjs/common';
 import { UserDto, UserToBeCreatedDto } from './usersDtos';
 import { UsersService } from './users.service';
 import { User } from '@prisma/client';
@@ -10,6 +10,17 @@ export class UsersController {
   @Get()
   getAll(): Promise<User[]> {
     return this.usersService.findAll();
+  }
+
+  @Get('me')
+  async getMe(@Req() req: any): Promise<User> {
+    return this.usersService.findOne(req.user.id);
+  }
+
+  @Get('logout')
+  async logout(@Res() res: any): Promise<void> {
+    res.clearCookie('AuthToken', { secure: true, httpOnly: true });
+    res.redirect('/');
   }
 
   @Get(':id')
