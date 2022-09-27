@@ -69,12 +69,6 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { SortInputComponent } from './sort-input/sort-input.component';
 import { CustomPaginatorIntl } from './paginator-intl';
-import {
-  FacebookLoginProvider,
-  GoogleLoginProvider,
-  SocialAuthServiceConfig,
-  SocialLoginModule,
-} from '@abacritt/angularx-social-login';
 import { AuthService } from './auth.service';
 import { HomeComponent } from './home/home.component';
 import { LoggedInGuard } from './logged-in.guard';
@@ -197,7 +191,6 @@ export function HttpLoaderFactory(http: HttpClient): any {
     MatTooltipModule,
     SharedComponentsModule,
     MatPaginatorModule,
-    SocialLoginModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
   ],
@@ -214,28 +207,6 @@ export function HttpLoaderFactory(http: HttpClient): any {
     AuthService,
     LoggedInGuard,
     NotLoggedInGuard,
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: true,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '643585029299-4p9vpkh0tiscrfs1tpvhf8ok0q1v1t60.apps.googleusercontent.com',
-              { scopes: 'email' },
-            ),
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('1570466090015512'),
-          },
-        ],
-        onError: (err) => {
-          console.error(err);
-        },
-      } as SocialAuthServiceConfig,
-    },
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmDialogComponent, ChoreographyContentNameDialogComponent],
