@@ -16,7 +16,7 @@ export class OAuth2GoogleStrategy extends PassportStrategy(GoogleStrategy, 'oaut
         callbackURL: configService.get('oauth2-google.callbackUrl'),
         passReqToCallback: true,
         scope: ['profile', 'email'],
-        state: true,
+        state: false,
       } as StrategyOptionsWithRequest,
       (req: Request, access: string, refresh: string, profile: any, done: VerifyCallback) => {
         this.authService

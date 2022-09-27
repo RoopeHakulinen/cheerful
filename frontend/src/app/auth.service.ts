@@ -16,8 +16,8 @@ export class AuthService {
     this.router.navigate(['/app']);
   }
 
-  signOut(): Observable<boolean> {
-    return this.http.get<boolean>('/api/users/logout');
+  signOut(): Observable<void> {
+    return this.http.get<void>('/api/users/logout');
   }
 
   isSignedIn(): Observable<Partial<User>> {

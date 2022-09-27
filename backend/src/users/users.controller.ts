@@ -20,7 +20,6 @@ export class UsersController {
   @Get('logout')
   async logout(@Res() res: any): Promise<void> {
     res.clearCookie('AuthToken', { secure: true, httpOnly: true });
-    res.redirect('/');
   }
 
   @Get(':id')

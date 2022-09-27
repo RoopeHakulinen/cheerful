@@ -57,12 +57,8 @@ resource "aws_ecs_task_definition" "cheerful" {
         "value": "${random_password.jwt_signing_key.result}"
       },
       {
-        "name": "CLIENT_ID",
-        "value": ""
-      },
-      {
-        "name": "CLIENT_SECRET",
-        "value": ""
+        "name": "DOMAIN",
+        "value": "local.environment_domain"
       }
     ],
     "secrets": [
