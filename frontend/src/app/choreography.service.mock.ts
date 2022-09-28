@@ -59,8 +59,6 @@ export class ChoreographyServiceMock {
       .fill(null)
       .map(() => ({
         content: null,
-        shape: 'rounded',
-        position: 'center',
       }));
   }
 

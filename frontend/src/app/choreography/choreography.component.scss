@@ -3,22 +3,6 @@
   flex-direction: column;
 }
 
-.position-selector {
-  align-self: start;
-
-  .option {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    box-sizing: border-box;
-    border: 1px solid black;
-
-    &.active {
-      background-color: red;
-    }
-  }
-}
-
 .frame-options-container {
   display: flex;
   margin-top: 15px;

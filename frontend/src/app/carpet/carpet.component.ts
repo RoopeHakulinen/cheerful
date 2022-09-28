@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Carpet } from '../carpet';
-import { ChoreographyItem, Content, getPeopleForContent, PersonContent, Position } from '../choreography-item';
+import { ChoreographyItem, Content, getPeopleForContent, PersonContent } from '../choreography-item';
 import { Frame } from '../frame';
 import {
   FiveGroup,
@@ -40,14 +40,18 @@ interface PositionCoordinates {
   styleUrls: ['./carpet.component.scss'],
   animations: [
     trigger('animate', [
-      transition('void => *', [
-        style({ transform: `translate({{x}}px, {{y}}px)` }),
-        animate('{{time}}', style({ transform: 'translate(0px, 0px)' })),
-      ], {
-        params: {
-          time: '0s',
+      transition(
+        'void => *',
+        [
+          style({ transform: `translate({{x}}px, {{y}}px)` }),
+          animate('{{time}}', style({ transform: 'translate(0px, 0px)' })),
+        ],
+        {
+          params: {
+            time: '0s',
+          },
         },
-      }),
+      ),
     ]),
   ],
 })
@@ -61,7 +65,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
   nextFrame!: Frame;
   @Input()
-  activeItem: ChoreographyItem | null = null;
+  activeItems: ChoreographyItem[] = [];
   @Input()
   animationDuration!: number;
   @Input()
@@ -70,9 +74,13 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   people: Person[] | null = null;
 
   @Output()
-  active = new EventEmitter<ChoreographyItem>();
+  setActiveItem = new EventEmitter<ChoreographyItem>();
   @Output()
-  swap = new EventEmitter<{ first: number, second: number }>();
+  setActiveItems = new EventEmitter<ChoreographyItem[]>();
+  @Output()
+  removeItemContent = new EventEmitter<ChoreographyItem>();
+  @Output()
+  swap = new EventEmitter<{ first: number; second: number }>();
 
   @ViewChild('tile', { read: ElementRef })
   tileReference!: ElementRef;
@@ -84,6 +92,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
   isDeletable = false;
+  isSelectionModeOn = false;
 
   get frameToShow(): Frame {
     return this.frame.type === 'transition' ? this.nextFrame : this.frame;
@@ -92,13 +101,20 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   swapPositions(event: number): void {
     const first = this.draggedItemIndex!;
     const second = event;
+    if (this.frame.grid[first].content === null) {
+      return;
+    }
     this.swap.emit({ first, second });
     this.isDeletable = false;
-    this.active.emit(this.frame.grid[event]);
+    this.setActiveItem.emit(this.frame.grid[second]);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.frame && changes.frame.previousValue && changes.frame.previousValue.grid !== changes.frame.currentValue.grid) {
+    if (
+      changes.frame &&
+      changes.frame.previousValue &&
+      changes.frame.previousValue.grid !== changes.frame.currentValue.grid
+    ) {
       this.lastItems = changes.frame.previousValue.grid;
       this.animate = !this.animate;
     }
@@ -110,10 +126,10 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   findTranslation(item: ChoreographyItem, index: number): PositionCoordinates {
     const [lastItem, lastItemIndex] = this.findItemByContent(this.lastItems, item.content);
-    return this.itemDifference(lastItem, item, lastItemIndex, index);
+    return this.itemDifference(lastItem, lastItemIndex, index);
   }
 
-  getAnimationParams(item: ChoreographyItem, index: number): { x: number, y: number, time: string } {
+  getAnimationParams(item: ChoreographyItem, index: number): { x: number; y: number; time: string } {
     const baseDuration = this.animationDuration / 1000;
     const duration = this.frame.type === 'transition' ? (this.frame.duration + 1) * baseDuration : baseDuration;
     return {
@@ -124,49 +140,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  adjustItemDifferenceBasedOnPosition(param: PositionCoordinates, endPosition: Position, startPosition: Position): PositionCoordinates {
-    let x = param.x;
-
-    if (startPosition === 'right' && endPosition === 'left') {
-      x = param.x + 46;
-    } else if (startPosition === 'center' && endPosition === 'left') {
-      x = param.x + 23;
-    } else if (startPosition === 'left' && endPosition === 'right') {
-      x = param.x - 46;
-    } else if (startPosition === 'center' && endPosition === 'right') {
-      x = param.x - 23;
-    } else if (startPosition === 'left' && endPosition === 'center') {
-      x = param.x - 23;
-    } else if (startPosition === 'right' && endPosition === 'center') {
-      x = param.x + 23;
-    }
-
-    return { ...param, x };
-  }
-
-  private itemDifference(startItem: ChoreographyItem | null, endItem: ChoreographyItem, startItemIndex: number, endItemIndex: number): PositionCoordinates {
-    if (startItem === null || startItemIndex === -1) {
-      return { x: 0, y: 0 };
-    }
-    let adjustedEndItem: ChoreographyItem = endItem;
-    let adjustedEndItemIndex = endItemIndex;
-    if (this.frame.type === 'transition') {
-      const [tempItem, tempItemIndex] = this.findItemByContent(this.nextFrame.grid, startItem.content);
-      adjustedEndItem = tempItem!;
-      adjustedEndItemIndex = tempItemIndex;
-    }
-
-    const startX = startItemIndex % this.carpet.width;
-    const startY = Math.floor(startItemIndex / this.carpet.height);
-    const endX = adjustedEndItemIndex % this.carpet.width;
-    const endY = Math.floor(adjustedEndItemIndex / this.carpet.height);
-
-    return this.adjustItemDifferenceBasedOnPosition({
-      x: (startX - endX) * this.tileReference?.nativeElement?.clientWidth ?? 0,
-      y: (startY - endY) * this.tileReference?.nativeElement?.clientHeight ?? 0,
-    }, adjustedEndItem.position, startItem.position);
   }
 
   dragStarted(index: number): void {
@@ -194,14 +167,48 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     return isPerson(content);
   }
 
+  isActive(item: ChoreographyItem): boolean {
+    return this.activeItems.some((activeItem) => activeItem === item);
+  }
+
+  private itemDifference(
+    startItem: ChoreographyItem | null,
+    startItemIndex: number,
+    endItemIndex: number,
+  ): PositionCoordinates {
+    if (startItem === null || startItemIndex === -1) {
+      return { x: 0, y: 0 };
+    }
+    let adjustedEndItemIndex = endItemIndex;
+    if (this.frame.type === 'transition') {
+      const [_, tempItemIndex] = this.findItemByContent(this.nextFrame.grid, startItem.content);
+      adjustedEndItemIndex = tempItemIndex;
+    }
+
+    const startX = startItemIndex % this.carpet.width;
+    const startY = Math.floor(startItemIndex / this.carpet.height);
+    const endX = adjustedEndItemIndex % this.carpet.width;
+    const endY = Math.floor(adjustedEndItemIndex / this.carpet.height);
+
+    return {
+      x: (startX - endX) * this.tileReference?.nativeElement?.clientWidth ?? 0,
+      y: (startY - endY) * this.tileReference?.nativeElement?.clientHeight ?? 0,
+    };
+  }
+
   private findItemByContent(items: ChoreographyItem[], content: Content): [ChoreographyItem | null, number] {
     if (!items || !content) {
       return [null, -1];
     }
 
     function itemIdentityPredicate(item: ChoreographyItem): boolean {
-      const isSameIdentity = JSON.stringify(getPeopleForContent(item.content)) === JSON.stringify(getPeopleForContent(content));
-      const doesPersonBelongToGroupFromLastRound = isGroup(item.content) && isPerson(content) && getPeopleForContent(item.content).includes(content.personId);
+      const isSameIdentity =
+        JSON.stringify(getPeopleForContent(item.content)) === JSON.stringify(getPeopleForContent(content));
+      const doesPersonBelongToGroupFromLastRound =
+        isGroup(item.content) &&
+        isPerson(content) &&
+        content.personId !== null &&
+        getPeopleForContent(item.content).includes(content.personId);
       return isSameIdentity || doesPersonBelongToGroupFromLastRound;
     }
 

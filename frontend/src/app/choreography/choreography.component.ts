@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import { Choreography, createEmptyFrame } from '../choreography';
-import {
-  ChoreographyItem,
-  clearItem,
-  Content,
-  getPeopleForContent,
-  PersonContent,
-  Position,
-} from '../choreography-item';
+import { ChoreographyItem, Content, getPeopleForContent, PersonContent } from '../choreography-item';
 import {
   availableGroupTypes,
   ChoreographyGroup,
@@ -33,11 +26,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../toast.service';
 import { Frame } from '../frame';
 import { MatDialog } from '@angular/material/dialog';
+import { NewContentFrameEvent } from '../frame-manager/frame-manager.component';
+import { createDeepCopy } from '../utils';
 import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreography-dialog/save-choreography-dialog.component';
 import { filter } from 'rxjs';
 import { EditNameDialogComponent } from '../edit-name-dialog/edit-name-dialog.component';
-import { NewContentFrameEvent } from '../frame-manager/frame-manager.component';
-import { createDeepCopy } from '../utils';
 
 export interface FrameForShowing extends Frame {
   originalFrameIndex: number;
@@ -52,7 +45,7 @@ export interface FrameForShowing extends Frame {
 export class ChoreographyComponent {
   choreography!: Choreography;
   activeFrameIndex = 0;
-  activeChoreographyItem: ChoreographyItem | null = null;
+  activeChoreographyItems: ChoreographyItem[] = [];
   playFrameIntervalId: number | null = null;
   frameInterval = 10000;
   areAnimationsOn = true;
@@ -61,7 +54,6 @@ export class ChoreographyComponent {
   tempo = 8;
   areNotesShown = false;
   availableGroupTypes = availableGroupTypes;
-  positionOptions: Position[] = ['left', 'center', 'right'];
   actualActiveFrameIndex = 0;
   waitForDurationBeforeChangingFrames: number | null = null;
 
@@ -134,48 +126,13 @@ export class ChoreographyComponent {
     frame.grid[second] = temp;
   }
 
-  play(): void {
-    this.activeChoreographyItem = null;
-    this.playFrameIntervalId = window.setInterval(() => {
-      this.actualActiveFrameIndex =
-        (this.actualActiveFrameIndex + 1) % this.choreography.frames.reduce((acc, frame) => acc + frame.duration, 0);
-      if (this.activeFrame.type === 'content' && this.activeFrame.duration === 1) {
-        this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
-        this.waitForDurationBeforeChangingFrames = null;
-        return;
-      } else if (this.activeFrame.type === 'transition') {
-        if (this.waitForDurationBeforeChangingFrames === null) {
-          this.waitForDurationBeforeChangingFrames = 1;
-        } else {
-          if (this.waitForDurationBeforeChangingFrames === this.activeFrame.duration) {
-            this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
-            if (this.activeFrame.duration === 1) {
-              // setTimeout is needed in order to set the starting transition item first and then start the transition to the next one
-              setTimeout(
-                () => (this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length),
-                0,
-              );
-              this.waitForDurationBeforeChangingFrames = null;
-            } else {
-              this.waitForDurationBeforeChangingFrames = 2;
-            }
-          } else {
-            this.waitForDurationBeforeChangingFrames++;
-          }
-        }
-      } else if (this.activeFrame.type === 'content' && this.activeFrame.duration !== 1) {
-        if (this.waitForDurationBeforeChangingFrames === null) {
-          this.waitForDurationBeforeChangingFrames = 2;
-        } else {
-          if (this.waitForDurationBeforeChangingFrames === this.activeFrame.duration) {
-            this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
-            this.waitForDurationBeforeChangingFrames = null;
-          } else {
-            this.waitForDurationBeforeChangingFrames++;
-          }
-        }
-      }
-    }, this.frameInterval / this.tempo);
+  get singleActiveChoreographyItem(): ChoreographyItem {
+    if (this.activeChoreographyItems.length !== 1) {
+      throw new Error(
+        'Tried to perform an operation on an active choreography item while there are multiple selected which does not make sense.',
+      );
+    }
+    return this.activeChoreographyItems[0];
   }
 
   pause(): void {
@@ -188,10 +145,6 @@ export class ChoreographyComponent {
 
   isGroup(content: Content): content is ChoreographyGroup {
     return isGroup(content);
-  }
-
-  setPositionForItem(activeChoreographyItem: ChoreographyItem, position: Position): void {
-    activeChoreographyItem.position = position;
   }
 
   toggleAnimations(): void {
@@ -281,7 +234,7 @@ export class ChoreographyComponent {
       }),
     );
     this.toastService.createToastRaw(
-      `${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name}`,
+      `${this.translate.instant('PEOPLE.PERSON_REMOVED')}: ${this.peopleService.getPersonById(personId).name},`,
     );
   }
 
@@ -289,26 +242,52 @@ export class ChoreographyComponent {
     this.choreography.choreographyPerson.push({ personId: personId, color: null });
   }
 
-  switchGroupType(groupType: GroupType): void {
-    const previousGroup = this.activeChoreographyItem!.content as any;
-    this.activeChoreographyItem!.content = createEmptyGroup(groupType);
-    this.activeChoreographyItem!.content.color = previousGroup!.color;
-    this.activeChoreographyItem!.content.flyerId = previousGroup!.flyerId;
-    this.activeChoreographyItem!.content.backspotId = previousGroup!.backspotId;
-
-    function setFromPreviousGroup(property: string, next: any, previous: any): void {
-      if (next.hasOwnProperty(property) && previous.hasOwnProperty(property)) {
-        next[property] = previous[property];
+  play(): void {
+    this.activeChoreographyItems = [];
+    this.playFrameIntervalId = window.setInterval(() => {
+      this.actualActiveFrameIndex =
+        (this.actualActiveFrameIndex + 1) % this.choreography.frames.reduce((acc, frame) => acc + frame.duration, 0);
+      if (this.activeFrame.type === 'content' && this.activeFrame.duration === 1) {
+        this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
+        this.waitForDurationBeforeChangingFrames = null;
+        return;
+      } else if (this.activeFrame.type === 'transition') {
+        if (this.waitForDurationBeforeChangingFrames === null) {
+          this.waitForDurationBeforeChangingFrames = 1;
+        } else {
+          if (this.waitForDurationBeforeChangingFrames === this.activeFrame.duration) {
+            this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
+            if (this.activeFrame.duration === 1) {
+              // setTimeout is needed in order to set the starting transition item first and then start the transition to the next one
+              setTimeout(
+                () => (this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length),
+                0,
+              );
+              this.waitForDurationBeforeChangingFrames = null;
+            } else {
+              this.waitForDurationBeforeChangingFrames = 2;
+            }
+          } else {
+            this.waitForDurationBeforeChangingFrames++;
+          }
+        }
+      } else if (this.activeFrame.type === 'content' && this.activeFrame.duration !== 1) {
+        if (this.waitForDurationBeforeChangingFrames === null) {
+          this.waitForDurationBeforeChangingFrames = 2;
+        } else {
+          if (this.waitForDurationBeforeChangingFrames === this.activeFrame.duration) {
+            this.activeFrameIndex = (this.activeFrameIndex + 1) % this.choreography.frames.length;
+            this.waitForDurationBeforeChangingFrames = null;
+          } else {
+            this.waitForDurationBeforeChangingFrames++;
+          }
+        }
       }
-    }
-
-    setFromPreviousGroup('mainbaseId', this.activeChoreographyItem!.content, previousGroup);
-    setFromPreviousGroup('sidebaseId', this.activeChoreographyItem!.content, previousGroup);
-    setFromPreviousGroup('frontspotId', this.activeChoreographyItem!.content, previousGroup);
+    }, this.frameInterval / this.tempo);
   }
 
   clearItem(item: ChoreographyItem): void {
-    clearItem(item);
+    item.content = null;
   }
 
   saveChoreography(): void {
@@ -323,16 +302,22 @@ export class ChoreographyComponent {
       });
   }
 
-  toggleBetweenGroupAndSingleMode(): void {
-    if (this.activeChoreographyItem === null) {
-      return;
+  switchGroupType(groupType: GroupType): void {
+    const previousGroup = this.singleActiveChoreographyItem.content as any;
+    this.singleActiveChoreographyItem.content = createEmptyGroup(groupType);
+    this.singleActiveChoreographyItem.content.color = previousGroup!.color;
+    this.singleActiveChoreographyItem.content.flyerId = previousGroup!.flyerId;
+    this.singleActiveChoreographyItem.content.backspotId = previousGroup!.backspotId;
+
+    function setFromPreviousGroup(property: string, next: any, previous: any): void {
+      if (next.hasOwnProperty(property) && previous.hasOwnProperty(property)) {
+        next[property] = previous[property];
+      }
     }
 
-    if (this.isGroup(this.activeChoreographyItem.content)) {
-      this.activeChoreographyItem!.content = null;
-    } else {
-      this.activeChoreographyItem!.content = createEmptyGroup('two');
-    }
+    setFromPreviousGroup('mainbaseId', this.singleActiveChoreographyItem.content, previousGroup);
+    setFromPreviousGroup('sidebaseId', this.singleActiveChoreographyItem.content, previousGroup);
+    setFromPreviousGroup('frontspotId', this.singleActiveChoreographyItem.content, previousGroup);
   }
 
   isTwoGroup(content: Content): content is TwoGroup {
@@ -351,11 +336,16 @@ export class ChoreographyComponent {
     return isFiveGroup(content);
   }
 
-  changeGroupColor(color: string): void {
-    if (this.activeChoreographyItem === null || !isGroup(this.activeChoreographyItem!.content)) {
+  toggleBetweenGroupAndSingleMode(): void {
+    if (this.activeChoreographyItems === []) {
       return;
     }
-    this.activeChoreographyItem.content.color = color;
+
+    if (this.isGroup(this.singleActiveChoreographyItem.content)) {
+      this.singleActiveChoreographyItem.content = null;
+    } else {
+      this.singleActiveChoreographyItem.content = createEmptyGroup('two');
+    }
   }
 
   private disableAnimationsForNextTick(): void {
@@ -397,9 +387,16 @@ export class ChoreographyComponent {
     this.choreography.frames = newFrames;
   }
 
+  changeGroupColor(color: string): void {
+    if (this.activeChoreographyItems.length === 0 || !isGroup(this.singleActiveChoreographyItem.content)) {
+      return;
+    }
+    this.singleActiveChoreographyItem.content.color = color;
+  }
+
   changePersonOnCarpet(id: number): void {
     this.removeExistingPersonFromCarpet(id);
-    this.activeChoreographyItem!.content = { type: 'person', personId: id };
+    this.singleActiveChoreographyItem.content = { type: 'person', personId: id };
   }
 
   changePersonOnGroup(id: number): void {
@@ -410,7 +407,25 @@ export class ChoreographyComponent {
     if (this.playFrameIntervalId !== null) {
       return;
     }
-    this.activeChoreographyItem = item;
+    if (item.content === null) {
+      item.content = { type: 'person', personId: null };
+    }
+    this.activeChoreographyItems = [item];
+  }
+
+  setActiveChoreographyItems(items: ChoreographyItem[]): void {
+    if (this.playFrameIntervalId !== null) {
+      return;
+    }
+    this.activeChoreographyItems = items;
+  }
+
+  removeChoreographyItemContent(item: ChoreographyItem): void {
+    if (this.playFrameIntervalId !== null) {
+      return;
+    }
+    item.content = null;
+    this.activeChoreographyItems = [];
   }
 
   openEditName(): void {

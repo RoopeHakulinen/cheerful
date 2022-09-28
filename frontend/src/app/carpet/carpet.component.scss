@@ -63,17 +63,28 @@
         position: relative;
         padding-top: 100%;
 
-        &.active {
-          border: 1px solid red;
-          padding-top: calc(100% - 2px);
+        &.is-populated::before {
+          content: " ";
+          background-color: #dadadb;
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          top: -5px;
+          left: -5px;
+          border-radius: 10px;
         }
 
-        &.center {
-          align-items: center;
+        &.is-populated.active::before {
+          background-color: #5078f9;
+          width: 15px;
+          height: 15px;
+          top: -8px;
+          left: -8px;
+          border-radius: 30px;
         }
 
-        &.bottom {
-          align-items: flex-end;
+        &.is-last-one-on-row, &.is-last-one-on-column {
+          background-color: #fafafa;
         }
 
         .center {
@@ -106,23 +117,6 @@
           justify-self: center;
         }
 
-        .single-person {
-
-          &.left {
-            grid-area: grid-middle;
-            align-self: center;
-            justify-self: center;
-            position: relative;
-          }
-
-          &.right {
-            grid-area: grid-middle;
-            align-self: center;
-            justify-self: center;
-            position: relative;
-          }
-        }
-
         .drag-container {
           margin-top: -100%;
           position: absolute;
@@ -135,27 +129,18 @@
             ". grid-top ."
             "grid-left grid-middle grid-right"
             ". grid-bottom .";
-
-          &.left {
-            left: -50%;
-          }
-
-          &.right {
-            right: -50%;
-          }
-
-          .rounded {
-            border-radius: 50%;
-          }
+          left: -50%;
+          top: 50%;
 
           .text-container {
-            height: 100%;
-            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: move;
             font-size: 1.1vh;
+            top: -28px;
+            position: absolute;
+            left: -4px;
           }
 
           &.five {
