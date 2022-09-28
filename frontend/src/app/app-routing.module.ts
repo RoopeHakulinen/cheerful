@@ -12,7 +12,6 @@ import { ExercisesPlanningComponent } from './exercises-planning/exercises-plann
 import { ExercisesComponent } from './exercises/exercises.component';
 import { HomeComponent } from './home/home.component';
 import { LoggedInGuard } from './logged-in.guard';
-import { NotLoggedInGuard } from './not-logged-in.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { TeamComponent } from './team/team.component';
 import { TeamsComponent } from './teams/teams.component';
@@ -21,7 +20,6 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    canActivate: [NotLoggedInGuard],
   },
   {
     path: 'app',
@@ -30,7 +28,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'choreographies'
+        redirectTo: 'choreographies',
       },
       {
         path: 'choreographies',
@@ -88,12 +86,12 @@ const routes: Routes = [
         path: '**',
         redirectTo: 'choreographies',
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

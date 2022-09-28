@@ -12,12 +12,23 @@ import { TeamsService } from './teams/teams.service';
 import { PeopleController } from './people/people.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ConfigModule } from '@nestjs/config';
+import { OAuth2GoogleConfig } from './config/oauth2-google.config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
+      load: [OAuth2GoogleConfig],
+    }),
+    AuthModule,
   ],
   controllers: [
     AppController,
@@ -27,6 +38,6 @@ import { join } from 'path';
     TeamsController,
     PeopleController,
   ],
-  providers: [PrismaService, ChoreographiesService, UsersService, ExercisesService, TeamsService],
+  providers: [PrismaService, ChoreographiesService, ExercisesService, TeamsService, UsersService],
 })
 export class AppModule {}

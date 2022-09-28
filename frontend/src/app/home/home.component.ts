@@ -4,10 +4,12 @@ import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-
   constructor(public authService: AuthService) {}
 
+  logIn(): void {
+    window.location.replace('/api/oauth2/google?redirect_url=/app');
+  }
 }
