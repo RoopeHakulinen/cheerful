@@ -350,7 +350,7 @@ export class ChoreographyComponent {
   }
 
   toggleBetweenGroupAndSingleMode(): void {
-    if (this.activeChoreographyItems === []) {
+    if (this.activeChoreographyItems.length === 0) {
       return;
     }
 
