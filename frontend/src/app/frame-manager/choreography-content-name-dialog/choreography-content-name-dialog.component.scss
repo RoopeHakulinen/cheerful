@@ -1,0 +1,12 @@
+.options-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
+
+  .content-selection-container {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    height: 40px;
+  }
+}

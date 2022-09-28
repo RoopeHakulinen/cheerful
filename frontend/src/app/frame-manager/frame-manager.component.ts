@@ -7,7 +7,7 @@ import { FrameForShowing } from '../choreography/choreography.component';
 import { ChoreographyContentNameDialogComponent } from './choreography-content-name-dialog/choreography-content-name-dialog.component';
 import { Frame } from '../frame';
 
-export type NewContentFrameEvent = { name: string; copyPrevious: boolean };
+export type NewContentFrameEvent = { name: string; copyPrevious: boolean; type: 'content' | 'transition' };
 
 @Component({
   selector: 'app-frame-manager',
@@ -73,7 +73,7 @@ export class FrameManagerComponent implements OnChanges {
   @Output()
   changeFrameToPreviousFrame = new EventEmitter<void>();
   @Output()
-  changeFramePosition = new EventEmitter<'up' | 'down'>();
+  changeFramePosition = new EventEmitter<'left' | 'right'>();
 
   horizontalLineOptions: number[] = [];
   verticalLineOptions: number[] = [];

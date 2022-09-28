@@ -11,10 +11,12 @@
     "ADD": "Lisää",
     "ADD_NEW": "Lisää uusi",
     "NEW_PERSON": "Uusi henkilö",
+    "CANCEL_SELECTION": "Poista valinta",
     "REMOVE": "Poista",
     "NAME": "Nimi",
     "FIRST_NAME": "Etunimi",
     "LAST_NAME": "Sukunimi",
+    "SETTINGS": "Asetukset",
     "CANCEL": "Peruuta",
     "SAVE": "Tallenna",
     "EXPORT_JSON": "Tallenna (.json)",
@@ -31,6 +33,8 @@
     "DARKVIOLET": "Violetti",
     "EXERCISES": "Harjoitteet",
     "FILTERING": "Suodatus",
+    "CONTENT_FRAME": "Kuvio",
+    "TRANSITION_FRAME": "Siirtymä",
     "SEARCH": "Hae",
     "MIN": "Minimi",
     "MAX": "Maksimi",
@@ -81,7 +85,7 @@
     "CONTENT_FRAME_DEFAULT_NAME": "Uusi tahti",
     "CONTENT_NAME_DIALOG": {
       "TITLE": "Kuvion lisäys",
-      "TEXT": "Anna kuviolle nimi"
+      "TEXT": "Anna nimi"
     },
     "FRAME_ADDED": "Kuvio lisätty.",
     "ADD_CONTENT": "Lisää kuvio",
@@ -98,9 +102,10 @@
       "TEXT": "Oletko varma?"
     },
     "DELETE_FRAME": "Poista tahti",
+    "SHOW_NAMES": "Näytä nimet",
     "COPY_FROM_PREVIOUS": "Käytä edellistä pohjana",
-    "MOVE_FRAME_UP": "Siirrä valittu kuvio tai siirtymä yksi askel ylöspäin koreografiassa.",
-    "MOVE_FRAME_DOWN": "Siirrä valittu kuvio tai siirtymä yksi askel alaspäin koreografiassa."
+    "MOVE_FRAME_RIGHT": "Siirrä valittu kuvio tai siirtymä yksi askel oikealle koreografiassa.",
+    "MOVE_FRAME_LEFT": "Siirrä valittu kuvio tai siirtymä yksi askel vasemmalle koreografiassa."
   },
   "PEOPLE": {
     "PEOPLE": "Henkilöt",
@@ -122,6 +127,10 @@
     "DIFFICULTY": "Vaikeusaste",
     "ACROBATICS_DIFFICULTY": "Akrobatian vaikeusaste",
     "ACROBATIC": "Akrobatia"
+  },
+  "PEOPLE_MANAGER": {
+    "TITLE": "Henkilöt",
+    "ADD_PERSON": "Lisää henkilö"
   },
   "EXERCISES": {
     "TITLE": "Harjoitteet",

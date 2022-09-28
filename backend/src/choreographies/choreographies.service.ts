@@ -46,7 +46,10 @@ export class ChoreographiesService {
           },
         },
         choreographyPerson: {
-          create: choreography.people,
+          create: choreography.choreographyPerson.map((person) => ({
+            color: person.color,
+            personId: person.personId,
+          })),
         },
       },
     });
@@ -71,7 +74,10 @@ export class ChoreographiesService {
           },
         },
         choreographyPerson: {
-          create: choreography.people,
+          create: choreography.choreographyPerson.map((person) => ({
+            color: person.color,
+            personId: person.personId,
+          })),
         },
       },
     });

@@ -65,6 +65,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Input()
   nextFrame!: Frame;
   @Input()
+  isSelectionModeOn!: boolean;
+  @Input()
   activeItems: ChoreographyItem[] = [];
   @Input()
   animationDuration!: number;
@@ -72,6 +74,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   areAnimationsOn!: boolean;
   @Input()
   people: Person[] | null = null;
+  @Input()
+  areNamesShown!: boolean;
 
   @Output()
   setActiveItem = new EventEmitter<ChoreographyItem>();
@@ -84,7 +88,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   @ViewChild('tile', { read: ElementRef })
   tileReference!: ElementRef;
-
   verticalSegments: void[] = [];
   horizontalSegments: void[] = [];
   animate = false;
@@ -92,7 +95,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
   isDeletable = false;
-  isSelectionModeOn = false;
 
   get frameToShow(): Frame {
     return this.frame.type === 'transition' ? this.nextFrame : this.frame;

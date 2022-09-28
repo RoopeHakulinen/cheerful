@@ -1,7 +1,5 @@
 <div class="container">
   <div class="carpet-container">
-    <button (click)="isSelectionModeOn = !isSelectionModeOn">Foo</button>
-    <br><br>
     <dts-select-container (select)="setActiveItems.emit($event)" [custom]="true" [disabled]="!isSelectionModeOn">
       <div class="lines vertical">
         <div *ngFor="let _ of verticalSegments" class="line"></div>
@@ -39,7 +37,7 @@
             class="drag-container {{item.content?.type}}">
             <div *cdkDragPreview></div>
             <div
-              *ngIf="isPerson(item.content) && item.content.personId !== null"
+              *ngIf="isPerson(item.content) && item.content.personId !== null && areNamesShown"
               [style.background]="(item.content.personId | choreographyPerson:choreography)?.color"
               class="text-container single-person">
               {{(item.content.personId | person).name}}

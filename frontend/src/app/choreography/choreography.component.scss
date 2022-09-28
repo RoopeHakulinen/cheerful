@@ -1,3 +1,8 @@
+.main-container {
+  height: calc(100% - 106px);
+  overflow: auto;
+}
+
 .edit-item {
   display: flex;
   flex-direction: column;
@@ -5,8 +10,30 @@
 
 .frame-options-container {
   display: flex;
-  margin-top: 15px;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+
+  .frame-name-container {
+    flex-basis: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .frame-management-container {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  .toggle-notes-container {
+    flex-basis: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .frame-options-settings {
     display: flex;
@@ -15,15 +42,13 @@
 }
 
 .notes {
-  text-align: center;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 100%;
 
-  .notes-input {
-    text-align: center;
-  }
-
-  .notes-text {
-    margin-top: 10px;
-    width: 500px;
+  .notes-text-container {
+    width: calc(100% - 20px);
   }
 }
 
@@ -49,5 +74,29 @@
   .tile-options-group-button {
     margin-bottom: 10px;
   }
+}
 
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background-color: #3f51b5;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  .bordered {
+    border: 2px solid black;
+  }
+}
+
+::ng-deep.menu-title {
+  margin-bottom: 10px;
+}
+
+::ng-deep.menu-item-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }

@@ -1,26 +1,26 @@
 <h1 mat-dialog-title translate="FRAME_MANAGER.CONTENT_NAME_DIALOG.TITLE"></h1>
 <div mat-dialog-content>
   <p translate="FRAME_MANAGER.CONTENT_NAME_DIALOG.TEXT"></p>
-  <mat-form-field style="display: block;">
+  <mat-form-field>
     <mat-label translate="COMMON.NAME"></mat-label>
-    <input [(ngModel)]="name" cdkFocusInitial matInput />
+    <input [(ngModel)]="name" cdkFocusInitial matInput/>
   </mat-form-field>
-  <mat-form-field appearance="outline" floatLabel="always" style="display: block;">
+  <div class="options-container">
     <mat-slide-toggle
       [(ngModel)]="copyPrevious"
-      matInput translate="FRAME_MANAGER.COPY_FROM_PREVIOUS">
-      <textarea matInput style="display: none;"></textarea>
-    </mat-slide-toggle>
-  </mat-form-field>
+      [disabled]="type === 'transition'"
+      translate="FRAME_MANAGER.COPY_FROM_PREVIOUS"></mat-slide-toggle>
+    <mat-radio-group (change)="changeContentType($event.value)" [value]="type" class="content-selection-container">
+      <mat-radio-button value="content">{{ 'COMMON.CONTENT_FRAME' | translate }}</mat-radio-button>
+      <mat-radio-button value="transition">{{ 'COMMON.TRANSITION_FRAME' | translate }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
 </div>
 <div mat-dialog-actions>
+  <button [mat-dialog-close]="false" mat-button translate="COMMON.CANCEL"></button>
   <button
-    [mat-dialog-close]="false"
-    mat-button
-    translate="COMMON.CANCEL"></button>
-  <button
-    (click)="dialogRef.close({ name, copyPrevious })"
-    [disabled]="name.length === 0"
+    (click)="dialogRef.close({ name, copyPrevious, type })"
+    [disabled]="name.length === 0 && type === 'content'"
     mat-button
     translate="COMMON.CREATE"></button>
 </div>

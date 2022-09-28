@@ -1,0 +1,13 @@
+<h1 mat-dialog-title translate="PEOPLE_MANAGER.TITLE"></h1>
+<div mat-dialog-content>
+  <div class="people-selection-container">
+    <!--    <div (click)="addPerson()" class="add-people clickable"><mat-icon>add</mat-icon>{{'PEOPLE_MANAGER.ADD_PERSON' | translate}}</div>-->
+    <div (click)="selectPerson(person.personId)" *ngFor="let person of data.people" class="person clickable">
+      {{ (person.personId | person).name }}
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button [mat-dialog-close]="false" mat-button translate="COMMON.CANCEL"></button>
+  <button (click)="deselectTile()" mat-button translate="COMMON.CANCEL_SELECTION"></button>
+</div>

@@ -11,27 +11,176 @@ export const tags = [
 ];
 
 export const exercises = [
-  { id: 1, name: 'Ponnista', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 3, tags: [tags[0], tags[1]] },
-  { id: 2, name: 'Laskeudu', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 3, tags: [tags[3]] },
-  { id: 3, name: 'Seiso', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 1, tags: [] },
-  { id: 4, name: 'Kävele', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [tags[2], tags[3]] },
-  { id: 5, name: 'Punnerra', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 1, tags: [tags[0], tags[3]] },
-  { id: 6, name: 'Kyykkää', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [tags[2], tags[3]] },
-  { id: 7, name: 'Lankuta', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 1, tags: [tags[0], tags[3]] },
-  { id: 8, name: 'Hölkkää', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [tags[0], tags[3]] },
-  { id: 9, name: 'Juokse', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 4, tags: [tags[0], tags[3], tags[2]] },
-  { id: 10, name: 'Roiku', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 4, tags: [tags[0], tags[3]] },
-  { id: 11, name: 'Hyppää', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [tags[0], tags[1], tags[3]] },
-  { id: 12, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [] },
-  { id: 13, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 1, tags: [] },
-  { id: 14, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [] },
-  { id: 15, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [] },
-  { id: 16, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 1, tags: [] },
-  { id: 17, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [] },
-  { id: 18, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [] },
-  { id: 19, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 1, tags: [] },
-  { id: 20, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 1, tags: [] },
-  { id: 21, name: 'Testi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.', difficulty: 2, tags: [] }
+  {
+    id: 1,
+    name: 'Ponnista',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 3,
+    tags: [tags[0], tags[1]],
+  },
+  {
+    id: 2,
+    name: 'Laskeudu',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 3,
+    tags: [tags[3]],
+  },
+  {
+    id: 3,
+    name: 'Seiso',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 1,
+    tags: [],
+  },
+  {
+    id: 4,
+    name: 'Kävele',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [tags[2], tags[3]],
+  },
+  {
+    id: 5,
+    name: 'Punnerra',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 1,
+    tags: [tags[0], tags[3]],
+  },
+  {
+    id: 6,
+    name: 'Kyykkää',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [tags[2], tags[3]],
+  },
+  {
+    id: 7,
+    name: 'Lankuta',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 1,
+    tags: [tags[0], tags[3]],
+  },
+  {
+    id: 8,
+    name: 'Hölkkää',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [tags[0], tags[3]],
+  },
+  {
+    id: 9,
+    name: 'Juokse',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 4,
+    tags: [tags[0], tags[3], tags[2]],
+  },
+  {
+    id: 10,
+    name: 'Roiku',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 4,
+    tags: [tags[0], tags[3]],
+  },
+  {
+    id: 11,
+    name: 'Hyppää',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [tags[0], tags[1], tags[3]],
+  },
+  {
+    id: 12,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [],
+  },
+  {
+    id: 13,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 1,
+    tags: [],
+  },
+  {
+    id: 14,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [],
+  },
+  {
+    id: 15,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [],
+  },
+  {
+    id: 16,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 1,
+    tags: [],
+  },
+  {
+    id: 17,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [],
+  },
+  {
+    id: 18,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [],
+  },
+  {
+    id: 19,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 1,
+    tags: [],
+  },
+  {
+    id: 20,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 1,
+    tags: [],
+  },
+  {
+    id: 21,
+    name: 'Testi',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor eget felis vitae dictum.',
+    difficulty: 2,
+    tags: [],
+  },
+];
+
+const testPeople = [
+  { name: 'TestPerson' },
+  { name: 'TestPerson2' },
+  { name: 'TestPerson3' },
+  { name: 'TestPerson4' },
+  { name: 'TestPerson5' },
+  { name: 'TestPerson6' },
+  { name: 'TestPerson7' },
+  { name: 'TestPerson8' },
+  { name: 'TestPerson9' },
+  { name: 'TestPerson10' },
+  { name: 'TestPerson11' },
+  { name: 'TestPerson12' },
+  { name: 'TestPerson13' },
+  { name: 'TestPerson14' },
+  { name: 'TestPerson15' },
+  { name: 'TestPerson16' },
+  { name: 'TestPerson17' },
+  { name: 'TestPerson18' },
+  { name: 'TestPerson19' },
+  { name: 'TestPerson20' },
 ];
 
 async function main() {
@@ -48,6 +197,10 @@ async function main() {
     },
   });
 
+  await prisma.person.createMany({
+    data: testPeople,
+  });
+
   await prisma.person.upsert({
     where: { id: 1 },
     update: {},
@@ -56,7 +209,7 @@ async function main() {
     },
   });
 
-  for(let i = 0; i < tags.length; i++) {
+  for (let i = 0; i < tags.length; i++) {
     const tag = tags[i];
     await prisma.tag.upsert({
       where: { id: tag.id },
@@ -67,7 +220,7 @@ async function main() {
     });
   }
 
-  for(let i = 0; i < exercises.length; i++) {
+  for (let i = 0; i < exercises.length; i++) {
     const exercise = exercises[i];
     await prisma.exercise.upsert({
       where: { id: exercise.id },
@@ -76,10 +229,10 @@ async function main() {
         name: exercise.name,
         description: exercise.description,
         difficulty: exercise.difficulty,
-        tags: { connect: {id: i % tags.length + 1} }
+        tags: { connect: { id: (i % tags.length) + 1 } },
       },
     });
-  };
+  }
 }
 
 main()

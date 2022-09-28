@@ -30,7 +30,7 @@ model Choreography {
 
 model ChoreographyPerson {
   id             Int          @id @default(autoincrement())
-  color          String       @db.VarChar(255)
+  color          String?      @db.VarChar(255)
   personId       Int
   choreographyId Int
   choreography   Choreography @relation(fields: [choreographyId], references: [id], onDelete: Cascade, onUpdate: Cascade)

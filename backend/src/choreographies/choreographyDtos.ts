@@ -1,4 +1,4 @@
-import { IsNumber, IsString, ValidateNested } from 'class-validator';
+import { IsNumber, IsString, ValidateIf, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class Choreography {
@@ -8,6 +8,7 @@ export class Choreography {
 
 export class ChoreographyPersonDto {
   @IsString()
+  @ValidateIf((object, value) => value !== null)
   color: string;
 
   @IsNumber()
@@ -49,7 +50,7 @@ export class ChoreographyDto {
 
   @ValidateNested()
   @Type(() => ChoreographyPersonDto)
-  people: ChoreographyPersonDto[];
+  choreographyPerson: ChoreographyPersonDto[];
 }
 
 export type ChoreographyToBeCreatedDto = Omit<ChoreographyDto, 'id'>;
