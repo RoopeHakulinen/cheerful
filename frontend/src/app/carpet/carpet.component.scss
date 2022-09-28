@@ -1,14 +1,14 @@
 .container {
   display: grid;
-  grid-template-areas:
-    "carpet";
+  grid-template-areas: 'carpet';
   width: 100%;
   max-width: 75vh;
   margin: auto;
   font-family: 'Roboto', sans-serif;
 
   .carpet-container {
-    margin-top: 25px;
+    margin-top: 15px;
+    margin-left: 15px;
     grid-area: carpet;
     position: relative;
     border-width: 8px;
@@ -64,7 +64,7 @@
         padding-top: 100%;
 
         &.is-populated::before {
-          content: " ";
+          content: ' ';
           background-color: #dadadb;
           position: absolute;
           width: 10px;
@@ -83,7 +83,8 @@
           border-radius: 30px;
         }
 
-        &.is-last-one-on-row, &.is-last-one-on-column {
+        &.is-last-one-on-row,
+        &.is-last-one-on-column {
           background-color: #fafafa;
         }
 
@@ -126,9 +127,9 @@
           grid-template-columns: 33% 33% 33%;
           grid-template-rows: 33% 33% 33%;
           grid-template-areas:
-            ". grid-top ."
-            "grid-left grid-middle grid-right"
-            ". grid-bottom .";
+            '. grid-top .'
+            'grid-left grid-middle grid-right'
+            '. grid-bottom .';
           left: -50%;
           top: 50%;
 
@@ -137,14 +138,13 @@
             justify-content: center;
             align-items: center;
             cursor: move;
-            font-size: 1.1vh;
-            top: -28px;
+            font-size: 1.5vh;
+            top: -1.5vh;
             position: absolute;
-            left: -4px;
+            width: 100%;
           }
 
           &.five {
-
             .grid-right {
               padding-bottom: 1vh;
             }

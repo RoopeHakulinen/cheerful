@@ -1,0 +1,14 @@
+.people-selection-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+
+  .add-people {
+    display: flex;
+    align-items: center;
+  }
+
+  .person {
+    margin-left: 7px;
+  }
+}

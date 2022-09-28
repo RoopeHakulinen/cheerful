@@ -9,6 +9,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ChoreographyContentNameDialogComponent {
   name = '';
   copyPrevious = true;
+  type: 'content' | 'transition' = 'content';
 
   constructor(public dialogRef: MatDialogRef<ChoreographyContentNameDialogComponent>) {}
+
+  changeContentType(value: 'content' | 'transition'): void {
+    this.type = value;
+  }
 }

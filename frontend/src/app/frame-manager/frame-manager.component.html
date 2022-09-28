@@ -1,140 +1,48 @@
-<div class="controls">
-  <button *ngIf="!isPlaying" mat-icon-button>
-    <mat-icon (click)="playFrames.emit()">play_arrow</mat-icon>
-  </button>
-  <button *ngIf="isPlaying" mat-icon-button>
-    <mat-icon (click)="pauseFrames.emit()">pause</mat-icon>
-  </button>
-</div>
-<div>
-  <div
-    *ngFor="let frames of framesToShow; index as index"
-    [class.active]="isEightActive(frames)"
-    class="cycle clickable frame-box">
-    <mat-expansion-panel
-      (closed)="filterExpandedFrames(index)"
-      (opened)="!expandedFrames.includes(index) && expandedFrames.push(index)"
-      [expanded]="expandedFrames.includes(index)"
-      class="expansion-panel"
-      hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <span [style.font-weight]="isEightActive(frames) ? 'bold' : 'normal'"
-                class="frame-text">{{'FRAME_MANAGER.FRAME' | translate}} {{index + 1}}</span>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-container *ngFor="let frame of frames; index as frameIndex">
-        <div
-          (click)="changeActiveFrame.emit([frame.originalFrameIndex, frameIndexToShow(frame.originalFrameIndex)])"
-          [class.active]="activeFrameIndex === frame.originalFrameIndex"
-          [class.disabled]="!frame.isActualFrame"
-          class="frame clickable frame-text">
-          <ng-container>
-            <div>
-            <span *ngIf="frame.type === 'transition'" class="frame-text">
-            <span class="frame-index transition-text">{{frameIndex + 1}}</span><span
-              class="frame-name transition-text">. {{'FRAME_MANAGER.TRANSITION' | translate}}</span></span>
-            </div>
-            <div>
-            <span *ngIf="frame.type !== 'transition'" class="frame-text">
-              <span class="frame-index">{{frameIndex + 1}}</span><span class="frame-name">. {{frame.name}}</span>
-            </span>
-            </div>
-          </ng-container>
-        </div>
-      </ng-container>
-    </mat-expansion-panel>
-  </div>
-</div>
-<div class="controls">
-  <div class="add-content-buttons">
-    <button (click)="addContentClicked()" mat-raised-button translate="FRAME_MANAGER.ADD_CONTENT"></button>
-    <button (click)="addTransitionFrame.emit()" mat-raised-button translate="FRAME_MANAGER.ADD_TRANSITION"></button>
-  </div>
-  <div class="change-content-buttons">
-    <button (click)="removeClicked(this.activeFrameIndex)"
-            [matTooltip]="'FRAME_MANAGER.DELETE_FRAME' | translate"
-            mat-raised-button>
-      <mat-icon>delete</mat-icon>
-    </button>
-    <button (click)="changeFramePosition.emit('up')" [disabled]="activeFrameIndex === 0"
-            [matTooltip]="'FRAME_MANAGER.MOVE_FRAME_UP' | translate"
-            mat-raised-button>
-      <mat-icon>keyboard_arrow_up</mat-icon>
-    </button>
-    <button (click)="changeFramePosition.emit('down')" [disabled]="activeFrameIndex + 1 === frames.length"
-            [matTooltip]="'FRAME_MANAGER.MOVE_FRAME_DOWN' | translate"
-            mat-raised-button>
-      <mat-icon>keyboard_arrow_down</mat-icon>
-    </button>
-  </div>
-</div>
-<mat-accordion>
-  <mat-expansion-panel class="mat-elevation-z0">
-    <mat-expansion-panel-header>
-      <mat-panel-title translate="FRAME_MANAGER.OPTIONS"></mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="controls">
-      <div class="toggle-container">
-        <mat-checkbox (change)="toggleAnimations.emit()"
-                      [checked]="areAnimationsOn">{{'FRAME_MANAGER.ANIMATIONS' | translate}}</mat-checkbox>
-        <mat-checkbox (change)="toggleLooping.emit()"
-                      [checked]="isLoopingOn">{{'FRAME_MANAGER.LOOPING' | translate}}</mat-checkbox>
-        <mat-checkbox (change)="toggleVoiceSynthesis.emit()"
-                      [checked]="isVoiceSynthesisOn">{{'FRAME_MANAGER.VOICE_SYNTHESIS' | translate}}</mat-checkbox>
-        <button [matMenuTriggerFor]="frameinterval" mat-button
-                translate="FRAME_MANAGER.TEMPO"> : {{frameIntervalAsTempo}}</button>
-        <mat-menu #frameinterval="matMenu">
-          <button (click)="emitFrameDurationChange(1)" mat-menu-item>1/10
-            -  {{'FRAME_MANAGER.SUPER_SLOW_TEMPO' | translate}}</button>
-          <button (click)="emitFrameDurationChange(2)" mat-menu-item>2/10
-            -  {{'FRAME_MANAGER.SLOW_TEMPO' | translate}}</button>
-          <button (click)="emitFrameDurationChange(3)" mat-menu-item>3/10
-            -  {{'FRAME_MANAGER.NORMAL_TEMPO' | translate}}</button>
-          <button (click)="emitFrameDurationChange(4)" mat-menu-item>4/10
-            -  {{'FRAME_MANAGER.FAST_TEMPO' | translate}}</button>
-        </mat-menu>
-        <button [matMenuTriggerFor]="segments" mat-button translate="FRAME_MANAGER.CARPET_SIZE"></button>
-        <mat-menu #segments="matMenu">
-          <button [matMenuTriggerFor]="carpetHeightMenu"
-                  mat-menu-item>{{'FRAME_MANAGER.CARPET_HEIGHT' | translate}} : {{carpetHeight}}</button>
-          <button [matMenuTriggerFor]="carpetWidthMenu"
-                  mat-menu-item>{{'FRAME_MANAGER.CARPET_WIDTH' | translate}} : {{carpetWidth}}</button>
-          <!--          <button [matMenuTriggerFor]="horizontal"-->
-          <!--                  mat-menu-item>{{'FRAME_MANAGER.HORIZONTAL_SEGMENTS' | translate}}-->
-          <!--            : {{carpetHorizontalSegments}}</button>-->
-          <button [matMenuTriggerFor]="vertical"
-                  mat-menu-item>{{'FRAME_MANAGER.VERTICAL_SEGMENTS' | translate}} : {{carpetVerticalSegments}}</button>
-        </mat-menu>
-        <mat-menu #carpetHeightMenu="matMenu">
-          <div *ngFor="let heightOptions of carpetHeightOptions">
-            <button
-              (click)="emitCarpetHeightChange(heightOptions + 1)"
-              mat-menu-item>{{heightOptions + 1}}</button>
-          </div>
-        </mat-menu>
-        <mat-menu #carpetWidthMenu="matMenu">
-          <div *ngFor="let widthOptions of carpetWidthOptions">
-            <button
-              (click)="emitCarpetWidthChange(widthOptions + 1)"
-              mat-menu-item>{{widthOptions + 1}}</button>
-          </div>
-        </mat-menu>
-        <mat-menu #horizontal="matMenu">
-          <div *ngFor="let lineOptions of horizontalLineOptions">
-            <button (click)="changeHorizontalSegments.emit(lineOptions + 1)"
-                    *ngIf="carpetHeight % (lineOptions + 1) === 0"
-                    mat-menu-item> {{lineOptions + 1}} </button>
-          </div>
-        </mat-menu>
-        <mat-menu #vertical="matMenu">
-          <div *ngFor="let lineOptions of verticalLineOptions">
-            <button (click)="changeVerticalSegments.emit(lineOptions + 1)"
-                    *ngIf="carpetWidth % (lineOptions + 1) === 0" mat-menu-item> {{lineOptions + 1}} </button>
-          </div>
-        </mat-menu>
-      </div>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
-
+<!--<div class="controls">-->
+<!--  <button *ngIf="!isPlaying" mat-icon-button>-->
+<!--    <mat-icon (click)="playFrames.emit()">play_arrow</mat-icon>-->
+<!--  </button>-->
+<!--  <button *ngIf="isPlaying" mat-icon-button>-->
+<!--    <mat-icon (click)="pauseFrames.emit()">pause</mat-icon>-->
+<!--  </button>-->
+<!--</div>-->
+<!--<div>-->
+<!--  <div-->
+<!--    *ngFor="let frames of framesToShow; index as index"-->
+<!--    [class.active]="isEightActive(frames)"-->
+<!--    class="cycle frame-box">-->
+<!--    <mat-expansion-panel-->
+<!--      (closed)="filterExpandedFrames(index)"-->
+<!--      (opened)="!expandedFrames.includes(index) && expandedFrames.push(index)"-->
+<!--      [expanded]="expandedFrames.includes(index)"-->
+<!--      class="expansion-panel"-->
+<!--      hideToggle>-->
+<!--      <mat-expansion-panel-header>-->
+<!--        <mat-panel-title>-->
+<!--          <span [style.font-weight]="isEightActive(frames) ? 'bold' : 'normal'"-->
+<!--                class="frame-text">{{'FRAME_MANAGER.FRAME' | translate}} {{index + 1}}</span>-->
+<!--        </mat-panel-title>-->
+<!--      </mat-expansion-panel-header>-->
+<!--      <ng-container *ngFor="let frame of frames; index as frameIndex">-->
+<!--        <div-->
+<!--          (click)="changeActiveFrame.emit([frame.originalFrameIndex, frameIndexToShow(frame.originalFrameIndex)])"-->
+<!--          [class.active]="activeFrameIndex === frame.originalFrameIndex"-->
+<!--          [class.disabled]="!frame.isActualFrame"-->
+<!--          class="frame frame-text">-->
+<!--          <ng-container>-->
+<!--            <div>-->
+<!--            <span *ngIf="frame.type === 'transition'" class="frame-text">-->
+<!--            <span class="frame-index transition-text">{{frameIndex + 1}}</span><span-->
+<!--              class="frame-name transition-text">. {{'FRAME_MANAGER.TRANSITION' | translate}}</span></span>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--            <span *ngIf="frame.type !== 'transition'" class="frame-text">-->
+<!--              <span class="frame-index">{{frameIndex + 1}}</span><span class="frame-name">. {{frame.name}}</span>-->
+<!--            </span>-->
+<!--            </div>-->
+<!--          </ng-container>-->
+<!--        </div>-->
+<!--      </ng-container>-->
+<!--    </mat-expansion-panel>-->
+<!--  </div>-->
+<!--</div>-->

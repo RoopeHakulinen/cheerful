@@ -1,4 +1,4 @@
-<div *ngIf="choreography">
+<ng-container *ngIf="choreography">
   <app-toolbar (click)="logGridToConsole()" [title]="choreography.name" backUrl="/app/choreographies">
     <button
       (click)="openEditName()"
@@ -15,7 +15,7 @@
       <mat-icon>save</mat-icon>
     </button>
   </app-toolbar>
-  <div fxLayout="column" fxLayout.gt-sm="row">
+  <div class="main-container" fxLayout="column" fxLayout.gt-sm="row">
     <div class="padding" fxFlex.gt-sm="350px" fxFlexOrder.lt-md="3">
       <app-frame-manager
         (addContentFrame)="addContentFrame($event)"
@@ -33,7 +33,7 @@
         (toggleAnimations)="toggleAnimations()"
         (toggleLooping)="toggleLooping()"
         (toggleVoiceSynthesis)="toggleVoiceSynthesis()"
-        (changeFramePosition)="moveFrameUpOrDown($event)"
+        (changeFramePosition)="moveFrameLeftOrRight($event)"
         [activeFrameIndex]="activeFrameIndex"
         [frames]="choreography.frames"
         [areAnimationsOn]="areAnimationsOn"
@@ -46,14 +46,16 @@
         [isLoopingOn]="isLoopingOn"
         [tempo]="tempo"
         [isVoiceSynthesisOn]="isVoiceSynthesisOn"></app-frame-manager>
-      <app-people (add)="addPerson($event)" (remove)="removePerson($event)"
-                  [people]="choreography.choreographyPerson"></app-people>
-      <app-eight-counter
-        [activeFrame]="actualActiveFrameIndex"
-        [duration]="frameInterval"
-        [isPlayingOn]="playFrameIntervalId !== null"
-        [isSpeechSynthesisOn]="isVoiceSynthesisOn"
-        [tempo]="tempo"></app-eight-counter>
+      <app-people
+        (add)="addPerson($event)"
+        (remove)="removePerson($event)"
+        [people]="choreography.choreographyPerson"></app-people>
+      <!--      <app-eight-counter-->
+      <!--        [activeFrame]="actualActiveFrameIndex"-->
+      <!--        [duration]="frameInterval"-->
+      <!--        [isPlayingOn]="playFrameIntervalId !== null"-->
+      <!--        [isSpeechSynthesisOn]="isVoiceSynthesisOn"-->
+      <!--        [tempo]="tempo"></app-eight-counter>-->
     </div>
     <div fxFlex="grow">
       <app-carpet
@@ -63,135 +65,170 @@
         (swap)="swapItems($event)"
         [people]="allAvailablePeople"
         [activeItems]="activeChoreographyItems"
+        [areNamesShown]="areNamesShown"
         [animationDuration]="frameInterval / tempo"
         [areAnimationsOn]="areAnimationsOn"
         [choreography]="choreography"
         [carpet]="choreography.carpet"
         [frame]="activeFrame"
+        [isSelectionModeOn]="isSelectionModeOn"
         [nextFrame]="choreography.frames[(activeFrameIndex + 1) % choreography.frames.length]"></app-carpet>
       <div class="frame-options-container">
-        <div class="frame-options-settings">
-          <div class="name">
-            <mat-form-field appearance="legacy" class="name">
-              <mat-label translate="COMMON.NAME"></mat-label>
-              <input
-                (ngModelChange)="changeFrameName($event)"
-                [disabled]="choreography.frames[activeFrameIndex].type !== 'content'"
-                [ngModel]="choreography.frames[activeFrameIndex].name"
-                matInput/>
-            </mat-form-field>
-          </div>
-          <div class="duration">
-            <mat-form-field appearance="legacy" class="duration">
-              <mat-label translate="COMMON.DURATION"></mat-label>
-              <input
-                (ngModelChange)="changeFrameDuration($event)"
-                [ngModel]="choreography.frames[activeFrameIndex].duration"
-                matInput
-                type="number"/>
-            </mat-form-field>
-          </div>
+        <div class="frame-name-container">{{ choreography.frames[activeFrameIndex].name }}</div>
+        <div class="frame-management-container">
+          <button
+            (click)="changeActiveFrame([activeFrameIndex - 1, frameIndexToShow(actualActiveFrameIndex)])"
+            [disabled]="activeFrameIndex === 0"
+            [matTooltip]="'FRAME_MANAGER.MOVE_FRAME_LEFT' | translate"
+            mat-icon-button>
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <button (click)="openFrameManager()" mat-icon-button>
+            <mat-icon>filter_none</mat-icon>
+          </button>
+          <button
+            (click)="changeActiveFrame([activeFrameIndex + 1, frameIndexToShow(actualActiveFrameIndex)])"
+            [disabled]="activeFrameIndex + 1 === choreography.frames.length"
+            [matTooltip]="'FRAME_MANAGER.MOVE_FRAME_RIGHT' | translate"
+            mat-icon-button>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+        <div class="toggle-notes-container">
+          <button (click)="areNotesShown = !areNotesShown" mat-icon-button>
+            <mat-icon>description</mat-icon>
+          </button>
         </div>
       </div>
-      <div class="notes">
-        <button (click)="areNotesShown = !areNotesShown" mat-stroked-button translate="CHOREOGRAPHY.NOTES"></button>
-        <div class="notes-input">
-          <mat-form-field *ngIf="areNotesShown" appearance="fill" class="notes-text">
-            <mat-label translate="CHOREOGRAPHY.NOTES_HINT"></mat-label>
-            <textarea [(ngModel)]="choreography.frames[activeFrameIndex].notes" cdkTextareaAutosize matInput></textarea>
-          </mat-form-field>
-        </div>
-      </div>
-    </div>
-    <div class="tile-options" fxFlex.gt-sm="300px">
-      <div *ngIf="activeChoreographyItems.length === 1" class="edit-item padding">
-        <div>
-          <div class="tile-options-buttons">
-            <button (click)="activeChoreographyItems = []" mat-raised-button translate="COMMON.CLOSE"></button>
-            <button
-              (click)="clearItem(singleActiveChoreographyItem)"
-              [disabled]="singleActiveChoreographyItem.content === null"
-              mat-raised-button
-              translate="COMMON.REMOVE"></button>
-          </div>
-          <div class="tile-options-group-button">
-            <button (click)="toggleBetweenGroupAndSingleMode()" mat-raised-button>
-              {{
-              (!isGroup(singleActiveChoreographyItem.content) ? 'CHOREOGRAPHY.CREATE_GROUP' : 'CHOREOGRAPHY.EXIT_GROUP')
-                | translate
-              }}
-            </button>
-          </div>
-          <div fxLayout="column">
-            <div fxLayout="row" fxLayoutWrap="wrap">
-              <div
-                *ngIf="isPerson(singleActiveChoreographyItem.content) || singleActiveChoreographyItem.content === null"
-                fxFlex>
-                <mat-form-field>
-                  <mat-select
-                    (valueChange)="changePersonOnCarpet($event)"
-                    [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate"
-                    [value]="singleActiveChoreographyItem.content?.personId ?? ''">
-                    <mat-option *ngFor="let person of choreography.choreographyPerson" [value]="person.personId"
-                    >{{ (person.personId | person).name }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div *ngIf="isGroup(singleActiveChoreographyItem.content)" fxFlex>
-                <mat-form-field>
-                  <mat-select
-                    (valueChange)="switchGroupType($event)"
-                    [placeholder]="'CHOREOGRAPHY.GROUP_TYPE' | translate"
-                    [value]="singleActiveChoreographyItem.content?.type ?? ''">
-                    <mat-option *ngFor="let groupType of availableGroupTypes" [value]="groupType"
-                    >{{ 'CHOREOGRAPHY.GROUP_TYPE_NAMES.' + (groupType | uppercase) | translate }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-select
-                    (valueChange)="changeGroupColor($event)"
-                    [placeholder]="'COMMON.COLOR' | translate"
-                    [value]="singleActiveChoreographyItem.content?.color ?? ''">
-                    <mat-option translate="COMMON.BLACK" value="black"></mat-option>
-                    <mat-option translate="COMMON.RED" value="red"></mat-option>
-                    <mat-option translate="COMMON.GREEN" value="green"></mat-option>
-                    <mat-option translate="COMMON.ORANGE" value="orange"></mat-option>
-                    <mat-option translate="COMMON.DEEPPINK" value="deeppink"></mat-option>
-                    <mat-option translate="COMMON.SADDLEBROWN" value="saddlebrown"></mat-option>
-                    <mat-option translate="COMMON.DARKVIOLET" value="darkviolet"></mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <div fxFlex="column">
-              <div *ngIf="isGroup(singleActiveChoreographyItem.content)" class="group-participants-container">
-                <app-two-group
-                  (changePersonInGroup)="changePersonOnGroup($event)"
-                  *ngIf="isTwoGroup(singleActiveChoreographyItem.content)"
-                  [group]="singleActiveChoreographyItem.content"
-                  [people]="choreography.choreographyPerson"></app-two-group>
-                <app-three-group
-                  (changePersonInGroup)="changePersonOnGroup($event)"
-                  *ngIf="isThreeGroup(singleActiveChoreographyItem.content)"
-                  [group]="singleActiveChoreographyItem.content"
-                  [people]="choreography.choreographyPerson"></app-three-group>
-                <app-four-group
-                  (changePersonInGroup)="changePersonOnGroup($event)"
-                  *ngIf="isFourGroup(singleActiveChoreographyItem.content)"
-                  [group]="singleActiveChoreographyItem.content"
-                  [people]="choreography.choreographyPerson"></app-four-group>
-                <app-five-group
-                  (changePersonInGroup)="changePersonOnGroup($event)"
-                  *ngIf="isFiveGroup(singleActiveChoreographyItem.content)"
-                  [group]="singleActiveChoreographyItem.content"
-                  [people]="choreography.choreographyPerson"></app-five-group>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div *ngIf="areNotesShown" class="notes">
+        <mat-form-field appearance="fill" class="notes-text-container">
+          <mat-label translate="CHOREOGRAPHY.NOTES_HINT"></mat-label>
+          <textarea [(ngModel)]="choreography.frames[activeFrameIndex].notes" cdkTextareaAutosize matInput></textarea>
+        </mat-form-field>
       </div>
     </div>
+    <!--    <div class="tile-options" fxFlex.gt-sm="300px">-->
+    <!--      <div *ngIf="activeChoreographyItems.length === 1" class="edit-item padding">-->
+    <!--        <div>-->
+    <!--          <div class="tile-options-buttons">-->
+    <!--            <button (click)="activeChoreographyItems = []" mat-raised-button translate="COMMON.CLOSE"></button>-->
+    <!--            <button-->
+    <!--              (click)="clearItem(singleActiveChoreographyItem)"-->
+    <!--              [disabled]="singleActiveChoreographyItem.content === null"-->
+    <!--              mat-raised-button-->
+    <!--              translate="COMMON.REMOVE"></button>-->
+    <!--          </div>-->
+    <!--          <div class="tile-options-group-button">-->
+    <!--            <button (click)="toggleBetweenGroupAndSingleMode()" mat-raised-button>-->
+    <!--              {{-->
+    <!--                (!isGroup(singleActiveChoreographyItem.content)-->
+    <!--                  ? 'CHOREOGRAPHY.CREATE_GROUP'-->
+    <!--                  : 'CHOREOGRAPHY.EXIT_GROUP'-->
+    <!--                ) | translate-->
+    <!--              }}-->
+    <!--            </button>-->
+    <!--          </div>-->
+    <!--          <div fxLayout="column">-->
+    <!--            <div fxLayout="row" fxLayoutWrap="wrap">-->
+    <!--              <div-->
+    <!--                *ngIf="isPerson(singleActiveChoreographyItem.content) || singleActiveChoreographyItem.content === null"-->
+    <!--                fxFlex>-->
+    <!--                <mat-form-field>-->
+    <!--                  <mat-select-->
+    <!--                    (valueChange)="changePersonOnCarpet($event)"-->
+    <!--                    [placeholder]="'CHOREOGRAPHY.CHANGE_PERSON' | translate"-->
+    <!--                    [value]="singleActiveChoreographyItem.content?.personId ?? ''">-->
+    <!--                    <mat-option *ngFor="let person of choreography.choreographyPerson" [value]="person.personId"-->
+    <!--                      >{{ (person.personId | person).name }}-->
+    <!--                    </mat-option>-->
+    <!--                  </mat-select>-->
+    <!--                </mat-form-field>-->
+    <!--              </div>-->
+    <!--              <div *ngIf="isGroup(singleActiveChoreographyItem.content)" fxFlex>-->
+    <!--                <mat-form-field>-->
+    <!--                  <mat-select-->
+    <!--                    (valueChange)="switchGroupType($event)"-->
+    <!--                    [placeholder]="'CHOREOGRAPHY.GROUP_TYPE' | translate"-->
+    <!--                    [value]="singleActiveChoreographyItem.content?.type ?? ''">-->
+    <!--                    <mat-option *ngFor="let groupType of availableGroupTypes" [value]="groupType"-->
+    <!--                      >{{ 'CHOREOGRAPHY.GROUP_TYPE_NAMES.' + (groupType | uppercase) | translate }}-->
+    <!--                    </mat-option>-->
+    <!--                  </mat-select>-->
+    <!--                </mat-form-field>-->
+    <!--                <mat-form-field>-->
+    <!--                  <mat-select-->
+    <!--                    (valueChange)="changeGroupColor($event)"-->
+    <!--                    [placeholder]="'COMMON.COLOR' | translate"-->
+    <!--                    [value]="singleActiveChoreographyItem.content?.color ?? ''">-->
+    <!--                    <mat-option translate="COMMON.BLACK" value="black"></mat-option>-->
+    <!--                    <mat-option translate="COMMON.RED" value="red"></mat-option>-->
+    <!--                    <mat-option translate="COMMON.GREEN" value="green"></mat-option>-->
+    <!--                    <mat-option translate="COMMON.ORANGE" value="orange"></mat-option>-->
+    <!--                    <mat-option translate="COMMON.DEEPPINK" value="deeppink"></mat-option>-->
+    <!--                    <mat-option translate="COMMON.SADDLEBROWN" value="saddlebrown"></mat-option>-->
+    <!--                    <mat-option translate="COMMON.DARKVIOLET" value="darkviolet"></mat-option>-->
+    <!--                  </mat-select>-->
+    <!--                </mat-form-field>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--            <div fxFlex="column">-->
+    <!--              <div *ngIf="isGroup(singleActiveChoreographyItem.content)" class="group-participants-container">-->
+    <!--                <app-two-group-->
+    <!--                  (changePersonInGroup)="changePersonOnGroup($event)"-->
+    <!--                  *ngIf="isTwoGroup(singleActiveChoreographyItem.content)"-->
+    <!--                  [group]="asTwoGroup(singleActiveChoreographyItem.content)"-->
+    <!--                  [people]="choreography.choreographyPerson"></app-two-group>-->
+    <!--                <app-three-group-->
+    <!--                  (changePersonInGroup)="changePersonOnGroup($event)"-->
+    <!--                  *ngIf="isThreeGroup(singleActiveChoreographyItem.content)"-->
+    <!--                  [group]="asThreeGroup(singleActiveChoreographyItem.content)"-->
+    <!--                  [people]="choreography.choreographyPerson"></app-three-group>-->
+    <!--                <app-four-group-->
+    <!--                  (changePersonInGroup)="changePersonOnGroup($event)"-->
+    <!--                  *ngIf="isFourGroup(singleActiveChoreographyItem.content)"-->
+    <!--                  [group]="asFourGroup(singleActiveChoreographyItem.content)"-->
+    <!--                  [people]="choreography.choreographyPerson"></app-four-group>-->
+    <!--                <app-five-group-->
+    <!--                  (changePersonInGroup)="changePersonOnGroup($event)"-->
+    <!--                  *ngIf="isFiveGroup(singleActiveChoreographyItem.content)"-->
+    <!--                  [group]="asFiveGroup(singleActiveChoreographyItem.content)"-->
+    <!--                  [people]="choreography.choreographyPerson"></app-five-group>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
-</div>
+  <div class="bottom-bar">
+    <button (click)="removeClicked(activeFrameIndex)" mat-icon-button>
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button (click)="isSelectionModeOn = !isSelectionModeOn" mat-icon-button>
+      <mat-icon [class.bordered]="isSelectionModeOn">highlight_alt</mat-icon>
+    </button>
+    <button (click)="openFrameDialog()" mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+    <button [matMenuTriggerFor]="settingsMenu" mat-icon-button>
+      <mat-icon>settings</mat-icon>
+    </button>
+    <mat-menu #settingsMenu="matMenu">
+      <div class="margin-all-10">
+        <div class="menu-title">{{ 'COMMON.SETTINGS' | translate }}</div>
+        <mat-divider></mat-divider>
+        <div class="menu-item-list">
+          <mat-checkbox (change)="toggleAnimations()" (click)="$event.stopPropagation()" [checked]="areAnimationsOn">
+            {{ 'FRAME_MANAGER.ANIMATIONS' | translate }}
+          </mat-checkbox>
+          <mat-checkbox (change)="toggleShowingNames()" (click)="$event.stopPropagation()" [checked]="areNamesShown">
+            {{ 'FRAME_MANAGER.SHOW_NAMES' | translate }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </mat-menu>
+    <button (click)="openPeopleManager()" [disabled]="activeChoreographyItems.length === 0" mat-icon-button>
+      <mat-icon>groups</mat-icon>
+    </button>
+  </div>
+</ng-container>

@@ -9,11 +9,16 @@ import { ToastService } from './toast.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private swUpdate: SwUpdate, public menuService: MenuService, private iosInstallService: IosInstallService, private toastService: ToastService, private translate: TranslateService) {
-  }
+  constructor(
+    private swUpdate: SwUpdate,
+    public menuService: MenuService,
+    private iosInstallService: IosInstallService,
+    private toastService: ToastService,
+    private translate: TranslateService,
+  ) {}
 
   ngOnInit(): void {
     this.initializeLocalization().subscribe(() => {
@@ -27,11 +32,12 @@ export class AppComponent implements OnInit {
       this.swUpdate.available.subscribe(() => {
         this.toastService.createToast('COMMON.UPDATE_PROMPT', undefined, 10000);
       });
-      this.swUpdate.activateUpdate()
+      this.swUpdate
+        .activateUpdate()
         .then(() => {
           this.toastService.createToast('COMMON.UPDATE_SUCCESSFUL');
         })
-        .catch(err => {
+        .catch((err) => {
           this.toastService.createToast('COMMON.UPDATE_NOT_SUCCESSFUL');
         });
     }

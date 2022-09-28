@@ -90,6 +90,8 @@ import { PersonServiceMock } from './person.service.mock';
 import { UserServiceMock } from './user.service.mock';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DragToSelectModule } from 'ngx-drag-to-select';
+import { MatRadioModule } from '@angular/material/radio';
+import { PeopleManagerDialogComponent } from './people/people-manager-dialog/people-manager-dialog.component';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
 let exerciseServiceProvider: Provider = ExerciseService;
@@ -148,6 +150,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     HomeComponent,
     ExercisesPlanningComponent,
     EditNameDialogComponent,
+    PeopleManagerDialogComponent,
     TeamsComponent,
     TeamComponent,
     PersonDialogComponent,
@@ -195,6 +198,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     MatProgressSpinnerModule,
     MatSlideToggleModule,
     DragToSelectModule.forRoot(),
+    MatRadioModule,
   ],
   providers: [
     choreographyServiceProvider,

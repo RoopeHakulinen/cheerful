@@ -31,6 +31,9 @@ import { createDeepCopy } from '../utils';
 import { SaveChoreographyDialogComponent } from '../frame-manager/save-choreography-dialog/save-choreography-dialog.component';
 import { filter } from 'rxjs';
 import { EditNameDialogComponent } from '../edit-name-dialog/edit-name-dialog.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ChoreographyContentNameDialogComponent } from '../frame-manager/choreography-content-name-dialog/choreography-content-name-dialog.component';
+import { PeopleManagerDialogComponent } from '../people/people-manager-dialog/people-manager-dialog.component';
 
 export interface FrameForShowing extends Frame {
   originalFrameIndex: number;
@@ -45,6 +48,7 @@ export interface FrameForShowing extends Frame {
 export class ChoreographyComponent {
   choreography!: Choreography;
   activeFrameIndex = 0;
+  actualActiveFrameIndex = 0;
   activeChoreographyItems: ChoreographyItem[] = [];
   playFrameIntervalId: number | null = null;
   frameInterval = 10000;
@@ -54,8 +58,9 @@ export class ChoreographyComponent {
   tempo = 8;
   areNotesShown = false;
   availableGroupTypes = availableGroupTypes;
-  actualActiveFrameIndex = 0;
   waitForDurationBeforeChangingFrames: number | null = null;
+  isSelectionModeOn = false;
+  areNamesShown = true;
 
   get activeFrame(): Frame {
     return this.choreography.frames[this.activeFrameIndex];
@@ -73,6 +78,14 @@ export class ChoreographyComponent {
     this.choreographyService.getChoreographyById(id).subscribe((choreography) => {
       return (this.choreography = choreography);
     });
+  }
+
+  addFrame(result: NewContentFrameEvent): void {
+    if (result.type === 'content') {
+      this.addContentFrame(result);
+    } else if (result.type === 'transition') {
+      this.addTransitionFrame();
+    }
   }
 
   addContentFrame(event: NewContentFrameEvent): void {
@@ -359,14 +372,14 @@ export class ChoreographyComponent {
     this.actualActiveFrameIndex = selectedFrameIndex[1];
   }
 
-  moveFrameUpOrDown(direction: 'up' | 'down'): void {
+  moveFrameLeftOrRight(direction: 'left' | 'right'): void {
     const newFrames = createDeepCopy(this.choreography.frames);
-    if (direction === 'up') {
+    if (direction === 'left') {
       const previousFrame = this.choreography.frames[this.activeFrameIndex - 1];
       newFrames[this.activeFrameIndex - 1] = this.choreography.frames[this.activeFrameIndex];
       newFrames[this.activeFrameIndex] = previousFrame;
       this.activeFrameIndex--;
-    } else if (direction === 'down') {
+    } else if (direction === 'right') {
       const nextFrame = this.choreography.frames[this.activeFrameIndex + 1];
       newFrames[this.activeFrameIndex + 1] = this.choreography.frames[this.activeFrameIndex];
       newFrames[this.activeFrameIndex] = nextFrame;
@@ -440,5 +453,66 @@ export class ChoreographyComponent {
       }
       this.choreography.name = result;
     });
+  }
+
+  openFrameManager(): void {
+    alert('Not implemented yet');
+  }
+
+  frameIndexToShow(frameIndex: number): number {
+    if (frameIndex === 0) {
+      return 0;
+    }
+    return this.choreography.frames
+      .slice(0, frameIndex)
+      .map((frame) => frame.duration)
+      .reduce((previousValue, currentValue) => previousValue + currentValue);
+  }
+
+  removeClicked(index: number): void {
+    if (this.choreography.frames.length === 1) {
+      this.toastService.createToast('FRAME_MANAGER.ONE_FRAME_LEFT');
+      return;
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {});
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.removeFrame(index);
+        this.toastService.createToast('FRAME_MANAGER.FRAME_REMOVED');
+      }
+    });
+  }
+
+  openFrameDialog(): void {
+    const dialogRef = this.dialog.open(ChoreographyContentNameDialogComponent);
+    dialogRef.afterClosed().subscribe((result: NewContentFrameEvent) => {
+      if (result) {
+        this.addFrame(result);
+        this.toastService.createToast('FRAME_MANAGER.FRAME_ADDED');
+      }
+    });
+  }
+
+  openPeopleManager(): void {
+    const dialogRef = this.dialog.open(PeopleManagerDialogComponent, {
+      data: { people: this.choreography.choreographyPerson },
+    });
+    dialogRef.afterClosed().subscribe((result: { id: number; deselect: boolean }) => {
+      if (result) {
+        if (result.id) {
+          this.changePersonOnCarpet(result.id);
+        } else if (result.deselect) {
+          this.clearActiveTiles();
+        }
+      }
+    });
+  }
+
+  toggleShowingNames(): void {
+    this.areNamesShown = !this.areNamesShown;
+  }
+
+  private clearActiveTiles(): void {
+    this.activeChoreographyItems.forEach((activeItem) => ((activeItem.content as PersonContent).personId = null));
   }
 }
