@@ -59,6 +59,7 @@
       <app-carpet
         (removeItemContent)="removeChoreographyItemContent($event)"
         (setActiveItem)="setActiveChoreographyItem($event)"
+        (setActiveItems)="setActiveChoreographyItems($event)"
         (swap)="swapItems($event)"
         [people]="allAvailablePeople"
         [activeItems]="activeChoreographyItems"
@@ -103,7 +104,7 @@
       </div>
     </div>
     <div class="tile-options" fxFlex.gt-sm="300px">
-      <div *ngIf="activeChoreographyItems.length > 0" class="edit-item padding">
+      <div *ngIf="activeChoreographyItems.length === 1" class="edit-item padding">
         <div>
           <div class="tile-options-buttons">
             <button (click)="activeChoreographyItems = []" mat-raised-button translate="COMMON.CLOSE"></button>

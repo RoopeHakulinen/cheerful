@@ -1,76 +1,82 @@
 <div class="container">
   <div class="carpet-container">
-    <div class="lines vertical">
-      <div *ngFor="let _ of verticalSegments" class="line"></div>
-    </div>
-    <div class="lines horizontal">
-      <div *ngFor="let _ of horizontalSegments" class="line"></div>
-    </div>
-    <div
-      [style.background-color]="carpet.color"
-      cdkDropListGroup
-      [style.grid-template-columns]="'repeat(' + carpet.width + ', 1fr)'"
-      [style.grid-template-rows]="'repeat(' + carpet.height + ', 1fr)'"
-      class="carpet">
+    <button (click)="isSelectionModeOn = !isSelectionModeOn">Foo</button>
+    <br><br>
+    <dts-select-container (select)="setActiveItems.emit($event)" [custom]="true" [disabled]="!isSelectionModeOn">
+      <div class="lines vertical">
+        <div *ngFor="let _ of verticalSegments" class="line"></div>
+      </div>
+      <div class="lines horizontal">
+        <div *ngFor="let _ of horizontalSegments" class="line"></div>
+      </div>
       <div
-        *ngFor="let item of frameToShow.grid.slice(0, carpet.height*carpet.width); index as index"
-        [@animate]="{value: animate, params: getAnimationParams(item, index)}"
-        [attr.index]="index"
-        [class.active]="isActive(item)"
-        [class.is-last-one-on-column]="index > carpet.width * carpet.height - carpet.width - 1"
-        [class.is-last-one-on-row]="index % carpet.width === carpet.width - 1"
-        [class.is-populated]="item.content !== null"
-        cdkDropList
-        (cdkDropListDropped)="swapPositions(index)"
-        #tile
-        class="tile">
+        [style.background-color]="carpet.color"
+        [style.grid-template-columns]="'repeat(' + carpet.width + ', 1fr)'"
+        [style.grid-template-rows]="'repeat(' + carpet.height + ', 1fr)'"
+        cdkDropListGroup
+        class="carpet">
         <div
-          #draggable="cdkDrag"
-          (cdkDragStarted)="dragStarted(index)"
-          (click)="setActiveItem.emit(item)"
-          (dblclick)="removeItemContent.emit(item)"
-          [style.pointer-events]="draggable._dragRef.isDragging() ? 'none' : 'auto'"
-          cdkDrag
-          class="drag-container {{item.content?.type}}">
-          <div *cdkDragPreview></div>
+          #tile
+          (cdkDropListDropped)="!isSelectionModeOn && swapPositions(index)"
+          *ngFor="let item of frameToShow.grid.slice(0, carpet.height*carpet.width); index as index"
+          [@animate]="{value: animate, params: getAnimationParams(item, index)}"
+          [attr.index]="index"
+          [class.active]="isActive(item)"
+          [class.is-last-one-on-column]="index > carpet.width * carpet.height - carpet.width - 1"
+          [class.is-last-one-on-row]="index % carpet.width === carpet.width - 1"
+          [class.is-populated]="item.content !== null"
+          [dtsDisabled]="item.content === null"
+          [dtsSelectItem]="item"
+          cdkDropList
+          class="tile">
           <div
-            *ngIf="isPerson(item.content) && item.content.personId !== null"
-            [style.background]="(item.content.personId | choreographyPerson:choreography)?.color"
-            class="text-container single-person">
-            {{(item.content.personId | person).name}}
-          </div>
-          <div
-            *ngIf="(isTwoGroup(item.content) || isThreeGroup(item.content)
+            #draggable="cdkDrag"
+            (cdkDragStarted)="dragStarted(index)"
+            (click)="setActiveItem.emit(item)"
+            (dblclick)="removeItemContent.emit(item)"
+            [style.pointer-events]="(isSelectionModeOn || draggable._dragRef.isDragging()) ? 'none' : 'auto'"
+            cdkDrag
+            class="drag-container {{item.content?.type}}">
+            <div *cdkDragPreview></div>
+            <div
+              *ngIf="isPerson(item.content) && item.content.personId !== null"
+              [style.background]="(item.content.personId | choreographyPerson:choreography)?.color"
+              class="text-container single-person">
+              {{(item.content.personId | person).name}}
+            </div>
+            <div
+              *ngIf="(isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.flyerId !== null"
-            [style.background]="item.content.color ?? (item.content.flyerId !== null ? (item.content.flyerId | choreographyPerson:choreography)?.color : 'transparent')"
-            class="text-container flyer {{isFiveGroup(item.content) ? 'center' : 'grid-bottom'}}">
-            {{(item.content.flyerId | person).name}}
-          </div>
-          <div
-            *ngIf="(isTwoGroup(item.content) || isThreeGroup(item.content)
+              [style.background]="item.content.color ?? (item.content.flyerId !== null ? (item.content.flyerId | choreographyPerson:choreography)?.color : 'transparent')"
+              class="text-container flyer {{isFiveGroup(item.content) ? 'center' : 'grid-bottom'}}">
+              {{(item.content.flyerId | person).name}}
+            </div>
+            <div
+              *ngIf="(isTwoGroup(item.content) || isThreeGroup(item.content)
             || isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.backspotId !== null"
-            [style.background]="item.content.color ?? (item.content.backspotId !== null ? (item.content.backspotId | choreographyPerson:choreography)?.color : 'transparent')"
-            class="text-container grid-top">
-            {{(item.content.backspotId | person).name}}
-          </div>
-          <div
-            *ngIf="(isThreeGroup(item.content)  || isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.mainbaseId !== null"
-            [style.background]="item.content.color ?? (item.content.mainbaseId !== null ? (item.content.mainbaseId | choreographyPerson:choreography)?.color : 'transparent')"
-            class="text-container grid-left">
-            {{(item.content.mainbaseId | person).name}}
-          </div>
-          <div *ngIf="(isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.sidebaseId !== null"
-               [style.background]="item.content.color ?? (item.content.sidebaseId !== null ? (item.content.sidebaseId | choreographyPerson:choreography)?.color : 'transparent')"
-               class="text-container grid-right">
-            {{(item.content.sidebaseId | person).name}}
-          </div>
-          <div *ngIf="isFiveGroup(item.content) && item.content.frontspotId !== null"
-               [style.background]="item.content.color ?? (item.content.frontspotId !== null ? (item.content.frontspotId | choreographyPerson:choreography)?.color : 'transparent')"
-               class="text-container grid-bottom">
-            {{(item.content.frontspotId | person).name}}
+              [style.background]="item.content.color ?? (item.content.backspotId !== null ? (item.content.backspotId | choreographyPerson:choreography)?.color : 'transparent')"
+              class="text-container grid-top">
+              {{(item.content.backspotId | person).name}}
+            </div>
+            <div
+              *ngIf="(isThreeGroup(item.content)  || isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.mainbaseId !== null"
+              [style.background]="item.content.color ?? (item.content.mainbaseId !== null ? (item.content.mainbaseId | choreographyPerson:choreography)?.color : 'transparent')"
+              class="text-container grid-left">
+              {{(item.content.mainbaseId | person).name}}
+            </div>
+            <div *ngIf="(isFourGroup(item.content) || isFiveGroup(item.content)) && item.content.sidebaseId !== null"
+                 [style.background]="item.content.color ?? (item.content.sidebaseId !== null ? (item.content.sidebaseId | choreographyPerson:choreography)?.color : 'transparent')"
+                 class="text-container grid-right">
+              {{(item.content.sidebaseId | person).name}}
+            </div>
+            <div *ngIf="isFiveGroup(item.content) && item.content.frontspotId !== null"
+                 [style.background]="item.content.color ?? (item.content.frontspotId !== null ? (item.content.frontspotId | choreographyPerson:choreography)?.color : 'transparent')"
+                 class="text-container grid-bottom">
+              {{(item.content.frontspotId | person).name}}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </dts-select-container>
   </div>
 </div>

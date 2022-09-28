@@ -89,6 +89,7 @@ import { PersonDialogComponent } from './person-dialog/person-dialog.component';
 import { PersonServiceMock } from './person.service.mock';
 import { UserServiceMock } from './user.service.mock';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DragToSelectModule } from 'ngx-drag-to-select';
 
 let choreographyServiceProvider: Provider = ChoreographyService;
 let exerciseServiceProvider: Provider = ExerciseService;
@@ -193,6 +194,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
+    DragToSelectModule.forRoot(),
   ],
   providers: [
     choreographyServiceProvider,

@@ -76,6 +76,8 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   @Output()
   setActiveItem = new EventEmitter<ChoreographyItem>();
   @Output()
+  setActiveItems = new EventEmitter<ChoreographyItem[]>();
+  @Output()
   removeItemContent = new EventEmitter<ChoreographyItem>();
   @Output()
   swap = new EventEmitter<{ first: number; second: number }>();
@@ -90,6 +92,7 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   subscriptions = new Subscription();
   draggedItemIndex: number | null = null;
   isDeletable = false;
+  isSelectionModeOn = false;
 
   get frameToShow(): Frame {
     return this.frame.type === 'transition' ? this.nextFrame : this.frame;
@@ -98,9 +101,12 @@ export class CarpetComponent implements OnChanges, OnDestroy {
   swapPositions(event: number): void {
     const first = this.draggedItemIndex!;
     const second = event;
+    if (this.frame.grid[first].content === null) {
+      return;
+    }
     this.swap.emit({ first, second });
     this.isDeletable = false;
-    this.setActiveItem.emit(this.frame.grid[event]);
+    this.setActiveItem.emit(this.frame.grid[second]);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -136,13 +142,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  activateTileToRight(index: number): void {
-    if (index + 1 >= this.frame.grid.length) {
-      throw new Error(`Nothing to select to the right for the item at index ${index}`);
-    }
-    this.setActiveItem.emit(this.frame.grid[index + 1]);
-  }
-
   dragStarted(index: number): void {
     this.draggedItemIndex = index;
     this.isDeletable = true;
@@ -166,41 +165,6 @@ export class CarpetComponent implements OnChanges, OnDestroy {
 
   isPerson(content: Content): content is PersonContent {
     return isPerson(content);
-  }
-
-  activateTileBelow(index: number): void {
-    if (index + this.carpet.width >= this.frame.grid.length) {
-      throw new Error(`Nothing to select below for the item at index ${index}`);
-    }
-    this.setActiveItem.emit(this.frame.grid[index + this.carpet.width]);
-  }
-
-  activateTileBelowAndToRight(index: number): void {
-    if (index + this.carpet.width + 1 >= this.frame.grid.length) {
-      throw new Error(`Nothing to select below and to the right for the item at index ${index}`);
-    }
-    this.setActiveItem.emit(this.frame.grid[index + this.carpet.width + 1]);
-  }
-
-  removeItemContentToRight(index: number): void {
-    if (index + 1 >= this.frame.grid.length) {
-      throw new Error(`Nothing to select to the right for the item at index ${index}`);
-    }
-    this.removeItemContent.emit(this.frame.grid[index + 1]);
-  }
-
-  removeItemContentBelow(index: number): void {
-    if (index + this.carpet.width >= this.frame.grid.length) {
-      throw new Error(`Nothing to select below for the item at index ${index}`);
-    }
-    this.setActiveItem.emit(this.frame.grid[index + this.carpet.width]);
-  }
-
-  removeItemContentBelowAndToRight(index: number): void {
-    if (index + this.carpet.width + 1 >= this.frame.grid.length) {
-      throw new Error(`Nothing to select below and to the right for the item at index ${index}`);
-    }
-    this.setActiveItem.emit(this.frame.grid[index + this.carpet.width + 1]);
   }
 
   isActive(item: ChoreographyItem): boolean {

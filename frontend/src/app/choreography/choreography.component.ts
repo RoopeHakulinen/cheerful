@@ -413,6 +413,13 @@ export class ChoreographyComponent {
     this.activeChoreographyItems = [item];
   }
 
+  setActiveChoreographyItems(items: ChoreographyItem[]): void {
+    if (this.playFrameIntervalId !== null) {
+      return;
+    }
+    this.activeChoreographyItems = items;
+  }
+
   removeChoreographyItemContent(item: ChoreographyItem): void {
     if (this.playFrameIntervalId !== null) {
       return;
