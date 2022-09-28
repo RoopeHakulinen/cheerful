@@ -16,7 +16,7 @@ If you have an empty database running, you can get everything running by:
 
 1. create the database tables (run all existing migrations)
 
-`npx prisma migrate dev`
+`npm run prisma:migrate`
 
 2. seed the database with a few test cases
 
@@ -24,7 +24,7 @@ If you have an empty database running, you can get everything running by:
 
 3. generate the models from the schema
 
-`npx prisma generate`
+`npm run prisma:generate`
 
 #### New migrations
 
