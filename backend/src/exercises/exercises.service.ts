@@ -5,7 +5,7 @@ import { ExerciseDto, ExerciseToBeCreatedDto } from './exerciseDtos';
 
 @Injectable()
 export class ExercisesService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async findAll(): Promise<Exercise[]> {
     return await this.prisma.exercise.findMany({ include: { tags: true } });
@@ -31,7 +31,7 @@ export class ExercisesService {
         description: exercise.description,
         difficulty: exercise.difficulty,
         tags: {
-          connectOrCreate: exercise.tags.map(tag => ({
+          connectOrCreate: exercise.tags.map((tag) => ({
             where: { id: tag.id },
             create: { name: tag.name },
           })),
@@ -48,7 +48,7 @@ export class ExercisesService {
         description: exercise.description,
         difficulty: exercise.difficulty,
         tags: {
-          connectOrCreate: exercise.tags.map(tag => ({
+          connectOrCreate: exercise.tags.map((tag) => ({
             where: { id: tag.id },
             create: { name: tag.name },
           })),

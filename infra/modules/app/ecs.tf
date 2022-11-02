@@ -69,7 +69,7 @@ resource "aws_ecs_task_definition" "cheerful" {
       {
         "name": "CLIENT_SECRET",
         "valueFrom": "${aws_secretsmanager_secret.client_secret.arn}"
-      },
+      }
     ]
   }
 ]
@@ -119,6 +119,7 @@ data "aws_iam_policy_document" "task_execution_permissions" {
       "ecr:BatchGetImage",
       "logs:CreateLogStream",
       "logs:PutLogEvents",
+      "secretsmanager:GetSecretValue"
     ]
   }
 }
