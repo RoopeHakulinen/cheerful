@@ -22,8 +22,8 @@ resource "aws_ecs_task_definition" "cheerful" {
   requires_compatibilities = ["FARGATE"]
   task_role_arn            = aws_iam_role.task.arn
   execution_role_arn       = aws_iam_role.execution.arn
-  cpu                      = 1024
-  memory                   = 2048
+  cpu                      = 256
+  memory                   = 512
 
   container_definitions = <<DEFINITION
 [
