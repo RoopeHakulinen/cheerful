@@ -77,7 +77,7 @@ DEFINITION
 }
 
 resource "aws_secretsmanager_secret" "client_id" {
-  name = "${var.environment}-app-secrets"
+  name = "${var.environment}-client-id"
 }
 
 resource "aws_secretsmanager_secret_version" "client_id" {
@@ -86,7 +86,7 @@ resource "aws_secretsmanager_secret_version" "client_id" {
 }
 
 resource "aws_secretsmanager_secret" "client_secret" {
-  name = "${var.environment}-app-secrets"
+  name = "${var.environment}-client-secret"
 }
 
 resource "aws_secretsmanager_secret_version" "client_secret" {
