@@ -58,7 +58,7 @@ resource "aws_ecs_task_definition" "cheerful" {
       },
       {
         "name": "DOMAIN",
-        "value": "local.environment_domain"
+        "value": "${local.environment_domain}"
       }
     ],
     "secrets": [
