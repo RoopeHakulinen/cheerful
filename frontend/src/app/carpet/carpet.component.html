@@ -35,7 +35,6 @@
             [style.pointer-events]="(isSelectionModeOn || draggable._dragRef.isDragging()) ? 'none' : 'auto'"
             cdkDrag
             class="drag-container {{item.content?.type}}">
-            <div *cdkDragPreview></div>
             <div
               *ngIf="isPerson(item.content) && item.content.personId !== null && areNamesShown"
               [style.background]="(item.content.personId | choreographyPerson:choreography)?.color"
