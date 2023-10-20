@@ -1,4 +1,4 @@
-FROM node:18-alpine as frontend
+FROM node:21-alpine as frontend
 
 ENV NODE_ENV build
 
@@ -11,7 +11,7 @@ WORKDIR /home/node/frontend
 RUN npm ci --force && npm run build
 
 
-FROM node:18-alpine as backend
+FROM node:21-alpine as backend
 
 ENV NODE_ENV build
 
@@ -25,7 +25,7 @@ RUN npm ci --force \
     && npm run build \
     && npm prune --production
 
-FROM node:18-alpine
+FROM node:21-alpine
 
 ENV NODE_ENV production
 
