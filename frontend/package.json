@@ -48,7 +48,7 @@
     "@angular/compiler-cli": "14.2.12",
     "@playwright/test": "1.46.0",
     "@types/jasmine": "4.6.4",
-    "@types/node": "16.18.104",
+    "@types/node": "16.18.105",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "angular-cli-ghpages": "1.0.7",
