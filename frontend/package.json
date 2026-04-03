@@ -51,7 +51,7 @@
     "@types/node": "16.18.126",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
-    "angular-cli-ghpages": "1.0.7",
+    "angular-cli-ghpages": "3.0.2",
     "eslint": "8.57.1",
     "jasmine-core": "4.6.1",
     "karma": "6.4.4",
